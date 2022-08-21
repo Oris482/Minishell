@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 21:11:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/20 23:55:27 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:59:07 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 
 # define TRUE 1
+# define SUCCESS 1
 # define FALSE 0
 
 # define QUOTE 0b00000001
@@ -39,7 +40,8 @@ enum	e_token_type
 	RED_APD_OUT,
 	PARENTHESES_OPEN,
 	PARENTHESES_CLOSE,
-	SPACE_SET
+	SPACE_SET,
+	WILDCARD
 };
 
 typedef struct s_lx_token
@@ -51,7 +53,7 @@ typedef struct s_lx_token
 	struct s_lx_token	*next;
 }	t_lx_token;
 
-t_lx_token	*lexer(t_lx_token *token_head, char *line, unsigned char *quote_flag);
+t_lx_token	*lexer(t_lx_token *token_head, char *line, unsigned char *quote_flag, unsigned char *parentheses_flag);
 void	print_token_list(t_lx_token *token_list);
 
 #endif
