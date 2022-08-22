@@ -32,6 +32,7 @@ int	main(void)
 	parentheses_flag = 0;
 	while (true)
 	{
+
 		if (!quote_flag && !parentheses_flag)
 		{
 			token_list = NULL;
