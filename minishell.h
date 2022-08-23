@@ -6,7 +6,7 @@
 /*   By: minsuki2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/23 09:47:41 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/23 18:15:28 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,8 @@ typedef struct s_oflag
 	unsigned char	parentheses;
 }	t_oflag;
 
+size_t	ft_strlen(const char *s);
+void	set_quote_flag(const char c, unsigned char *quote_flag);
+void	set_parentheses_flag(const char c, unsigned char *parentheses_flag
+		, unsigned char *quote_flag);
 #endif

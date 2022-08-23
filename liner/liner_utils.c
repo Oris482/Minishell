@@ -6,24 +6,12 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 08:13:08 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/23 18:07:46 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/23 18:12:16 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "liner.h"
 #include "minishell.h"
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
 
 size_t	ft_strlcat(char *dst, char const *src, size_t dstsize)
 {

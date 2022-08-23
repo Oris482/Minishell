@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/23 18:09:46 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/23 18:16:42 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,6 @@ int	is_metacharacter(const char c)
 int	is_token_seperator(const char c)
 {
 	return (ft_isspace(c) | is_metacharacter(c));
-}
-
-void	set_quote_flag(const char c, unsigned char *quote_flag)
-{
-	if (c == '\'' && (!*quote_flag || *quote_flag == QUOTE))
-		*quote_flag ^= QUOTE;
-	else if (c == '\"' && (!*quote_flag || *quote_flag == DQUOTE))
-		*quote_flag ^= DQUOTE;
-	return ;
 }
 
 unsigned char	is_quote(const char c)
@@ -106,16 +97,6 @@ char	*ft_strcpy(char *start, char *end)
 		ret[idx++] = *start++;
 	ret[idx] = '\0';
 	return (ret);
-}
-
-size_t	ft_strlen(char *str)
-{
-	size_t	len;
-
-	len = 0;
-	while (*str++)
-		len++;
-	return (len);
 }
 
 t_lx_token	*set_token(char **line, t_oflag *oflag)

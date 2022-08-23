@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/08/23 18:08:36 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/08/23 18:14:37 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,9 +31,11 @@ NAME	 	=	minishell
 # 파일 기능별로 분류해서 소스파일 넣기
 LINER_SRCS			= 	liner.c 		\
 						liner_utils.c
-LEXER_SRCS			=	lexer.c
+
+LEXER_SRCS			=	lexer.c			\
 
 MANDA_SRCS	=	minishell.c									\
+				minishell_utils.c							\
 				$(addprefix $(LINER_DIR), $(LINER_SRCS))	\
 				$(addprefix $(LEXER_DIR), $(LEXER_SRCS))
 
