@@ -6,7 +6,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <unistd.h>
-#include "./lexer/lexer.h"
+#include "lexer.h"
 
 void	handler(int signum)
 {
@@ -21,7 +21,7 @@ void	handler(int signum)
 
 int	main(void)
 {
-	int				ret;
+	/* int				ret; */
 	char			*line;
 	t_lx_token		*token_list;
 	unsigned char	quote_flag;

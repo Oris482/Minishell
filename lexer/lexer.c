@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/21 17:18:33 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/23 08:55:02 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ char	*ft_strcpy(char *start, char *end)
 	if (ret == NULL)
 		exit(1);
 	idx = 0;
-	while (idx < len)
+	while (idx < (int)len)
 		ret[idx++] = *start++;
 	ret[idx] = '\0';
 	return (ret);
