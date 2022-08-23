@@ -1,12 +1,8 @@
-#include <signal.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <unistd.h>
-#include "lexer.h"
+#include "minishell.h"
+// #include "lexer.h"
+// #include "liner.h"
+#include "lexer/lexer.h"
+#include "liner/liner.h"
 
 void	handler(int signum)
 {
@@ -21,41 +17,39 @@ void	handler(int signum)
 
 int	main(void)
 {
-	/* int				ret; */
+	// int				ret;
 	char			*line;
-	t_lx_token		*token_list;
-	unsigned char	quote_flag;
-	unsigned char	parentheses_flag;
+	// t_lx_token		*token_list;
 
 	signal(SIGINT, handler);
-	quote_flag = 0;
-	parentheses_flag = 0;
 	while (true)
 	{
-
-		if (!quote_flag && !parentheses_flag)
-		{
-			token_list = NULL;
-			line = readline("$> ");
-		}
-		else
-			line = readline("> ");
-
-		if (line)
-		{
-			token_list = lexer(token_list, line, &quote_flag, &parentheses_flag);
-			if (strcmp(line, "") != 0)
-				add_history(line);
-			free(line);
-			line = NULL;
-			if (!quote_flag && !parentheses_flag)
-			{
-				print_token_list(token_list);
-				free(token_list);
-			}
-		}
-		else
+		// token_list = NULL;
+		line = line_handler();
+		if (!line)					// ERROR malloc 실패와 같은 정말 특수 상황?
 			return (1);
+		if (strcmp(line, "") != 0)
+			add_history(line);
+		// if (!quote_flag && !parentheses_flag)
+		// {
+		//     token_list = NULL;
+		//     line = readline("$> ");
+		// }
+		// else
+		//     line = readline("> ");
+
+		// if (line)
+		// {
+		//     free(line);
+		//     line = NULL;
+		//     if (!quote_flag && !parentheses_flag)
+		//     {
+		//         print_token_list(token_list);
+		//         free(token_list);
+		//     }
+		// }
+		// else
+		//     return (1);
 	}
 	return (0);
 }

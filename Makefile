@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/08/23 08:59:16 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/08/23 11:05:19 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,9 @@ EXCUTER_DIR		=	excuter/
 NAME	 	=	minishell
 
 # 파일 기능별로 분류해서 소스파일 넣기
-LINER_SRCS			= 	#liner.c
-LEXER_SRCS			=	lexer.c
+LINER_SRCS			= 	liner.c 		\
+						liner_utils.c
+# LEXER_SRCS			=	lexer.c
 
 MANDA_SRCS	=	minishell.c									\
 				$(addprefix $(LINER_DIR), $(LINER_SRCS))	\
@@ -53,7 +54,7 @@ $(NAME): $(OBJS)
 
 %.o: %.c
 	@echo [$<] compiling...
-	$(CC) $(CFLAGS) $(CPPFLAGS) -I$(LEXER_DIR) $(COMPILE) $< -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) -I$(LEXER_DIR) -I. $(COMPILE) $< -o $@
 
 clean:
 	@echo
@@ -78,5 +79,8 @@ bonus:
 list:
 	@echo $(MANDA_SRCS)
 	@echo $(OBJS)
+
+lldb:
+	$(CC) $(CFLAGS) $(MANDA_SRCS) $(LINKER) -I$(LEXER_DIR) -I. $(CPPFLAGS) -o $(NAME) -g
 
 .PHONY: all clean fclean re bonus

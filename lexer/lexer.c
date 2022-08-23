@@ -6,11 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/23 08:55:02 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/23 11:15:19 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./lexer.h"
+#include "lexer.h"
+// #include "minishell.h"
+#include "../minishell.h"
 
 int	ft_isspace(const char c)
 {
@@ -62,7 +64,7 @@ void	set_parentheses_flag(const char c, unsigned char *parentheses_flag, unsigne
 		if (c == '(' && !*parentheses_flag)
 			*parentheses_flag ^= PARENTHESES_OPEN;
 		else if (c == ')')
-		{ 
+		{
 			if (*parentheses_flag == PARENTHESES_OPEN)
 				*parentheses_flag ^= PARENTHESES_OPEN;
 			else
@@ -247,7 +249,7 @@ void	print_token_list(t_lx_token *token_list)
 			token_type = "SPACE_SET";
 		else if (token_list->token_type == WILDCARD)
 			token_type = "WILDCARD";
-			
+
 		printf("[%s]\n", token_list->token_str);
 		printf("token_type = %s(%d) interpret_symbol = %d\n\n", token_type, token_list->token_type, token_list->interpret_symbol);
 		token_list = token_list->next;

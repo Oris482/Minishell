@@ -6,11 +6,12 @@
 /*   By: minsuki2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 08:13:08 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/23 08:13:12 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/23 10:36:29 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "liner.h"
+#include "minishell.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -57,21 +58,21 @@ size_t	ft_strlcpy(char *dst, char const *src, size_t dstsize)
 	return (len);
 }
 
-void ft_strjoin_self(char **str, char *add)
+int ft_strjoin_self(char **str, char *add)
 {
 	char	*new;
 	int		len;
 
-	if (!str)
-		return ;
-
+	if (!str | !add)
+		return (ERROR);
 	len = ft_strlen(*str) + ft_strlen(add) + 1;
 	new = (char *)malloc(sizeof(char) * (len + 1));
 	if (!new)
-		return ;
+		return (ERROR);
 	ft_strlcpy(new, *str, len + 1);
 	ft_strlcat(new, add, len + 1);
 	if (*str)
 		free(*str);
 	*str = new;
+	return (0);
 }
