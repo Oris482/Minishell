@@ -6,14 +6,14 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/08/23 18:14:37 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/08/23 21:10:13 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 			=	cc
 # CFLAGS 		=	-Wall -Wextra -Werror $(CPPFLAGS) # -fsanitize=address
 # CFLAGS 		=	-Wall -Wextra -Werror $(CPPFLAGS)
-CFLAGS 		=	-Wall -Wextra -Werror
+# CFLAGS 		=	-Wall -Wextra -Werror
 
 LINKER		=	$(LDFLAGS) -lreadline
 COMPILE		=	-c $(CPPFLAGS)

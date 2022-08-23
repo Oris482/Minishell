@@ -15,7 +15,7 @@ void	handler(int signum)
 	rl_redisplay();
 }
 
-int	main(void)
+int	main(int argc, char *argv[], char *envp[])
 {
 	// int				ret;
 	char			*full_line;
@@ -30,7 +30,7 @@ int	main(void)
 			return (1);
 		if (strcmp(full_line, "") != 0)
 			add_history(full_line);
-		token_list = lexer(token_list, full_line);
+		token_list = lexer(token_list, full_line, envp);
 		free(full_line);
 	    full_line = NULL;
 		print_token_list(token_list);
