@@ -18,38 +18,23 @@ void	handler(int signum)
 int	main(void)
 {
 	// int				ret;
-	char			*line;
-	// t_lx_token		*token_list;
+	char			*full_line;
+	t_lx_token		*token_list;
 
 	signal(SIGINT, handler);
 	while (true)
 	{
-		// token_list = NULL;
-		line = line_handler();
-		if (!line)					// ERROR malloc 실패와 같은 정말 특수 상황?
+		token_list = NULL;
+		full_line = line_handler();
+		if (!full_line)					// ERROR malloc 실패와 같은 정말 특수 상황?
 			return (1);
-		if (strcmp(line, "") != 0)
-			add_history(line);
-		// if (!quote_flag && !parentheses_flag)
-		// {
-		//     token_list = NULL;
-		//     line = readline("$> ");
-		// }
-		// else
-		//     line = readline("> ");
-
-		// if (line)
-		// {
-		//     free(line);
-		//     line = NULL;
-		//     if (!quote_flag && !parentheses_flag)
-		//     {
-		//         print_token_list(token_list);
-		//         free(token_list);
-		//     }
-		// }
-		// else
-		//     return (1);
+		if (strcmp(full_line, "") != 0)
+			add_history(full_line);
+		token_list = lexer(token_list, full_line);
+		free(full_line);
+	    full_line = NULL;
+		print_token_list(token_list);
+		free(token_list);
 	}
 	return (0);
 }
