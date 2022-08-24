@@ -6,19 +6,12 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/24 14:27:00 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/24 15:41:30 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./lexer.h"
 #include "../minishell.h"
-
-int	ft_isspace(const char c)
-{
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (SPACE_SET);
-	return (FALSE);
-}
 
 int	is_metacharacter(const char c)
 {
