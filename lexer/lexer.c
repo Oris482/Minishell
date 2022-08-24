@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/24 11:53:58 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/24 13:21:32 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*ft_strcpy(char *start, char *end)
 	return (ret);
 }
 
-t_lx_token	*set_token(char **line, t_oflag *oflag)
+t_lx_token	*set_token(char **line, t_oflag *oflag,char *envp[])
 {
 	t_lx_token	*token_node;
 	const int	token_split_flag = is_token_seperator(**line);
@@ -118,6 +118,7 @@ t_lx_token	*set_token(char **line, t_oflag *oflag)
 			break ;
 	}
 	token_node->token_str = ft_strcpy(token_node->token_str, *line);
+	interpreter(token_node, envp);
 	return (token_node);
 }
 
@@ -129,22 +130,18 @@ int	lexer(t_lx_token **token_head, char *full_line, char *envp[])
 	oflag.quote = 0;
 	while (*full_line)
 	{
-		// while (*full_line && ft_isspace(*full_line))
-		//     full_line++;
 		if (ft_isspace(*full_line) && full_line++)
 			continue ;
 		if (*token_head == NULL)
 		{
-			*token_head = set_token(&full_line, &oflag);
+			*token_head = set_token(&full_line, &oflag, envp);
 			token_cur = *token_head;
 		}
+		else if (token_cur->next == NULL)
+			token_cur->next = set_token(&full_line, &oflag, envp);
 		else
-		{
-			token_cur->next = set_token(&full_line, &oflag);
 			token_cur = token_cur->next;
-		}
 	}
-	// interpreter(token_head, envp);
 	if (false)
 		return (ERROR);
 	return (SUCCESS);
