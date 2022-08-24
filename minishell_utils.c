@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:11:18 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/24 15:44:00 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/24 16:15:30 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,4 +146,18 @@ int ft_strjoin_self(char **str, char *add)
 		free(*str);
 	*str = new;
 	return (0);
+}
+
+char	*ft_strchr_null(const char *s, int c)
+{
+	size_t	i;
+
+	i = 0;
+	while (*(s + i))
+	{
+		if (*(s + i) == (char)c)
+			return ((char *)s + i);
+		i++;
+	}
+	return ((char *)s + i);
 }
