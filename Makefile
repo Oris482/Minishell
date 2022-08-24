@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/08/24 13:28:23 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/08/24 16:37:06 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ LINER_SRCS			= 	liner.c 		\
 						liner_utils.c
 
 LEXER_SRCS			=	lexer.c			\
+						interpreter.c
 
 MANDA_SRCS	=	minishell.c									\
 				minishell_utils.c							\

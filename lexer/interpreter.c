@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/24 16:33:14 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/24 16:36:25 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../minishell.h"
 #include "lexer.h"
 
-void dollar_translater(t_lx_token *cur, char *chunk, int split_flag)
+static void	_dollar_translater(t_lx_token *cur, char *chunk, int split_flag)
 {
 	char	*find_str;
 	char	*str_cur;
@@ -44,7 +44,7 @@ void dollar_translater(t_lx_token *cur, char *chunk, int split_flag)
 }
 
 
-void dquote_translater(t_lx_token *cur, char *chunk)
+static void	_dquote_translater(t_lx_token *cur, char *chunk)
 {
 	char	*pos;
 
@@ -56,22 +56,14 @@ void dquote_translater(t_lx_token *cur, char *chunk)
 	return ;
 }
 
-void just_str_translater(t_lx_token *cur, char *chunk)
-{
-	ft_strjoin_self(&cur->interpreted_str, chunk);
-	return ;
-}
-
-
-// -----------------------------------------------------------------------------------------------
-void	interpret_middleware(t_lx_token *token, char *chunk, unsigned char symbol_type)
+static void	_interpret_middleware(t_lx_token *token, char *chunk, unsigned char symbol_type)
 {
 	if (symbol_type == UNDEFINED || symbol_type == QUOTE)
-		just_str_translater(token, chunk);
+		ft_strjoin_self(&token->interpreted_str, chunk);
 	else if (symbol_type == DQUOTE)
-		dquote_translater(token, chunk);
+		_dquote_translater(token, chunk);
 	else if (symbol_type == DOLLAR)
-		dollar_translater(token, chunk, 1);
+		_dollar_translater(token, chunk, 1);
 	return ;
 }
 
@@ -120,27 +112,8 @@ void	interpreter(t_lx_token *token)
 			_find_interpret_symbol(&token_str, UNDEFINED);
 			str_chunk = ft_strcpy(str_startpoint, token_str);
 		}
-		interpret_middleware(token, str_chunk, symbol_type);
+		_interpret_middleware(token, str_chunk, symbol_type);
 		while (token->next)
 			token = token->next;
 	}
-}
-
-int main(void)
-{
-	t_lx_token token;
-	t_lx_token	*cur_node;
-	char	*origin_str = "$USER' '\"$TEST\"";
-
-	token.token_str = origin_str;
-	token.next = NULL;
-	token.interpret_symbol = QUOTE | DQUOTE | DOLLAR;
-	interpreter(&token);
-	cur_node = &token;
-	while (cur_node)
-	{
-		printf("result : %s\n", cur_node->interpreted_str);
-		cur_node = cur_node->next;
-	}
-	return (0);
 }
