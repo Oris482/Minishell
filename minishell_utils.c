@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:11:18 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/24 14:38:57 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/24 15:44:00 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,63 @@ unsigned char	is_env_prefix(const char c)
 	if (c == '$')
 		return (DOLLAR);
 	return (FALSE);
+}
+
+int	ft_isspace(const char c)
+{
+	if ((c >= 9 && c <= 13) || c == 32)
+		return (SPACE_SET);
+	return (FALSE);
+}
+
+size_t	ft_strlcat(char *dst, char const *src, size_t dstsize)
+{
+	size_t	dst_len;
+	size_t	src_len;
+
+	dst_len = ft_strlen(dst);
+	src_len = ft_strlen(src);
+	if (dst_len + 1 > dstsize)
+		return (src_len + dstsize);
+	if (dst_len + src_len + 1 < dstsize)
+		dstsize = src_len + dst_len + 1;
+	dst[dstsize - 1] = '\0';
+	while (dstsize-- - 1 > dst_len)
+		dst[dstsize - 1] = src[dstsize - dst_len - 1];
+	return (dst_len + src_len);
+}
+
+size_t	ft_strlcpy(char *dst, char const *src, size_t dstsize)
+{
+	size_t	len;
+
+	len = ft_strlen(src);
+	if (dstsize > 0)
+	{
+		if (len + 1 < dstsize)
+			dstsize = len + 1;
+		dst[dstsize - 1] = '\0';
+		while (dstsize-- - 1)
+			dst[dstsize - 1] = src[dstsize - 1];
+	}
+	return (len);
+}
+
+int ft_strjoin_self(char **str, char *add)
+{
+	char	*new;
+	int		len;
+
+	if (!str | !add)
+		return (ERROR);
+	len = ft_strlen(*str) + ft_strlen(add) + 1;
+	new = (char *)malloc(sizeof(char) * (len + 1));
+	if (!new)
+		return (ERROR);
+	ft_strlcpy(new, *str, len + 1);
+	ft_strlcat(new, add, len + 1);
+	if (*str)
+		free(*str);
+	*str = new;
+	return (0);
 }
