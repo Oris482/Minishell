@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/24 15:44:51 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/24 16:15:27 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,5 @@ void			set_parentheses_flag(const char c, unsigned char *parentheses_flag
 		, unsigned char *quote_flag);
 int				ft_isspace(const char c);
 int		 ft_strjoin_self(char **str, char *add);
+char	*ft_strchr_null(const char *s, int c);
 #endif
