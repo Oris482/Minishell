@@ -6,28 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/24 16:06:11 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/24 16:33:14 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../minishell.h"
 #include "lexer.h"
-
-void dquote_translater(t_lx_token *cur, char *chunk)
-{
-	return ;
-	// pos = ft_strchr('$');
-	// cur->interpreted_str = ft_strcpy(chunk, pos);		// 없으면 끝까지 \0주소 반환
-	// chunk = pos;
-	// if (chunk = '$')
-	//     dollar_translater(cur, ++chunk, 0);
-}
-
-void just_str_translater(t_lx_token *cur, char *chunk)
-{
-	return ;
-}
 
 void dollar_translater(t_lx_token *cur, char *chunk, int split_flag)
 {
@@ -57,6 +42,26 @@ void dollar_translater(t_lx_token *cur, char *chunk, int split_flag)
 		cur = cur->next;
 	}
 }
+
+
+void dquote_translater(t_lx_token *cur, char *chunk)
+{
+	char	*pos;
+
+	pos = ft_strchr_null(chunk, '$');
+	ft_strjoin_self(&cur->interpreted_str, ft_strcpy(chunk, pos));
+	chunk = pos;
+	if (*chunk == '$')
+		dollar_translater(cur, ++chunk, 0);
+	return ;
+}
+
+void just_str_translater(t_lx_token *cur, char *chunk)
+{
+	ft_strjoin_self(&cur->interpreted_str, chunk);
+	return ;
+}
+
 
 // -----------------------------------------------------------------------------------------------
 void	interpret_middleware(t_lx_token *token, char *chunk, unsigned char symbol_type)
@@ -107,7 +112,7 @@ void	interpreter(t_lx_token *token)
 			token_str++;
 			_find_interpret_symbol(&token_str, symbol_type);
 			str_chunk = ft_strcpy(str_startpoint + 1, token_str);
-			if (is_quote(*token_str))
+			if ((symbol_type == QUOTE || symbol_type == DQUOTE) && is_quote(*token_str))
 				token_str++;
 		}
 		else
@@ -125,7 +130,7 @@ int main(void)
 {
 	t_lx_token token;
 	t_lx_token	*cur_node;
-	char	*origin_str = "$TEST$USER";
+	char	*origin_str = "$USER' '\"$TEST\"";
 
 	token.token_str = origin_str;
 	token.next = NULL;
