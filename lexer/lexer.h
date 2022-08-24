@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 21:11:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/24 11:18:27 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/24 14:23:47 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 # define LEXER_H
 # include <stdlib.h>
 # include <stdio.h>
-
-# define TRUE 1
-# define SUCCESS 1
-# define FALSE 0
 
 // # define QUOTE 0b00000001
 // # define DQUOTE 0b00000010
@@ -53,7 +49,6 @@ typedef struct s_lx_token
 	struct s_lx_token	*next;
 }	t_lx_token;
 
-// t_lx_token	*lexer(t_lx_token *token_head, char *line, char *envp[]);
 int	lexer(t_lx_token **token_head, char *full_line, char *envp[]);
 void	print_token_list(t_lx_token *token_list);
 

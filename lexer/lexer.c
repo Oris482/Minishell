@@ -6,12 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/24 13:27:58 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/24 14:27:00 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-// #include "minishell.h"
+#include "./lexer.h"
 #include "../minishell.h"
 
 int	ft_isspace(const char c)
@@ -27,8 +26,6 @@ int	is_metacharacter(const char c)
 		return (PIPE);
 	else if (c == '&')
 		return (AND);
-	else if (c == ';')
-		return (SEMI);
 	else if (c == '(')
 		return (PARENTHESES_OPEN);
 	else if (c == ')')
@@ -48,22 +45,6 @@ int	is_token_seperator(const char c)
 	return (ft_isspace(c) | is_metacharacter(c));
 }
 
-unsigned char	is_quote(const char c)
-{
-	if (c == '\'')
-		return (QUOTE);
-	else if (c == '\"')
-		return (DQUOTE);
-	return (FALSE);
-}
-
-int	is_env_prefix(const char c)
-{
-	if (c == '$')
-		return (DOLLAR);
-	return (FALSE);
-}
-
 void	set_token_type(t_lx_token *token_node, char c)
 {
 	if (token_node->token_type == UNDEFINED)
@@ -80,23 +61,6 @@ void	set_interpret_symbol(t_lx_token *token_node, char c, unsigned char *quote_f
 		token_node->interpret_symbol |= *quote_flag;
 	if (!*quote_flag || *quote_flag == DQUOTE)
 		token_node->interpret_symbol |= is_env_prefix(c);
-}
-
-char	*ft_strcpy(const char *start, const char *end)
-{
-	char	*ret;
-	size_t	len;
-	int		idx;
-
-	len = end - start;
-	ret = (char *)malloc(len + 1);
-	if (ret == NULL)
-		exit(1);
-	idx = 0;
-	while (idx < (int)len)
-		ret[idx++] = *start++;
-	ret[idx] = '\0';
-	return (ret);
 }
 
 t_lx_token	*set_token(char **line, t_oflag *oflag,char *envp[])
@@ -166,8 +130,6 @@ void	print_token_list(t_lx_token *token_list)
 			token_type = "OR_IF";
 		else if (token_list->token_type == PIPE)
 			token_type = "PIPE";
-		else if (token_list->token_type == SEMI)
-			token_type = "SEMI";
 		else if (token_list->token_type == RED_IN)
 			token_type = "RED_IN";
 		else if (token_list->token_type == RED_OUT)

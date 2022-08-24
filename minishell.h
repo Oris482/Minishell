@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsuki2 <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/23 18:15:28 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/24 14:44:54 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # include <readline/history.h>
 # include <unistd.h>
 
+# define TRUE 1
+# define SUCCESS 1
+# define FALSE 0
+
 # define QUOTE 0b00000001
 # define DQUOTE 0b00000010
 # define DOLLAR 0b00000100
@@ -34,7 +38,6 @@ enum	e_token_type
 	AND_IF,
 	OR_IF,
 	PIPE,
-	SEMI,
 	RED_IN,
 	RED_OUT,
 	HERE_DOC,
@@ -58,6 +61,9 @@ typedef struct s_oflag
 }	t_oflag;
 
 size_t	ft_strlen(const char *s);
+char	*ft_strcpy(const char *start, const char *end);
+unsigned char	is_quote(const char c);
+unsigned char	is_env_prefix(const char c);
 void	set_quote_flag(const char c, unsigned char *quote_flag);
 void	set_parentheses_flag(const char c, unsigned char *parentheses_flag
 		, unsigned char *quote_flag);
