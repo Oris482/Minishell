@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/24 16:40:01 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/24 22:24:56 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static void	_dollar_translater(t_lx_token *cur, char *chunk, int split_flag)
 		while (*str_cur && !ft_isspace(*str_cur))
 			str_cur++;
 		cur->next->interpreted_str = ft_strcpy(find_str, str_cur);
+		if (split_flag)
+			cur->next->interpret_symbol = DOLLAR;
 		cur = cur->next;
 	}
 }

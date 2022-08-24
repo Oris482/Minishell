@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:11:18 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/24 16:15:30 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/24 21:12:57 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*ft_strcpy(const char *start, const char *end)
 	len = end - start;
 	ret = (char *)malloc(len + 1);
 	if (ret == NULL)
-		exit(1);
+		exit(GENERAL_EXIT_CODE);
 	idx = 0;
 	while (idx < (int)len)
 		ret[idx++] = *start++;

@@ -45,7 +45,7 @@ void    child(int *fd, int idx)
             printf("%s", line);
         }
     }
-    exit(1);
+    exit(GENERAL_EXIT_CODE);
 }
 
 int main(void)

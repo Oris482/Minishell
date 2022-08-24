@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_stdlib.c                                        :+:      :+:    :+:   */
+/*   about_alloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsuki2 <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 11:23:44 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/23 11:29:59 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/24 21:12:57 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*my_malloc(unsigned int size)
 	if (!pointer)
 	{
 		printf("%s\n", strerror(errno));
-		exit(1);
+		exit(GENERAL_EXIT_CODE);
 	}
 	return (pointer);
 }

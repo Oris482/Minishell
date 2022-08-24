@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/24 16:15:27 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/24 22:14:20 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <unistd.h>
+# include <term.h>
 
 # define TRUE 1
 # define SUCCESS 1
@@ -30,11 +31,12 @@
 # define DQUOTE 0b00000010
 # define DOLLAR 0b00000100
 
+# define GENERAL_EXIT_CODE 1
+
 enum	e_token_type
 {
 	WORD = 100,
 	NEW_LINE,
-	AND,
 	AND_IF,
 	OR_IF,
 	PIPE,
@@ -58,6 +60,7 @@ typedef struct s_oflag
 {
 	unsigned char	quote;
 	unsigned char	parentheses;
+	unsigned char	and_if;
 }	t_oflag;
 
 size_t	ft_strlen(const char *s);
@@ -70,4 +73,6 @@ void			set_parentheses_flag(const char c, unsigned char *parentheses_flag
 int				ft_isspace(const char c);
 int		 ft_strjoin_self(char **str, char *add);
 char	*ft_strchr_null(const char *s, int c);
+void	signal_handler();
+int	terminal_off_control_chars();
 #endif

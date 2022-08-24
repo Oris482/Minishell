@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/24 16:42:22 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/24 22:17:06 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	is_metacharacter(const char c)
 {
 	if (c == '|')
 		return (PIPE);
-	else if (c == '&')
-		return (AND);
 	else if (c == '(')
 		return (PARENTHESES_OPEN);
 	else if (c == ')')
@@ -56,6 +54,31 @@ void	set_interpret_symbol(t_lx_token *token_node, char c, unsigned char *quote_f
 		token_node->interpret_symbol |= is_env_prefix(c);
 }
 
+int	make_operator(t_lx_token *token_node, char **line, int token_type)
+{
+	const char	*str_startpoint = *line;
+
+	if (token_type == FALSE)
+		return (FALSE);
+	(*line) += 2;
+	token_node->token_str = ft_strcpy(str_startpoint, *line);
+	token_node->token_type = token_type;
+	return (SUCCESS);
+}
+
+int	check_doubled_operator(char **line)
+{
+	if (**line == '|' && *(*line + 1) == '|')
+		return(OR_IF);
+	else if (**line == '&' && *(*line + 1) == '&')
+		return(AND_IF);
+	else if (**line == '<' && *(*line + 1) == '<')
+		return(HERE_DOC);
+	else if (**line == '>' && *(*line + 1) == '>')
+		return(RED_APD_OUT);
+	return (FALSE);
+}
+
 t_lx_token	*set_token(char **line, t_oflag *oflag,char *envp[])
 {
 	t_lx_token	*token_node;
@@ -64,14 +87,16 @@ t_lx_token	*set_token(char **line, t_oflag *oflag,char *envp[])
 
 	token_node = (t_lx_token *)calloc(1, sizeof(t_lx_token));
 	if (token_node == NULL)
-		exit(1);
+		exit(GENERAL_EXIT_CODE);
+	if (make_operator(token_node, line, check_doubled_operator(line)))
+		return (token_node);
 	while (**line && (oflag->quote || (token_node->token_type == UNDEFINED || !is_token_seperator(**line))))
 	{
 		set_quote_flag(**line, &oflag->quote);
 		set_token_type(token_node, **line);
 		set_interpret_symbol(token_node, **line, &oflag->quote);
 		(*line)++;
-		if (token_split_flag)
+		if (token_split_flag || (!oflag->quote && **line == '&' && *(*line + 1) == '&'))
 			break ;
 	}
 	token_node->token_str = ft_strcpy(str_startpoint, *line);
@@ -85,6 +110,7 @@ int	lexer(t_lx_token **token_head, char *full_line, char *envp[])
 	t_oflag		oflag;
 
 	oflag.quote = 0;
+	oflag.and_if = 0;
 	while (*full_line)
 	{
 		if (ft_isspace(*full_line) && full_line++)
@@ -115,8 +141,6 @@ void	print_token_list(t_lx_token *token_list)
 			token_type = "WORD";
 		else if (token_list->token_type == NEW_LINE)
 			token_type = "NEW_LINE";
-		else if (token_list->token_type == AND)
-			token_type = "AND";
 		else if (token_list->token_type == AND_IF)
 			token_type = "AND_IF";
 		else if (token_list->token_type == OR_IF)

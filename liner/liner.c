@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 08:10:39 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/23 18:18:25 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/24 20:11:13 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ char *line_handler(void)
 	oflag.parentheses = 0;
 	line = readline("minishell$> ");
 	if (!line)
-		return (NULL);
+	{
+		write(STDOUT_FILENO, "BYE\n", 4);
+		exit(0);
+	}
 	i = check_line_oflag(line, &oflag.parentheses, &oflag.quote);
 	while (oflag.quote || oflag.parentheses)			// 둘다 닫혀야 함
 	{

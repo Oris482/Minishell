@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/08/24 16:41:09 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/08/24 22:14:23 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ LEXER_SRCS			=	lexer.c			\
 
 MANDA_SRCS	=	minishell.c									\
 				minishell_utils.c							\
+				terminal_setting.c							\
 				$(addprefix $(LINER_DIR), $(LINER_SRCS))	\
 				$(addprefix $(LEXER_DIR), $(LEXER_SRCS))
 

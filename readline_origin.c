@@ -14,7 +14,7 @@ void	handler(int signum)
 		return ;
 	write(STDOUT_FILENO, "\n", 1);
 	if (rl_on_new_line() == -1)
-		exit(1);
+		exit(GENERAL_EXIT_CODE);
 	rl_replace_line("", 1);
 	rl_redisplay();
 }
