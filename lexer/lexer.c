@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/24 13:21:32 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/24 13:27:58 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	set_interpret_symbol(t_lx_token *token_node, char c, unsigned char *quote_f
 		token_node->interpret_symbol |= is_env_prefix(c);
 }
 
-char	*ft_strcpy(char *start, char *end)
+char	*ft_strcpy(const char *start, const char *end)
 {
 	char	*ret;
 	size_t	len;
@@ -103,11 +103,11 @@ t_lx_token	*set_token(char **line, t_oflag *oflag,char *envp[])
 {
 	t_lx_token	*token_node;
 	const int	token_split_flag = is_token_seperator(**line);
+	const char	*str_startpoint = *line;
 
 	token_node = (t_lx_token *)calloc(1, sizeof(t_lx_token));
 	if (token_node == NULL)
 		exit(1);
-	token_node->token_str = *line;			// 어디서 필요한가?
 	while (**line && (oflag->quote || (token_node->token_type == UNDEFINED || !is_token_seperator(**line))))
 	{
 		set_quote_flag(**line, &oflag->quote);
@@ -117,8 +117,8 @@ t_lx_token	*set_token(char **line, t_oflag *oflag,char *envp[])
 		if (token_split_flag)
 			break ;
 	}
-	token_node->token_str = ft_strcpy(token_node->token_str, *line);
-	interpreter(token_node, envp);
+	token_node->token_str = ft_strcpy(str_startpoint, *line);
+	// interpreter(token_node, envp);
 	return (token_node);
 }
 
