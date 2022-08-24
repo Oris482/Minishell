@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 21:11:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/23 21:10:42 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/24 11:18:27 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ typedef struct s_lx_token
 	struct s_lx_token	*next;
 }	t_lx_token;
 
-t_lx_token	*lexer(t_lx_token *token_head, char *line, char *envp[]);
+// t_lx_token	*lexer(t_lx_token *token_head, char *line, char *envp[]);
+int	lexer(t_lx_token **token_head, char *full_line, char *envp[]);
 void	print_token_list(t_lx_token *token_list);
 
 #endif

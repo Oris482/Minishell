@@ -30,9 +30,11 @@ int	main(int argc, char *argv[], char *envp[])
 			return (1);
 		if (strcmp(full_line, "") != 0)
 			add_history(full_line);
-		token_list = lexer(token_list, full_line, envp);
+		// token_list = lexer(token_list, full_line, envp);
+		if (lexer(&token_list, full_line, envp) == ERROR)
+			return (1);
 		free(full_line);
-	    full_line = NULL;
+		// full_line = NULL;
 		print_token_list(token_list);
 		free(token_list);
 	}

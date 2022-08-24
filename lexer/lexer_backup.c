@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   lexer_backup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/24 11:53:58 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:55:57 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_lx_token	*set_token(char **line, t_oflag *oflag)
 	token_node = (t_lx_token *)calloc(1, sizeof(t_lx_token));
 	if (token_node == NULL)
 		exit(1);
-	token_node->token_str = *line;			// 어디서 필요한가?
+	token_node->token_str = *line;
 	while (**line && (oflag->quote || (token_node->token_type == UNDEFINED || !is_token_seperator(**line))))
 	{
 		set_quote_flag(**line, &oflag->quote);
@@ -121,22 +121,20 @@ t_lx_token	*set_token(char **line, t_oflag *oflag)
 	return (token_node);
 }
 
-int	lexer(t_lx_token **token_head, char *full_line, char *envp[])
+t_lx_token	*lexer(t_lx_token *token_head, char *full_line, char *envp[])
 {
 	t_lx_token	*token_cur;
-	t_oflag		oflag;
+	t_oflag		oflag;	
 
 	oflag.quote = 0;
 	while (*full_line)
 	{
-		// while (*full_line && ft_isspace(*full_line))
-		//     full_line++;
-		if (ft_isspace(*full_line) && full_line++)
-			continue ;
-		if (*token_head == NULL)
+		while (*full_line && ft_isspace(*full_line))
+			full_line++;
+		if (token_head == NULL)
 		{
-			*token_head = set_token(&full_line, &oflag);
-			token_cur = *token_head;
+			token_head = set_token(&full_line, &oflag);
+			token_cur = token_head;
 		}
 		else
 		{
@@ -144,10 +142,8 @@ int	lexer(t_lx_token **token_head, char *full_line, char *envp[])
 			token_cur = token_cur->next;
 		}
 	}
-	// interpreter(token_head, envp);
-	if (false)
-		return (ERROR);
-	return (SUCCESS);
+	interpreter(token_head, envp);
+	return (token_head);
 }
 
 
