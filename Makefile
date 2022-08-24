@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/08/24 16:37:06 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/08/24 16:41:09 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,7 @@ EXCUTER_DIR		=	excuter/
 NAME	 	=	minishell
 
 # 파일 기능별로 분류해서 소스파일 넣기
-LINER_SRCS			= 	liner.c 		\
-						liner_utils.c
+LINER_SRCS			= 	liner.c 		
 
 LEXER_SRCS			=	lexer.c			\
 						interpreter.c

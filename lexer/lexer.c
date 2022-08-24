@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/24 16:37:53 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/24 16:42:22 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,9 @@ void	print_token_list(t_lx_token *token_list)
 		else if (token_list->token_type == WILDCARD)
 			token_type = "WILDCARD";
 
-		printf("[%s]\n", token_list->token_str);
-		printf("token_type = %s(%d) interpret_symbol = %d\n\n", token_type, token_list->token_type, token_list->interpret_symbol);
+		printf("token_str = [%s]\n", token_list->token_str);
+		printf("token_type = %s(%d) interpret_symbol = %d\n", token_type, token_list->token_type, token_list->interpret_symbol);
+		printf("interpret_str = [%s]\n\n", token_list->interpreted_str);
 		token_list = token_list->next;
 	}
 }

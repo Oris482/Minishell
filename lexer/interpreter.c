@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/24 16:36:25 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/24 16:40:01 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	_dquote_translater(t_lx_token *cur, char *chunk)
 	ft_strjoin_self(&cur->interpreted_str, ft_strcpy(chunk, pos));
 	chunk = pos;
 	if (*chunk == '$')
-		dollar_translater(cur, ++chunk, 0);
+		_dollar_translater(cur, ++chunk, 0);
 	return ;
 }
 

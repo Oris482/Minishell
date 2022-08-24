@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   liner.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsuki2 <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 08:11:42 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/23 10:35:24 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/24 16:41:03 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,5 @@
 # define LINER_H
 # include <stdio.h>
 # include <stdlib.h>
-int		ft_strjoin_self(char **str, char *add);
 char	*line_handler(void);
 #endif
