@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/25 11:04:53 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:48:45 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@
 # include <readline/history.h>
 # include <unistd.h>
 # include <term.h>
+# include "lexer.h"
 
 # define QUOTE 0b00000001
 # define DQUOTE 0b00000010
 # define DOLLAR 0b00000100
+# define WILDCARD 0b00001000
 
 enum	e_token_type
 {
@@ -40,7 +42,6 @@ enum	e_token_type
 	PARENTHESES_OPEN,
 	PARENTHESES_CLOSE,
 	SPACE_SET,
-	WILDCARD
 };
 
 enum	e_exit_code
@@ -67,6 +68,8 @@ size_t			ft_strlen(const char *s);
 char			*ft_strcpy(const char *start, const char *end);
 unsigned char	is_quote(const char c);
 unsigned char	is_env_prefix(const char c);
+unsigned char	is_wildcard(const char c);
+unsigned char	is_interpret_symbol(const char c);
 void			set_quote_flag(const char c, unsigned char *quote_flag);
 void			set_parentheses_flag(const char c, \
 				unsigned char *parentheses_flag, unsigned char *quote_flag);
@@ -75,4 +78,5 @@ int				ft_strjoin_self(char **str, char *add);
 char			*ft_strchr_null(const char *s, int c);
 void			signal_handler(void);
 int				terminal_off_control_chars(void);
+char			*_compress_wildcard(t_lx_token *cur);
 #endif

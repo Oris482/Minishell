@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/25 11:17:55 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/25 17:27:32 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ int	is_metacharacter(const char c)
 		return (RED_IN);
 	else if (c == '>')
 		return (RED_OUT);
-	else if (c == '*')
-		return (WILDCARD);
 	else
 		return (FALSE);
 }
@@ -53,6 +51,8 @@ void	set_interpret_symbol(t_lx_token *token_node, char c, \
 		token_node->interpret_symbol |= *quote_flag;
 	if (!*quote_flag || *quote_flag == DQUOTE)
 		token_node->interpret_symbol |= is_env_prefix(c);
+	if (!*quote_flag)
+		token_node->interpret_symbol |= is_wildcard(c);
 }
 
 int	make_operator(t_lx_token *token_node, char **line, int token_type)
@@ -163,8 +163,6 @@ void	print_token_list(t_lx_token *token_list)
 			token_type = "PARENTHESES_CLOSE";
 		else if (token_list->token_type == SPACE_SET)
 			token_type = "SPACE_SET";
-		else if (token_list->token_type == WILDCARD)
-			token_type = "WILDCARD";
 		printf("token_str = [%s]\n", token_list->token_str);
 		printf("token_type = %s(%d) interpret_symbol = %d\n", token_type, \
 				token_list->token_type, token_list->interpret_symbol);
