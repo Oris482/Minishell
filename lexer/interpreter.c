@@ -6,10 +6,9 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/24 22:24:56 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/25 11:13:13 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../minishell.h"
 #include "lexer.h"
@@ -20,13 +19,13 @@ static void	_dollar_translater(t_lx_token *cur, char *chunk, int split_flag)
 	char	*str_cur;
 
 	find_str = getenv(chunk);
-	if (!find_str || !*find_str)						// 해당 환경 변수가 없다면
+	if (!find_str || !*find_str)
 		return ;
 	str_cur = find_str;
 	while (*str_cur)
 	{
 		if (split_flag && ft_isspace(*str_cur))
-			break ;						// 처음 노드까지만 찾기
+			break ;
 		str_cur++;
 	}
 	ft_strjoin_self(&cur->interpreted_str, ft_strcpy(find_str, str_cur));
@@ -45,7 +44,6 @@ static void	_dollar_translater(t_lx_token *cur, char *chunk, int split_flag)
 	}
 }
 
-
 static void	_dquote_translater(t_lx_token *cur, char *chunk)
 {
 	char	*pos;
@@ -58,7 +56,8 @@ static void	_dquote_translater(t_lx_token *cur, char *chunk)
 	return ;
 }
 
-static void	_interpret_middleware(t_lx_token *token, char *chunk, unsigned char symbol_type)
+static void	_interpret_middleware(t_lx_token *token, char *chunk, \
+									unsigned char symbol_type)
 {
 	if (symbol_type == UNDEFINED || symbol_type == QUOTE)
 		ft_strjoin_self(&token->interpreted_str, chunk);
@@ -69,7 +68,8 @@ static void	_interpret_middleware(t_lx_token *token, char *chunk, unsigned char 
 	return ;
 }
 
-static unsigned char	_find_interpret_symbol(char **token_str, unsigned char target)
+static unsigned char	_find_interpret_symbol(char **token_str, \
+												unsigned char target)
 {
 	if (target == UNDEFINED || target == DOLLAR)
 	{
@@ -106,7 +106,8 @@ void	interpreter(t_lx_token *token)
 			token_str++;
 			_find_interpret_symbol(&token_str, symbol_type);
 			str_chunk = ft_strcpy(str_startpoint + 1, token_str);
-			if ((symbol_type == QUOTE || symbol_type == DQUOTE) && is_quote(*token_str))
+			if ((symbol_type == QUOTE || symbol_type == DQUOTE) \
+				&& is_quote(*token_str))
 				token_str++;
 		}
 		else

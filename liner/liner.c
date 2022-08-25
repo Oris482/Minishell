@@ -6,15 +6,28 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 08:10:39 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/24 20:11:13 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/25 11:05:37 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-// #include "minishell.h"
 #include "liner.h"
 
-int	check_line_oflag(char *line, unsigned char *parentheses_flag, unsigned char *quote_flag)
+void	tmp_debug_print(char *line, t_oflag *oflag)
+{
+	(void)line;
+	if (oflag->quote == QUOTE)
+		printf("unexpected EOF while looking for matching `''\n");
+	if (oflag->quote == DQUOTE)
+		printf("unexpected EOF while looking for matching `\"'\n");
+	if (oflag->parentheses)
+		printf("unexpected EOF while looking for matching `('\n");
+	/* if (!oflag->quote && !oflag->parentheses) */
+		/* printf("%s\n", line); */
+}
+
+int	check_line_oflag(char *line, unsigned char *parentheses_flag, \
+						unsigned char *quote_flag)
 {
 	int	i;
 
@@ -28,9 +41,7 @@ int	check_line_oflag(char *line, unsigned char *parentheses_flag, unsigned char 
 	return (i);
 }
 
-void tmp_debug_print(char *line, t_oflag *oflag);
-
-char *line_handler(void)
+char	*line_handler(void)
 {
 	t_oflag			oflag;
 	char			*line;
@@ -45,7 +56,7 @@ char *line_handler(void)
 		exit(0);
 	}
 	i = check_line_oflag(line, &oflag.parentheses, &oflag.quote);
-	while (oflag.quote || oflag.parentheses)			// 둘다 닫혀야 함
+	while (oflag.quote || oflag.parentheses)
 	{
 		if (ft_strjoin_self(&line, "\n") == ERROR
 			|| ft_strjoin_self(&line, readline("> ")) == ERROR)
@@ -54,17 +65,4 @@ char *line_handler(void)
 	}
 	tmp_debug_print(line, &oflag);
 	return (line);
-}
-
-void tmp_debug_print(char *line, t_oflag *oflag)
-{
-	(void)line;
-	if (oflag->quote == QUOTE)
-		printf("unexpected EOF while looking for matching `''\n");
-	if (oflag->quote == DQUOTE)
-		printf("unexpected EOF while looking for matching `\"'\n");
-	if (oflag->parentheses)
-		printf("unexpected EOF while looking for matching `('\n");
-	/* if (!oflag->quote && !oflag->parentheses) */
-		/* printf("%s\n", line); */
 }

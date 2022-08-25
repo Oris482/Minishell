@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/24 22:17:06 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/25 11:17:55 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	set_token_type(t_lx_token *token_node, char c)
 	}
 }
 
-void	set_interpret_symbol(t_lx_token *token_node, char c, unsigned char *quote_flag)
+void	set_interpret_symbol(t_lx_token *token_node, char c, \
+								unsigned char *quote_flag)
 {
 	if (is_quote(c) == *quote_flag)
 		token_node->interpret_symbol |= *quote_flag;
@@ -69,17 +70,17 @@ int	make_operator(t_lx_token *token_node, char **line, int token_type)
 int	check_doubled_operator(char **line)
 {
 	if (**line == '|' && *(*line + 1) == '|')
-		return(OR_IF);
+		return (OR_IF);
 	else if (**line == '&' && *(*line + 1) == '&')
-		return(AND_IF);
+		return (AND_IF);
 	else if (**line == '<' && *(*line + 1) == '<')
-		return(HERE_DOC);
+		return (HERE_DOC);
 	else if (**line == '>' && *(*line + 1) == '>')
-		return(RED_APD_OUT);
+		return (RED_APD_OUT);
 	return (FALSE);
 }
 
-t_lx_token	*set_token(char **line, t_oflag *oflag,char *envp[])
+t_lx_token	*set_token(char **line, t_oflag *oflag, char *envp[])
 {
 	t_lx_token	*token_node;
 	const int	token_split_flag = is_token_seperator(**line);
@@ -90,13 +91,15 @@ t_lx_token	*set_token(char **line, t_oflag *oflag,char *envp[])
 		exit(GENERAL_EXIT_CODE);
 	if (make_operator(token_node, line, check_doubled_operator(line)))
 		return (token_node);
-	while (**line && (oflag->quote || (token_node->token_type == UNDEFINED || !is_token_seperator(**line))))
+	while (**line && (oflag->quote || (token_node->token_type == UNDEFINED \
+										|| !is_token_seperator(**line))))
 	{
 		set_quote_flag(**line, &oflag->quote);
 		set_token_type(token_node, **line);
 		set_interpret_symbol(token_node, **line, &oflag->quote);
 		(*line)++;
-		if (token_split_flag || (!oflag->quote && **line == '&' && *(*line + 1) == '&'))
+		if (token_split_flag || (!oflag->quote && **line == '&' \
+									&& *(*line + 1) == '&'))
 			break ;
 	}
 	token_node->token_str = ft_strcpy(str_startpoint, *line);
@@ -130,7 +133,6 @@ int	lexer(t_lx_token **token_head, char *full_line, char *envp[])
 	return (SUCCESS);
 }
 
-
 void	print_token_list(t_lx_token *token_list)
 {
 	char	*token_type;
@@ -163,9 +165,9 @@ void	print_token_list(t_lx_token *token_list)
 			token_type = "SPACE_SET";
 		else if (token_list->token_type == WILDCARD)
 			token_type = "WILDCARD";
-
 		printf("token_str = [%s]\n", token_list->token_str);
-		printf("token_type = %s(%d) interpret_symbol = %d\n", token_type, token_list->token_type, token_list->interpret_symbol);
+		printf("token_type = %s(%d) interpret_symbol = %d\n", token_type, \
+				token_list->token_type, token_list->interpret_symbol);
 		printf("interpret_str = [%s]\n\n", token_list->interpreted_str);
 		token_list = token_list->next;
 	}

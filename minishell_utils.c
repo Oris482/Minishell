@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:11:18 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/24 21:12:57 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/25 11:07:00 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-void	set_parentheses_flag(const char c, unsigned char *parentheses_flag
-		, unsigned char *quote_flag)
+void	set_parentheses_flag(const char c, unsigned char *parentheses_flag, \
+								unsigned char *quote_flag)
 {
-	if (!*quote_flag)									// 통일성을 위해 주소로?
+	if (!*quote_flag)
 	{
 		if (c == '(' && !*parentheses_flag)
 			*parentheses_flag ^= PARENTHESES_OPEN;
@@ -129,7 +129,7 @@ size_t	ft_strlcpy(char *dst, char const *src, size_t dstsize)
 	return (len);
 }
 
-int ft_strjoin_self(char **str, char *add)
+int	ft_strjoin_self(char **str, char *add)
 {
 	char	*new;
 	int		len;

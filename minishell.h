@@ -6,10 +6,9 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/24 22:14:20 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/25 11:04:53 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -23,15 +22,9 @@
 # include <unistd.h>
 # include <term.h>
 
-# define TRUE 1
-# define SUCCESS 1
-# define FALSE 0
-
 # define QUOTE 0b00000001
 # define DQUOTE 0b00000010
 # define DOLLAR 0b00000100
-
-# define GENERAL_EXIT_CODE 1
 
 enum	e_token_type
 {
@@ -50,10 +43,17 @@ enum	e_token_type
 	WILDCARD
 };
 
+enum	e_exit_code
+{
+	GENERAL_EXIT_CODE = 1
+};
+
 enum	e_return
 {
 	ERROR = -1,
-	// SUCCESS
+	FALSE,
+	SUCCESS,
+	TRUE = 1
 };
 
 typedef struct s_oflag
@@ -63,16 +63,16 @@ typedef struct s_oflag
 	unsigned char	and_if;
 }	t_oflag;
 
-size_t	ft_strlen(const char *s);
-char	*ft_strcpy(const char *start, const char *end);
+size_t			ft_strlen(const char *s);
+char			*ft_strcpy(const char *start, const char *end);
 unsigned char	is_quote(const char c);
 unsigned char	is_env_prefix(const char c);
 void			set_quote_flag(const char c, unsigned char *quote_flag);
-void			set_parentheses_flag(const char c, unsigned char *parentheses_flag
-		, unsigned char *quote_flag);
+void			set_parentheses_flag(const char c, \
+				unsigned char *parentheses_flag, unsigned char *quote_flag);
 int				ft_isspace(const char c);
-int		 ft_strjoin_self(char **str, char *add);
-char	*ft_strchr_null(const char *s, int c);
-void	signal_handler();
-int	terminal_off_control_chars();
+int				ft_strjoin_self(char **str, char *add);
+char			*ft_strchr_null(const char *s, int c);
+void			signal_handler(void);
+int				terminal_off_control_chars(void);
 #endif
