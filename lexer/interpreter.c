@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/25 11:13:13 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/25 19:06:33 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static void	_dollar_translater(t_lx_token *cur, char *chunk, int split_flag)
 	{
 		if (ft_isspace(*str_cur) && str_cur++)
 			continue ;
+		// 와일드카드 해석
+		printf(">>>%s<<<\n", cur->interpreted_str);
 		cur->next = (t_lx_token *)calloc(1, sizeof(t_lx_token));
 		find_str = str_cur;
 		while (*str_cur && !ft_isspace(*str_cur))
@@ -65,6 +67,8 @@ static void	_interpret_middleware(t_lx_token *token, char *chunk, \
 		_dquote_translater(token, chunk);
 	else if (symbol_type == DOLLAR)
 		_dollar_translater(token, chunk, 1);
+	else if (symbol_type == WILDCARD)
+		ft_strjoin_self(&token->interpreted_str, chunk);
 	return ;
 }
 
@@ -73,10 +77,9 @@ static unsigned char	_find_interpret_symbol(char **token_str, \
 {
 	if (target == UNDEFINED || target == DOLLAR)
 	{
-		while (**token_str && **token_str != '\'' && \
-				**token_str != '\"' && **token_str != '$')
+		while (**token_str && !is_interpret_symbol(**token_str))
 			(*token_str)++;
-		return (is_quote(**token_str) | is_env_prefix(**token_str));
+		return (is_interpret_symbol(**token_str));
 	}
 	else
 	{
@@ -100,15 +103,24 @@ void	interpreter(t_lx_token *token)
 	{
 		str_startpoint = token_str;
 		symbol_type = UNDEFINED;
-		if (is_quote(*str_startpoint) | is_env_prefix(*str_startpoint))
+		if (is_interpret_symbol(*str_startpoint))
 		{
 			symbol_type = _find_interpret_symbol(&token_str, UNDEFINED);
 			token_str++;
-			_find_interpret_symbol(&token_str, symbol_type);
-			str_chunk = ft_strcpy(str_startpoint + 1, token_str);
-			if ((symbol_type == QUOTE || symbol_type == DQUOTE) \
-				&& is_quote(*token_str))
-				token_str++;
+			if (is_quote(*str_startpoint) | is_env_prefix(*str_startpoint))
+			{
+				_find_interpret_symbol(&token_str, symbol_type);
+				str_chunk = ft_strcpy(str_startpoint + 1, token_str);
+				if ((symbol_type == QUOTE || symbol_type == DQUOTE) \
+					&& is_quote(*token_str))
+					token_str++;
+			}
+			else
+			{
+				while (*token_str && is_wildcard(*token_str))
+					token_str++;
+				str_chunk = ft_strcpy(str_startpoint, token_str);
+			}
 		}
 		else
 		{
@@ -119,4 +131,6 @@ void	interpreter(t_lx_token *token)
 		while (token->next)
 			token = token->next;
 	}
+	// 와일드카드 해석
+	printf(">>>%s<<<\n", token->interpreted_str);
 }

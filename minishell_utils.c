@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:11:18 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/25 11:07:00 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:48:22 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,18 @@ unsigned char	is_env_prefix(const char c)
 	return (FALSE);
 }
 
+unsigned char	is_wildcard(const char c)
+{
+	if (c == '*')
+		return (WILDCARD);
+	return (FALSE);
+}
+
+unsigned char	is_interpret_symbol(const char c)
+{
+	return (is_quote(c) | is_env_prefix(c) | is_wildcard(c));
+}
+
 int	ft_isspace(const char c)
 {
 	if ((c >= 9 && c <= 13) || c == 32)
@@ -160,4 +172,36 @@ char	*ft_strchr_null(const char *s, int c)
 		i++;
 	}
 	return ((char *)s + i);
+}
+
+char	*_compress_wildcard(t_lx_token *cur)
+{
+	int		idx;
+	char	*compressed_str;
+	char	*origin_str;
+
+	origin_str = cur->interpreted_str;
+	idx = 0;
+	while (*origin_str)
+	{
+		idx++;
+		while (*origin_str && is_wildcard(*origin_str) \
+				&& is_wildcard(*(origin_str + 1)))
+			origin_str++;
+		origin_str++;
+	}
+	compressed_str = (char *)malloc(idx + 1);
+	origin_str = cur->interpreted_str;
+	idx = 0;
+	while (*origin_str)
+	{
+		compressed_str[idx++] = *origin_str;
+		while (*origin_str && is_wildcard(*origin_str) \
+				&& is_wildcard(*(origin_str + 1)))
+			origin_str++;
+		origin_str++;
+	}
+	compressed_str[idx] = '\0';
+	free (cur->interpreted_str);
+	return (compressed_str);
 }
