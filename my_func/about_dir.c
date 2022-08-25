@@ -6,18 +6,21 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 11:30:54 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/25 18:01:05 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/25 23:10:26 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "myfunc.h"
+#include "../minishell.h"
 
 DIR	*my_opendir(const char *name)
 {
-	DIR	*ret;
+	DIR			*ret;
+	int			temp;
 
+	temp = errno;
 	ret = opendir(name);
-	if (!ret && printf("%s\n", strerror(errno)))
+	if (!ret && temp != errno && printf("%s\n", strerror(errno)))
 		exit(GENERAL_EXIT_CODE);
 	return (ret);
 }
@@ -25,9 +28,11 @@ DIR	*my_opendir(const char *name)
 struct dirent	*my_readdir(DIR *dirp)
 {
 	struct dirent	*ret;
+	int				temp;
 
+	temp = errno;
 	ret = readdir(dirp);
-	if (!ret && printf("%s\n", strerror(errno)))
+	if (!ret && temp != errno && printf("%s\n", strerror(errno)))
 		exit(GENERAL_EXIT_CODE);
 	return (ret);
 }
