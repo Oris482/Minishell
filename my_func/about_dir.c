@@ -6,9 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 11:30:54 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/24 21:12:57 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:01:05 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "myfunc.h"
 
 DIR	*my_opendir(const char *name)
 {
