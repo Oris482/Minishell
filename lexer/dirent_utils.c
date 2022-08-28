@@ -6,7 +6,7 @@
 /*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:49:35 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/25 23:10:23 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/27 21:39:25 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int count_cur_dir(DIR *dirp, const char *cur_pwd)
 	int				i;
 
 	i = 0;
-	file.
 	dirp = my_opendir(cur_pwd);
 	file = my_readdir(dirp);
 	while (file && ++i)
@@ -48,29 +47,31 @@ int count_cur_dir(DIR *dirp, const char *cur_pwd)
 		file = my_readdir(dirp);
 	}
 	my_closedir(dirp);
-	return (i);
+	return (i - 2);
 }
-
-files[0].name
-files[1].name
 
 t_file	*check_cur_dir(const char *cur_pwd)
 {
 	int				i;
 	DIR				*dirp;
 	t_file			*files;
-	int				n;
+	int				file_n;
 
-	n = count_cur_dir(dirp, cur_pwd);
-	printf("n : %d\n", files->file_n);
-	files = (t_file *)(my_malloc(sizeof(t_file) * files->file_n));
+	file_n = count_cur_dir(dirp, cur_pwd);
+	files = (t_file *)(my_malloc(sizeof(t_file) * files->n));
+	files->n = file_n;
+	printf("n : %d\n", files->n);
 	dirp = my_opendir(cur_pwd);
 	i = -2;
-	while (i < files->file_n)
+	while (i < files->n)
 	{
 		if (i < 0 && my_readdir(dirp) && ++i)
 			continue ;
 		files[i].file_set = my_readdir(dirp);
+		files[i].name = files[i].file_set->d_name;
+		files[i].match_flag = UNDEFINED;
+		files[i].type = files[i].file_set->d_type;
+		files[i].pwd = cur_pwd;
 		i++;
 	}
 	my_closedir(dirp);
@@ -81,9 +82,13 @@ int main(int ac, char *av[])
 {
 	t_file	*set;
 
-	printf("%s\n", av[1]);
 	set = check_cur_dir(av[1]);
-
-	for (int i = 0; i < set->file_n)
-		printf("%s\n", set[i]->);
+	for (int i = 0; i < set->n; i++)
+	{
+		printf("%d\n", set[i].n);
+		printf("%s\n", set[i].name);
+		printf("%d\n", set[i].type);
+		printf("%s\n", set[i].pwd);
+		printf("\n");
+	}
 }
