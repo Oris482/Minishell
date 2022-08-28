@@ -6,7 +6,7 @@
 /*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:49:35 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/27 21:39:25 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/28 09:28:04 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,17 @@ t_file	*check_cur_dir(const char *cur_pwd)
 	return (files);
 }
 
-int main(int ac, char *av[])
-{
-	t_file	*set;
-
-	set = check_cur_dir(av[1]);
-	for (int i = 0; i < set->n; i++)
-	{
-		printf("%d\n", set[i].n);
-		printf("%s\n", set[i].name);
-		printf("%d\n", set[i].type);
-		printf("%s\n", set[i].pwd);
-		printf("\n");
-	}
-}
+// int main(int ac, char *av[])
+// {
+//     t_file	*set;
+//
+//     set = check_cur_dir(av[1]);
+//     for (int i = 0; i < set->n; i++)
+//     {
+//         printf("%d\n", set[i].n);
+//         printf("%s\n", set[i].name);
+//         printf("%d\n", set[i].type);
+//         printf("%s\n", set[i].pwd);
+//         printf("\n");
+//     }
+// }
