@@ -6,7 +6,7 @@
 /*   By: minsuki2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 20:55:40 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/28 09:55:37 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/28 16:12:46 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 #include "../minishell.h"
 #include "../my_func/myfunc.h"
 
+
 int	check_match(char *input, char *name)
 {
-	if (!input || !name)
-		return (ERROR);
 	while (*input || *name)
 	{
 		if (*input == '*' && ((*name && (!*(input + 1)
@@ -26,16 +25,13 @@ int	check_match(char *input, char *name)
 			|| *(input + 1) == *name && input++))
 			continue ;
 		if (*input == *name && input++ && name++)
-			continue;
-		return (false);
-		// if (*input != *name)
-		//     return (ERROR);
-		// input++;
-		// name++;
+			continue ;
+		return (FALSE);
 	}
-	return (true);
+	return (TRUE);
 }
-//
+
+
 // int main(int ac, char *av[])
 // {
 //     printf("%s == %s \t\t<<< %s\n", "abc", "abc", \
@@ -84,6 +80,19 @@ int	check_match(char *input, char *name)
 //         (check_match("*def*", "def")) ? "Yes" : "No");
 //     printf("%s == %s \t\t\t<<< %s\n", "*def*", "d3ef", \
 //         (check_match("*def*", "d3ef")) ? "Yes" : "No");
+//     printf("\n");
+//
+//     printf("%s == %s \t\t<<< %s\n", "*def*abc*", "def123", \
+//         (check_match("*def*abc*", "def123")) ? "Yes" : "No");
+//     printf("%s == %s \t\t<<< %s\n", "*def*abc*", "1324defabc56756", \
+//         (check_match("*def*abc*", "1324defabc56756")) ? "Yes" : "No");
+//     printf("%s == %s \t\t\t<<< %s\n", "*def*abc*", "defabc", \
+//         (check_match("*def*abc*", "defabc")) ? "Yes" : "No");
+//     printf("%s == %s \t\t\t<<< %s\n", "*def*abc*", "def", \
+//         (check_match("*def*abc*", "def")) ? "Yes" : "No");
+//     printf("%s == %s \t\t\t<<< %s\n", "*def*abc*", "defhelloabc", \
+//         (check_match("*def*abc*", "defhelloabc")) ? "Yes" : "No");
+//
 //     return (0);
 // }
 

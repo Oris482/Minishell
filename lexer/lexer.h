@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 21:11:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/28 09:24:34 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/28 16:07:05 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_file
 	int				match_flag;
 	const char		*pwd;
 	struct dirent	*file_set;
+	struct s_file	*next;
 } t_file;
 
 int		lexer(t_lx_token **token_head, char *full_line, char *envp[]);

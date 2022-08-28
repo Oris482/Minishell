@@ -6,7 +6,7 @@
 /*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:49:35 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/28 09:28:04 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/28 16:01:25 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int count_cur_dir(DIR *dirp, const char *cur_pwd)
 	file = my_readdir(dirp);
 	while (file && ++i)
 	{
+		free(file);
 		classify(file);
 		file = my_readdir(dirp);
 	}
@@ -50,7 +51,7 @@ int count_cur_dir(DIR *dirp, const char *cur_pwd)
 	return (i - 2);
 }
 
-t_file	*check_cur_dir(const char *cur_pwd)
+t_file	*get_files_cur_pwd(const char *cur_pwd, int dir_flag)
 {
 	int				i;
 	DIR				*dirp;
@@ -60,7 +61,7 @@ t_file	*check_cur_dir(const char *cur_pwd)
 	file_n = count_cur_dir(dirp, cur_pwd);
 	files = (t_file *)(my_malloc(sizeof(t_file) * files->n));
 	files->n = file_n;
-	printf("n : %d\n", files->n);
+	// printf("n : %d\n", files->n);
 	dirp = my_opendir(cur_pwd);
 	i = -2;
 	while (i < files->n)
@@ -82,7 +83,7 @@ t_file	*check_cur_dir(const char *cur_pwd)
 // {
 //     t_file	*set;
 //
-//     set = check_cur_dir(av[1]);
+//     set = get_files_cur_pwd(av[1]);
 //     for (int i = 0; i < set->n; i++)
 //     {
 //         printf("%d\n", set[i].n);
