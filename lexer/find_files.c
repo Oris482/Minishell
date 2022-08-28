@@ -6,7 +6,7 @@
 /*   By: minsuki2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 23:35:33 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/28 09:56:01 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/28 15:55:01 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,23 @@
 #include "../minishell.h"
 #include "../my_func/myfunc.h"
 
-int is_matching_file(char *input, t_file  * const files, int dir_flag, int wildcard_flag)
+/*
+ * "*/" 나"*" input에 들어옴
+ */
+
+int is_matching_file(char *input, t_file  * const files
+		, int dir_flag, int wildcard_flag)
 {
 	int		i;
 	int		cnt;
+	int		dir_flag;
 
 	i = 0;
 	cnt = 0;
-	// ft_strlen(input);
+	ft_strch(input, )
 	while (i < files->n)
 	{
-		if (dir_flag && files[i].type != DT_DIR)
+		if (dir_flag && files[i].type != DT_DIR && i++)
 			continue ;
 		files[i].match_flag = check_match(input, files[i].name);
 		if (files[i].match_flag && ++cnt)
@@ -50,7 +56,16 @@ int main(int ac, char *av[])
 		// printf("%s\n", files[i].pwd);
 		printf("\n");
 	}
+
+
+
+
 	is_matching_file("*.c", files, 0, 1);
+
+
+
+
+
 	printf("------------------------------------\n");
 	for (int i = 0; i < files->n; i++)
 	{
@@ -62,4 +77,5 @@ int main(int ac, char *av[])
 		printf("\n");
 	}
 	return (0);
+
 }
