@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:11:18 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/25 18:48:22 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/28 20:23:40 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,13 @@ unsigned char	is_wildcard(const char c)
 	return (FALSE);
 }
 
+unsigned char	is_target_char(const char c, const char target)
+{
+	if (c == target)
+		return (TRUE);
+	return (FALSE);
+}
+
 unsigned char	is_interpret_symbol(const char c)
 {
 	return (is_quote(c) | is_env_prefix(c) | is_wildcard(c));
@@ -174,34 +181,65 @@ char	*ft_strchr_null(const char *s, int c)
 	return ((char *)s + i);
 }
 
-char	*_compress_wildcard(t_lx_token *cur)
+// char	*_compress_wildcard(t_lx_token *cur)
+// {
+// 	int		idx;
+// 	char	*compressed_str;
+// 	char	*origin_str;
+
+// 	origin_str = cur->interpreted_str;
+// 	idx = 0;
+// 	while (*origin_str)
+// 	{
+// 		idx++;
+// 		while (*origin_str && is_wildcard(*origin_str) \
+// 				&& is_wildcard(*(origin_str + 1)))
+// 			origin_str++;
+// 		origin_str++;
+// 	}
+// 	compressed_str = (char *)malloc(idx + 1);
+// 	origin_str = cur->interpreted_str;
+// 	idx = 0;
+// 	while (*origin_str)
+// 	{
+// 		compressed_str[idx++] = *origin_str;
+// 		while (*origin_str && is_wildcard(*origin_str) \
+// 				&& is_wildcard(*(origin_str + 1)))
+// 			origin_str++;
+// 		origin_str++;
+// 	}
+// 	compressed_str[idx] = '\0';
+// 	free (cur->interpreted_str);
+// 	return (compressed_str);
+// }
+
+char	*compress_target_char(char *target_str, const char target)
 {
 	int		idx;
 	char	*compressed_str;
 	char	*origin_str;
 
-	origin_str = cur->interpreted_str;
+	origin_str = target_str;
 	idx = 0;
 	while (*origin_str)
 	{
 		idx++;
-		while (*origin_str && is_wildcard(*origin_str) \
-				&& is_wildcard(*(origin_str + 1)))
+		while (*origin_str && is_target_char(*origin_str, target) \
+				&& is_target_char(*(origin_str + 1), target))
 			origin_str++;
 		origin_str++;
 	}
 	compressed_str = (char *)malloc(idx + 1);
-	origin_str = cur->interpreted_str;
+	origin_str = target_str;
 	idx = 0;
 	while (*origin_str)
 	{
 		compressed_str[idx++] = *origin_str;
-		while (*origin_str && is_wildcard(*origin_str) \
-				&& is_wildcard(*(origin_str + 1)))
+		while (*origin_str && is_target_char(*origin_str, target) \
+				&& is_target_char(*(origin_str + 1), target))
 			origin_str++;
 		origin_str++;
 	}
 	compressed_str[idx] = '\0';
-	free (cur->interpreted_str);
 	return (compressed_str);
 }

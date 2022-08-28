@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/28 14:38:11 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/28 20:23:40 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ int				ft_strjoin_self(char **str, char *add);
 char			*ft_strchr_null(const char *s, int c);
 void			signal_handler(void);
 int				terminal_off_control_chars(void);
-char			*_compress_wildcard(t_lx_token *cur);
+// char			*_compress_wildcard(t_lx_token *cur);
+char			*compress_target_char(char *target_str, const char target);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 21:11:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/28 16:07:05 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/28 20:58:48 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,7 @@ void	interpreter(t_lx_token *token);
 void	print_token_list(t_lx_token *token_list);
 t_file	*check_cur_dir(const char *cur_pwd);
 int		check_match(char *input, char *name);
+t_file	*get_files_cur_pwd(const char *cur_pwd, int dir_flag);
+int 	is_matching_file(char *input, t_file  * const files, int dir_flag);
 
 #endif

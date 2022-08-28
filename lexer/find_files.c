@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsuki2 <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 23:35:33 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/28 15:55:01 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/28 20:55:26 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 #include "lexer.h"
 #include "../minishell.h"
 #include "../my_func/myfunc.h"
-
-/*
- * "*/" 나"*" input에 들어옴
- */
 
 int is_matching_file(char *input, t_file  * const files
 		, int dir_flag, int wildcard_flag)
