@@ -6,12 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 20:03:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/29 11:59:04 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/29 12:53:47 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "lexer.h"
+#include "myfunc.h"
 
 int	ft_strcnt(const char *s, const char c)
 {
@@ -79,6 +80,7 @@ t_lx_token	*_make_token(char *str, int type)
 	ret = (t_lx_token *)malloc(sizeof(t_lx_token));
 	if (ret == NULL)
 		exit(GENERAL_EXIT_CODE);
+	ret->token_str = NULL;
 	ret->interpreted_str = str;
 	ret->token_type = type;
 	ret->next = NULL;
@@ -150,6 +152,8 @@ void	recursive_find_files(t_lx_token **cur, int cur_level, \
 		}
 	}
 	free(pwd);
+	my_closedir(files->dirp);
+	free(files);
 }
 
 void	wildcard_translator(t_lx_token **cur)
@@ -169,6 +173,5 @@ void	wildcard_translator(t_lx_token **cur)
 	free(compressed_str);
 	pwd = getcwd(NULL, 0);
 	recursive_find_files(cur, 0, pwd, splited);
-	while (*splited != NULL)
-		free(splited++);
+	free(splited);
 }
