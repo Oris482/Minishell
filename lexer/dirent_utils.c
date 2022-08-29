@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:49:35 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/29 12:02:55 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/29 12:39:44 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 
 void	classify(struct dirent *ent);
 
-int count_cur_dir(DIR *dirp, const char *cur_pwd, int dir_flag)
+int count_cur_dir(const char *cur_pwd, int dir_flag)
 {
 	struct dirent	*file;
+	DIR				*dirp;
 	int				i;
 
 	i = 0;
@@ -38,28 +39,27 @@ int count_cur_dir(DIR *dirp, const char *cur_pwd, int dir_flag)
 t_file	*get_files_cur_pwd(const char *cur_pwd, int dir_flag)
 {
 	int				i;
-	DIR				*dirp;
+	struct dirent	*file_set;
 	t_file			*files;
 	int				files_n;
 
-	files_n = count_cur_dir(dirp, cur_pwd, dir_flag);
+	files_n = count_cur_dir(cur_pwd, dir_flag);
 	files = (t_file *)(my_malloc(sizeof(t_file) * files_n));
 	files->n = files_n;
-	dirp = my_opendir(cur_pwd);
+	files->dirp = my_opendir(cur_pwd);
 	i = -2;
 	while (i < files->n)
 	{
-		if (i < 0 && my_readdir(dirp) && ++i)
+		if (i < 0 && my_readdir(files->dirp) && ++i + 2)
 			continue ;
-		files[i].file_set = my_readdir(dirp);
-		if (dir_flag && files[i].file_set->d_type != DT_DIR)
+		file_set = my_readdir(files->dirp);
+		if (dir_flag && file_set->d_type != DT_DIR)
 			continue ;
-		files[i].name = files[i].file_set->d_name;
+		files[i].name = file_set->d_name;
 		files[i].match_flag = UNDEFINED;
-		files[i].type = files[i].file_set->d_type;
+		files[i].type = file_set->d_type;
 		i++;
 	}
-	my_closedir(dirp);
 	return (files);
 }
 
@@ -67,7 +67,7 @@ t_file	*get_files_cur_pwd(const char *cur_pwd, int dir_flag)
 // {
 //     t_file	*set;
 //
-//     set = get_files_cur_pwd(av[1], 1);
+//     set = get_files_cur_pwd("/Users/minsuki2/Desktop/Minishell/lexer/test_dir", 1);
 //     printf("\n");
 //     printf("\n");
 //     for (int i = 0; i < set->n; i++)
@@ -78,7 +78,9 @@ t_file	*get_files_cur_pwd(const char *cur_pwd, int dir_flag)
 //         printf("type    : %d\n", set[i].type);
 //         printf("\n");
 //     }
-//     system("leaks -q a.out");
+//     my_closedir(set->dirp);
+//     free(set);
+//     // system("leaks -q a.out");
 //     return (0);
 // }
 

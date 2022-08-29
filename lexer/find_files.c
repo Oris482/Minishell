@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 23:35:33 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/29 11:40:21 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/29 12:40:40 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,33 +54,33 @@ int	is_matching_file(char *input, t_file *const files)
 
 // int main(int ac, char *av[])
 // {
-// 	t_file	*files;
-
-// 	files = get_files_cur_pwd("/Users/minsuki2/Desktop/Minishell/lexer/test_dir", 1);
-// 	printf("\n");
-// 	printf("\n");
-// 	for (int i = 0; i < files->n; i++)
-// 	{
-// 		if (i == 0)
-// 			printf("files_n\t:\t%d\n", files[i].n);
-// 		printf("name\t:\t%s\n", files[i].name);
-// 		printf("mflag\t:\t%d\n", files[i].match_flag);
-// 		printf("type\t:\t%d\n", files[i].type);
-// 		printf("\n");
-// 	}
-
-// 	is_matching_file("test*/", files);
-
-// 	printf("------------------------------------\n");
-// 	for (int i = 0; i < files->n; i++)
-// 	{
-// 		if (i == 0)
-// 			printf("files_n\t:\t%d\n", files[i].n);
-// 		printf("name\t:\t%s\n", files[i].name);
-// 		printf("mflag\t:\t%d\n", files[i].match_flag);
-// 		printf("type\t:\t%d\n", files[i].type);
-// 		printf("\n");
-// 	}
-// 	// system("leaks -q a.out");
-// 	return (0);
+//     t_file	*files;
+//
+//     files = get_files_cur_pwd("/Users/minsuki2/Desktop/Minishell/lexer/test_dir", 1);
+//     printf("\n");
+//     printf("\n");
+//     for (int i = 0; i < files->n; i++)
+//     {
+//         if (i == 0)
+//             printf("files_n\t:\t%d\n", files[i].n);
+//         printf("name\t:\t%s\n", files[i].name);
+//         printf("mflag\t:\t%d\n", files[i].match_flag);
+//         printf("type\t:\t%d\n", files[i].type);
+//         printf("\n");
+//     }
+//
+//     is_matching_file("test*/", files);
+//
+//     printf("------------------------------------\n");
+//     for (int i = 0; i < files->n; i++)
+//     {
+//         if (i == 0)
+//             printf("files_n\t:\t%d\n", files[i].n);
+//         printf("name\t:\t%s\n", files[i].name);
+//         printf("mflag\t:\t%d\n", files[i].match_flag);
+//         printf("type\t:\t%d\n", files[i].type);
+//         printf("\n");
+//     }
+//     // system("leaks -q a.out");
+//     return (0);
 // }

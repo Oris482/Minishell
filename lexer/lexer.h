@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 21:11:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/29 11:40:36 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/29 12:30:40 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LEXER_H
 # include <stdlib.h>
 # include <stdio.h>
+# include <dirent.h>
 
 # define UNDEFINED 0
 
@@ -30,10 +31,10 @@ typedef struct s_lx_token
 typedef struct s_file
 {
 	int				n;
+	DIR				*dirp;
 	char			*name;
 	int				type;
 	int				match_flag;
-	struct dirent	*file_set;
 } t_file;
 
 int		lexer(t_lx_token **token_head, char *full_line, char *envp[]);
