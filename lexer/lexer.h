@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 21:11:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/28 16:07:05 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/29 09:40:39 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,13 @@ typedef struct s_file
 	char			*name;
 	int				type;
 	int				match_flag;
-	const char		*pwd;
 	struct dirent	*file_set;
-	struct s_file	*next;
 } t_file;
 
 int		lexer(t_lx_token **token_head, char *full_line, char *envp[]);
 void	interpreter(t_lx_token *token);
 void	print_token_list(t_lx_token *token_list);
-t_file	*check_cur_dir(const char *cur_pwd);
+t_file	*get_files_cur_pwd(const char *cur_pwd, int dir_flag);
 int		check_match(char *input, char *name);
 
 #endif

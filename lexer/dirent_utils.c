@@ -6,13 +6,81 @@
 /*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:49:35 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/28 16:01:25 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/29 09:46:15 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <errno.h>
 #include "lexer.h"
 #include "../my_func/myfunc.h"
+
+void	classify(struct dirent *ent);
+
+int count_cur_dir(DIR *dirp, const char *cur_pwd, int dir_flag)
+{
+	struct dirent	*file;
+	int				i;
+
+	i = 0;
+	dirp = my_opendir(cur_pwd);
+	file = my_readdir(dirp);
+	while (file)
+	{
+		if (!dir_flag || (dir_flag && file->d_type == DT_DIR))
+			i++;
+		classify(file);
+		file = my_readdir(dirp);
+	}
+	my_closedir(dirp);
+	return (i - 2);
+}
+
+t_file	*get_files_cur_pwd(const char *cur_pwd, int dir_flag)
+{
+	int				i;
+	DIR				*dirp;
+	t_file			*files;
+	int				files_n;
+
+	files_n = count_cur_dir(dirp, cur_pwd, dir_flag);
+	files = (t_file *)(my_malloc(sizeof(t_file) * files->n));
+	files->n = files_n;
+	dirp = my_opendir(cur_pwd);
+	i = -2;
+	while (i < files->n)
+	{
+		if (i < 0 && my_readdir(dirp) && ++i)
+			continue ;
+		files[i].file_set = my_readdir(dirp);
+		if (dir_flag && files[i].file_set->d_type != DT_DIR)
+			continue ;
+		files[i].name = files[i].file_set->d_name;
+		files[i].match_flag = UNDEFINED;
+		files[i].type = files[i].file_set->d_type;
+		i++;
+	}
+	my_closedir(dirp);
+	return (files);
+}
+
+// int main(int ac, char *av[])
+// {
+//     t_file	*set;
+//
+//     set = get_files_cur_pwd(av[1], 1);
+//     printf("\n");
+//     printf("\n");
+//     for (int i = 0; i < set->n; i++)
+//     {
+//         if (i == 0)
+//             printf("files_n : %d\n\n", set[i].n);
+//         printf("name    : %s\n", set[i].name);
+//         printf("type    : %d\n", set[i].type);
+//         printf("\n");
+//     }
+//     system("leaks -q a.out");
+//     return (0);
+// }
 
 void	classify(struct dirent *ent)
 {
@@ -32,64 +100,3 @@ void	classify(struct dirent *ent)
 	else
 		printf("Unknown Type File\n");
 }
-
-int count_cur_dir(DIR *dirp, const char *cur_pwd)
-{
-	struct dirent	*file;
-	int				i;
-
-	i = 0;
-	dirp = my_opendir(cur_pwd);
-	file = my_readdir(dirp);
-	while (file && ++i)
-	{
-		free(file);
-		classify(file);
-		file = my_readdir(dirp);
-	}
-	my_closedir(dirp);
-	return (i - 2);
-}
-
-t_file	*get_files_cur_pwd(const char *cur_pwd, int dir_flag)
-{
-	int				i;
-	DIR				*dirp;
-	t_file			*files;
-	int				file_n;
-
-	file_n = count_cur_dir(dirp, cur_pwd);
-	files = (t_file *)(my_malloc(sizeof(t_file) * files->n));
-	files->n = file_n;
-	// printf("n : %d\n", files->n);
-	dirp = my_opendir(cur_pwd);
-	i = -2;
-	while (i < files->n)
-	{
-		if (i < 0 && my_readdir(dirp) && ++i)
-			continue ;
-		files[i].file_set = my_readdir(dirp);
-		files[i].name = files[i].file_set->d_name;
-		files[i].match_flag = UNDEFINED;
-		files[i].type = files[i].file_set->d_type;
-		files[i].pwd = cur_pwd;
-		i++;
-	}
-	my_closedir(dirp);
-	return (files);
-}
-
-// int main(int ac, char *av[])
-// {
-//     t_file	*set;
-//
-//     set = get_files_cur_pwd(av[1]);
-//     for (int i = 0; i < set->n; i++)
-//     {
-//         printf("%d\n", set[i].n);
-//         printf("%s\n", set[i].name);
-//         printf("%d\n", set[i].type);
-//         printf("%s\n", set[i].pwd);
-//         printf("\n");
-//     }
-// }
