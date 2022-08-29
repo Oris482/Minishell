@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dirent_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:49:35 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/29 09:46:15 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/29 11:11:47 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int count_cur_dir(DIR *dirp, const char *cur_pwd, int dir_flag)
 	{
 		if (!dir_flag || (dir_flag && file->d_type == DT_DIR))
 			i++;
-		classify(file);
+		// classify(file);
 		file = my_readdir(dirp);
 	}
 	my_closedir(dirp);

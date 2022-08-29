@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/08/25 11:09:55 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/08/29 11:11:23 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ RM 			=	rm -vf
 AR 			= ar
 MAKE_C 		= make -C
 
+MY_FUNC_DIR		=	my_func/
 LINER_DIR 		=	liner/
 LEXER_DIR 		=	lexer/
 PARCER_DIR		=	parcer/
@@ -29,14 +30,23 @@ EXCUTER_DIR		=	excuter/
 NAME	 	=	minishell
 
 # 파일 기능별로 분류해서 소스파일 넣기
+
+MY_FUNC_SRCS		=	about_alloc.c	\
+						about_dir.c		\
+						about_pipe.c
+
 LINER_SRCS			= 	liner.c 		
 
 LEXER_SRCS			=	lexer.c			\
-						interpreter.c
+						interpreter.c	\
+						wildcard_traslator.c	\
+						dirent_utils.c			\
+						find_files.c			
 
 MANDA_SRCS	=	minishell.c									\
 				minishell_utils.c							\
 				terminal_setting.c							\
+				$(addprefix $(MY_FUNC_DIR), $(MY_FUNC_SRCS))	\
 				$(addprefix $(LINER_DIR), $(LINER_SRCS))	\
 				$(addprefix $(LEXER_DIR), $(LEXER_SRCS))
 
@@ -57,7 +67,7 @@ $(NAME): $(OBJS)
 
 %.o: %.c
 	@echo [$<] compiling...
-	$(CC) $(CFLAGS) $(CPPFLAGS) -I$(LEXER_DIR) -I. $(COMPILE) $< -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) -I$(MY_FUNC_DIR) -I$(LEXER_DIR) -I. $(COMPILE) $< -o $@
 
 clean:
 	@echo
@@ -68,7 +78,7 @@ clean:
 fclean: clean
 	@echo ">>>>>>>>>>>>>>>> Delete List <<<<<<<<<<<<<<<<<<<<"
 	@$(RM) $(NAME)
-	@rm -rf *.dSYM
+	@rm -rvf *.dSYM
 	@echo
 
 re:
@@ -85,6 +95,6 @@ list:
 	@echo $(OBJS)
 
 lldb:
-	$(CC) $(CFLAGS) $(MANDA_SRCS) $(LINKER) -I$(LEXER_DIR) -I. $(CPPFLAGS) -o $(NAME) -g
+	$(CC) $(CFLAGS) $(MANDA_SRCS) $(LINKER) -I$(MY_FUNC_DIR) -I$(LEXER_DIR) -I. $(CPPFLAGS) -o $(NAME) -g
 
 .PHONY: all clean fclean re bonus

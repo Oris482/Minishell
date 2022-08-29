@@ -6,11 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/25 19:06:33 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/29 11:02:15 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 #include "lexer.h"
 
 static void	_dollar_translater(t_lx_token *cur, char *chunk, int split_flag)
@@ -33,7 +33,8 @@ static void	_dollar_translater(t_lx_token *cur, char *chunk, int split_flag)
 	{
 		if (ft_isspace(*str_cur) && str_cur++)
 			continue ;
-		// 와일드카드 해석
+		if (cur->interpret_symbol & WILDCARD)
+			wildcard_translator(&cur);
 		printf(">>>%s<<<\n", cur->interpreted_str);
 		cur->next = (t_lx_token *)calloc(1, sizeof(t_lx_token));
 		find_str = str_cur;
@@ -131,6 +132,7 @@ void	interpreter(t_lx_token *token)
 		while (token->next)
 			token = token->next;
 	}
-	// 와일드카드 해석
+	if (token->interpret_symbol & WILDCARD)
+		wildcard_translator(&token);
 	printf(">>>%s<<<\n", token->interpreted_str);
 }

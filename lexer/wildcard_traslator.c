@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 20:03:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/28 21:41:43 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/29 11:37:26 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*ret;
 	char	*start;
-
+	
 	ret = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (ret == NULL)
 		exit(GENERAL_EXIT_CODE);
@@ -93,10 +93,11 @@ void	_files_to_node(t_lx_token **cur, t_file *files, \
 	{
 		if (files[idx].match_flag)
 		{
-			if ((*cur)->token_str != NULL)
+			if (!((*cur)->pass_flag))
 			{
 				temp = (*cur)->interpreted_str;
 				(*cur)->interpreted_str = ft_strjoin(pwd, files[idx].name);
+				(*cur)->pass_flag = 1;
 				free(temp);
 			}
 			else
@@ -117,13 +118,13 @@ int	get_target_level(char **splited)
 	idx = 0;
 	while (splited[idx])
 		idx++;
-	return (idx);
+	return (idx - 1);
 }
 
 void	recursive_find_files(t_lx_token **cur, int cur_level, \
 							char *pwd, char **splited)
 {
-	const int	dir_flag = ft_strchr(splited[cur_level], '/');
+	const int	dir_flag = ft_strcnt(splited[cur_level], '/');
 	const int	target_level = get_target_level(splited);
 	t_file		*files;
 	int			idx;
@@ -131,7 +132,7 @@ void	recursive_find_files(t_lx_token **cur, int cur_level, \
 
 
 	files = get_files_cur_pwd(pwd, dir_flag);
-	matching_cnt = is_matching_file(splited[cur_level], files, dir_flag);
+	matching_cnt = is_matching_file(splited[cur_level], files);
 	idx = 0;
 	if (cur_level == target_level && matching_cnt > 0)
 		_files_to_node(cur, files, splited[cur_level], pwd);
@@ -164,7 +165,7 @@ void	wildcard_translator(t_lx_token **cur)
 	splited = ft_split(compressed_str, '/');
 	free(compressed_str);
 	pwd = getcwd(NULL, 0);
-	recursive_find_files(cur, target_level, 0, pwd, splited);
+	recursive_find_files(cur, 0, pwd, splited);
 	while (splited != NULL)
 		free(splited++);
 }

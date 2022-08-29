@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:11:18 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/28 20:23:40 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/29 11:07:11 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,6 @@ char	*ft_strcpy(const char *start, const char *end)
 		ret[idx++] = *start++;
 	ret[idx] = '\0';
 	return (ret);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	while (*s != (char)c)
-	{
-		if (*s == '\0')
-			return (0);
-		s++;
-	}
-	return ((char *)s);
 }
 
 unsigned char	is_quote(const char c)
@@ -165,6 +154,17 @@ int	ft_strjoin_self(char **str, char *add)
 		free(*str);
 	*str = new;
 	return (0);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s != (char)c)
+	{
+		if (*s == '\0')
+			return (0);
+		s++;
+	}
+	return ((char *)s);
 }
 
 char	*ft_strchr_null(const char *s, int c)
