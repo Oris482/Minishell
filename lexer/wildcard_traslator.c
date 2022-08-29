@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 20:03:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/29 22:33:56 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/29 23:31:29 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 #include "lexer.h"
 #include "myfunc.h"
 
-int	ft_strcnt(const char *s, const char c)
+int	ft_strcnt(const char *s, const char c, int cnt_flag)
 {
 	int	cnt;
 
 	cnt = 0;
 	while (*s)
 	{
-		if (*s == c)
+		if ((*s == c) && (*(s + 1) || cnt_flag))
 			cnt++;
 		s++;
 	}
@@ -54,14 +54,18 @@ char	**ft_split(char const *s, char c)
 	char	*end;
 	int		idx;
 
-	ret = (char **)malloc(sizeof(char *) * (ft_strcnt(s, c) + 2));
+	ret = (char **)malloc(sizeof(char *) * (ft_strcnt(s, c, FALSE) + 2));
 	if (ret == NULL)
 		exit(GENERAL_EXIT_CODE);
 	idx = 0;
 	while (*s)
 	{
-		while (*s == c)
-			s++;
+		if (*s == c && s++)
+			continue ;
+		// while (*s == c)
+		//     s++;
+		// if (*s)
+		//     break ;				// "test*/" 에서 idx 2가 되어버림
 		start = (char *)s;
 		while (*s && *s != c)
 			s++;
@@ -128,7 +132,7 @@ int	get_target_level(char **splited)
 void	recursive_find_files(t_lx_token **cur, int cur_level, \
 							char *pwd, char **splited)
 {
-	const int	dir_flag = ft_strcnt(splited[cur_level], '/');
+	const int	dir_flag = ft_strcnt(splited[cur_level], '/', TRUE);
 	const int	target_level = get_target_level(splited);
 	t_file		*files;
 	int			idx;
@@ -169,7 +173,7 @@ void	wildcard_translator(t_lx_token **cur)
 	temp = compressed_str;
 	compressed_str = compress_target_char(temp, '/');
 	free(temp);
-	target_level = ft_strcnt(compressed_str, '/');
+	target_level = ft_strcnt(compressed_str, '/', FALSE);
 	splited = ft_split(compressed_str, '/');
 	free(compressed_str);
 	pwd = getcwd(NULL, 0);
