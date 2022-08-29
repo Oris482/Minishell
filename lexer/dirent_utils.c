@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:49:35 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/29 12:39:44 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/29 12:52:22 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,11 @@ t_file	*get_files_cur_pwd(const char *cur_pwd, int dir_flag)
 	return (files);
 }
 
-// int main(int ac, char *av[])
+// int main()
 // {
 //     t_file	*set;
 //
 //     set = get_files_cur_pwd("/Users/minsuki2/Desktop/Minishell/lexer/test_dir", 1);
-//     printf("\n");
-//     printf("\n");
 //     for (int i = 0; i < set->n; i++)
 //     {
 //         if (i == 0)
@@ -80,7 +78,7 @@ t_file	*get_files_cur_pwd(const char *cur_pwd, int dir_flag)
 //     }
 //     my_closedir(set->dirp);
 //     free(set);
-//     // system("leaks -q a.out");
+//     system("leaks -q a.out");
 //     return (0);
 // }
 

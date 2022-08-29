@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 23:35:33 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/29 12:40:40 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/29 13:08:51 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ int	is_matching_file(char *input, t_file *const files)
 //     t_file	*files;
 //
 //     files = get_files_cur_pwd("/Users/minsuki2/Desktop/Minishell/lexer/test_dir", 1);
-//     printf("\n");
-//     printf("\n");
 //     for (int i = 0; i < files->n; i++)
 //     {
 //         if (i == 0)
@@ -81,6 +79,8 @@ int	is_matching_file(char *input, t_file *const files)
 //         printf("type\t:\t%d\n", files[i].type);
 //         printf("\n");
 //     }
+//     my_closedir(files->dirp);
+//     free(files);
 //     // system("leaks -q a.out");
 //     return (0);
 // }
