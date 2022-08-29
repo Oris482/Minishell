@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:49:35 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/29 12:52:22 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/29 22:32:15 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_file	*get_files_cur_pwd(const char *cur_pwd, int dir_flag)
 	int				files_n;
 
 	files_n = count_cur_dir(cur_pwd, dir_flag);
+	if (!files_n)
+		return (NULL);
 	files = (t_file *)(my_malloc(sizeof(t_file) * files_n));
 	files->n = files_n;
 	files->dirp = my_opendir(cur_pwd);

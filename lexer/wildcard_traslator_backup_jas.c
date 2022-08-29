@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 20:03:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/29 22:33:56 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/29 22:20:49 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ char	*ft_strjoin(char const *s1, char const *s2, char const *s3)
 	int		len;
 
 	len = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
-	ret = (char *)my_malloc(sizeof(char) * (len + 1));
+	ret = (char *)malloc(sizeof(char) * (len + 1));
+	if (ret == NULL)
+		exit(GENERAL_EXIT_CODE);
 	start = ret;
 	while (*s1)
 		*ret++ = *s1++;
@@ -136,8 +138,6 @@ void	recursive_find_files(t_lx_token **cur, int cur_level, \
 
 
 	files = get_files_cur_pwd(pwd, dir_flag);
-	if (!files)
-		return ;
 	matching_cnt = is_matching_file(splited[cur_level], files);
 	idx = 0;
 	if (cur_level == target_level && matching_cnt > 0)
