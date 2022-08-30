@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   myfunc.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:55:46 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/25 21:50:53 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/30 22:50:12 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ DIR				*my_opendir(const char *name);
 struct dirent	*my_readdir(DIR *dirp);
 int				my_closedir(DIR *dirp);
 void			*my_malloc(unsigned int size);
-
+void            *my_calloc(unsigned int size);
+void            my_free(void *ptr);
 
 #endif
