@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:11:18 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/30 17:56:16 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/30 18:15:42 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,13 @@ unsigned char	is_wildcard(const char c)
 	return (FALSE);
 }
 
+unsigned char	is_tilde(const char c)
+{
+	if (c == '~')
+		return (TILDE);
+	return (FALSE);
+}
+
 unsigned char	is_target_char(const char c, const char target)
 {
 	if (c == target)
@@ -94,7 +101,7 @@ unsigned char	is_target_char(const char c, const char target)
 
 unsigned char	is_interpret_symbol(const char c)
 {
-	return (is_quote(c) | is_env_prefix(c) | is_wildcard(c));
+	return (is_quote(c) | is_env_prefix(c) | is_wildcard(c) | is_tilde(c));
 }
 
 int	ft_isspace(const char c)
