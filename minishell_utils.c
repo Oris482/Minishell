@@ -6,11 +6,12 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:11:18 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/30 15:07:52 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/30 17:27:04 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "myfunc.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -109,6 +110,25 @@ int	ft_isspace(const char c)
 	if ((c >= 9 && c <= 13) || c == 32)
 		return (SPACE_SET);
 	return (FALSE);
+}
+
+char	*ft_strsjoin(char const *s1, char const *s2, char const *s3)
+{
+	char	*ret;
+	char	*start;
+	int		len;
+
+	len = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
+	ret = (char *)my_malloc(sizeof(char) * (len + 1));
+	start = ret;
+	while (s1 && *s1)
+		*ret++ = *s1++;
+	while (s2 && *s2)
+		*ret++ = *s2++;
+	while (s3 && *s3)
+		*ret++ = *s3++;
+	*ret = '\0';
+	return (start);
 }
 
 size_t	ft_strlcat(char *dst, char const *src, size_t dstsize)
