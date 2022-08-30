@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 20:03:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/29 23:31:29 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/30 15:05:03 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,19 @@
 int	ft_strcnt(const char *s, const char c, int cnt_flag)
 {
 	int	cnt;
+	int	wildcard_flag;
 
 	cnt = 0;
+	wildcard_flag = 0;
 	while (*s)
 	{
-		if ((*s == c) && (*(s + 1) || cnt_flag))
-			cnt++;
+		if (*s == '*')
+			wildcard_flag = 1;
+		if (wildcard_flag && (*s == c)
+			&& (*(s + 1) || cnt_flag) && ++cnt)		// cnt_flag 일 때에는 그냥
+			wildcard_flag = 0;
+		// if ((*s == c) && (*(s + 1) || cnt_flag) && ++cnt)		// cnt_flag 일 때에는 그냥
+		//     ;
 		s++;
 	}
 	return (cnt);
@@ -50,29 +57,38 @@ char	*ft_strjoin(char const *s1, char const *s2, char const *s3)
 char	**ft_split(char const *s, char c)
 {
 	char	**ret;
-	char	*start;
+	const char	*start;
 	char	*end;
 	int		idx;
+	int		wildcard_flag;
 
 	ret = (char **)malloc(sizeof(char *) * (ft_strcnt(s, c, FALSE) + 2));
 	if (ret == NULL)
 		exit(GENERAL_EXIT_CODE);
 	idx = 0;
+	start = s;
 	while (*s)
 	{
+		// wildcard_flag = FALSE;
 		if (*s == c && s++)
 			continue ;
 		// while (*s == c)
 		//     s++;
-		// if (*s)
-		//     break ;				// "test*/" 에서 idx 2가 되어버림
-		start = (char *)s;
-		while (*s && *s != c)
+		// break ;
+		// if (*start != '/')
+		// start = (char *)s;
+		while ((*s && *s != c) || !wildcard_flag)
+		{
+			if (*s == '*')
+				wildcard_flag = TRUE;
 			s++;
+		}
 		end = (char *)s;
 		ret[idx++] = ft_strcpy(start, end + 1);
+		start = (char *)(s + 1);
 	}
 	ret[idx] = NULL;
+
 	return (ret);
 }
 
