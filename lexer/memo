@@ -1,0 +1,50 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+start : s
+end : e
+*s
+
+                                                v                              ;
+                              s              s e                               ;
+/Users/minsuki2/goinfre/test*/hello/test_dir/*.c
+                                                  v                             ;
+                              s                  e                              ;
+/Users/minsuki2/goinfre/test*/hello/test_dir/hello
+
+/Users/minsuki2/goinfre/test1/hello/test_dir/hello
+/Users/minsuki2/goinfre/test2/hello/test_dir/hello
+/Users/minsuki2/goinfre/test3/hello/test_dir/hello
+
+
+
+ft_strcnt
+
+/Users/minsuki2/goinfre/     test*								lv.1
+																* 탐색 X
+/Users/minsuki2/goinfre/     test*/								lv.1
+																* 탐색 X
+
+/Users/minsuki2/goinfre/     test*/    hello/test_dir/			lv.2
+																* 탐색 O
+
+/Users/minsuki2/goinfre/     test*/    hello/test_dir/hello		cnt : 3ea
+																* 탐색 O
+
+/Users/minsuki2/goinfre/     test*/    hello/test_dir/hello*	cnt : 4ea
+																* 탐색 O
+
+
