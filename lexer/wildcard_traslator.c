@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 20:03:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/30 22:06:48 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/30 23:30:21 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,6 @@ void	recursive_find_files(t_lx_token **cur, int cur_level, \
 	int			idx;
 	int			matching_cnt;
 
-
 	files = get_files_cur_pwd(pwd, dir_flag);
 	if (!files)
 		return ;
@@ -196,13 +195,12 @@ void	recursive_find_files(t_lx_token **cur, int cur_level, \
 		{
 			if (files[idx].match_flag)
 				recursive_find_files(cur, cur_level + 1, \
-								ft_strsjoin(pwd, "/", files[idx].name), splited);
+							ft_strsjoin(pwd, "/", files[idx].name), splited);
 			idx++;
 		}
 	}
-	free(pwd);
 	my_closedir(files->dirp);
-	free(files);
+	my_multi_free(pwd, files, NULL, NULL);
 }
 
 void	wildcard_translator(t_lx_token **cur)

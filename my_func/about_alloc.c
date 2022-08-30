@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 11:23:44 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/30 22:48:47 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/30 23:30:21 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,26 @@ void	*my_malloc(unsigned int size)
 
 void	*my_calloc(unsigned int size)
 {
-	void	*pointer;
+	char	*pointer;
 	size_t	idx;
 
-	pointer = my_malloc(size);
+	pointer = (char *)my_malloc(size);
 	idx = 0;
 	while (idx < size)
 		pointer[idx++] = 0;
-	return (pointer);
+	return ((void *)pointer);
 }
 
 void	my_free(void *ptr)
 {
 	if (ptr)
 		free(ptr);
+}
+
+void	my_multi_free(void *ptr1, void *ptr2, void *ptr3, void *ptr4)
+{
+	my_free(ptr1);
+	my_free(ptr2);
+	my_free(ptr3);
+	my_free(ptr4);
 }

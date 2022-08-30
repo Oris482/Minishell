@@ -6,12 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/30 22:01:35 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/30 23:34:21 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "lexer.h"
+#include "myfunc.h"
 
 static void	_dollar_translator(t_lx_token *cur, char *chunk, int split_flag)
 {
@@ -64,7 +65,8 @@ static void	_tilde_translator(t_lx_token *cur, char *chunk)
 	size_t	len;
 
 	env_home = NULL;
-	if (is_tilde(*(cur->token_str)) && (*(chunk + 1) == '\0' || *(chunk + 1) == '/'))
+	if (is_tilde(*(cur->token_str)) \
+		&& (*(chunk + 1) == '\0' || *(chunk + 1) == '/'))
 		env_home = getenv("HOME");
 	printf("env_home = %s\n", chunk);
 	if (env_home != NULL)
@@ -78,7 +80,7 @@ static void	_interpret_middleware(t_lx_token *token, char *chunk, \
 									unsigned char symbol_type)
 {
 	if (symbol_type == UNDEFINED || symbol_type == QUOTE)
-			ft_strjoin_self(&token->interpreted_str, chunk);
+		ft_strjoin_self(&token->interpreted_str, chunk);
 	else if (symbol_type == TILDE && token->interpret_symbol & TILDE)
 		_tilde_translator(token, chunk);
 	else if (symbol_type == DQUOTE)
@@ -99,7 +101,7 @@ static void	_interpret_middleware(t_lx_token *token, char *chunk, \
 	return ;
 }
 
-static unsigned char	_find_interpret_symbol(char **token_str, \
+unsigned char	find_interpret_symbol(char **token_str, \
 												unsigned char target)
 {
 	if (target == UNDEFINED || target == DOLLAR)
@@ -110,7 +112,8 @@ static unsigned char	_find_interpret_symbol(char **token_str, \
 	}
 	else if (target == TILDE)
 	{
-		while (**token_str && !is_env_prefix(**token_str) && !is_quote(**token_str))
+		while (**token_str && !is_env_prefix(**token_str) \
+							&& !is_quote(**token_str))
 			(*token_str)++;
 		return (TILDE);
 	}
@@ -125,8 +128,8 @@ static unsigned char	_find_interpret_symbol(char **token_str, \
 void	interpreter(t_lx_token *token)
 {
 	char			*token_str;
-	char			*str_startpoint;
 	unsigned char	symbol_type;
+	char			*str_startpoint;
 	char			*str_chunk;
 
 	token_str = token->token_str;
@@ -135,44 +138,15 @@ void	interpreter(t_lx_token *token)
 		str_startpoint = token_str;
 		symbol_type = UNDEFINED;
 		if (is_interpret_symbol(*str_startpoint))
-		{
-			symbol_type = _find_interpret_symbol(&token_str, UNDEFINED);
-			token_str++;
-			if (is_quote(*str_startpoint))
-			{
-				str_chunk = ft_strcpy(str_startpoint + 1, token_str);
-				if ((symbol_type == QUOTE || symbol_type == DQUOTE) \
-					&& is_quote(*token_str))
-					token_str++;
-			}
-			else if (is_env_prefix(*str_startpoint))
-			{
-				if (is_tilde(*token_str))
-					_find_interpret_symbol(&token_str, TILDE);
-				else
-					_find_interpret_symbol(&token_str, symbol_type);
-				str_chunk = ft_strcpy(str_startpoint + 1, token_str);
-			}
-			else if (is_tilde(*str_startpoint))
-			{
-				while (*token_str && !is_quote(*token_str) && !is_env_prefix(*token_str))
-					token_str++;
-				str_chunk = ft_strcpy(str_startpoint, token_str);
-			}
-			else
-			{
-				while (*token_str && is_wildcard(*token_str))
-					token_str++;
-				str_chunk = ft_strcpy(str_startpoint, token_str);
-			}
-		}
+			str_chunk = make_chunk_by_symbol(&token_str, \
+												str_startpoint, &symbol_type);
 		else
 		{
-			_find_interpret_symbol(&token_str, TILDE);
+			find_interpret_symbol(&token_str, TILDE);
 			str_chunk = ft_strcpy(str_startpoint, token_str);
 		}
 		_interpret_middleware(token, str_chunk, symbol_type);
-		free(str_chunk);
+		my_free(str_chunk);
 		while (token->next)
 			token = token->next;
 	}

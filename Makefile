@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/08/29 22:23:42 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/08/30 23:30:30 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ LEXER_DIR 		=	lexer/
 PARCER_DIR		=	parcer/
 EXCUTER_DIR		=	excuter/
 
-NAME	 	=	minishell
+NAME	 	=	minishellw
 
 # 파일 기능별로 분류해서 소스파일 넣기
 
@@ -38,11 +38,12 @@ MY_FUNC_SRCS		=	about_alloc.c	\
 
 LINER_SRCS			= 	liner.c 		
 
-LEXER_SRCS			=	lexer.c			\
-						interpreter.c	\
-						wildcard_traslator.c	\
-						dirent_utils.c			\
-						find_files.c			
+LEXER_SRCS			=	lexer.c						\
+						interpreter_make_chunk.c	\
+						interpreter.c				\
+						wildcard_traslator.c		\
+						dirent_utils.c				\
+						find_files.c
 
 MANDA_SRCS	=	minishell.c									\
 				minishell_utils.c							\
