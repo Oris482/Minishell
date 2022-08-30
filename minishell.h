@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/29 11:06:53 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/30 15:08:00 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define DQUOTE 0b00000010
 # define DOLLAR 0b00000100
 # define WILDCARD 0b00001000
+# define TILDE 0b00010000
 
 enum	e_token_type
 {
@@ -69,6 +70,7 @@ char			*ft_strcpy(const char *start, const char *end);
 unsigned char	is_quote(const char c);
 unsigned char	is_env_prefix(const char c);
 unsigned char	is_wildcard(const char c);
+unsigned char	is_tilde(const char c);
 unsigned char	is_interpret_symbol(const char c);
 void			set_quote_flag(const char c, unsigned char *quote_flag);
 void			set_parentheses_flag(const char c, \

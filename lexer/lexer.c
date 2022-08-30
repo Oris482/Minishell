@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/25 17:27:32 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/30 15:32:31 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	set_interpret_symbol(t_lx_token *token_node, char c, \
 		token_node->interpret_symbol |= is_env_prefix(c);
 	if (!*quote_flag)
 		token_node->interpret_symbol |= is_wildcard(c);
+	if (!*quote_flag)
+		token_node->interpret_symbol |= is_tilde(c);
 }
 
 int	make_operator(t_lx_token *token_node, char **line, int token_type)
