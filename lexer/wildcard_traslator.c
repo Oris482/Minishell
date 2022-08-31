@@ -6,52 +6,56 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 20:03:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/31 15:45:36 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/31 19:56:55 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 #include "lexer.h"
 #include "myfunc.h"
 
-static int	_ft_strcnt(const char *s, const char c)
+
+test*
+test*/
+
+static int	_ft_strcnt_nullchr(const char *s, const char c)
 {
 	int	cnt;
 
 	if (!s)
 		return (FALSE);
 	cnt = 0;
-	while (*s)
-	{
-		if (*s == c)		// cnt_flag 일 때에는 그냥
-			cnt++;
-		s++;
-	}
+	if (*s == c)
+		cnt++;
+	while (*s && s++ && ++cnt)
+		s = ft_strchr_null(s, c);
 	return (cnt);
 }
 
-int	level_check(const char *s)
-{
-	int		idx;
-	char	*old_slash;
-	int	wildcard_flag;
-
-	idx = 0;
-	wildcard_flag = 0;
-	old_slash = NULL;
-	while (*s)
-	j
-		s = ft_strchr(s, '*');
-		if (s)
-			idx++;
-		s = ft_strchr_null(s, '/');
-		if (old_slash != s)
-			idx++;						//처음에는 무조건 2증가
-		old_slash = s;
-		s += (*s == '/');
-	}
-	return (idx);
-}
+// int	level_check(const char *s)
+// {
+//     int		idx;
+//     char	*old_slash;
+//     int	wildcard_flag;
+//
+//     idx = 0;
+//     wildcard_flag = 0;
+//     old_slash = NULL;
+//     s = ft_strchr(s, '*');
+//     idx = ft_strcnt(s, '/');
+//     // while (*s)
+//     // {
+//     //     s = ft_strchr(s, '*');
+//     //     if (s)
+//     //         idx++;
+//     //     s = ft_strchr_null(s, '/');
+//     //     if (old_slash != s)
+//     //         idx++;						//처음에는 무조건 2증가
+//     //     old_slash = s;
+//     //     s += (*s == '/');
+//     // }
+//     return (idx);
+// }
 
 char	**path_split(char const *s)
 {
@@ -61,20 +65,24 @@ char	**path_split(char const *s)
 	int		idx;
 	int		wildcard_flag;
 
-	ret = (char **)my_malloc(sizeof(char *) * (level_cnt(s) + 2));
+	start = *s;
+	s = ft_strchr(s, '*');
+	ret = (char **)my_malloc(sizeof(char *) * (ft_strcnt_null(s, '/') + 2));
 	idx = 0;
 	while (*s)
 	{
-		if (idx % 2 == 0)
-			s = ft_strchr_null(s, '*');
-		else
-			s = ft_strchr_null(s, '/');
-		end = s - (*s == '\0');
-		// end = ft_strrchr(s, )
-		while (*s && *end != '/')
-			end--;
-		ret[idx++] = ft_strcpy(start, end++ + 1);
-		start = end;
+		s = ft_strchr_null(s, '/');
+		ret[idx++] = ft_strcpy(start, s + (*s));
+		start = s + (!*s);
+
+		// if (idx % 2 == 0)
+		//     s = ft_strchr_null(s, '*');
+		// else
+		// end = s - (*s == '\0');
+		// // end = ft_strrchr(s, )
+		// while (*s && *end != '/')
+		//     end--;
+		// start = end;
 		// s = ft_strchr_null(s, '/');
 		// end  = s - (*s == '\0');
 		// while (*s && end != '/')
@@ -192,14 +200,15 @@ void	wildcard_translator(t_lx_token **cur)
 	int		target_level;
 	char	*pwd;
 
+	pwd = NULL; 
 	compressed_str = compress_target_char((*cur)->interpreted_str, '*');
 	temp = compressed_str;
-	compressed_str = compress_target_char(temp, '/');
+	compressed_str = compress_target_char(compressed_str, '/');
 	free(temp);
 	target_level = level_cnt(compressed_str);
 	splited = path_split(compressed_str);
 	free(compressed_str);
-	pwd = getcwd(NULL, 0);
-	recursive_find_files(cur, 0, pwd, splited);
+	ft_strjoin_self(&pwd, splited[0]);
+	recursive_find_files(cur, 1, pwd, splited);
 	free(splited);
 }

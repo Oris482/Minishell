@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:05:57 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/31 15:56:21 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/31 19:26:57 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*ft_strchr_null(const char *s, int c)
 	return ((char *)s + i);
 }
 
-char	*ft_strrchr(const char *s, int c)
+char	*ft_strrchr_right_away(const char *s, int c, const char * const end)
 {
 	size_t	size;
 

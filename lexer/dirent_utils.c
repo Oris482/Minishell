@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:49:35 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/31 16:28:32 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/31 17:55:37 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,21 @@ t_file	*get_files_cur_pwd(const char *cur_pwd, int dir_flag)
 	return (files);
 }
 
-// int main()
-// {
-//     t_file	*set;
-//
-//     set = get_files_cur_pwd("../", 0);
-//     for (int i = 0; i < set->n; i++)
-//     {
-//         if (i == 0)
-//             printf("files_n : %d\n\n", set[i].n);
-//         printf("name    : %s\n", set[i].name);
-//         printf("type    : %d\n", set[i].type);
-//         printf("\n");
-//     }
-//     my_closedir(set->dirp);
-//     free(set);
-//     return (0);
-// }
+int main()
+{
+	t_file	*set;
+
+
+	set = get_files_cur_pwd("", 0);
+	for (int i = 0; i < set->n; i++)
+	{
+		if (i == 0)
+			printf("files_n : %d\n\n", set[i].n);
+		printf("name    : %s\n", set[i].name);
+		printf("type    : %d\n", set[i].type);
+		printf("\n");
+	}
+	my_closedir(set->dirp);
+	free(set);
+	return (0);
+}

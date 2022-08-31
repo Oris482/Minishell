@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 11:30:54 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/25 23:10:26 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/31 17:55:27 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ DIR	*my_opendir(const char *name)
 	int			temp;
 
 	temp = errno;
-	ret = opendir(name);
+	if (*name == '\0')
+		ret = opendir(".");
+	else
+		ret = opendir(name);
 	if (!ret && temp != errno && printf("%s\n", strerror(errno)))
 		exit(GENERAL_EXIT_CODE);
 	return (ret);

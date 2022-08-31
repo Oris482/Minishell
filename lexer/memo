@@ -38,13 +38,90 @@ ft_strcnt
 /Users/minsuki2/goinfre/     test*/								lv.1
 																* 탐색 X
 
-/Users/minsuki2/goinfre/     test*/    hello/test_dir/			lv.2
+			/ split x		*		 / split o
+/Users/minsuki2/goinfre/ | test*/    hello/  test_dir/   abc 
+             0		     	1	    2	      3			 4
+			 pwd
+
+/Users/minsuki2/goinfre/ | test*/    hello/  test_dir/   abc/
+
+
+4 + 2
+
+split idx 개수
+[0] ""
+[1]
+
+test*/hello
+  1
+
+test1/hello test2/hello test3/hello
+
+"" 
+
+"" *
+0  1
+
+""
+
+
+is_matching_files <- hello/   */     fildf
+
+ret[0] : /Users/minsuki2/goinfre/
+ret[1] : test*/
+ret[2] : hello/
+ret[3] : test_dir/
+
+level0
+pwd "/Users/minsuki2/goinfre/"	-> get_fils_cur_pwd()
+						 test*/ -> is_matching_files()
+
+/Users/minsuki2/goinfre/test1/ -> get_fils_cur_pwd()
+/Users/minsuki2/goinfre/test2/ -> get_fils_cur_pwd()
+/Users/minsuki2/goinfre/test3/ -> get_fils_cur_pwd()
+				hello/		   -> is_matching_files()
+
+/Users/minsuki2/goinfre/test1/hello/ -> get_fils_cur_pwd()
+/Users/minsuki2/goinfre/test2/hello/ -> get_fils_cur_pwd()
+/Users/minsuki2/goinfre/test3/hello/ -> get_fils_cur_pwd()
+				test_dir/		   -> is_matching_files()
 																* 탐색 O
 
 /Users/minsuki2/goinfre/     test*/    hello/test_dir/hello		cnt : 3ea
 																* 탐색 O
 
-/Users/minsuki2/goinfre/     test*/    hello/test_dir/hello*	cnt : 4ea
+/Users/minsuki2/goinfre/     test*/    hello/test_dir/   hello*	    cnt : 4ea
 																* 탐색 O
+
+
+level 정의?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
