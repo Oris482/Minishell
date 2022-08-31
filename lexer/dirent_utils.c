@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:49:35 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/30 14:42:59 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/08/31 15:17:39 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void	classify(struct dirent *ent);
 
-int count_cur_dir(const char *cur_pwd, int dir_flag)
+int	count_cur_dir(const char *cur_pwd, int dir_flag)
 {
 	struct dirent	*file;
 	DIR				*dirp;
@@ -29,7 +29,6 @@ int count_cur_dir(const char *cur_pwd, int dir_flag)
 	{
 		if (!dir_flag || (dir_flag && file->d_type == DT_DIR))
 			i++;
-		// classify(file);
 		file = my_readdir(dirp);
 	}
 	my_closedir(dirp);

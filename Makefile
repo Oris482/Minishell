@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/08/30 23:30:30 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/08/31 16:05:21 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,15 +38,22 @@ MY_FUNC_SRCS		=	about_alloc.c	\
 
 LINER_SRCS			= 	liner.c 		
 
-LEXER_SRCS			=	lexer.c						\
-						interpreter_make_chunk.c	\
-						interpreter.c				\
-						wildcard_traslator.c		\
-						dirent_utils.c				\
+LEXER_SRCS			=	lexer.c							\
+						check_char_utils.c				\
+						check_interpret_symbol_utils.c	\
+						tokenization_utils.c			\
+						interpreter.c					\
+						interpreter_middleware.c		\
+						interpreter_make_chunk.c		\
+						compress_target_char.c			\
+						wildcard_traslator.c			\
+						dirent_utils.c					\
 						find_files.c
 
 MANDA_SRCS	=	minishell.c									\
 				minishell_utils.c							\
+				origin_str_utils.c							\
+				custom_str_utils.c							\
 				terminal_setting.c							\
 				$(addprefix $(MY_FUNC_DIR), $(MY_FUNC_SRCS))	\
 				$(addprefix $(LINER_DIR), $(LINER_SRCS))	\

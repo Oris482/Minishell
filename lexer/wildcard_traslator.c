@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 20:03:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/30 23:30:21 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/31 15:45:36 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "lexer.h"
 #include "myfunc.h"
 
-int	ft_strcnt(const char *s, const char c)
+static int	_ft_strcnt(const char *s, const char c)
 {
 	int	cnt;
 
@@ -51,25 +51,6 @@ int	level_check(const char *s)
 		s += (*s == '/');
 	}
 	return (idx);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2, char const *s3)
-{
-	char	*ret;
-	char	*start;
-	int		len;
-
-	len = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
-	ret = (char *)my_malloc(sizeof(char) * (len + 1));
-	start = ret;
-	while (*s1)
-		*ret++ = *s1++;
-	while (*s2)
-		*ret++ = *s2++;
-	while (*s3)
-		*ret++ = *s3++;
-	*ret = '\0';
-	return (start);
 }
 
 char	**path_split(char const *s)
@@ -176,7 +157,7 @@ int	get_target_level(char **splited)
 void	recursive_find_files(t_lx_token **cur, int cur_level, \
 							char *pwd, char **splited)
 {
-	const int	dir_flag = ft_strcnt(splited[cur_level], '/');
+	const int	dir_flag = _ft_strcnt(splited[cur_level], '/');
 	const int	target_level = get_target_level(splited);
 	t_file		*files;
 	int			idx;

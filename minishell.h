@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/30 16:23:37 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:04:26 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,40 @@ typedef struct s_oflag
 	unsigned char	and_if;
 }	t_oflag;
 
+// origin_str_utils.c
 size_t			ft_strlen(const char *s);
 char			*ft_strcpy(const char *start, const char *end);
+char			*ft_strchr(const char *s, int c);
+size_t			ft_strlcat(char *dst, char const *src, size_t dstsize);
+size_t			ft_strlcpy(char *dst, char const *src, size_t dstsize);
+// custom_str_utils.c
+char			*ft_strsjoin(char const *s1, char const *s2, char const *s3);
+int				ft_strjoin_self(char **str, char *add);
+char			*ft_strchr_null(const char *s, int c);
+char			*ft_strrchr(const char *s, int c);
+// custom_char_utils.c
+int				ft_isspace(const char c);
+unsigned char	is_target_char(const char c, const char target);
+int				is_token_seperator(const char c);
+int				is_metacharacter(const char c);
+// check_interpret_symbol_utils.c
 unsigned char	is_quote(const char c);
 unsigned char	is_env_prefix(const char c);
 unsigned char	is_wildcard(const char c);
 unsigned char	is_tilde(const char c);
 unsigned char	is_interpret_symbol(const char c);
+// tokenization_utils.c
 void			set_quote_flag(const char c, unsigned char *quote_flag);
 void			set_parentheses_flag(const char c, \
 				unsigned char *parentheses_flag, unsigned char *quote_flag);
-int				ft_isspace(const char c);
-char			*ft_strsjoin(char const *s1, char const *s2, char const *s3);
-int				ft_strjoin_self(char **str, char *add);
-char			*ft_strchr(const char *s, int c);
-char			*ft_strchr_null(const char *s, int c);
+void			set_token_type(t_lx_token *token_node, char c);
+void			set_interpret_symbol(t_lx_token *token_node, char c, \
+												unsigned char *quote_flag);
+// terminal_setting.c
 void			signal_handler(void);
 int				terminal_off_control_chars(void);
-// char			*_compress_wildcard(t_lx_token *cur);
+// compress_target_char.c
 char			*compress_target_char(char *target_str, const char target);
+// wildcard_translator.c
 void			wildcard_translator(t_lx_token **cur);
 #endif
