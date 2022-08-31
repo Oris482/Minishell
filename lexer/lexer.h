@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 21:11:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/31 16:11:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:28:55 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_file
 
 // debug_function.c
 void			print_token_list(t_lx_token *token_list);
+void			classify(struct dirent *ent);
 // lexer.c
 int				lexer(t_lx_token **token_head, char *full_line, char *envp[]);
 // interpreter.c

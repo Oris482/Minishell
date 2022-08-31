@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:49:35 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/31 15:17:39 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:28:32 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,22 +81,3 @@ t_file	*get_files_cur_pwd(const char *cur_pwd, int dir_flag)
 //     free(set);
 //     return (0);
 // }
-
-void	classify(struct dirent *ent)
-{
-	printf("%s\t\t", ent->d_name);
-	if (ent->d_type == DT_BLK)
-		printf("Block Device\n");
-	else if (ent->d_type == DT_CHR)
-		printf("Character Device\n");
-	else if (ent->d_type == DT_DIR)
-		printf("Directory\n");
-	else if (ent->d_type == DT_LNK)
-		printf("Symbolic Link\n");
-	else if (ent->d_type == DT_REG)
-		printf("Regular File\n");
-	else if (ent->d_type == DT_SOCK)
-		printf("Unix Domain Socket\n");
-	else
-		printf("Unknown Type File\n");
-}

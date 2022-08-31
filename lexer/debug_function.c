@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:23:45 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/31 15:23:45 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:28:58 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,23 @@ void	print_token_list(t_lx_token *token_list)
 		printf("interpret_str = [%s]\n\n", token_list->interpreted_str);
 		token_list = token_list->next;
 	}
+}
+
+void	classify(struct dirent *ent)
+{
+	printf("%s\t\t", ent->d_name);
+	if (ent->d_type == DT_BLK)
+		printf("Block Device\n");
+	else if (ent->d_type == DT_CHR)
+		printf("Character Device\n");
+	else if (ent->d_type == DT_DIR)
+		printf("Directory\n");
+	else if (ent->d_type == DT_LNK)
+		printf("Symbolic Link\n");
+	else if (ent->d_type == DT_REG)
+		printf("Regular File\n");
+	else if (ent->d_type == DT_SOCK)
+		printf("Unix Domain Socket\n");
+	else
+		printf("Unknown Type File\n");
 }
