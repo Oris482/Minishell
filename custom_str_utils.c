@@ -6,12 +6,26 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:05:57 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/31 19:26:57 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/01 13:23:10 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "myfunc.h"
+
+size_t	ft_strcnt(const char *s, const char c)
+{
+	size_t	cnt;
+
+	cnt = 0;
+	while (*s)
+	{
+		if (*s == c)
+			cnt++;
+		s++;
+	}
+	return (cnt);
+}
 
 char	*ft_strsjoin(char const *s1, char const *s2, char const *s3)
 {
@@ -65,13 +79,13 @@ char	*ft_strchr_null(const char *s, int c)
 	return ((char *)s + i);
 }
 
-char	*ft_strrchr_right_away(const char *s, int c, const char * const end)
+char	*ft_strrchr_right_away(const char *s, int c, char *const end)
 {
-	size_t	size;
-
-	size = ft_strlen(s) + 1;
-	while (size--)
-		if (s[size] == (char)c)
-			return ((char *)s + size);
+	while (s >= end)
+	{
+		if (*s == c)
+			return ((char *)s);
+		s--;
+	}
 	return (NULL);
 }

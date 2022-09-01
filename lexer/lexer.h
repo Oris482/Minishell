@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 21:11:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/31 16:28:55 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/01 13:02:16 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ void			interpret_middleware(t_lx_token *token, char *chunk, \
 t_file			*get_files_cur_pwd(const char *cur_pwd, int dir_flag);
 // find_files.c
 int				is_matching_file(char *input, t_file *const files);
+void			recursive_find_files(t_lx_token **cur, int cur_level, \
+											char *pwd, char **splited);
+// find_files_utils.c
+char			*path_plus_filename(char *pwd, t_file *files, int idx, \
+														int dir_flag);
+int				get_target_level(char **splited);
 // interpreter_make_chunk.c
 char			*make_chunk_by_symbol(char **token_str, \
 					char *str_startpoint, unsigned char *symbol_type);

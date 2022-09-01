@@ -6,15 +6,15 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/08/31 16:05:21 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/01 13:13:20 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 			=	cc
 # CFLAGS 		=	-Wall -Wextra -Werror $(CPPFLAGS) # -fsanitize=address
 # CFLAGS 		=	-Wall -Wextra -Werror $(CPPFLAGS)
-# CFLAGS 		=	-Wall -Wextra -Werror
 CFLAGS			= 	-fsanitize=address
+# CFLAGS 		=	-Wall -Wextra -Werror
 
 LINKER		=	$(LDFLAGS) -lreadline
 COMPILE		=	-c $(CPPFLAGS)
@@ -28,7 +28,7 @@ LEXER_DIR 		=	lexer/
 PARCER_DIR		=	parcer/
 EXCUTER_DIR		=	excuter/
 
-NAME	 	=	minishellw
+NAME	 	=	minishell
 
 # 파일 기능별로 분류해서 소스파일 넣기
 
@@ -39,6 +39,7 @@ MY_FUNC_SRCS		=	about_alloc.c	\
 LINER_SRCS			= 	liner.c 		
 
 LEXER_SRCS			=	lexer.c							\
+						debug_function.c				\
 						check_char_utils.c				\
 						check_interpret_symbol_utils.c	\
 						tokenization_utils.c			\
@@ -46,9 +47,10 @@ LEXER_SRCS			=	lexer.c							\
 						interpreter_middleware.c		\
 						interpreter_make_chunk.c		\
 						compress_target_char.c			\
-						wildcard_traslator.c			\
+						wildcard_translator.c			\
 						dirent_utils.c					\
-						find_files.c
+						find_files.c					\
+						find_files_utils.c
 
 MANDA_SRCS	=	minishell.c									\
 				minishell_utils.c							\
@@ -76,7 +78,7 @@ $(NAME): $(OBJS)
 
 %.o: %.c
 	@echo [$<] compiling...
-	$(CC) $(CFLAGS) $(CPPFLAGS) -I$(MY_FUNC_DIR) -I$(LEXER_DIR) -I. $(COMPILE) $< -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) -I$(MY_FUNC_DIR) -I$(LINER_DIR) -I$(LEXER_DIR) -I. $(COMPILE) $< -o $@
 
 clean:
 	@echo
@@ -104,7 +106,7 @@ list:
 	@echo $(OBJS)
 
 lldb:
-	$(CC) $(CFLAGS) $(MANDA_SRCS) $(LINKER) -I$(MY_FUNC_DIR) -I$(LEXER_DIR) -I. $(CPPFLAGS) -o $(NAME) -g
-	cp minishell lexer/test_dir/
+	$(CC) $(CFLAGS) $(MANDA_SRCS) $(LINKER) -I$(MY_FUNC_DIR) -I$(LINER_DIR) -I$(LEXER_DIR) -I. $(CPPFLAGS) -o $(NAME) -g
+	cp $(NAME) lexer/test_dir/
 
 .PHONY: all clean fclean re bonus

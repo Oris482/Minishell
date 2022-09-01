@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 08:10:39 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/25 11:05:37 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/01 13:24:52 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	tmp_debug_print(char *line, t_oflag *oflag)
 		printf("unexpected EOF while looking for matching `\"'\n");
 	if (oflag->parentheses)
 		printf("unexpected EOF while looking for matching `('\n");
-	/* if (!oflag->quote && !oflag->parentheses) */
-		/* printf("%s\n", line); */
 }
 
 int	check_line_oflag(char *line, unsigned char *parentheses_flag, \

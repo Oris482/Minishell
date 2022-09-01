@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/31 16:04:26 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/01 13:24:02 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,11 @@ char			*ft_strchr(const char *s, int c);
 size_t			ft_strlcat(char *dst, char const *src, size_t dstsize);
 size_t			ft_strlcpy(char *dst, char const *src, size_t dstsize);
 // custom_str_utils.c
+size_t			ft_strcnt(const char *s, const char c);
 char			*ft_strsjoin(char const *s1, char const *s2, char const *s3);
 int				ft_strjoin_self(char **str, char *add);
 char			*ft_strchr_null(const char *s, int c);
-char			*ft_strrchr(const char *s, int c);
+char			*ft_strrchr_right_away(const char *s, int c, char *const end);
 // custom_char_utils.c
 int				ft_isspace(const char c);
 unsigned char	is_target_char(const char c, const char target);

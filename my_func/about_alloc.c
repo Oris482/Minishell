@@ -6,14 +6,14 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 11:23:44 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/31 18:12:05 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/01 13:08:11 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "myfunc.h"
 
-void	*my_malloc(unsigned int size)
+void	*my_malloc(size_t size)
 {
 	void	*pointer;
 
@@ -26,14 +26,15 @@ void	*my_malloc(unsigned int size)
 	return (pointer);
 }
 
-void	*my_calloc(unsigned int size)
+void	*my_calloc(size_t count, size_t size)
 {
-	char	*pointer;
-	size_t	idx;
+	const size_t	full_size = count * size;
+	char			*pointer;
+	size_t			idx;
 
-	pointer = (char *)my_malloc(size);
+	pointer = (char *)my_malloc(full_size);
 	idx = 0;
-	while (idx < size)
+	while (idx < full_size)
 		pointer[idx++] = 0;
 	return ((void *)pointer);
 }

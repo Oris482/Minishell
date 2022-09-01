@@ -6,13 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/25 11:06:00 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/01 13:11:32 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "lexer/lexer.h"
-#include "liner/liner.h"
+#include "lexer.h"
+#include "liner.h"
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -33,5 +33,7 @@ int	main(int argc, char *argv[], char *envp[])
 		print_token_list(token_list);
 		free(token_list);
 	}
+	(void)argc;
+	(void)argv;
 	return (0);
 }

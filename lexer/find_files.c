@@ -6,14 +6,14 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 23:35:33 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/29 13:08:51 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/01 13:24:09 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <errno.h>
 #include "lexer.h"
-#include "../minishell.h"
-#include "../my_func/myfunc.h"
+#include "minishell.h"
+#include "myfunc.h"
 
 static int	_check_match_files(char *input, char *name)
 {
@@ -52,35 +52,77 @@ int	is_matching_file(char *input, t_file *const files)
 	return (cnt);
 }
 
-// int main(int ac, char *av[])
-// {
-//     t_file	*files;
-//
-//     files = get_files_cur_pwd("/Users/minsuki2/Desktop/Minishell/lexer/test_dir", 1);
-//     for (int i = 0; i < files->n; i++)
-//     {
-//         if (i == 0)
-//             printf("files_n\t:\t%d\n", files[i].n);
-//         printf("name\t:\t%s\n", files[i].name);
-//         printf("mflag\t:\t%d\n", files[i].match_flag);
-//         printf("type\t:\t%d\n", files[i].type);
-//         printf("\n");
-//     }
-//
-//     is_matching_file("test*/", files);
-//
-//     printf("------------------------------------\n");
-//     for (int i = 0; i < files->n; i++)
-//     {
-//         if (i == 0)
-//             printf("files_n\t:\t%d\n", files[i].n);
-//         printf("name\t:\t%s\n", files[i].name);
-//         printf("mflag\t:\t%d\n", files[i].match_flag);
-//         printf("type\t:\t%d\n", files[i].type);
-//         printf("\n");
-//     }
-//     my_closedir(files->dirp);
-//     free(files);
-//     // system("leaks -q a.out");
-//     return (0);
-// }
+static t_lx_token	*_make_wildcard_token(char *str)
+{
+	t_lx_token	*ret;
+
+	ret = (t_lx_token *)malloc(sizeof(t_lx_token));
+	if (ret == NULL)
+		exit(GENERAL_EXIT_CODE);
+	ret->token_str = NULL;
+	ret->interpret_symbol = WILDCARD;
+	ret->interpreted_str = str;
+	ret->token_type = WORD;
+	ret->next = NULL;
+	return (ret);
+}
+
+static void	_files_to_node(t_lx_token **cur, t_file *files, \
+						char *pwd, int dir_flag)
+{
+	char		*temp;
+	int			idx;
+
+	idx = 0;
+	while (idx < files->n)
+	{
+		if (files[idx].match_flag)
+		{
+			if (!((*cur)->pass_flag))
+			{
+				temp = (*cur)->interpreted_str;
+				(*cur)->interpreted_str = path_plus_filename(pwd, files, \
+															idx, dir_flag);
+				(*cur)->pass_flag = 1;
+				free(temp);
+			}
+			else
+			{
+				(*cur)->next = _make_wildcard_token(path_plus_filename(pwd, \
+														files, idx, dir_flag));
+				(*cur) = (*cur)->next;
+			}
+		}
+		idx++;
+	}
+}
+
+void	recursive_find_files(t_lx_token **cur, int cur_level, \
+							char *pwd, char **splited)
+{
+	const int	dir_flag = ft_strcnt(splited[cur_level], '/');
+	const int	target_level = get_target_level(splited);
+	t_file		*files;
+	int			idx;
+	int			matching_cnt;
+
+	files = get_files_cur_pwd(pwd, dir_flag);
+	if (!files)
+		return ;
+	matching_cnt = is_matching_file(splited[cur_level], files);
+	idx = 0;
+	if (cur_level == target_level && matching_cnt > 0)
+		_files_to_node(cur, files, pwd, dir_flag);
+	else
+	{
+		while (files && idx < files->n)
+		{
+			if (files[idx].match_flag)
+				recursive_find_files(cur, cur_level + 1, \
+							ft_strsjoin(pwd, files[idx].name, "/"), splited);
+			idx++;
+		}
+	}
+	my_closedir(files->dirp);
+	my_multi_free(pwd, files, NULL, NULL);
+}
