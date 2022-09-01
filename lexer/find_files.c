@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 23:35:33 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/01 13:24:09 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/01 15:47:09 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 static int	_check_match_files(char *input, char *name)
 {
+	if (*input != '.' && *name == '.')
+		return (FALSE);
 	while (*input || *name)
 	{
 		if (*input == '*' && ((*name && (*(input + 1) == '\0' \
@@ -34,9 +36,9 @@ static int	_check_match_files(char *input, char *name)
 
 int	is_matching_file(char *input, t_file *const files)
 {
-	int		i;
-	int		cnt;
-	char	*wildcard_flag;
+	int			i;
+	int			cnt;
+	char		*wildcard_flag;
 
 	i = 0;
 	cnt = 0;
@@ -100,7 +102,7 @@ static void	_files_to_node(t_lx_token **cur, t_file *files, \
 void	recursive_find_files(t_lx_token **cur, int cur_level, \
 							char *pwd, char **splited)
 {
-	const int	dir_flag = ft_strcnt(splited[cur_level], '/');
+	const char	dir_flag = !!ft_strchr(splited[cur_level], '/');
 	const int	target_level = get_target_level(splited);
 	t_file		*files;
 	int			idx;

@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/01 13:13:20 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/01 15:04:48 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,6 +107,5 @@ list:
 
 lldb:
 	$(CC) $(CFLAGS) $(MANDA_SRCS) $(LINKER) -I$(MY_FUNC_DIR) -I$(LINER_DIR) -I$(LEXER_DIR) -I. $(CPPFLAGS) -o $(NAME) -g
-	cp $(NAME) lexer/test_dir/
 
 .PHONY: all clean fclean re bonus

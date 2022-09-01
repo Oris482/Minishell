@@ -6,11 +6,12 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/31 16:06:46 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/01 16:22:45 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "myfunc.h"
 
 static int	_cursor_to_space(char **str_cur)
 {
@@ -28,6 +29,7 @@ static void	_dollar_translator(t_lx_token *cur, char *chunk, int split_flag)
 	char	*find_str;
 	char	*str_cur;
 
+	// if (*chunk == '?')
 	find_str = getenv(chunk);
 	if (!find_str || !*find_str)
 		return ;
@@ -41,13 +43,15 @@ static void	_dollar_translator(t_lx_token *cur, char *chunk, int split_flag)
 			continue ;
 		if (cur->interpret_symbol & WILDCARD)
 			wildcard_translator(&cur);
-		cur->next = (t_lx_token *)calloc(1, sizeof(t_lx_token));
+		cur->next = (t_lx_token *)my_calloc(1, sizeof(t_lx_token));
 		find_str = str_cur;
 		while (*str_cur && !ft_isspace(*str_cur))
 			str_cur++;
 		cur->next->interpreted_str = ft_strcpy(find_str, str_cur);
+		if(ft_strchr(cur->next->interpreted_str, '*'))
+			cur->next->interpret_symbol |= WILDCARD;
 		if (split_flag)
-			cur->next->interpret_symbol = DOLLAR;
+			cur->next->interpret_symbol |= DOLLAR;
 		cur = cur->next;
 	}
 }

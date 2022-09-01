@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 23:24:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/31 15:43:49 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/01 16:18:40 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static char	*_handle_dollar_symbol(char **token_str, char *str_startpoint)
 {
 	if (is_tilde(**token_str))
 		find_interpret_symbol(token_str, TILDE);
+	else if (**token_str == '?')
+		(*token_str)++;
 	else
 		find_interpret_symbol(token_str, DOLLAR);
 	return (ft_strcpy(str_startpoint + 1, *token_str));
@@ -36,7 +38,7 @@ static char	*_handle_dollar_symbol(char **token_str, char *str_startpoint)
 
 static char	*_handle_tilde_symbol(char **token_str, char *str_startpoint)
 {
-	while (**token_str && !is_quote(**token_str) && !is_env_prefix(**token_str))
+	while (**token_str && !is_quote(**token_str) && !is_dollar(**token_str))
 		(*token_str)++;
 	return (ft_strcpy(str_startpoint, *token_str));
 }
@@ -55,7 +57,7 @@ char	*make_chunk_by_symbol(char **token_str, \
 	(*token_str)++;
 	if (is_quote(*str_startpoint))
 		return (_handle_quote_symbol(token_str, str_startpoint, symbol_type));
-	else if (is_env_prefix(*str_startpoint))
+	else if (is_dollar(*str_startpoint))
 		return (_handle_dollar_symbol(token_str, str_startpoint));
 	else if (is_tilde(*str_startpoint))
 		return (_handle_tilde_symbol(token_str, str_startpoint));

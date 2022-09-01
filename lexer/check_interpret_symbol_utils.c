@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:09:05 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/31 15:09:25 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/01 15:51:09 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ unsigned char	is_quote(const char c)
 	return (FALSE);
 }
 
-unsigned char	is_env_prefix(const char c)
+unsigned char	is_dollar(const char c)
 {
 	if (c == '$')
 		return (DOLLAR);
@@ -44,5 +44,5 @@ unsigned char	is_tilde(const char c)
 
 unsigned char	is_interpret_symbol(const char c)
 {
-	return (is_quote(c) | is_env_prefix(c) | is_wildcard(c) | is_tilde(c));
+	return (is_quote(c) | is_dollar(c) | is_wildcard(c) | is_tilde(c));
 }

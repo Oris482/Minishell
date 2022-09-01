@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:15:19 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/31 15:59:28 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/01 15:51:09 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	set_interpret_symbol(t_lx_token *token_node, char c, \
 	if (is_quote(c) == *quote_flag)
 		token_node->interpret_symbol |= *quote_flag;
 	if (!*quote_flag || *quote_flag == DQUOTE)
-		token_node->interpret_symbol |= is_env_prefix(c);
+		token_node->interpret_symbol |= is_dollar(c);
 	if (!*quote_flag)
 		token_node->interpret_symbol |= is_wildcard(c);
 	if (!*quote_flag)

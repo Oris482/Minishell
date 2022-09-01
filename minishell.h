@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/01 13:24:02 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/01 15:51:09 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int				is_token_seperator(const char c);
 int				is_metacharacter(const char c);
 // check_interpret_symbol_utils.c
 unsigned char	is_quote(const char c);
-unsigned char	is_env_prefix(const char c);
+unsigned char	is_dollar(const char c);
 unsigned char	is_wildcard(const char c);
 unsigned char	is_tilde(const char c);
 unsigned char	is_interpret_symbol(const char c);

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/31 15:44:45 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/01 15:51:09 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ unsigned char	find_interpret_symbol(char **token_str, \
 	}
 	else if (target == TILDE)
 	{
-		while (**token_str && !is_env_prefix(**token_str) \
+		while (**token_str && !is_dollar(**token_str) \
 							&& !is_quote(**token_str))
 			(*token_str)++;
 		return (TILDE);
 	}
 	else
 	{
-		while ((is_quote(**token_str) | is_env_prefix(**token_str)) != target)
+		while ((is_quote(**token_str) | is_dollar(**token_str)) != target)
 			(*token_str)++;
 		return (target);
 	}

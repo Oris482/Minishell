@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:49:35 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/01 13:24:00 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/01 15:40:24 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void	classify(struct dirent *ent);
 
-int	count_cur_dir(const char *cur_pwd, int dir_flag)
+int	count_cur_dir(const char *cur_pwd, char dir_flag)
 {
 	struct dirent	*file;
 	DIR				*dirp;
@@ -32,10 +32,10 @@ int	count_cur_dir(const char *cur_pwd, int dir_flag)
 		file = my_readdir(dirp);
 	}
 	my_closedir(dirp);
-	return (i - 2);
+	return (i);
 }
 
-t_file	*get_files_cur_pwd(const char *cur_pwd, int dir_flag)
+t_file	*get_files_cur_pwd(const char *cur_pwd, char dir_flag)
 {
 	int				i;
 	struct dirent	*file_set;
@@ -48,11 +48,9 @@ t_file	*get_files_cur_pwd(const char *cur_pwd, int dir_flag)
 	files = (t_file *)(my_malloc(sizeof(t_file) * files_n));
 	files->n = files_n;
 	files->dirp = my_opendir(cur_pwd);
-	i = -2;
+	i = 0;
 	while (i < files->n)
 	{
-		if (i < 0 && my_readdir(files->dirp) && ++i + 2)
-			continue ;
 		file_set = my_readdir(files->dirp);
 		if (dir_flag && file_set->d_type != DT_DIR)
 			continue ;
