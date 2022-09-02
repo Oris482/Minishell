@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/01 16:22:45 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/02 19:03:06 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	_dollar_translator(t_lx_token *cur, char *chunk, int split_flag)
 		while (*str_cur && !ft_isspace(*str_cur))
 			str_cur++;
 		cur->next->interpreted_str = ft_strcpy(find_str, str_cur);
-		if(ft_strchr(cur->next->interpreted_str, '*'))
+		if (ft_strchr(cur->next->interpreted_str, '*'))
 			cur->next->interpret_symbol |= WILDCARD;
 		if (split_flag)
 			cur->next->interpret_symbol |= DOLLAR;
@@ -71,17 +71,15 @@ static void	_dquote_translator(t_lx_token *cur, char *chunk)
 static void	_tilde_translator(t_lx_token *cur, char *chunk)
 {
 	char	*env_home;
-	size_t	len;
 
 	env_home = NULL;
-	if (is_tilde(*(cur->token_str)) \
+	if (is_tilde(*(cur->token_str)) && !cur->interpreted_str \
 		&& (*(chunk + 1) == '\0' || *(chunk + 1) == '/'))
 		env_home = getenv("HOME");
-	printf("env_home = %s\n", chunk);
 	if (env_home != NULL)
 		chunk++;
-	len = ft_strlen(chunk) - 1 + ft_strlen(env_home);
-	cur->interpreted_str = ft_strsjoin(env_home, chunk, NULL);
+	ft_strjoin_self(&cur->interpreted_str, env_home);
+	ft_strjoin_self(&cur->interpreted_str, chunk);
 	return ;
 }
 
@@ -96,9 +94,8 @@ void	interpret_middleware(t_lx_token *token, char *chunk, \
 		_dquote_translator(token, chunk);
 	else if (symbol_type == DOLLAR && token->interpret_symbol & DOLLAR)
 	{
-		if (is_tilde(*chunk))
+		if (*chunk == '\0' || is_tilde(*chunk))
 		{
-			token->interpret_symbol &= ~TILDE;
 			ft_strjoin_self(&token->interpreted_str, "$");
 			ft_strjoin_self(&token->interpreted_str, chunk);
 			return ;
