@@ -1,0 +1,66 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   liner.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/23 08:10:39 by minsuki2          #+#    #+#             */
+/*   Updated: 2022/09/01 13:24:52 by jaesjeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
+#include "liner.h"
+
+void	tmp_debug_print(char *line, t_oflag *oflag)
+{
+	(void)line;
+	if (oflag->quote == QUOTE)
+		printf("unexpected EOF while looking for matching `''\n");
+	if (oflag->quote == DQUOTE)
+		printf("unexpected EOF while looking for matching `\"'\n");
+	if (oflag->parentheses)
+		printf("unexpected EOF while looking for matching `('\n");
+}
+
+int	check_line_oflag(char *line, unsigned char *parentheses_flag, \
+						unsigned char *quote_flag)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		set_quote_flag(line[i], quote_flag);
+		set_parentheses_flag(line[i], parentheses_flag, quote_flag);
+		++i;
+	}
+	return (i);
+}
+
+char	*line_handler(void)
+{
+	t_oflag			oflag;
+	char			*line;
+	int				i;
+
+	oflag.quote = 0;
+	oflag.parentheses = 0;
+	line = readline("minishell$> ");
+	if (!line)
+	{
+		write(STDOUT_FILENO, "BYE\n", 4);
+		exit(0);
+	}
+	i = check_line_oflag(line, &oflag.parentheses, &oflag.quote);
+	while (oflag.quote || oflag.parentheses)
+	{
+		if (ft_strjoin_self(&line, "\n") == ERROR
+			|| ft_strjoin_self(&line, readline("> ")) == ERROR)
+			break ;
+		i += check_line_oflag(line + i, &oflag.parentheses, &oflag.quote);
+	}
+	tmp_debug_print(line, &oflag);
+	return (line);
+}
