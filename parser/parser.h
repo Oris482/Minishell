@@ -6,12 +6,12 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:38:13 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/03 17:48:05 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/03 18:04:45 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef parser_H
-# define parser_H
+#ifndef PARSER_H
+# define PARSER_H
 
 // typedef struct s_tree
 // {
