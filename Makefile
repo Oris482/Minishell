@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/01 15:04:48 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/03 21:28:57 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ LEXER_SRCS			=	lexer.c							\
 						wildcard_translator.c			\
 						dirent_utils.c					\
 						find_files.c					\
+						make_node.c						\
 						find_files_utils.c
 
 MANDA_SRCS	=	minishell.c									\

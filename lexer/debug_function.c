@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:23:45 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/31 16:28:58 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/03 23:45:49 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	print_token_list(t_lx_token *token_list)
 {
 	char	*token_type;
+	// idx = -1;
 
+	printf("------------------------------------------------------\n");
 	while (token_list)
 	{
 		if (token_list->token_type == WORD)
@@ -45,9 +47,12 @@ void	print_token_list(t_lx_token *token_list)
 		printf("token_str = [%s]\n", token_list->token_str);
 		printf("token_type = %s(%d) interpret_symbol = %d\n", token_type, \
 				token_list->token_type, token_list->interpret_symbol);
-		printf("interpret_str = [%s]\n\n", token_list->interpreted_str);
+		printf("interpret_str = [%s]\n", token_list->interpreted_str);
+		if (token_list->next)
+			printf("\n");
 		token_list = token_list->next;
 	}
+	printf("------------------------------------------------------\n\n");
 }
 
 void	classify(struct dirent *ent)
@@ -67,4 +72,40 @@ void	classify(struct dirent *ent)
 		printf("Unix Domain Socket\n");
 	else
 		printf("Unknown Type File\n");
+}
+
+void	print_token_priv(t_lx_token *token_list)
+{
+	t_lx_token * const	head = token_list;
+
+	if (!head)
+		return ;
+	printf(" [(null)] ");
+	token_list = token_list->priv;
+	while (token_list && token_list != head)
+	{
+		if (token_list->interpreted_str)
+			printf("← [%s] ", token_list->interpreted_str);
+		else
+			printf("← [%s] ", token_list->token_str);
+		token_list = token_list->priv;
+	}
+	if (token_list->interpreted_str)
+		printf("← [%s] ", token_list->interpreted_str);
+	else
+		printf("← [%s] ", token_list->token_str);
+	printf("\n\n");
+}
+
+void	print_token_next(t_lx_token *token_list)
+{
+	while (token_list)
+	{
+		if (token_list->interpreted_str)
+			printf(" [%s] →", token_list->interpreted_str);
+		else
+			printf(" [%s] →", token_list->token_str);
+		token_list = token_list->next;
+	}
+	printf(" [(null)]\n\n");
 }

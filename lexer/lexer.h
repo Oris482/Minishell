@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 21:11:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/01 15:40:13 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/03 22:24:29 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_lx_token
 	char				*interpreted_str;
 	int					pass_flag;
 	struct s_lx_token	*next;
+	struct s_lx_token	*priv;
 }	t_lx_token;
 
 typedef struct s_file
@@ -40,6 +41,8 @@ typedef struct s_file
 // debug_function.c
 void			print_token_list(t_lx_token *token_list);
 void			classify(struct dirent *ent);
+void			print_token_next(t_lx_token *token_list);
+void			print_token_priv(t_lx_token *token_list);
 // lexer.c
 int				lexer(t_lx_token **token_head, char *full_line, char *envp[]);
 // interpreter.c
@@ -62,4 +65,7 @@ int				get_target_level(char **splited);
 // interpreter_make_chunk.c
 char			*make_chunk_by_symbol(char **token_str, \
 					char *str_startpoint, unsigned char *symbol_type);
+
+// make_node.c
+t_lx_token	*connect_token(t_lx_token *token_head, t_lx_token *cur);
 #endif

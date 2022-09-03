@@ -6,12 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/31 16:08:53 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/03 22:56:53 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "minishell.h"
+#include "myfunc.h"
 
 static int	_check_doubled_operator(char **line)
 {
@@ -44,9 +45,9 @@ t_lx_token	*set_token(char **line, t_oflag *oflag, char *envp[])
 	const int	token_split_flag = is_token_seperator(**line);
 	const char	*str_startpoint = *line;
 
-	token_node = (t_lx_token *)calloc(1, sizeof(t_lx_token));
-	if (token_node == NULL)
-		exit(GENERAL_EXIT_CODE);
+	token_node = (t_lx_token *)my_calloc(1, sizeof(t_lx_token));
+	// if (token_node == NULL)
+	//     exit(GENERAL_EXIT_CODE);
 	if (_make_operator(token_node, line, _check_doubled_operator(line)))
 		return (token_node);
 	while (**line && (oflag->quote || (token_node->token_type == UNDEFINED \
@@ -73,7 +74,7 @@ int	lexer(t_lx_token **token_head, char *full_line, char *envp[])
 
 	oflag.quote = 0;
 	oflag.and_if = 0;
-	while (*full_line)
+	while (*full_line || token_cur)
 	{
 		if (ft_isspace(*full_line) && full_line++)
 			continue ;
@@ -82,12 +83,10 @@ int	lexer(t_lx_token **token_head, char *full_line, char *envp[])
 			*token_head = set_token(&full_line, &oflag, envp);
 			token_cur = *token_head;
 		}
-		else if (token_cur->next == NULL)
+		else if (*full_line && token_cur->next == NULL)
 			token_cur->next = set_token(&full_line, &oflag, envp);
 		else
-			token_cur = token_cur->next;
+			token_cur = connect_token(*token_head, token_cur);
 	}
-	if (false)
-		return (ERROR);
 	return (SUCCESS);
 }

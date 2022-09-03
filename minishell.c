@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/01 13:11:32 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/03 22:36:20 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	main(int argc, char *argv[], char *envp[])
 			return (1);
 		free(full_line);
 		print_token_list(token_list);
+		print_token_next(token_list);
+		print_token_priv(token_list);
 		free(token_list);
 	}
 	(void)argc;
