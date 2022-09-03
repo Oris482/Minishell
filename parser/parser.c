@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parcer.c                                           :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:31:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/24 10:53:51 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/03 17:48:05 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parcer.h"
+#include "parser.h"
 #include "../lexer/lexer.h"
 #include "../minishell.h"
 // #include "minishell.h"
@@ -23,7 +23,7 @@ void recursive_tree()
 
 }
 
-int parcer(t_lx_token *head)
+int parser(t_lx_token *head)
 {
 	t_tree		*point;
 	t_lx_token	*cur_node;

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/01 15:51:09 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/03 17:55:13 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ enum	e_token_type
 
 enum	e_exit_code
 {
-	GENERAL_EXIT_CODE = 1
+	GENERAL_EXIT_CODE = 1,
+	SYNTAX_ERROR_EXIT_CODE = 258
 };
 
 enum	e_return
@@ -77,7 +78,7 @@ char			*ft_strsjoin(char const *s1, char const *s2, char const *s3);
 int				ft_strjoin_self(char **str, char *add);
 char			*ft_strchr_null(const char *s, int c);
 char			*ft_strrchr_right_away(const char *s, int c, char *const end);
-// custom_char_utils.c
+// check_char_utils.c
 int				ft_isspace(const char c);
 unsigned char	is_target_char(const char c, const char target);
 int				is_token_seperator(const char c);
@@ -88,18 +89,9 @@ unsigned char	is_dollar(const char c);
 unsigned char	is_wildcard(const char c);
 unsigned char	is_tilde(const char c);
 unsigned char	is_interpret_symbol(const char c);
-// tokenization_utils.c
-void			set_quote_flag(const char c, unsigned char *quote_flag);
-void			set_parentheses_flag(const char c, \
-				unsigned char *parentheses_flag, unsigned char *quote_flag);
-void			set_token_type(t_lx_token *token_node, char c);
-void			set_interpret_symbol(t_lx_token *token_node, char c, \
-												unsigned char *quote_flag);
 // terminal_setting.c
 void			signal_handler(void);
 int				terminal_off_control_chars(void);
-// compress_target_char.c
-char			*compress_target_char(char *target_str, const char target);
-// wildcard_translator.c
-void			wildcard_translator(t_lx_token **cur);
+// minishell_utils.c
+char			*get_token_str(const t_lx_token *token);
 #endif

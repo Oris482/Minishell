@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/01 15:04:48 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/03 17:53:05 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ MAKE_C 		= make -C
 MY_FUNC_DIR		=	my_func/
 LINER_DIR 		=	liner/
 LEXER_DIR 		=	lexer/
-PARCER_DIR		=	parcer/
+PARSER_DIR		=	parser/
 EXCUTER_DIR		=	excuter/
 
 NAME	 	=	minishell
@@ -52,21 +52,24 @@ LEXER_SRCS			=	lexer.c							\
 						find_files.c					\
 						find_files_utils.c
 
-MANDA_SRCS	=	minishell.c									\
-				minishell_utils.c							\
-				origin_str_utils.c							\
-				custom_str_utils.c							\
-				terminal_setting.c							\
+PARSER_SRCS			=	check_syntax_error.c
+
+MANDA_SRCS	=	minishell.c										\
+				minishell_utils.c								\
+				origin_str_utils.c								\
+				custom_str_utils.c								\
+				terminal_setting.c								\
 				$(addprefix $(MY_FUNC_DIR), $(MY_FUNC_SRCS))	\
-				$(addprefix $(LINER_DIR), $(LINER_SRCS))	\
-				$(addprefix $(LEXER_DIR), $(LEXER_SRCS))
+				$(addprefix $(LINER_DIR), $(LINER_SRCS))		\
+				$(addprefix $(LEXER_DIR), $(LEXER_SRCS))		\
+				$(addprefix $(PARSER_DIR), $(PARSER_SRCS))
 
 
 
 # SRCS			= 	$(MANDA_SRCS)
 # HADS			=	$(MANDATORY_DIR)push_swap.h
 OBJS			=	$(MANDA_SRCS:.c=.o)
-
+INC_HEADERS			=	-I$(MY_FUNC_DIR) -I$(LINER_DIR) -I$(LEXER_DIR) -I$(PARSER_DIR) -I.
 
 all: $(NAME)
 
@@ -78,7 +81,7 @@ $(NAME): $(OBJS)
 
 %.o: %.c
 	@echo [$<] compiling...
-	$(CC) $(CFLAGS) $(CPPFLAGS) -I$(MY_FUNC_DIR) -I$(LINER_DIR) -I$(LEXER_DIR) -I. $(COMPILE) $< -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(INC_HEADERS) $(COMPILE) $< -o $@
 
 clean:
 	@echo
@@ -106,6 +109,6 @@ list:
 	@echo $(OBJS)
 
 lldb:
-	$(CC) $(CFLAGS) $(MANDA_SRCS) $(LINKER) -I$(MY_FUNC_DIR) -I$(LINER_DIR) -I$(LEXER_DIR) -I. $(CPPFLAGS) -o $(NAME) -g
+	$(CC) $(CFLAGS) $(MANDA_SRCS) $(LINKER) $(INC_HEADERS) $(CPPFLAGS) -o $(NAME) -g
 
 .PHONY: all clean fclean re bonus

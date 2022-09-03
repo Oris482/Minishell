@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parcer.h                                           :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:38:13 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/08/24 10:48:55 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/03 17:48:05 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARCER_H
-# define PARCER_H
+#ifndef parser_H
+# define parser_H
 
-typedef	
+// typedef struct s_tree
+// {
+// 	t_lx_token		*data;
+// 	struct s_tree	*left;
+// 	struct s_tree	*right;
+// }	t_tree;
 
-typedef struct s_tree
-{
-	t_lx_token		*data
-	struct s_tree	*left;
-	struct s_tree	*right;
-}	t_tree
-
-
+unsigned int	check_syntax_error(t_lx_token *head);
 #endif
