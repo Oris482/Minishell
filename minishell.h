@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/04 17:25:48 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/04 20:01:20 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,11 @@ unsigned char	is_interpret_symbol(const char c);
 // terminal_setting.c
 void			signal_handler(void);
 int				terminal_off_control_chars(void);
+// linked_list_utils.c
+t_lx_token  	*cut_front_node(t_lx_token *cur_node);
+t_lx_token  	*pop_node(t_lx_token **cur_node, \
+						t_lx_token *start_node, t_lx_token *end_node);
 // minishell_utils.c
 char			*get_token_str(const t_lx_token *token);
-t_lx_token		*go_to_last_node(t_lx_token *token);
+t_lx_token		*get_last_node(t_lx_token *token);
 #endif

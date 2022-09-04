@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:11:18 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/04 16:19:41 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/04 19:39:45 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_token_str(const t_lx_token *token)
 	return (token->token_str);
 }
 
-t_lx_token	*go_to_last_node(t_lx_token *token)
+t_lx_token	*get_last_node(t_lx_token *token)
 {
 	while (token->next)
 		token = token->prev;
