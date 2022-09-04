@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 19:38:01 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/04 21:05:56 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/04 22:30:45 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ t_lx_token  *pop_node(t_lx_token **cur_node, \
 	}
 	else
 	{
+		if (*cur_node == start_node)
+			*cur_node = start_node->prev;
 		start_node->prev->next = end_node->next;
 		end_node->next->prev = start_node->prev;
 		start_node->prev = end_node;
