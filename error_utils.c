@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/24 10:38:13 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/04 20:13:14 by minsuki2         ###   ########.fr       */
+/*   Created: 2022/09/04 19:12:42 by minsuki2          #+#    #+#             */
+/*   Updated: 2022/09/04 19:23:03 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
-# include "lexer.h"
+#include "minishell.h"
 
-// typedef struct s_tree
-// {
-// 	t_lx_token		*data;
-// 	struct s_tree	*left;
-// 	struct s_tree	*right;
-// }	t_tree;
+void print_error_syntax(char *str)
+{
+	ft_putstr_fd("syntax error near unexpected token`", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putendl_fd("'", STDERR_FILENO);
+}
 
-unsigned int	check_syntax_error(t_lx_token *head);
-#endif
+// void print_error_command_not(char *str)

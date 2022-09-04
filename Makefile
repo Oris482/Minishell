@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/04 19:42:45 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/04 20:45:58 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,8 +59,10 @@ PARSER_SRCS			=	check_syntax_error.c			\
 MANDA_SRCS	=	minishell.c										\
 				minishell_utils.c								\
 				origin_str_utils.c								\
+				origin_putfd_utils.c							\
 				custom_str_utils.c								\
 				terminal_setting.c								\
+				error_utils.c									\
 				$(addprefix $(MY_FUNC_DIR), $(MY_FUNC_SRCS))	\
 				$(addprefix $(LINER_DIR), $(LINER_SRCS))		\
 				$(addprefix $(LEXER_DIR), $(LEXER_SRCS))		\

@@ -6,12 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:24:20 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/04 16:58:27 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/04 20:11:34 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
+#include "lexer.h"
 
 static int	_check_operator_syntax(t_lx_token **token)
 {
@@ -22,7 +23,7 @@ static int	_check_operator_syntax(t_lx_token **token)
 		&& prev_token->token_type != OR_IF && prev_token->token_type != PIPE \
 		&& prev_token->token_type != PARENTHESES_OPEN)
 		return (SUCCESS);
-	printf("syntax error near unexpected token `%s'\n", get_token_str(*token));
+	print_error_syntax(get_token_str(*token));
 	return (FALSE);
 }
 
@@ -38,7 +39,7 @@ static int	_check_redirect_syntax(t_lx_token **token)
 			return (SUCCESS);
 		err_token_str = get_token_str(next_token);
 	}
-	printf("syntax error near unexpected token `%s'\n", err_token_str);
+	print_error_syntax(err_token_str);
 	return (FALSE);
 }
 
@@ -60,7 +61,7 @@ static int	_check_parentheses_syntax(t_lx_token **token, \
 				&& prev_token->token_type == WORD)
 			return (SUCCESS);
 	}
-	printf("syntax error near unexpected token `%s'\n", get_token_str(*token));
+	print_error_syntax(get_token_str(*token));
 	return (FALSE);
 }
 
@@ -88,7 +89,7 @@ unsigned int	check_syntax_error(t_lx_token *cur_node)
 	if (head_token_type == PIPE || head_token_type == AND_IF \
 		|| head_token_type == OR_IF || head_token_type == PARENTHESES_CLOSE)
 	{
-		printf("syntax error near unexpected token `%s'\n", get_token_str(cur_node));
+		print_error_syntax(get_token_str(cur_node));
 		return (SYNTAX_ERROR_EXIT_CODE);
 	}
 	cur_node = cur_node->next;
