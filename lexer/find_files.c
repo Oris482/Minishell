@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 23:35:33 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/01 15:47:09 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/04 17:27:00 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,10 @@ static t_lx_token	*_make_wildcard_token(char *str)
 {
 	t_lx_token	*ret;
 
-	ret = (t_lx_token *)malloc(sizeof(t_lx_token));
-	if (ret == NULL)
-		exit(GENERAL_EXIT_CODE);
-	ret->token_str = NULL;
+	ret = (t_lx_token *)my_calloc(1, sizeof(t_lx_token));
 	ret->interpret_symbol = WILDCARD;
 	ret->interpreted_str = str;
 	ret->token_type = WORD;
-	ret->next = NULL;
 	return (ret);
 }
 
@@ -78,22 +74,21 @@ static void	_files_to_node(t_lx_token **cur, t_file *files, \
 	idx = 0;
 	while (idx < files->n)
 	{
-		if (files[idx].match_flag)
+		if (!files[idx].match_flag && ++idx)
+		    continue ;
+		if (!((*cur)->pass_flag))
 		{
-			if (!((*cur)->pass_flag))
-			{
-				temp = (*cur)->interpreted_str;
-				(*cur)->interpreted_str = path_plus_filename(pwd, files, \
-															idx, dir_flag);
-				(*cur)->pass_flag = 1;
-				free(temp);
-			}
-			else
-			{
-				(*cur)->next = _make_wildcard_token(path_plus_filename(pwd, \
-														files, idx, dir_flag));
-				(*cur) = (*cur)->next;
-			}
+			temp = (*cur)->interpreted_str;
+			(*cur)->interpreted_str = path_plus_filename(pwd, files, \
+														idx, dir_flag);
+			(*cur)->pass_flag = 1;
+			free(temp);
+		}
+		else
+		{
+			(*cur)->next = _make_wildcard_token(path_plus_filename(pwd, \
+													files, idx, dir_flag));
+			(*cur) = (*cur)->next;
 		}
 		idx++;
 	}
@@ -117,7 +112,7 @@ void	recursive_find_files(t_lx_token **cur, int cur_level, \
 		_files_to_node(cur, files, pwd, dir_flag);
 	else
 	{
-		while (files && idx < files->n)
+		while (idx < files->n)
 		{
 			if (files[idx].match_flag)
 				recursive_find_files(cur, cur_level + 1, \

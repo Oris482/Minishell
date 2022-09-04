@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_utils.c                                  :+:      :+:    :+:   */
+/*   origin_str_utils2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/23 18:11:18 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/04 16:19:41 by jaesjeon         ###   ########.fr       */
+/*   Created: 2022/09/03 23:05:40 by minsuki2          #+#    #+#             */
+/*   Updated: 2022/09/04 16:19:23 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_token_str(const t_lx_token *token)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	if (token->interpret_symbol)
-		return (token->interpreted_str);
-	return (token->token_str);
-}
-
-t_lx_token	*go_to_last_node(t_lx_token *token)
-{
-	while (token->next)
-		token = token->prev;
-	return (token);
+	while (len--)
+		*((unsigned char *)b + len) = (unsigned char)c;
+	return (b);
 }

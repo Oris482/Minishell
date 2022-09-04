@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/03 17:55:13 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/04 17:25:48 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ char			*ft_strcpy(const char *start, const char *end);
 char			*ft_strchr(const char *s, int c);
 size_t			ft_strlcat(char *dst, char const *src, size_t dstsize);
 size_t			ft_strlcpy(char *dst, char const *src, size_t dstsize);
+
+// origin_str_utils2.c
+void			*ft_memset(void *b, int c, size_t len);
 // custom_str_utils.c
 size_t			ft_strcnt(const char *s, const char c);
 char			*ft_strsjoin(char const *s1, char const *s2, char const *s3);
@@ -94,4 +97,5 @@ void			signal_handler(void);
 int				terminal_off_control_chars(void);
 // minishell_utils.c
 char			*get_token_str(const t_lx_token *token);
+t_lx_token		*go_to_last_node(t_lx_token *token);
 #endif

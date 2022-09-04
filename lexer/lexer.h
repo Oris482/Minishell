@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 21:11:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/03 15:23:17 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/04 17:28:28 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct s_file
 // debug_function.c
 void			print_token_list(t_lx_token *token_list);
 void			classify(struct dirent *ent);
+void			print_token_next(t_lx_token *token_list);
+void			print_token_prev(t_lx_token *token_list);
 // lexer.c
 int				lexer(t_lx_token **token_head, char *full_line, char *envp[]);
 // tokenization_utils.c
@@ -64,7 +66,6 @@ char			*make_chunk_by_symbol(char **token_str, \
 char			*compress_target_char(char *target_str, const char target);
 // wildcard_translator.c
 void			wildcard_translator(t_lx_token **cur);
-
 // dirent_utils.c
 t_file			*get_files_cur_pwd(const char *cur_pwd, char dir_flag);
 // find_files.c
@@ -75,4 +76,10 @@ void			recursive_find_files(t_lx_token **cur, int cur_level, \
 char			*path_plus_filename(char *pwd, t_file *files, int idx, \
 														int dir_flag);
 int				get_target_level(char **splited);
+// interpreter_make_chunk.c
+char			*make_chunk_by_symbol(char **token_str, \
+					char *str_startpoint, unsigned char *symbol_type);
+
+// make_node.c
+t_lx_token	*connect_token(t_lx_token *token_head, t_lx_token *cur);
 #endif

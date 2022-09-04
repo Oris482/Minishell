@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 08:10:39 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/03 17:17:53 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/04 16:36:14 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static void	_handle_encounter_eof(char *line, t_oflag *oflag)
 {
 	(void)line;
 	if (oflag->quote == QUOTE)
-		printf("unexpected EOF while looking for matching `''\n");
+		printf("Not closed `''\n");
 	if (oflag->quote == DQUOTE)
-		printf("unexpected EOF while looking for matching `\"'\n");
+		printf("Not closed `\"'\n");
 	if (oflag->parentheses)
-		printf("unexpected EOF while looking for matching `('\n");
+		printf("Not closed `('\n");
 }
 
 static int	_check_line_oflag(char *line, unsigned char *parentheses_flag, \
@@ -44,6 +44,7 @@ char	*line_handler(t_oflag *oflag)
 	char			*line;
 	char			*line_after_newline;
 	int				i;
+	char			*tmp_line;
 
 	oflag->quote = 0;
 	oflag->parentheses = 0;
@@ -54,13 +55,15 @@ char	*line_handler(t_oflag *oflag)
 		exit(0);
 	}
 	i = _check_line_oflag(line, &oflag->parentheses, &oflag->quote);
-	while (oflag->quote || oflag->parentheses)
-	{
-		if (ft_strjoin_self(&line, "\n") == ERROR
-			|| ft_strjoin_self(&line, readline("> ")) == ERROR)
-			break ;
-		i += _check_line_oflag(line + i, &oflag->parentheses, &oflag->quote);
-	}
+	// while (oflag->quote || oflag->parentheses)
+	// {
+	// 	ft_strjoin_self(&line, "\n");
+	// 	tmp_line = readline("> ");
+	// 	printf("<<<<<%s>>>>>\n", tmp_line);
+	// 	if (ft_strjoin_self(&line, tmp_line) == ERROR)
+	// 		break ;
+	// 	i += _check_line_oflag(line + i, &oflag->parentheses, &oflag->quote);
+	// }
 	_handle_encounter_eof(line, oflag);
 	return (line);
 }

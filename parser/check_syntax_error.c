@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:24:20 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/03 23:25:50 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/04 16:58:27 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,25 @@ static unsigned int	_check_syntax_middleware(t_lx_token **token, \
 	return (is_valid);
 }
 
-unsigned int	check_syntax_error(t_lx_token *head)
+unsigned int	check_syntax_error(t_lx_token *cur_node)
 {
-	int	parentheses_counter;
+	const int	head_token_type = cur_node->token_type;
+	int			parentheses_counter;
 
-	parentheses_counter = 0;
-	while (head)
+	if (head_token_type == PIPE || head_token_type == AND_IF \
+		|| head_token_type == OR_IF || head_token_type == PARENTHESES_CLOSE)
 	{
-		if (head->token_type != WORD \
-			&& _check_syntax_middleware(&head, &parentheses_counter) == FALSE)
+		printf("syntax error near unexpected token `%s'\n", get_token_str(cur_node));
+		return (SYNTAX_ERROR_EXIT_CODE);
+	}
+	cur_node = cur_node->next;
+	parentheses_counter = 0;
+	while (cur_node)
+	{
+		if (cur_node->token_type != WORD && _check_syntax_middleware(&cur_node, \
+													&parentheses_counter) == FALSE)
 			return (SYNTAX_ERROR_EXIT_CODE);
-		head = head->next;
+		cur_node = cur_node->next;
 	}
 	return (SUCCESS);
 }

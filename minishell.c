@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/03 17:48:05 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/04 17:21:00 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 static void	_minishell_routine(t_lx_token *token_list)
 {
 	print_token_list(token_list);
+	print_token_next(token_list);
+	print_token_prev(token_list);
 	check_syntax_error(token_list);
 	return ;
 }
@@ -37,12 +39,13 @@ int	main(int argc, char *argv[], char *envp[])
 		full_line = line_handler(&oflag);
 		if (full_line && *full_line != '\0')
 			add_history(full_line);
-		if (lexer(&token_list, full_line, envp) == ERROR)
-			return (1);
-		my_free(full_line);
 		if (!oflag.quote && !oflag.parentheses)
+		{
+			if (lexer(&token_list, full_line, envp) == ERROR)
+				return (1);
 			_minishell_routine(token_list);
-		my_free(token_list);
+		}
+		my_multi_free(full_line, token_list, NULL, NULL);
 	}
 	(void)argc;
 	(void)argv;
