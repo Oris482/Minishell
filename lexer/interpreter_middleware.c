@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/02 19:03:06 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/04 21:10:53 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	_dollar_translator(t_lx_token *cur, char *chunk, int split_flag)
 			continue ;
 		if (cur->interpret_symbol & WILDCARD)
 			wildcard_translator(&cur);
-		cur->next = (t_lx_token *)my_calloc(1, sizeof(t_lx_token));
+		cur->next = make_new_node();
 		find_str = str_cur;
 		while (*str_cur && !ft_isspace(*str_cur))
 			str_cur++;

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/04 20:46:47 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/04 21:03:54 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void			signal_handler(void);
 int				terminal_off_control_chars(void);
 // linked_list_utils.c
 t_lx_token  	*cut_front_node(t_lx_token *cur_node);
+t_lx_token		*cut_back_node(t_lx_token *cur_node);
 t_lx_token  	*pop_node(t_lx_token **cur_node, \
 						t_lx_token *start_node, t_lx_token *end_node);
 // minishell_utils.c

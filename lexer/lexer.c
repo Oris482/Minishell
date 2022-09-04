@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/04 17:20:33 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/04 21:11:03 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_lx_token	*set_token(char **line, t_oflag *oflag, char *envp[])
 	const int	token_split_flag = is_token_seperator(**line);
 	const char	*str_startpoint = *line;
 
-	token_node = (t_lx_token *)my_calloc(1, sizeof(t_lx_token));
+	token_node = make_new_node();
 	if (_make_operator(token_node, line, _check_doubled_operator(line)))
 		return (token_node);
 	while (**line && (oflag->quote || (token_node->token_type == UNDEFINED \
