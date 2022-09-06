@@ -6,7 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/09/06 21:27:17 by jaesjeon         ###   ########.fr       */
+=======
+/*   Updated: 2022/09/06 20:52:16 by minsuki2         ###   ########.fr       */
+>>>>>>> 2c8a4e69a03582ad83cea5c6781c5db70df7d8ac
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +27,12 @@
 # include <term.h>
 # include "lexer.h"
 
-# define QUOTE 0b00000001
-# define DQUOTE 0b00000010
-# define DOLLAR 0b00000100
-# define WILDCARD 0b00001000
-# define TILDE 0b00010000
+# define UNDEFINED		0b00000000
+# define QUOTE			0b00000001
+# define DQUOTE			0b00000010
+# define DOLLAR			0b00000100
+# define WILDCARD		0b00001000
+# define TILDE			0b00010000
 
 enum	e_token_type
 {

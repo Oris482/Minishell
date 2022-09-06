@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:31:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/05 17:06:09 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/06 21:02:42 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,50 +18,74 @@
 #include "../lexer/lexer.h"
 #include "../minishell.h"
 
-t_lx_token *find_tree_node(t_lx_token *cur_node)
+t_lx_token *find_tree_node(t_lx_token *cur_node, \
+		unsigned char *tree_type, unsigned char (*is_tree_type)(int))
 {
+	t_lx_token *const	last = cur_node;
+	int					subshell_flag;
 
-
-	return (cur_node);
+	subshell_flag = 0;
+	while (cur_node->prev != last)
+	{
+		subshell_flag += (cur_node->token_type == PARENTHESES_CLOSE) \
+								- (cur_node->token_type == PARENTHESES_OPEN);
+		*tree_type = is_tree_type(cur_node->token_type);
+		if (!subshell_flag && *tree_type != TREE_UNDEFINED && *tree_type != TREE_CMD)
+			return (cur_node);
+		cur_node = cur_node->prev;
+	}
+	*tree_type = is_tree_type(cur_node->token_type);
 	return (NULL);
 }
 
-void edit_my_tree()
-{
-}
+// static void	_make_left_right_tree(t_tree *cur)
+// {
+//
+// }
+//
 
-static void _recursive_tree(t_tree *const cur, char (* is_type)(int))
+void making_tree_node(t_tree *const cur, unsigned char(* is_tree_type)(int))
 {
-	t_lx_token *find_node;
-	// 현재가 NULL이면 그냥 나가기
+	t_lx_token	*find_node;
+
 	if (!cur)
 		return ;
-	find_node = find_tree_node(get_last_node(cur->token_data), is_type);
-	if (find_node)
-	{
-		cur->token_data = pop_node(cur->token_data, find_node, find_node);
-		if (cur->type == UNDEFINED)
-		{// 이 노드를 수정해야 합니다. + right에 할당
-			cur->toke = 
-			cur->right = (t_tree *)make_new_node(sizeof(t_tree));
-			cur->right->token_data = cut_back_node(cur->token_data);
-		}
-		else
-		{// left를 수정해야 합니다.
-		}
-	}
+	find_node = find_tree_node(get_last_node(cur->token_data), &cur->type, is_tree_type);
+	if (!find_node)
+		return ;
+	cur->right = (t_tree *)make_new_node(sizeof(t_tree));
+	cur->right->type = is_tree_type(UNDEFINED);
+	cur->right->token_data = cut_back_node(find_node);
+	cur->left = (t_tree *)make_new_node(sizeof(t_tree));
+	cur->left->type = is_tree_type(UNDEFINED);
+	cur->left->token_data = cur->token_data;
+	cur->token_data = pop_node(&cur->token_data, find_node, find_node);
+	making_tree_node(cur->left, is_tree_type);
+}
+
+void	handler_and_or(t_tree *cur)
+{
+	making_tree_node(cur, is_tree_and_or);
+}
+
+void	handler_pipe(t_tree *cur)
+{
+	making_tree_node(cur, is_tree_pipe);
+}
+
+/* 탐색만 하는 함수
+ * 원하는 type이 나오면 handler으로 작동을 수행함.
+ * 수행한 곳에서는 따로 left right를 들어가지 않음
+ */
+void recur_search_handle_tree(t_tree *cur, int tree_type, void (*handler)(t_tree *))
+{
+	if (cur->type & tree_type)
+		handler(cur);
 	else
 	{
-		if (cur->type != UNDEFINED)												// 첫노드까지 그대로 꽂아주기
-		{
-			cur->left = (t_tree *)make_new_node(sizeof(t_tree));
-			cur->left->token_data = cur->token_data;
-		}
-		//else																	// 아예 못찾음
-
+		recur_search_handle_tree(cur->left, tree_type, handler);
+		recur_search_handle_tree(cur->right, tree_type, handler);
 	}
-	recursive_tree(cur->left);
-	recursive_tree(cur->right);
 }
 
 int parser(t_lx_token *head)
@@ -69,9 +93,12 @@ int parser(t_lx_token *head)
 	t_tree		*root;
 
 	root = (t_tree *)make_new_node(sizeof(t_tree));
+	root->type = TREE_UNDEFINED;
 	root->token_data = head;
-	_recursive_tree(root, is_tree_and_or);
-	_recursive_tree(root, is_tree_pipe);
-	_recursive_tree(root, is_tree_cmd);
+	recur_search_handle_tree(root, TREE_UNDEFINED, handler_and_or);
+	recur_search_handle_tree(root, TREE_UNDEFINED, handler_pipe);
+	// recur_search_handle_tree(root, TREE_CMD, making_cmd_node, is_tree_redi);
+	// recur_search_handle_tree(root, TREE_CMD, making_cmd_node, is_tree_subshell);
+	print_ascii_tree(root);
+	return (SUCCESS);
 }
-

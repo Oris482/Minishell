@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 23:35:33 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/05 14:46:09 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/06 16:31:03 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ static void	_files_to_node(t_lx_token **cur, t_file *files, \
 			temp = (*cur)->interpreted_str;
 			(*cur)->interpreted_str = path_plus_filename(pwd, files, \
 														idx, dir_flag);
-			(*cur)->pass_flag = 1;
 			free(temp);
 		}
 		else
@@ -90,6 +89,7 @@ static void	_files_to_node(t_lx_token **cur, t_file *files, \
 													files, idx, dir_flag));
 			(*cur) = (*cur)->next;
 		}
+		(*cur)->pass_flag = 1;
 		idx++;
 	}
 }
