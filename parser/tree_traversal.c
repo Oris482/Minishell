@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:19:45 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/06 21:27:24 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/06 22:22:37 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int     is_redi_token(t_lx_token *token)
 	return (FALSE);
 }
 
-t_tree	*make_tree_node(int type, t_tree *parent_tree, t_lx_token *data)
+t_tree	*make_tree_node(const int type, t_tree *parent_tree, t_lx_token *data)
 {
 	t_tree	*new_node;
 
@@ -130,50 +130,52 @@ t_lx_token	*make_new_token(char *token_str, int token_type, t_lx_token *prev)
 	return (token);
 }
 
-int	main(void)
-{
-	t_tree	*root;
-	t_lx_token *token;
-	t_lx_token *token_two;
-	t_lx_token *token_three;
 
-	root = (t_tree *)my_calloc(1, sizeof(t_tree));
-	
-	root = make_tree_node(TREE_AND, NULL, make_new_token("&&", AND_IF, NULL));
-	
-	token = make_new_token("echo", WORD, NULL);
-	token->next = make_new_token("<", RED_IN, token);
-	token->next->next = make_new_token("input", WORD, token->next);
-	token->next->next->next = make_new_token("-n", WORD, token->next->next);
-	token->next->next->next->next = make_new_token("abc", WORD, token->next->next->next);
-	token->next->next->next->next->next = make_new_token(">>", RED_APD_OUT, token->next->next->next->next);
-	token->next->next->next->next->next->next = make_new_token("apd", WORD, token->next->next->next->next->next);
-	token->prev = token->next->next->next->next->next->next;
-	
-	root->left = make_tree_node(TREE_CMD, root, token);
-	
-	root->right = make_tree_node(TREE_PIPE, root, make_new_token("|", PIPE, NULL));
 
-	token_two = make_new_token("(", PARENTHESES_OPEN, NULL);
-	token_two->next = make_new_token("ls", WORD, token_two);
-	token_two->next->next = make_new_token(")", PARENTHESES_CLOSE, token_two->next);
-	token_two->next->next->next = make_new_token(">", RED_OUT, token_two->next->next);
-	token_two->next->next->next->next = make_new_token("output", WORD, token_two->next->next->next);
-	token_two->prev = token_two->next->next->next->next;
-
-	root->right->left = make_tree_node(TREE_CMD, root->right, token_two);
-
-	token_three = make_new_token("<<", HERE_DOC, NULL);
-	token_three->next = make_new_token("here_doc", WORD, token_three);
-	token_three->next->next = make_new_token(NULL, WORD, token_three->next);
-	token_three->next->next->interpret_symbol = WILDCARD;
-	token_three->next->next->interpreted_str = "ec";
-	token_three->next->next->next = make_new_token("echo", WORD, token_three->next->next);
-	token_three->prev = token_three->next->next->next;
-
-	root->right->right = make_tree_node(TREE_CMD, root->right, token_three);
-
-	tree_traversal(root, TREE_CMD, expand_cmd_tree);
-	print_ascii_tree(root);
-	return (0);
-}
+// int	main(void)
+// {
+//     t_tree	*root;
+//     t_lx_token *token;
+//     t_lx_token *token_two;
+//     t_lx_token *token_three;
+//
+//     root = (t_tree *)my_calloc(1, sizeof(t_tree));
+//
+//     root = make_tree_node(TREE_AND, NULL, make_new_token("&&", AND_IF, NULL));
+//
+//     token = make_new_token("echo", WORD, NULL);
+//     token->next = make_new_token("<", RED_IN, token);
+//     token->next->next = make_new_token("input", WORD, token->next);
+//     token->next->next->next = make_new_token("-n", WORD, token->next->next);
+//     token->next->next->next->next = make_new_token("abc", WORD, token->next->next->next);
+//     token->next->next->next->next->next = make_new_token(">>", RED_APD_OUT, token->next->next->next->next);
+//     token->next->next->next->next->next->next = make_new_token("apd", WORD, token->next->next->next->next->next);
+//     token->prev = token->next->next->next->next->next->next;
+//
+//     root->left = make_tree_node(TREE_CMD, root, token);
+//
+//     root->right = make_tree_node(TREE_PIPE, root, make_new_token("|", PIPE, NULL));
+//
+//     token_two = make_new_token("(", PARENTHESES_OPEN, NULL);
+//     token_two->next = make_new_token("ls", WORD, token_two);
+//     token_two->next->next = make_new_token(")", PARENTHESES_CLOSE, token_two->next);
+//     token_two->next->next->next = make_new_token(">", RED_OUT, token_two->next->next);
+//     token_two->next->next->next->next = make_new_token("output", WORD, token_two->next->next->next);
+//     token_two->prev = token_two->next->next->next->next;
+//
+//     root->right->left = make_tree_node(TREE_CMD, root->right, token_two);
+//
+//     token_three = make_new_token("<<", HERE_DOC, NULL);
+//     token_three->next = make_new_token("here_doc", WORD, token_three);
+//     token_three->next->next = make_new_token(NULL, WORD, token_three->next);
+//     token_three->next->next->interpret_symbol = WILDCARD;
+//     token_three->next->next->interpreted_str = "ec";
+//     token_three->next->next->next = make_new_token("echo", WORD, token_three->next->next);
+//     token_three->prev = token_three->next->next->next;
+//
+//     root->right->right = make_tree_node(TREE_CMD, root->right, token_three);
+//
+//     tree_traversal(root, TREE_CMD, expand_cmd_tree);
+//     print_ascii_tree(root);
+//     return (0);
+// }

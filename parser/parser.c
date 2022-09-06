@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:31:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/06 21:02:42 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/06 22:12:27 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,18 @@ t_lx_token *find_tree_node(t_lx_token *cur_node, \
 	return (NULL);
 }
 
-// static void	_make_left_right_tree(t_tree *cur)
-// {
-//
-// }
-//
-
 void making_tree_node(t_tree *const cur, unsigned char(* is_tree_type)(int))
 {
 	t_lx_token	*find_node;
+	const int	first_type = is_tree_type(UNDEFINED);
 
 	if (!cur)
 		return ;
 	find_node = find_tree_node(get_last_node(cur->token_data), &cur->type, is_tree_type);
 	if (!find_node)
 		return ;
-	cur->right = (t_tree *)make_new_node(sizeof(t_tree));
-	cur->right->type = is_tree_type(UNDEFINED);
-	cur->right->token_data = cut_back_node(find_node);
-	cur->left = (t_tree *)make_new_node(sizeof(t_tree));
-	cur->left->type = is_tree_type(UNDEFINED);
-	cur->left->token_data = cur->token_data;
+	cur->right = make_tree_node(first_type, cur, cut_back_node(find_node));
+	cur->left = make_tree_node(first_type, cur, cur->token_data);
 	cur->token_data = pop_node(&cur->token_data, find_node, find_node);
 	making_tree_node(cur->left, is_tree_type);
 }
@@ -97,8 +88,6 @@ int parser(t_lx_token *head)
 	root->token_data = head;
 	recur_search_handle_tree(root, TREE_UNDEFINED, handler_and_or);
 	recur_search_handle_tree(root, TREE_UNDEFINED, handler_pipe);
-	// recur_search_handle_tree(root, TREE_CMD, making_cmd_node, is_tree_redi);
-	// recur_search_handle_tree(root, TREE_CMD, making_cmd_node, is_tree_subshell);
 	print_ascii_tree(root);
 	return (SUCCESS);
 }
