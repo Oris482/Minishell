@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 19:38:01 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/04 22:30:45 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/06 21:27:10 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ t_lx_token  *pop_node(t_lx_token **cur_node, \
 	if (_is_first_node(start_node))
 	{
 		*cur_node = end_node->next;
+		if (*cur_node == NULL)
+			return (start_node);
 		return (cut_front_node(*cur_node));
 	}
 	else if (_is_last_node(end_node))
@@ -68,7 +70,7 @@ t_lx_token  *pop_node(t_lx_token **cur_node, \
 	}
 	else
 	{
-		if (*cur_node == start_node)
+		if (*cur_node == start_node || *cur_node == end_node)
 			*cur_node = start_node->prev;
 		start_node->prev->next = end_node->next;
 		end_node->next->prev = start_node->prev;
@@ -76,4 +78,14 @@ t_lx_token  *pop_node(t_lx_token **cur_node, \
 		end_node->next = NULL;
 	}
 	return (start_node);
+}
+
+void	merge_linked_list(t_lx_token *dst, t_lx_token *src)
+{
+	const t_lx_token	*dst_last_node = get_last_node(dst);
+	const t_lx_token	*src_last_node = get_last_node(src);
+
+	dst->prev->next = src;
+	dst->prev = (t_lx_token *)src_last_node;
+	src->prev = (t_lx_token *)dst_last_node;
 }

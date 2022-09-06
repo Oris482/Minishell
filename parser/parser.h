@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:38:13 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/06 15:52:55 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:13:52 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@
 
 enum e_tree_type
 {
-	TREE_UNDEFINED = 0,
-	TREE_AND = 30,
-	TREE_OR,
-	TREE_PIPE,
-	TREE_CMD,
-	TREE_REDI,
-	TREE_SIMPLE_CMD,
-	TREE_SUBSHELL
+	TREE_UNDEFINED = 1,
+	TREE_AND = 2,
+	TREE_OR = 4,
+	TREE_PIPE = 8,
+	TREE_CMD = 16,
+	TREE_REDI = 32,
+	TREE_SIMPLE_CMD = 64,
+	TREE_SUBSHELL = 128,
+	TREE_ALL = 256
 };
 
 typedef struct s_tree

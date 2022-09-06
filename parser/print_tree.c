@@ -78,6 +78,22 @@ static char *_type_to_string(int type)
 		return ("ERROR");
 }
 
+static char *_token_data_to_string(t_lx_token *token_list)
+{
+  char  *ret;
+
+  ret = NULL;
+  if (!token_list)
+    return ("CMD");
+  while (token_list)
+  {
+    ft_strjoin_self(&ret, get_token_str(token_list));
+    ft_strjoin_self(&ret, " ");
+    token_list = token_list->next;
+  }
+  return (ret);
+}
+
 asciinode * build_ascii_tree_recursive(t_tree * t) 
 {
   asciinode * node;
@@ -98,8 +114,8 @@ asciinode * build_ascii_tree_recursive(t_tree * t)
     node->right->parent_dir = 1;
   }
 
-  sprintf(node->label, "%s", _type_to_string(t->type));
-    // printf("%s", _type_to_string(t->type));
+  // sprintf(node->label, "%s", _type_to_string(t->type));
+  sprintf(node->label, "%s", _token_data_to_string(t->token_data));
   node->lablen = (int)strlen(node->label);
 
   return node;
