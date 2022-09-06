@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:24:20 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/07 03:00:52 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/07 03:16:04 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,20 @@ static int	_check_parentheses_syntax(t_lx_token **token, \
 
 	if ((*token)->token_type == PARENTHESES_OPEN)
 	{
-		(*parentheses_counter)++;
 		if (!prev_token || prev_token->token_type != WORD)
 			return (SUCCESS);
-		else if (prev_token && prev_token->prev && prev_token->prev->next != NULL)
+		else if (prev_token && prev_token->prev->next != NULL)
 		{
 			find_token = (t_lx_token *)prev_token;
 			while (find_token->token_str == NULL)
 				find_token = find_token->prev;
-			if (find_token->token_type == WORD && find_token->prev->next != NULL && \
-				is_redi_token(find_token->prev))
-				return (SUCCESS)
-;		}
+			if (find_token->token_type == WORD && \
+				find_token->prev->next != NULL && is_redi_token(find_token->prev))
+				return (SUCCESS);
+		}
 	}
-	else
-	{
-		(*parentheses_counter)--;
-		if (*parentheses_counter >= 0 && prev_token \
-				&& prev_token->token_type == WORD)
-			return (SUCCESS);
-	}
+	else if (*parentheses_counter >= 0 && prev_token->token_type == WORD)
+		return (SUCCESS);
 	print_error_syntax(get_token_str(*token));
 	return (FALSE);
 }
@@ -97,17 +91,12 @@ unsigned int	check_syntax_error(t_lx_token *cur_node)
 	int			parentheses_counter;
 
 	parentheses_counter = 0;
-	if (head_token_type == PIPE || head_token_type == AND_IF \
-		|| head_token_type == OR_IF || head_token_type == PARENTHESES_CLOSE)
-	{
-		print_error_syntax(get_token_str(cur_node));
-		return (SYNTAX_ERROR_EXIT_CODE);
-	}
-	if (head_token_type == PARENTHESES_OPEN)
-		parentheses_counter++;
-	// cur_node = cur_node->next;
 	while (cur_node)
 	{
+		if (cur_node->token_type == PARENTHESES_OPEN)
+			parentheses_counter++;
+		else if (cur_node->token_type == PARENTHESES_CLOSE)
+			parentheses_counter--;
 		if (cur_node->token_type != WORD && _check_syntax_middleware(&cur_node, \
 													&parentheses_counter) == FALSE)
 			return (SYNTAX_ERROR_EXIT_CODE);
