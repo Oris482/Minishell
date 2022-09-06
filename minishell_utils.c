@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:11:18 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/05 15:54:33 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/07 02:38:26 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,15 @@ void	*make_new_node(size_t size)
 
 	new = my_calloc(1, size);
 	return (new);
+}
+
+t_lx_token	*make_new_token(char *token_str, int token_type, t_lx_token *prev)
+{
+	t_lx_token *token;
+
+	token = (t_lx_token *)my_calloc(1, sizeof(t_lx_token));
+	token->token_str = token_str;
+	token->token_type = token_type;
+	token->prev = prev;
+	return (token);
 }

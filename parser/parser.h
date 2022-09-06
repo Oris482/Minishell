@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:38:13 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/06 22:17:39 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/07 02:30:35 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 
 enum e_tree_type
 {
-	TREE_UNDEFINED = 1,
-	TREE_AND = 2,
-	TREE_OR = 4,
-	TREE_PIPE = 8,
-	TREE_CMD = 16,
-	TREE_REDI = 32,
-	TREE_SIMPLE_CMD = 64,
-	TREE_SUBSHELL = 128,
-	TREE_ALL = 256
+	TREE_UNDEFINED =	0b00000001,
+	TREE_AND = 			0b00000010,
+	TREE_OR =			0b00000100,
+	TREE_PIPE =			0b00001000,
+	TREE_CMD =			0b00010000,
+	TREE_REDI =			0b00100000,
+	TREE_SIMPLE_CMD =	0b01000000,
+	TREE_SUBSHELL =		0b10000000,
+	TREE_ALL = 			0b11111111
 };
 typedef struct s_tree
 {
@@ -41,7 +41,8 @@ unsigned int	check_syntax_error(t_lx_token *head);
 // tree_utils.c
 unsigned char	is_tree_and_or(int token_type);
 unsigned char	is_tree_pipe(int token_type);
-t_tree	*make_tree_node(int type, t_tree *parent_tree, t_lx_token *data);
+t_tree			*make_tree_node(int type, t_tree *parent_tree, t_lx_token *data);
+int     		is_redi_token(t_lx_token *token);
 // parser.c
 
 // print_tree.c

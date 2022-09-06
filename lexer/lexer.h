@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 21:11:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/06 20:52:57 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/07 02:43:24 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void			classify(struct dirent *ent);
 void			print_token_next(t_lx_token *token_list);
 void			print_token_prev(t_lx_token *token_list);
 // lexer.c
-int				lexer(t_lx_token **token_head, char *full_line, char *envp[]);
+void			lexer(t_lx_token **token_head, char *full_line, char *envp[]);
 // tokenization_utils.c
 void			set_quote_flag(const char c, unsigned char *quote_flag);
 void			set_parentheses_flag(const char c, \

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/06 21:31:50 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/07 02:38:46 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void			merge_linked_list(t_lx_token *dst, t_lx_token *src);
 char			*get_token_str(const t_lx_token *token);
 t_lx_token		*get_last_node(t_lx_token *token);
 void			*make_new_node(size_t size);
+t_lx_token		*make_new_token(char *token_str, int token_type, t_lx_token *prev);
 //error_utils.c
 void			print_error_syntax(char *token);
 #endif
