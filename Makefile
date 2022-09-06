@@ -6,11 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2022/09/06 17:34:42 by jaesjeon         ###   ########.fr        #
-=======
-#    Updated: 2022/09/06 19:43:41 by minsuki2         ###   ########.fr        #
->>>>>>> 2c8a4e69a03582ad83cea5c6781c5db70df7d8ac
+#    Updated: 2022/09/06 21:31:38 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,11 +56,8 @@ LEXER_SRCS			=	lexer.c							\
 PARSER_SRCS			=	parser.c						\
 						print_tree.c					\
 						check_syntax_error.c			\
-<<<<<<< HEAD
 						tree_traversal.c				\
-=======
 						tree_utils.c					\
->>>>>>> 2c8a4e69a03582ad83cea5c6781c5db70df7d8ac
 						linked_list_utils.c
 
 MANDA_SRCS	=	minishell.c										\
