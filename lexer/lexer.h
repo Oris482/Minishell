@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 21:11:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/04 17:28:28 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/06 20:52:57 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <dirent.h>
-
-# define UNDEFINED 0
 
 typedef struct s_lx_token
 {

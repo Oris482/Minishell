@@ -6,13 +6,14 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:49:35 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/01 15:40:24 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/06 20:53:19 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <errno.h>
 #include "lexer.h"
-#include "../my_func/myfunc.h"
+#include "myfunc.h"
+#include "minishell.h"
 
 void	classify(struct dirent *ent);
 
