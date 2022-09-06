@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 21:43:12 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/04 22:53:51 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/05 16:34:35 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
     c. right에 tree할당(TYPE = UNDEFINED)
     d. right->token_data = cut_back
     e. 다시 앞으로가면서 찾기 시작
- 
+
  B. 현재 노드 TYPE != UNDEFINED => left를 할당해야 합니다.
     a. left tree 할당 (TYPE = AND || OR) (PARENT = 현재 트리)
     b. left tree로 이동

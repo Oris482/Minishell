@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/04 22:53:55 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:34:05 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 #include "lexer.h"
 #include "parser.h"
 
-static void	_minishell_routine(t_lx_token *token_list)
+static void	_minishell_routine(t_lx_token *token_list)//, char *full_line, char *envp[])
 {
 	print_token_list(token_list);
 	print_token_next(token_list);
 	print_token_prev(token_list);
 	check_syntax_error(token_list);
-	make_tree(token_list);
+	parser(token_list);
 	return ;
 }
 

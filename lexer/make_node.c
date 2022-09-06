@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 20:17:29 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/04 21:10:33 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:41:20 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,4 @@ t_lx_token	*connect_token(t_lx_token *token_head, t_lx_token *cur)
 		if (token_head)
 			token_head->prev = cur;
 	return (cur->next);
-}
-
-t_lx_token	*make_new_node(void)
-{
-	t_lx_token	*new;
-
-	new = (t_lx_token *)my_calloc(1, sizeof(t_lx_token));
-	return (new);
 }

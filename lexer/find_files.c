@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 23:35:33 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/04 21:10:42 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:46:09 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static t_lx_token	*_make_wildcard_token(char *str)
 {
 	t_lx_token	*ret;
 
-	ret = make_new_node();
+	ret = (t_lx_token *)make_new_node(sizeof(t_lx_token));
 	ret->interpret_symbol = WILDCARD;
 	ret->interpreted_str = str;
 	ret->token_type = WORD;

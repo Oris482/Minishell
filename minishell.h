@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/04 21:03:54 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:41:18 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_lx_token  	*pop_node(t_lx_token **cur_node, \
 // minishell_utils.c
 char			*get_token_str(const t_lx_token *token);
 t_lx_token		*get_last_node(t_lx_token *token);
-t_lx_token		*make_new_node(void);
+void			*make_new_node(size_t size);
 //error_utils.c
 void			print_error_syntax(char *token);
 #endif

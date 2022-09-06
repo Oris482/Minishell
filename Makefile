@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/04 20:45:58 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/05 14:43:23 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,8 @@ LEXER_SRCS			=	lexer.c							\
 						make_node.c						\
 						find_files_utils.c
 
-PARSER_SRCS			=	check_syntax_error.c			\
+PARSER_SRCS			=	parser.c						\
+						check_syntax_error.c			\
 						linked_list_utils.c
 
 MANDA_SRCS	=	minishell.c										\
