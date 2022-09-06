@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:38:13 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/05 15:47:56 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/06 15:52:55 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,14 @@ typedef struct s_tree
 int				parser(t_lx_token *head);
 unsigned int	check_syntax_error(t_lx_token *head);
 
-							/* tree_utils.c */
+// tree_utils.c
 int		is_tree_and_or(int c);
 int		is_tree_cmd(int c);
 int		is_tree_pipe(int c);
-							/* parser.c */
+// parser.c
+
+// print_tree.c
+void print_ascii_tree(t_tree * t);
 
 
 #endif
