@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/07 02:42:48 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:55:47 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ static void	_minishell_routine(char *full_line, char *envp[])
 	print_token_list(token_list);
 	print_token_next(token_list);
 	print_token_prev(token_list);
-	if (check_syntax_error(token_list) == SUCCESS)
-		parser(token_list);
+	parser(token_list);
 	my_multi_free(full_line, token_list, NULL, NULL);
 	return ;
 }
