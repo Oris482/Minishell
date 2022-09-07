@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:15:19 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/07 20:54:47 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/07 21:08:18 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ void	set_quote_flag(const char c, int *quote_flag)
 //     }
 // }
 
-// void	set_token_type(t_lx_token *token_node, char c)
-// {
-//     if (token_node->token_type == UNDEFINED)
-//     {
-//         token_node->token_type = is_token_seperator(c);
-//         if (token_node->token_type == UNDEFINED)
-//             token_node->token_type = WORD;
-//     }
-// }
+void	set_token_type(t_lx_token *token_node, char c)
+{
+	if (token_node->token_type == UNDEFINED)
+	{
+		token_node->token_type = is_token_seperator(c);
+		if (token_node->token_type == UNDEFINED)
+			token_node->token_type = WORD;
+	}
+}
 
 void	set_interpret_symbol(t_lx_token *token_node, char c, \
 								int *quote_flag)
