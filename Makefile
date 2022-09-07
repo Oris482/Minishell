@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/07 02:31:36 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/07 19:13:52 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ RM 			=	rm -vf
 AR 			= ar
 MAKE_C 		= make -C
 
-MY_FUNC_DIR		=	my_func/
+MY_FUNC_DIR		=	myfunc/
 LINER_DIR 		=	liner/
 LEXER_DIR 		=	lexer/
 PARSER_DIR		=	parser/
@@ -32,11 +32,12 @@ NAME	 	=	minishell
 
 # 파일 기능별로 분류해서 소스파일 넣기
 
-MY_FUNC_SRCS		=	about_alloc.c	\
-						about_dir.c		\
+MY_FUNC_SRCS		=	about_alloc.c		\
+						about_dir.c			\
+						about_readline.c	\
 						about_pipe.c
 
-LINER_SRCS			= 	liner.c 		
+LINER_SRCS			= 	liner.c
 
 LEXER_SRCS			=	lexer.c							\
 						debug_function.c				\
@@ -77,7 +78,7 @@ MANDA_SRCS	=	minishell.c										\
 # SRCS			= 	$(MANDA_SRCS)
 # HADS			=	$(MANDATORY_DIR)push_swap.h
 OBJS			=	$(MANDA_SRCS:.c=.o)
-INC_HEADERS			=	-I$(MY_FUNC_DIR) -I$(LINER_DIR) -I$(LEXER_DIR) -I$(PARSER_DIR) -I.
+INC_HEADERS		=	-I. -I$(MY_FUNC_DIR) -I$(LINER_DIR) -I$(LEXER_DIR) -I$(PARSER_DIR)
 
 all: $(NAME)
 

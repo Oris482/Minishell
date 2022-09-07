@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/07 11:55:47 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/07 20:34:01 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	_minishell_routine(char *full_line, char *envp[])
 	print_token_list(token_list);
 	print_token_next(token_list);
 	print_token_prev(token_list);
-	parser(token_list);
+	// parser(token_list);
 	my_multi_free(full_line, token_list, NULL, NULL);
 	return ;
 }
@@ -39,9 +39,10 @@ int	main(int argc, char *argv[], char *envp[])
 	terminal_off_control_chars();
 	while (true)
 	{
-		full_line = line_handler(&oflag);
-		if (full_line && *full_line != '\0')
-			add_history(full_line);
+		full_line = liner(&oflag);
+		if (full_line && *full_line == '\0')
+			continue ;
+		add_history(full_line);
 		if (!oflag.quote && !oflag.parentheses)
 			_minishell_routine(full_line, envp);
 	}

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 21:11:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/07 02:43:24 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/07 20:28:42 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,18 @@ void			print_token_prev(t_lx_token *token_list);
 // lexer.c
 void			lexer(t_lx_token **token_head, char *full_line, char *envp[]);
 // tokenization_utils.c
-void			set_quote_flag(const char c, unsigned char *quote_flag);
-void			set_parentheses_flag(const char c, \
-				unsigned char *parentheses_flag, unsigned char *quote_flag);
-void			set_token_type(t_lx_token *token_node, char c);
+void			set_quote_flag(const char c, int *quote_flag);
+void			set_parentheses_flag(const char c, int *parentheses_flag, \
+															int *quote_flag);
 void			set_interpret_symbol(t_lx_token *token_node, char c, \
-												unsigned char *quote_flag);
+								int *quote_flag);
+// void			set_quote_flag(const char c, unsigned char *quote_flag);
+// void			set_parentheses_flag(const char c, \
+//                 unsigned char *parentheses_flag, unsigned char *quote_flag);
+void			set_token_type(t_lx_token *token_node, char c);
+// void			set_interpret_symbol(t_lx_token *token_node, char c, \
+//                                                 unsigned char *quote_flag);
+
 // interpreter.c
 void			interpreter(t_lx_token *token);
 unsigned char	find_interpret_symbol(char **token_str, \

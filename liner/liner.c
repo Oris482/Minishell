@@ -6,64 +6,58 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 08:10:39 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/04 16:36:14 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/07 20:37:27 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 #include "liner.h"
+#include "myfunc.h"
+#include "lexer.h"
 
-static void	_handle_encounter_eof(char *line, t_oflag *oflag)
+#include "../minishell.h"
+#include "../liner/liner.h"
+#include "../lexer/lexer.h"
+#include "../myfunc/myfunc.h"
+
+static void	_handle_encounter_eof(t_oflag *oflag)
 {
-	(void)line;
 	if (oflag->quote == QUOTE)
-		printf("Not closed `''\n");
+		print_error_not_close("'");
 	if (oflag->quote == DQUOTE)
-		printf("Not closed `\"'\n");
-	if (oflag->parentheses)
-		printf("Not closed `('\n");
+		print_error_not_close("\"");
+	if (oflag->parentheses > 0)
+		print_error_not_close("(");
+	if (oflag->parentheses < 0)
+		print_error_syntax(")");
 }
 
-static int	_check_line_oflag(char *line, unsigned char *parentheses_flag, \
-								unsigned char *quote_flag)
+static void	_cnt_parentheses_flag(const char c, int *parentheses_flag, \
+								int *quote_flag)
 {
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		set_quote_flag(line[i], quote_flag);
-		set_parentheses_flag(line[i], parentheses_flag, quote_flag);
-		++i;
-	}
-	return (i);
+	if (!*quote_flag)
+		*parentheses_flag += (c == '(') - (c == ')');
 }
 
-char	*line_handler(t_oflag *oflag)
+static int	_check_line_oflag(char *line, int *parentheses_flag, \
+								int *quote_flag)
+{
+	while (*line)
+	{
+		set_quote_flag(*line, quote_flag);
+		_cnt_parentheses_flag(*line, parentheses_flag, quote_flag);
+		line++;
+	}
+	return (*parentheses_flag || *quote_flag);
+}
+
+char	*liner(t_oflag *oflag)
 {
 	char			*line;
-	char			*line_after_newline;
-	int				i;
-	char			*tmp_line;
 
-	oflag->quote = 0;
-	oflag->parentheses = 0;
-	line = readline("minishell$> ");
-	if (!line)
-	{
-		write(STDOUT_FILENO, "BYE\n", 4);
-		exit(0);
-	}
-	i = _check_line_oflag(line, &oflag->parentheses, &oflag->quote);
-	// while (oflag->quote || oflag->parentheses)
-	// {
-	// 	ft_strjoin_self(&line, "\n");
-	// 	tmp_line = readline("> ");
-	// 	printf("<<<<<%s>>>>>\n", tmp_line);
-	// 	if (ft_strjoin_self(&line, tmp_line) == ERROR)
-	// 		break ;
-	// 	i += _check_line_oflag(line + i, &oflag->parentheses, &oflag->quote);
-	// }
-	_handle_encounter_eof(line, oflag);
+	ft_memset(oflag, 0, sizeof(t_oflag));
+	line = my_readline("minishell$> ");
+	if (_check_line_oflag(line, &oflag->parentheses, &oflag->quote))
+		_handle_encounter_eof(oflag);
 	return (line);
 }

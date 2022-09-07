@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:31:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/07 11:55:40 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/07 18:07:30 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,40 @@
 
 void	expand_token_to_tree(t_tree *root);
 
+//edit
 void    tree_traversal(t_tree *cur_tree, int tree_type, \
 								void (*handler)(t_tree *))
 {
-	int	pass_right_flag;
-
-	pass_right_flag = FALSE;
 	if (cur_tree == NULL)
 		return ;
 	else if (cur_tree->type & tree_type)
-	{
 		handler(cur_tree);
-		if (tree_type & (TREE_ALL | TREE_OR | TREE_PIPE))
-			pass_right_flag = TRUE;
-	}
-	tree_traversal(cur_tree->left, tree_type, handler);
-	if (!pass_right_flag)
+	else
+	{
+		tree_traversal(cur_tree->left, tree_type, handler);
 		tree_traversal(cur_tree->right, tree_type, handler);
-	return ;
+	}
 }
+
+// void    tree_traversal(t_tree *cur_tree, int tree_type, \
+//                                 void (*handler)(t_tree *))
+// {
+//     int	pass_right_flag;
+//
+//     pass_right_flag = FALSE;
+//     if (cur_tree == NULL)
+//         return ;
+//     else if (cur_tree->type & tree_type)
+//     {
+//         handler(cur_tree);
+//         if (tree_type & (TREE_ALL | TREE_OR | TREE_PIPE))
+//             pass_right_flag = TRUE;
+//     }
+//     tree_traversal(cur_tree->left, tree_type, handler);
+//     if (!pass_right_flag)
+//         tree_traversal(cur_tree->right, tree_type, handler);
+//     return ;
+// }
 
 t_lx_token *find_tree_node(t_lx_token *cur_node, \
 		unsigned char *tree_type, unsigned char (*is_tree_type)(int))
@@ -136,6 +151,31 @@ void	remain_to_right(t_tree *cur_tree, t_lx_token *token_data)
 	}
 }
 
+// void	expand_cmd_tree(t_tree *cur_tree)
+// {
+//     t_lx_token  *token_data;
+//     int					subshell_flag;
+//
+//     if (cur_tree->type != TREE_CMD)
+//         return ;
+//     token_data = cur_tree->token_data;
+//     parentheses_flag = 0;
+//     while (token_data && token_data->next)
+//     {
+//         subshell_flag += (cur_node->token_type == PARENTHESES_OPEN) \
+//                                 - (cur_node->token_type == PARENTHESES_CLOSE);
+//         if (subshell_flag)
+//         {
+//             token_data = token_data->next;
+//             continue;
+//         }
+//         if(!redi_to_left(cur_tree, &token_data))
+//             token_data = token_data->next;
+//     }
+//     remain_to_right(cur_tree, token_data);
+//     cur_tree->token_data = NULL;
+// }
+
 void	expand_cmd_tree(t_tree *cur_tree)
 {
 	t_lx_token  *token_data;
@@ -176,9 +216,7 @@ int parser(t_lx_token *head)
 
 	if (!check_syntax_error(head))
 		return (FALSE);
-	root = (t_tree *)make_new_node(sizeof(t_tree));
-	root->type = TREE_UNDEFINED;
-	root->token_data = head;
+	root = make_tree_node(TREE_UNDEFINED, NULL, head);
 	expand_token_to_tree(root);
 	print_ascii_tree(root);
 	return (SUCCESS);

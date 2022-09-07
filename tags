@@ -1,0 +1,237 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AND_IF	minishell.h	/^	AND_IF,$/;"	e	enum:e_token_type
+AR	Makefile	/^AR 			= ar$/;"	m
+CC	Makefile	/^CC 			=	cc$/;"	m
+CFLAGS	Makefile	/^CFLAGS			= 	-fsanitize=address$/;"	m
+COMPILE	Makefile	/^COMPILE		=	-c $(CPPFLAGS)$/;"	m
+DOLLAR	minishell.h	/^# define DOLLAR	/;"	d
+DQUOTE	minishell.h	/^# define DQUOTE	/;"	d
+ERROR	minishell.h	/^	ERROR = -1,$/;"	e	enum:e_return
+EXCUTER_DIR	Makefile	/^EXCUTER_DIR		=	excuter\/$/;"	m
+FALSE	minishell.h	/^	FALSE,$/;"	e	enum:e_return
+GENERAL_EXIT_CODE	minishell.h	/^	GENERAL_EXIT_CODE = 1,$/;"	e	enum:e_exit_code
+HERE_DOC	minishell.h	/^	HERE_DOC,$/;"	e	enum:e_token_type
+INC_HEADERS	Makefile	/^INC_HEADERS		=	-I. -I$(MY_FUNC_DIR) -I$(LINER_DIR) -I$(LEXER_DIR) -I$(PARSER_DIR)$/;"	m
+INFINITY	parser/print_tree.c	/^#define INFINITY /;"	d	file:
+LEXER_DIR	Makefile	/^LEXER_DIR 		=	lexer\/$/;"	m
+LEXER_H	lexer/lexer.h	/^# define LEXER_H$/;"	d
+LEXER_SRCS	Makefile	/^LEXER_SRCS			=	lexer.c							\\$/;"	m
+LINER_DIR	Makefile	/^LINER_DIR 		=	liner\/$/;"	m
+LINER_H	liner/liner.h	/^# define LINER_H$/;"	d
+LINER_SRCS	Makefile	/^LINER_SRCS			= 	liner.c$/;"	m
+LINKER	Makefile	/^LINKER		=	$(LDFLAGS) -lreadline$/;"	m
+MAKE_C	Makefile	/^MAKE_C 		= make -C$/;"	m
+MANDA_SRCS	Makefile	/^MANDA_SRCS	=	minishell.c										\\$/;"	m
+MAX	parser/print_tree.c	/^int MAX (int X, int Y)  $/;"	f
+MAX_HEIGHT	parser/print_tree.c	/^#define MAX_HEIGHT /;"	d	file:
+MIN	parser/print_tree.c	/^int MIN (int X, int Y)  $/;"	f
+MINISHELL_H	minishell.h	/^# define MINISHELL_H$/;"	d
+MYFUNC_H	myfunc/myfunc.h	/^# define MYFUNC_H$/;"	d
+MY_FUNC_DIR	Makefile	/^MY_FUNC_DIR		=	myfunc\/$/;"	m
+MY_FUNC_SRCS	Makefile	/^MY_FUNC_SRCS		=	about_alloc.c		\\$/;"	m
+NAME	Makefile	/^NAME	 	=	minishell$/;"	m
+NEW_LINE	minishell.h	/^	NEW_LINE,$/;"	e	enum:e_token_type
+OBJS	Makefile	/^OBJS			=	$(MANDA_SRCS:.c=.o)$/;"	m
+OR_IF	minishell.h	/^	OR_IF,$/;"	e	enum:e_token_type
+PARENTHESES_CLOSE	minishell.h	/^	PARENTHESES_CLOSE,$/;"	e	enum:e_token_type
+PARENTHESES_OPEN	minishell.h	/^	PARENTHESES_OPEN,$/;"	e	enum:e_token_type
+PARSER_DIR	Makefile	/^PARSER_DIR		=	parser\/$/;"	m
+PARSER_H	parser/parser.h	/^# define PARSER_H$/;"	d
+PARSER_SRCS	Makefile	/^PARSER_SRCS			=	parser.c						\\$/;"	m
+PIPE	minishell.h	/^	PIPE,$/;"	e	enum:e_token_type
+QUOTE	minishell.h	/^# define QUOTE	/;"	d
+RED_APD_OUT	minishell.h	/^	RED_APD_OUT,$/;"	e	enum:e_token_type
+RED_IN	minishell.h	/^	RED_IN,$/;"	e	enum:e_token_type
+RED_OUT	minishell.h	/^	RED_OUT,$/;"	e	enum:e_token_type
+RM	Makefile	/^RM 			=	rm -vf$/;"	m
+SPACE_SET	minishell.h	/^	SPACE_SET,$/;"	e	enum:e_token_type
+SUCCESS	minishell.h	/^	SUCCESS,$/;"	e	enum:e_return
+SYNTAX_ERROR_EXIT_CODE	minishell.h	/^	SYNTAX_ERROR_EXIT_CODE = 258$/;"	e	enum:e_exit_code
+TILDE	minishell.h	/^# define TILDE	/;"	d
+TREE_ALL	parser/parser.h	/^	TREE_ALL = 			0b11111111$/;"	e	enum:e_tree_type
+TREE_AND	parser/parser.h	/^	TREE_AND = 			0b00000010,$/;"	e	enum:e_tree_type
+TREE_CMD	parser/parser.h	/^	TREE_CMD =			0b00010000,$/;"	e	enum:e_tree_type
+TREE_OR	parser/parser.h	/^	TREE_OR =			0b00000100,$/;"	e	enum:e_tree_type
+TREE_PIPE	parser/parser.h	/^	TREE_PIPE =			0b00001000,$/;"	e	enum:e_tree_type
+TREE_REDI	parser/parser.h	/^	TREE_REDI =			0b00100000,$/;"	e	enum:e_tree_type
+TREE_SIMPLE_CMD	parser/parser.h	/^	TREE_SIMPLE_CMD =	0b01000000,$/;"	e	enum:e_tree_type
+TREE_SUBSHELL	parser/parser.h	/^	TREE_SUBSHELL =		0b10000000,$/;"	e	enum:e_tree_type
+TREE_UNDEFINED	parser/parser.h	/^	TREE_UNDEFINED =	0b00000001,$/;"	e	enum:e_tree_type
+TRUE	minishell.h	/^	TRUE = 1$/;"	e	enum:e_return
+UNDEFINED	minishell.h	/^# define UNDEFINED	/;"	d
+WILDCARD	minishell.h	/^# define WILDCARD	/;"	d
+WORD	minishell.h	/^	WORD = 100,$/;"	e	enum:e_token_type
+_check_doubled_operator	lexer/lexer.c	/^static int	_check_doubled_operator(char **line)$/;"	f	file:
+_check_line_oflag	liner/liner.c	/^static int	_check_line_oflag(char *line, int *parentheses_flag, \\$/;"	f	file:
+_check_match_files	lexer/find_files.c	/^static int	_check_match_files(char *input, char *name)$/;"	f	file:
+_check_operator_syntax	parser/check_syntax_error.c	/^static int	_check_operator_syntax(t_lx_token **token)$/;"	f	file:
+_check_parentheses_syntax	parser/check_syntax_error.c	/^static int	_check_parentheses_syntax(t_lx_token **token, \\$/;"	f	file:
+_check_redirect_syntax	parser/check_syntax_error.c	/^static int	_check_redirect_syntax(t_lx_token **token)$/;"	f	file:
+_check_syntax_middleware	parser/check_syntax_error.c	/^static unsigned int	_check_syntax_middleware(t_lx_token **token, \\$/;"	f	file:
+_cnt_parentheses_flag	liner/liner.c	/^static void	_cnt_parentheses_flag(const char c, int *parentheses_flag, \\$/;"	f	file:
+_count_compressed_len	lexer/compress_target_char.c	/^static int	_count_compressed_len(char *target_str, const char target)$/;"	f	file:
+_cursor_to_space	lexer/interpreter_middleware.c	/^static int	_cursor_to_space(char **str_cur)$/;"	f	file:
+_dollar_translator	lexer/interpreter_middleware.c	/^static void	_dollar_translator(t_lx_token *cur, char *chunk, int split_flag)$/;"	f	file:
+_dquote_translator	lexer/interpreter_middleware.c	/^static void	_dquote_translator(t_lx_token *cur, char *chunk)$/;"	f	file:
+_files_to_node	lexer/find_files.c	/^static void	_files_to_node(t_lx_token **cur, t_file *files, \\$/;"	f	file:
+_handle_dollar_symbol	lexer/interpreter_make_chunk.c	/^static char	*_handle_dollar_symbol(char **token_str, char *str_startpoint)$/;"	f	file:
+_handle_encounter_eof	liner/liner.c	/^static void	_handle_encounter_eof(t_oflag *oflag)$/;"	f	file:
+_handle_quote_symbol	lexer/interpreter_make_chunk.c	/^static char	*_handle_quote_symbol(char **token_str, char *str_startpoint, \\$/;"	f	file:
+_handle_tilde_symbol	lexer/interpreter_make_chunk.c	/^static char	*_handle_tilde_symbol(char **token_str, char *str_startpoint)$/;"	f	file:
+_handle_wildcard_symbol	lexer/interpreter_make_chunk.c	/^static char	*_handle_wildcard_symbol(char **token_str, char *str_startpoint)$/;"	f	file:
+_is_first_node	parser/linked_list_utils.c	/^static int	_is_first_node(t_lx_token *cur_node)$/;"	f	file:
+_is_last_node	parser/linked_list_utils.c	/^static int	_is_last_node(t_lx_token *cur_node)$/;"	f	file:
+_level_check	lexer/wildcard_translator.c	/^static int	_level_check(const char *s)$/;"	f	file:
+_make_operator	lexer/lexer.c	/^static int	_make_operator(t_lx_token *token_node, char **line, int token_type)$/;"	f	file:
+_make_wildcard_token	lexer/find_files.c	/^static t_lx_token	*_make_wildcard_token(char *str)$/;"	f	file:
+_minishell_routine	minishell.c	/^static void	_minishell_routine(char *full_line, char *envp[])$/;"	f	file:
+_path_split	lexer/wildcard_translator.c	/^static char	**_path_split(char *start)$/;"	f	file:
+_sigint_handler	terminal_setting.c	/^static void	_sigint_handler(int signum)$/;"	f	file:
+_tilde_translator	lexer/interpreter_middleware.c	/^static void	_tilde_translator(t_lx_token *cur, char *chunk)$/;"	f	file:
+_token_data_to_string	parser/print_tree.c	/^static char *_token_data_to_string(t_lx_token *token_list)$/;"	f	file:
+_type_to_string	parser/print_tree.c	/^static char *_type_to_string(int type)$/;"	f	file:
+and_if	minishell.h	/^	int	and_if;$/;"	m	struct:s_oflag
+asciinode	parser/print_tree.c	/^typedef struct asciinode_struct asciinode;$/;"	t	typeref:struct:asciinode_struct	file:
+asciinode_struct	parser/print_tree.c	/^struct asciinode_struct$/;"	s	file:
+build_ascii_tree	parser/print_tree.c	/^asciinode * build_ascii_tree(t_tree * t) $/;"	f
+build_ascii_tree_recursive	parser/print_tree.c	/^asciinode * build_ascii_tree_recursive(t_tree * t) $/;"	f
+check_syntax_error	parser/check_syntax_error.c	/^unsigned int	check_syntax_error(t_lx_token *cur_node)$/;"	f
+classify	lexer/debug_function.c	/^void	classify(struct dirent *ent)$/;"	f
+compress_target_char	lexer/compress_target_char.c	/^char	*compress_target_char(char *target_str, const char target)$/;"	f
+compute_edge_lengths	parser/print_tree.c	/^void compute_edge_lengths(asciinode *node) $/;"	f
+compute_lprofile	parser/print_tree.c	/^void compute_lprofile(asciinode *node, int x, int y) $/;"	f
+compute_rprofile	parser/print_tree.c	/^void compute_rprofile(asciinode *node, int x, int y) $/;"	f
+connect_token	lexer/make_node.c	/^t_lx_token	*connect_token(t_lx_token *token_head, t_lx_token *cur)$/;"	f
+count_cur_dir	lexer/dirent_utils.c	/^int	count_cur_dir(const char *cur_pwd, char dir_flag)$/;"	f
+cut_back_node	parser/linked_list_utils.c	/^t_lx_token	*cut_back_node(t_lx_token *cur_node)$/;"	f
+cut_front_node	parser/linked_list_utils.c	/^t_lx_token  *cut_front_node(t_lx_token *cur_node)$/;"	f
+dirp	lexer/lexer.h	/^	DIR				*dirp;$/;"	m	struct:s_file
+e_exit_code	minishell.h	/^enum	e_exit_code$/;"	g
+e_return	minishell.h	/^enum	e_return$/;"	g
+e_token_type	minishell.h	/^enum	e_token_type$/;"	g
+e_tree_type	parser/parser.h	/^enum e_tree_type$/;"	g
+edge_length	parser/print_tree.c	/^  int edge_length; $/;"	m	struct:asciinode_struct	file:
+expand_and_or_tree	parser/parser.c	/^void	expand_and_or_tree(t_tree *cur)$/;"	f
+expand_cmd_tree	parser/parser.c	/^void	expand_cmd_tree(t_tree *cur_tree)$/;"	f
+expand_pipe_tree	parser/parser.c	/^void	expand_pipe_tree(t_tree *cur)$/;"	f
+expand_token_to_tree	parser/parser.c	/^void	expand_token_to_tree(t_tree *root)$/;"	f
+find_interpret_symbol	lexer/interpreter.c	/^unsigned char	find_interpret_symbol(char **token_str, \\$/;"	f
+find_tree_node	parser/parser.c	/^t_lx_token *find_tree_node(t_lx_token *cur_node, \\$/;"	f
+free_ascii_tree	parser/print_tree.c	/^void free_ascii_tree(asciinode *node) $/;"	f
+ft_isspace	lexer/check_char_utils.c	/^int	ft_isspace(const char c)$/;"	f
+ft_memset	origin_str_utils2.c	/^void	*ft_memset(void *b, int c, size_t len)$/;"	f
+ft_putchar_fd	origin_putfd_utils.c	/^void	ft_putchar_fd(char c, int fd)$/;"	f
+ft_putendl_fd	origin_putfd_utils.c	/^void	ft_putendl_fd(char *s, int fd)$/;"	f
+ft_putstr_fd	origin_putfd_utils.c	/^void	ft_putstr_fd(char *s, int fd)$/;"	f
+ft_strchr	origin_str_utils.c	/^char	*ft_strchr(const char *s, int c)$/;"	f
+ft_strchr_null	custom_str_utils.c	/^char	*ft_strchr_null(const char *s, int c)$/;"	f
+ft_strcnt	custom_str_utils.c	/^size_t	ft_strcnt(const char *s, const char c)$/;"	f
+ft_strcpy	origin_str_utils.c	/^char	*ft_strcpy(const char *start, const char *end)$/;"	f
+ft_strjoin_self	custom_str_utils.c	/^int	ft_strjoin_self(char **str, char *add)$/;"	f
+ft_strlcat	origin_str_utils.c	/^size_t	ft_strlcat(char *dst, char const *src, size_t dstsize)$/;"	f
+ft_strlcpy	origin_str_utils.c	/^size_t	ft_strlcpy(char *dst, char const *src, size_t dstsize)$/;"	f
+ft_strlen	origin_str_utils.c	/^size_t	ft_strlen(const char *s)$/;"	f
+ft_strrchr_right_away	custom_str_utils.c	/^char	*ft_strrchr_right_away(const char *s, int c, char *const end)$/;"	f
+ft_strsjoin	custom_str_utils.c	/^char	*ft_strsjoin(char const *s1, char const *s2, char const *s3)$/;"	f
+gap	parser/print_tree.c	/^int gap = 3;  $/;"	v
+get_files_cur_pwd	lexer/dirent_utils.c	/^t_file	*get_files_cur_pwd(const char *cur_pwd, char dir_flag)$/;"	f
+get_last_node	minishell_utils.c	/^t_lx_token	*get_last_node(t_lx_token *token)$/;"	f
+get_target_level	lexer/find_files_utils.c	/^int	get_target_level(char **splited)$/;"	f
+get_token_str	minishell_utils.c	/^char	*get_token_str(const t_lx_token *token)$/;"	f
+handle_subshell	parser/parser.c	/^void	handle_subshell(t_tree *head)$/;"	f
+height	parser/print_tree.c	/^  int height;      $/;"	m	struct:asciinode_struct	file:
+interpret_middleware	lexer/interpreter_middleware.c	/^void	interpret_middleware(t_lx_token *token, char *chunk, \\$/;"	f
+interpret_symbol	lexer/lexer.h	/^	char				interpret_symbol;$/;"	m	struct:s_lx_token
+interpreted_str	lexer/lexer.h	/^	char				*interpreted_str;$/;"	m	struct:s_lx_token
+interpreter	lexer/interpreter.c	/^void	interpreter(t_lx_token *token)$/;"	f
+is_dollar	lexer/check_interpret_symbol_utils.c	/^unsigned char	is_dollar(const char c)$/;"	f
+is_interpret_symbol	lexer/check_interpret_symbol_utils.c	/^unsigned char	is_interpret_symbol(const char c)$/;"	f
+is_matching_file	lexer/find_files.c	/^int	is_matching_file(char *input, t_file *const files)$/;"	f
+is_metacharacter	lexer/check_char_utils.c	/^int	is_metacharacter(const char c)$/;"	f
+is_quote	lexer/check_interpret_symbol_utils.c	/^unsigned char	is_quote(const char c)$/;"	f
+is_redi_token	parser/tree_utils.c	/^int     is_redi_token(t_lx_token *token)$/;"	f
+is_target_char	lexer/check_char_utils.c	/^unsigned char	is_target_char(const char c, const char target)$/;"	f
+is_tilde	lexer/check_interpret_symbol_utils.c	/^unsigned char	is_tilde(const char c)$/;"	f
+is_token_seperator	lexer/check_char_utils.c	/^int	is_token_seperator(const char c)$/;"	f
+is_tree_and_or	parser/tree_utils.c	/^unsigned char	is_tree_and_or(int token_type)$/;"	f
+is_tree_pipe	parser/tree_utils.c	/^unsigned char	is_tree_pipe(int token_type)$/;"	f
+is_wildcard	lexer/check_interpret_symbol_utils.c	/^unsigned char	is_wildcard(const char c)$/;"	f
+label	parser/print_tree.c	/^  char label[11];  $/;"	m	struct:asciinode_struct	file:
+lablen	parser/print_tree.c	/^  int lablen;$/;"	m	struct:asciinode_struct	file:
+left	parser/parser.h	/^	struct s_tree	*left;$/;"	m	struct:s_tree	typeref:struct:s_tree::s_tree
+left	parser/print_tree.c	/^  asciinode * left, * right;$/;"	m	struct:asciinode_struct	file:
+lexer	lexer/lexer.c	/^void	lexer(t_lx_token **token_head, char *full_line, char *envp[])$/;"	f
+liner	liner/liner.c	/^char	*liner(t_oflag *oflag)$/;"	f
+lprofile	parser/print_tree.c	/^int lprofile[MAX_HEIGHT];$/;"	v
+main	minishell.c	/^int	main(int argc, char *argv[], char *envp[])$/;"	f
+make_chunk_by_symbol	lexer/interpreter_make_chunk.c	/^char	*make_chunk_by_symbol(char **token_str, \\$/;"	f
+make_new_node	minishell_utils.c	/^void	*make_new_node(size_t size)$/;"	f
+make_new_token	minishell_utils.c	/^t_lx_token	*make_new_token(char *token_str, int token_type, t_lx_token *prev)$/;"	f
+make_tree_node	parser/tree_utils.c	/^t_tree	*make_tree_node(const int type, t_tree *parent_tree, t_lx_token *data)$/;"	f
+making_tree_node	parser/parser.c	/^void making_tree_node(t_tree *const cur, unsigned char(* is_tree_type)(int))$/;"	f
+match_flag	lexer/lexer.h	/^	int				match_flag;$/;"	m	struct:s_file
+merge_linked_list	parser/linked_list_utils.c	/^void	merge_linked_list(t_lx_token *dst, t_lx_token *src)$/;"	f
+my_calloc	myfunc/about_alloc.c	/^void	*my_calloc(size_t count, size_t size)$/;"	f
+my_closedir	myfunc/about_dir.c	/^int	my_closedir(DIR *dirp)$/;"	f
+my_free	myfunc/about_alloc.c	/^void	my_free(void *ptr)$/;"	f
+my_malloc	myfunc/about_alloc.c	/^void	*my_malloc(size_t size)$/;"	f
+my_multi_free	myfunc/about_alloc.c	/^void	my_multi_free(void *ptr1, void *ptr2, void *ptr3, void *ptr4)$/;"	f
+my_opendir	myfunc/about_dir.c	/^DIR	*my_opendir(const char *name)$/;"	f
+my_readdir	myfunc/about_dir.c	/^struct dirent	*my_readdir(DIR *dirp)$/;"	f
+my_readline	myfunc/about_readline.c	/^char *my_readline(const char *prompt)$/;"	f
+n	lexer/lexer.h	/^	int				n;$/;"	m	struct:s_file
+name	lexer/lexer.h	/^	char			*name;$/;"	m	struct:s_file
+newNode	parser/print_tree.c	/^t_tree	*newNode(int type)$/;"	f
+next	lexer/lexer.h	/^	struct s_lx_token	*next;$/;"	m	struct:s_lx_token	typeref:struct:s_lx_token::s_lx_token
+parent_dir	parser/print_tree.c	/^  int parent_dir;   $/;"	m	struct:asciinode_struct	file:
+parent_tree	parser/parser.h	/^	struct s_tree	*parent_tree;$/;"	m	struct:s_tree	typeref:struct:s_tree::s_tree
+parentheses	minishell.h	/^	int	parentheses;$/;"	m	struct:s_oflag
+parser	parser/parser.c	/^int parser(t_lx_token *head)$/;"	f
+pass_flag	lexer/lexer.h	/^	int					pass_flag;$/;"	m	struct:s_lx_token
+path_plus_filename	lexer/find_files_utils.c	/^char	*path_plus_filename(char *pwd, t_file *files, int idx, int dir_flag)$/;"	f
+pop_node	parser/linked_list_utils.c	/^t_lx_token  *pop_node(t_lx_token **cur_node, \\$/;"	f
+prev	lexer/lexer.h	/^	struct s_lx_token	*prev;$/;"	m	struct:s_lx_token	typeref:struct:s_lx_token::s_lx_token
+print_ascii_tree	parser/print_tree.c	/^void print_ascii_tree(t_tree * t) $/;"	f
+print_error_not_close	error_utils.c	/^void print_error_not_close(char *str)$/;"	f
+print_error_syntax	error_utils.c	/^void print_error_syntax(char *str)$/;"	f
+print_level	parser/print_tree.c	/^void print_level(asciinode *node, int x, int level) $/;"	f
+print_next	parser/print_tree.c	/^int print_next;    $/;"	v
+print_token_list	lexer/debug_function.c	/^void	print_token_list(t_lx_token *token_list)$/;"	f
+print_token_next	lexer/debug_function.c	/^void	print_token_next(t_lx_token *token_list)$/;"	f
+print_token_prev	lexer/debug_function.c	/^void	print_token_prev(t_lx_token *token_list)$/;"	f
+print_tree	debug_print_tree.c	/^void print_tree(t_tree *root)$/;"	f
+quote	minishell.h	/^	int	quote;$/;"	m	struct:s_oflag
+recur_search_handle_tree	parser/make_tree.c	/^recur_search_handle_tree(t_tree *root_node, int tree_type, void (* handler)(t_tree *))$/;"	f
+recursive_find_files	lexer/find_files.c	/^void	recursive_find_files(t_lx_token **cur, int cur_level, \\$/;"	f
+redi_to_left	parser/parser.c	/^int	redi_to_left(t_tree *cur_tree, t_lx_token **token_data)$/;"	f
+remain_to_right	parser/parser.c	/^void	remain_to_right(t_tree *cur_tree, t_lx_token *token_data)$/;"	f
+right	parser/parser.h	/^	struct s_tree	*right;$/;"	m	struct:s_tree	typeref:struct:s_tree::s_tree
+right	parser/print_tree.c	/^  asciinode * left, * right;$/;"	m	struct:asciinode_struct	file:
+rprofile	parser/print_tree.c	/^int rprofile[MAX_HEIGHT];$/;"	v
+s_file	lexer/lexer.h	/^typedef struct s_file$/;"	s
+s_lx_token	lexer/lexer.h	/^typedef struct s_lx_token$/;"	s
+s_oflag	minishell.h	/^typedef struct s_oflag$/;"	s
+s_tree	parser/parser.h	/^typedef struct s_tree$/;"	s
+set_interpret_symbol	lexer/tokenization_utils.c	/^void	set_interpret_symbol(t_lx_token *token_node, char c, \\$/;"	f
+set_parentheses_flag	lexer/tokenization_utils.c	/^void	set_parentheses_flag(const char c, int *parentheses_flag, \\$/;"	f
+set_quote_flag	lexer/tokenization_utils.c	/^void	set_quote_flag(const char c, int *quote_flag)$/;"	f
+set_token	lexer/lexer.c	/^t_lx_token	*set_token(char **line, t_oflag *oflag, char *envp[])$/;"	f
+set_token_type	lexer/tokenization_utils.c	/^void	set_token_type(t_lx_token *token_node, char c)$/;"	f
+signal_handler	terminal_setting.c	/^void	signal_handler(void)$/;"	f
+t_file	lexer/lexer.h	/^}	t_file;$/;"	t	typeref:struct:s_file
+t_lx_token	lexer/lexer.h	/^}	t_lx_token;$/;"	t	typeref:struct:s_lx_token
+t_oflag	minishell.h	/^}	t_oflag;$/;"	t	typeref:struct:s_oflag
+t_tree	parser/parser.h	/^}	t_tree;$/;"	t	typeref:struct:s_tree
+terminal_off_control_chars	terminal_setting.c	/^int	terminal_off_control_chars(void)$/;"	f
+token_data	parser/parser.h	/^	t_lx_token		*token_data;$/;"	m	struct:s_tree
+token_str	lexer/lexer.h	/^	char				*token_str;$/;"	m	struct:s_lx_token
+token_type	lexer/lexer.h	/^	int					token_type;$/;"	m	struct:s_lx_token
+tree_traversal	parser/parser.c	/^void    tree_traversal(t_tree *cur_tree, int tree_type, \\$/;"	f
+type	lexer/lexer.h	/^	int				type;$/;"	m	struct:s_file
+type	parser/parser.h	/^	unsigned char	type;$/;"	m	struct:s_tree
+wildcard_translator	lexer/wildcard_translator.c	/^void	wildcard_translator(t_lx_token **cur)$/;"	f

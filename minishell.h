@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/07 02:38:46 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/07 20:21:53 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,18 @@ enum	e_return
 	TRUE = 1
 };
 
+// typedef struct s_oflag
+// {
+//     unsigned char	quote;
+//     unsigned char	parentheses;
+//     unsigned char	and_if;
+// }	t_oflag;
+
 typedef struct s_oflag
 {
-	unsigned char	quote;
-	unsigned char	parentheses;
-	unsigned char	and_if;
+	int	quote;
+	int	parentheses;
+	int	and_if;
 }	t_oflag;
 
 // origin_str_utils.c
@@ -117,4 +124,5 @@ void			*make_new_node(size_t size);
 t_lx_token		*make_new_token(char *token_str, int token_type, t_lx_token *prev);
 //error_utils.c
 void			print_error_syntax(char *token);
+void			print_error_not_close(char *str);
 #endif
