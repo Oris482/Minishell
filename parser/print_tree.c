@@ -88,7 +88,8 @@ static char *_token_data_to_string(t_lx_token *token_list)
   while (token_list)
   {
     ft_strjoin_self(&ret, get_token_str(token_list));
-    ft_strjoin_self(&ret, " ");
+	if (token_list->next)
+		ft_strjoin_self(&ret, " ");
     token_list = token_list->next;
   }
   return (ret);
@@ -113,14 +114,28 @@ asciinode * build_ascii_tree_recursive(t_tree * t)
 	{
 		node->right->parent_dir = 1;
 	}
-	join_str = _token_data_to_string(t->token_data);
+
+	join_str = NULL;
+
+	/* type off 주석 시작*/
+	if (t->type != TREE_CMD)
+		join_str = ft_strsjoin(_type_to_string(t->type), "[", NULL);
+	/* type off 주석 끝*/
+
+	ft_strjoin_self(&join_str, _token_data_to_string(t->token_data));
+
+	/* type off 주석 시작*/
+	if (t->type != TREE_CMD)
+		ft_strjoin_self(&join_str, "]");
+	/* type off 주석 끝*/
+
 	node->label = (char *)malloc((strlen(join_str) + 1) * sizeof(char));
-	// sprintf(node->label, "%s", _type_to_string(t->type));
-	// sprintf(node->label, "%s", _token_data_to_string(t->token_data));
 	sprintf(node->label, "%s", join_str);
 	node->lablen = (int)strlen(node->label);
 	return node;
 }
+	// sprintf(node->label, "%s", _type_to_string(t->type));
+	// sprintf(node->label, "%s", _token_data_to_string(t->token_data));
 
 
 //Copy the tree into the ascii node structre
@@ -265,7 +280,7 @@ void print_level(asciinode *node, int x, int level)
   isleft = (node->parent_dir == -1);
   if (level == 0) 
   {
-	  for (i=0; i<(x-print_next-((node->lablen-isleft)/2)); i++) 
+	  for (i=0; i<(x-print_next-((node->lablen-isleft)/2)); i++)
     {
 	    printf(" ");
     }
@@ -338,6 +353,7 @@ void print_ascii_tree(t_tree * t)
 	  printf("(This tree is taller than %d, and may be drawn incorrectly.)\n", MAX_HEIGHT);
 	}
 	free_ascii_tree(proot); 
+	printf("\n-----------------------------------\n\n");
 }
 
 // int main(void) 

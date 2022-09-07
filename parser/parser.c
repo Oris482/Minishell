@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:31:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/07 22:22:40 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 03:46:26 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,6 @@ int parser(t_tree **root, t_lx_token *head)
 {
 	*root = make_tree_node(TREE_UNDEFINED, NULL, head);
 	expand_token_to_tree(*root);
-	print_ascii_tree(*root);
 	if (FALSE)
 		return (ERROR);
 	return (SUCCESS);

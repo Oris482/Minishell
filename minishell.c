@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/07 23:56:26 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 03:46:14 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ static void	_minishell_routine(char *full_line, t_oflag *oflag)
 	print_token_prev(token_list);
 	if (parser(&root_tree, token_list) == ERROR)
 		return ;
+	printf("----------- < TREE > --------------\n\n");
 	print_ascii_tree(root_tree);
 	my_multi_free(full_line, token_list, NULL, NULL);
-	// my_tree_free(root);
+	// tree_traversal(root, TREE_ALL, free);
 	return ;
 }
 
