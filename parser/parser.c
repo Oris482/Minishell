@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:31:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/07 18:07:30 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/07 22:22:40 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,8 @@ void    tree_traversal(t_tree *cur_tree, int tree_type, \
 		return ;
 	else if (cur_tree->type & tree_type)
 		handler(cur_tree);
-	else
-	{
-		tree_traversal(cur_tree->left, tree_type, handler);
-		tree_traversal(cur_tree->right, tree_type, handler);
-	}
+	tree_traversal(cur_tree->left, tree_type, handler);
+	tree_traversal(cur_tree->right, tree_type, handler);
 }
 
 // void    tree_traversal(t_tree *cur_tree, int tree_type, \
@@ -87,6 +84,7 @@ void making_tree_node(t_tree *const cur, unsigned char(* is_tree_type)(int))
 	cur->right = make_tree_node(first_type, cur, cut_back_node(find_node));
 	cur->left = make_tree_node(first_type, cur, cur->token_data);
 	cur->token_data = pop_node(&cur->token_data, find_node, find_node);
+	making_tree_node(cur->left, is_tree_type);
 }
 
 void	expand_and_or_tree(t_tree *cur)
@@ -210,14 +208,12 @@ void	expand_token_to_tree(t_tree *root)
 	tree_traversal(root, TREE_CMD, expand_cmd_tree);
 }
 
-int parser(t_lx_token *head)
+int parser(t_tree **root, t_lx_token *head)
 {
-	t_tree		*root;
-
-	if (!check_syntax_error(head))
-		return (FALSE);
-	root = make_tree_node(TREE_UNDEFINED, NULL, head);
-	expand_token_to_tree(root);
-	print_ascii_tree(root);
+	*root = make_tree_node(TREE_UNDEFINED, NULL, head);
+	expand_token_to_tree(*root);
+	print_ascii_tree(*root);
+	if (FALSE)
+		return (ERROR);
 	return (SUCCESS);
 }

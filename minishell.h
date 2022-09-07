@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/07 20:21:53 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/07 22:34:01 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <readline/history.h>
 # include <unistd.h>
 # include <term.h>
-# include "lexer.h"
+// # include "lexer.h"
 
 # define UNDEFINED		0b00000000
 # define QUOTE			0b00000001
@@ -29,6 +29,17 @@
 # define DOLLAR			0b00000100
 # define WILDCARD		0b00001000
 # define TILDE			0b00010000
+
+typedef struct s_lx_token
+{
+	char				*token_str;
+	int					token_type;
+	char				interpret_symbol;
+	char				*interpreted_str;
+	int					pass_flag;
+	struct s_lx_token	*prev;
+	struct s_lx_token	*next;
+}	t_lx_token;
 
 enum	e_token_type
 {

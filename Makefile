@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/07 19:13:52 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/09/07 22:36:12 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS			= 	-fsanitize=address
 # CFLAGS 		=	-Wall -Wextra -Werror
 
 LINKER		=	$(LDFLAGS) -lreadline
-COMPILE		=	-c $(CPPFLAGS)
+COMPILE		=	-c
 RM 			=	rm -vf
 AR 			= ar
 MAKE_C 		= make -C
@@ -31,7 +31,6 @@ EXCUTER_DIR		=	excuter/
 NAME	 	=	minishell
 
 # 파일 기능별로 분류해서 소스파일 넣기
-
 MY_FUNC_SRCS		=	about_alloc.c		\
 						about_dir.c			\
 						about_readline.c	\
@@ -52,13 +51,12 @@ LEXER_SRCS			=	lexer.c							\
 						dirent_utils.c					\
 						find_files.c					\
 						make_node.c						\
+						check_syntax_error.c			\
 						find_files_utils.c
 
 PARSER_SRCS			=	parser.c						\
 						print_tree.c					\
-						check_syntax_error.c			\
-						tree_utils.c					\
-						linked_list_utils.c
+						tree_utils.c
 
 MANDA_SRCS	=	minishell.c										\
 				minishell_utils.c								\
@@ -68,6 +66,7 @@ MANDA_SRCS	=	minishell.c										\
 				custom_str_utils.c								\
 				terminal_setting.c								\
 				error_utils.c									\
+				linked_list_utils.c								\
 				$(addprefix $(MY_FUNC_DIR), $(MY_FUNC_SRCS))	\
 				$(addprefix $(LINER_DIR), $(LINER_SRCS))		\
 				$(addprefix $(LEXER_DIR), $(LEXER_SRCS))		\
@@ -78,7 +77,7 @@ MANDA_SRCS	=	minishell.c										\
 # SRCS			= 	$(MANDA_SRCS)
 # HADS			=	$(MANDATORY_DIR)push_swap.h
 OBJS			=	$(MANDA_SRCS:.c=.o)
-INC_HEADERS		=	-I. -I$(MY_FUNC_DIR) -I$(LINER_DIR) -I$(LEXER_DIR) -I$(PARSER_DIR)
+INC_HEADERS		=	-I. -I$(MY_FUNC_DIR) -I$(LINER_DIR) -I$(LEXER_DIR) -I$(PARSER_DIR) $(CPPFLAGS)
 
 all: $(NAME)
 
@@ -90,7 +89,7 @@ $(NAME): $(OBJS)
 
 %.o: %.c
 	@echo [$<] compiling...
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(INC_HEADERS) $(COMPILE) $< -o $@
+	$(CC) $(CFLAGS) $(INC_HEADERS) $(COMPILE) $< -o $@
 
 clean:
 	@echo

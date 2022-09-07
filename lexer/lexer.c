@@ -6,11 +6,12 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/07 02:42:17 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/07 22:39:37 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+// #include "minishell.h"
 #include "minishell.h"
 #include "myfunc.h"
 
@@ -39,7 +40,7 @@ static int	_make_operator(t_lx_token *token_node, char **line, int token_type)
 	return (SUCCESS);
 }
 
-t_lx_token	*set_token(char **line, t_oflag *oflag, char *envp[])
+t_lx_token	*set_token(char **line, t_oflag *oflag)
 {
 	t_lx_token	*token_node;
 	const int	token_split_flag = is_token_seperator(**line);
@@ -65,26 +66,26 @@ t_lx_token	*set_token(char **line, t_oflag *oflag, char *envp[])
 	return (token_node);
 }
 
-void	lexer(t_lx_token **token_head, char *full_line, char *envp[])
+int	lexer(t_lx_token **token_head, char *full_line, t_oflag *oflag)
 {
 	t_lx_token	*token_cur;
-	t_oflag		oflag;
 
-	oflag.quote = 0;
-	oflag.and_if = 0;
+	*token_head = NULL;
 	while (*full_line || token_cur)
 	{
 		if (ft_isspace(*full_line) && full_line++)
 			continue ;
 		if (*token_head == NULL)
 		{
-			*token_head = set_token(&full_line, &oflag, envp);
+			*token_head = set_token(&full_line, oflag);
 			token_cur = *token_head;
 		}
 		else if (*full_line && token_cur->next == NULL)
-			token_cur->next = set_token(&full_line, &oflag, envp);
+			token_cur->next = set_token(&full_line, oflag);
 		else
 			token_cur = connect_token(*token_head, token_cur);
 	}
-	return ;
+	if (!check_syntax_error(*token_head))
+		return (ERROR);
+	return (SUCCESS);
 }

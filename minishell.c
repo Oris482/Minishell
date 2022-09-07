@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/07 21:05:47 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/07 23:56:26 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,24 @@
 #include "lexer.h"
 #include "parser.h"
 
-static void	_minishell_routine(char *full_line, char *envp[])
+//t_info env
+
+static void	_minishell_routine(char *full_line, t_oflag *oflag)
 {
 	t_lx_token		*token_list;
+	t_tree			*root_tree;
 
-	token_list = NULL;
-	lexer(&token_list, full_line, envp);
+
+	if (lexer(&token_list, full_line, oflag) == ERROR)
+		return ;
 	print_token_list(token_list);
 	print_token_next(token_list);
 	print_token_prev(token_list);
-	parser(token_list);
+	if (parser(&root_tree, token_list) == ERROR)
+		return ;
+	print_ascii_tree(root_tree);
 	my_multi_free(full_line, token_list, NULL, NULL);
+	// my_tree_free(root);
 	return ;
 }
 
@@ -37,6 +44,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	signal_handler();
 	terminal_off_control_chars();
+	//envp 할당
 	while (true)
 	{
 		full_line = liner(&oflag);
@@ -44,9 +52,10 @@ int	main(int argc, char *argv[], char *envp[])
 			continue ;
 		add_history(full_line);
 		if (!oflag.quote && !oflag.parentheses)
-			_minishell_routine(full_line, envp);
+			_minishell_routine(full_line, &oflag);
 	}
 	(void)argc;
 	(void)argv;
+
 	return (0);
 }

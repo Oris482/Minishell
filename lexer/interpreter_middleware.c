@@ -6,11 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/05 14:45:19 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/07 22:37:54 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "lexer.h"
 #include "myfunc.h"
 
 static int	_cursor_to_space(char **str_cur)
