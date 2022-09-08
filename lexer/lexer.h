@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 21:11:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/07 22:36:27 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:51:45 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <dirent.h>
-# include "minishell.h"
-
 
 typedef struct s_file
 {
@@ -26,6 +24,24 @@ typedef struct s_file
 	int				type;
 	int				match_flag;
 }	t_file;
+
+typedef struct s_lx_token
+{
+	char				*token_str;
+	int					token_type;
+	char				interpret_symbol;
+	char				*interpreted_str;
+	int					pass_flag;
+	struct s_lx_token	*prev;
+	struct s_lx_token	*next;
+}	t_lx_token;
+
+typedef struct s_oflag
+{
+	int	quote;
+	int	parentheses;
+	int	and_if;
+}	t_oflag;
 
 // debug_function.c
 void			print_token_list(t_lx_token *token_list);

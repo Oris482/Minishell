@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:31:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/08 17:17:34 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:43:33 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,11 +228,13 @@ void	expand_token_to_tree(t_tree *root)
 	tree_traversal(root, TREE_CMD, expand_cmd_tree);
 }
 
-int parser(t_tree **root, t_lx_token *head)
+t_tree *parser(t_lx_token *head)
 {
-	*root = make_tree_node(TREE_UNDEFINED, NULL, head);
-	expand_token_to_tree(*root);
+	t_tree	*root;
+
+	root = make_tree_node(TREE_UNDEFINED, NULL, head);
+	expand_token_to_tree(root);
 	if (FALSE)
-		return (ERROR);
+		return (list_tree_free(NULL, root));
 	return (SUCCESS);
 }

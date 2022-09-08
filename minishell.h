@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/07 22:34:01 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:51:50 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # include <readline/history.h>
 # include <unistd.h>
 # include <term.h>
-// # include "lexer.h"
+# include "parser.h"
+# include "lexer.h"
 
 # define UNDEFINED		0b00000000
 # define QUOTE			0b00000001
@@ -30,16 +31,6 @@
 # define WILDCARD		0b00001000
 # define TILDE			0b00010000
 
-typedef struct s_lx_token
-{
-	char				*token_str;
-	int					token_type;
-	char				interpret_symbol;
-	char				*interpreted_str;
-	int					pass_flag;
-	struct s_lx_token	*prev;
-	struct s_lx_token	*next;
-}	t_lx_token;
 
 enum	e_token_type
 {
@@ -80,12 +71,6 @@ enum	e_return
 //     unsigned char	and_if;
 // }	t_oflag;
 
-typedef struct s_oflag
-{
-	int	quote;
-	int	parentheses;
-	int	and_if;
-}	t_oflag;
 
 // origin_str_utils.c
 size_t			ft_strlen(const char *s);
@@ -128,12 +113,17 @@ t_lx_token		*cut_back_node(t_lx_token *cur_node);
 t_lx_token  	*pop_node(t_lx_token **cur_node, \
 						t_lx_token *start_node, t_lx_token *end_node);
 void			merge_linked_list(t_lx_token *dst, t_lx_token *src);
-// minishell_utils.c
+
+							/* minishell_utils.c */
 char			*get_token_str(const t_lx_token *token);
 t_lx_token		*get_last_node(t_lx_token *token);
 void			*make_new_node(size_t size);
 t_lx_token		*make_new_token(char *token_str, int token_type, t_lx_token *prev);
-//error_utils.c
+
+							/* error_utils.c */
 void			print_error_syntax(char *token);
 void			print_error_not_close(char *str);
+
+							/* free_utils.c */
+void			*list_tree_free(t_lx_token *list, t_tree *tree);
 #endif

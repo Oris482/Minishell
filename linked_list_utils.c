@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 19:38:01 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/08 17:18:01 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:22:31 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_lx_token  *pop_node(t_lx_token **start_node, t_lx_token *end_node)
 {
 	t_lx_token	*const last_node = get_last_node(*start_node);
 
+	end_node = 
 	if (start_node->prev == last_node)
 	{
 		*cur_node = end_node->next;
