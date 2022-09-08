@@ -6,12 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:23:45 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/07 22:37:39 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 18:10:43 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-
+#include "minishell.h"
 void	print_token_list(t_lx_token *token_list)
 {
 	char	*token_type;

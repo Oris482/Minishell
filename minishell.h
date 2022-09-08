@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/08 18:00:20 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/08 18:10:25 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <unistd.h>
 # include <term.h>
 # include <dirent.h>
+# include <errno.h>
 
 # define UNDEFINED		0b00000000
 # define QUOTE			0b00000001
@@ -29,6 +30,17 @@
 # define DOLLAR			0b00000100
 # define WILDCARD		0b00001000
 # define TILDE			0b00010000
+
+typedef struct s_lx_token
+{
+	char				*token_str;
+	int					token_type;
+	char				interpret_symbol;
+	char				*interpreted_str;
+	int					pass_flag;
+	struct s_lx_token	*prev;
+	struct s_lx_token	*next;
+}	t_lx_token;
 
 
 typedef struct s_file
@@ -152,4 +164,82 @@ void			print_error_not_close(char *str);
 
 							/* free_utils.c */
 void			*list_tree_free(t_lx_token *list, t_tree *tree);
+// debug_function.c
+void			print_token_list(t_lx_token *token_list);
+void			classify(struct dirent *ent);
+void			print_token_next(t_lx_token *token_list);
+void			print_token_prev(t_lx_token *token_list);
+// lexer.c
+t_lx_token		*lexer(char *full_line, t_oflag *oflag);
+
+// tokenization_utils.c
+void			set_quote_flag(const char c, int *quote_flag);
+void			set_parentheses_flag(const char c, int *parentheses_flag, \
+															int *quote_flag);
+void			set_interpret_symbol(t_lx_token *token_node, char c, \
+								int *quote_flag);
+void			set_token_type(t_lx_token *token_node, char c);
+// interpreter.c
+void			interpreter(t_lx_token *token);
+unsigned char	find_interpret_symbol(char **token_str, \
+												unsigned char target);
+// interpreter_middleware.c
+void			interpret_middleware(t_lx_token *token, char *chunk, \
+											unsigned char symbol_type);
+// interpreter_make_chunk.c
+char			*make_chunk_by_symbol(char **token_str, \
+					char *str_startpoint, unsigned char *symbol_type);
+// compress_target_char.c
+char			*compress_target_char(char *target_str, const char target);
+// wildcard_translator.c
+void			wildcard_translator(t_lx_token **cur);
+// dirent_utils.c
+t_file			*get_files_cur_pwd(const char *cur_pwd, char dir_flag);
+// find_files.c
+int				is_matching_file(char *input, t_file *const files);
+void			recursive_find_files(t_lx_token **cur, int cur_level, \
+											char *pwd, char **splited);
+// find_files_utils.c
+char			*path_plus_filename(char *pwd, t_file *files, int idx, \
+														int dir_flag);
+int				get_target_level(char **splited);
+// interpreter_make_chunk.c
+char			*make_chunk_by_symbol(char **token_str, \
+					char *str_startpoint, unsigned char *symbol_type);
+
+// make_node.c
+t_lx_token		*connect_token(t_lx_token *token_head, t_lx_token *cur);
+
+unsigned int	check_syntax_error(t_lx_token *head);
+// liner.c
+char	*liner(t_oflag *oflag);
+
+/* about_dir */
+# include <dirent.h>
+DIR				*my_opendir(const char *name);
+struct dirent	*my_readdir(DIR *dirp);
+int				my_closedir(DIR *dirp);
+
+/* about_alloc */
+void			*my_malloc(size_t size);
+void			*my_calloc(size_t count, size_t size);
+void			my_free(void *ptr);
+void			my_multi_free(void *ptr1, void *ptr2, void *ptr3, void *ptr4);
+
+/* about_readline */
+# include <readline/readline.h>
+char			*my_readline(const char *prompt);
+void    		tree_traversal(t_tree *cur_tree, int tree_type, \
+											void (*handler)(t_tree *));
+// tree_utils.c
+unsigned char	is_tree_and_or(int token_type);
+unsigned char	is_tree_pipe(int token_type);
+t_tree			*make_tree_node(int type, t_tree *parent_tree, t_lx_token *data);
+int     		is_redi_token(t_lx_token *token);
+
+// parser.c
+t_tree			*parser(t_lx_token *head);
+
+// print_tree.c
+void 			print_ascii_tree(t_tree * t);
 #endif

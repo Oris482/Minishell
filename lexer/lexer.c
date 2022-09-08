@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/08 18:00:34 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/08 18:09:25 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@ t_lx_token	*set_token(char **line, t_oflag *oflag)
 	return (token_node);
 }
 
-int	lexer(char *full_line, t_oflag *oflag)
+t_lx_token	*lexer(char *full_line, t_oflag *oflag)
 {
+	t_lx_token	*token_head;
 	t_lx_token	*token_cur;
 
 	token_head = NULL;
@@ -85,6 +86,6 @@ int	lexer(char *full_line, t_oflag *oflag)
 			token_cur = connect_token(token_head, token_cur);
 	}
 	if (check_syntax_error(token_head) != SUCCESS)
-		return (lst_fclean(token_head));
+		return (list_tree_free(token_head, NULL));
 	return (token_head);
 }

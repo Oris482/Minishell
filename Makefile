@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/08 17:59:17 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/08 18:16:20 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,6 @@ MANDA_SRCS	=	minishell.c										\
 				error_utils.c									\
 				free_utils.c									\
 				linked_list_utils.c								\
-				free_utils.c									\
 				$(addprefix $(MY_FUNC_DIR), $(MY_FUNC_SRCS))	\
 				$(addprefix $(LINER_DIR), $(LINER_SRCS))		\
 				$(addprefix $(LEXER_DIR), $(LEXER_SRCS))		\
@@ -112,7 +111,7 @@ re:
 bonus:
 	@$(MAKE) \
 	"NAME 			=	$(BONUS_NAME)"									\
-	"OBJS			=	$(BONUS_SRCS:.c=.o))"							\
+	"OBJS			=	$(BONUS_SRCS:.c=.o)"							\
 
 list:
 	@echo $(MANDA_SRCS)

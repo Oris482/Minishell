@@ -6,12 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 11:23:44 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/01 13:08:11 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/08 18:09:58 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "myfunc.h"
+#include "minishell.h"
 
 void	*my_malloc(size_t size)
 {

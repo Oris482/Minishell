@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/08 17:59:36 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/08 18:04:53 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	_minishell_routine(char *full_line, t_oflag *oflag)
 	t_tree			*root_tree;
 
 
-	token_list = lexer(full_line, oflag)
+	token_list = lexer(full_line, oflag);
 	if (!token_list)
 		return ;
 	print_token_list(token_list);

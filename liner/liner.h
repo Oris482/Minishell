@@ -6,12 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 08:11:42 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/07 19:02:53 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 18:02:33 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LINER_H
 # define LINER_H
 
-char	*liner(t_oflag *oflag);
 #endif
