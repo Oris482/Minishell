@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:31:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/08 17:17:34 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:45:40 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,11 @@ void	handle_subshell(t_tree *head)
 	t_lx_token	*open_token;
 	t_lx_token	*close_token;
 
-	head->left = make_tree_node(TREE_UNDEFINED, head, head->token_data);
-	open_token = head->left->token_data;
-	head->token_data = pop_node(&head->left->token_data, \
-													open_token, open_token);
-	close_token = get_last_node(head->left->token_data);
-	merge_linked_list(head->token_data, pop_node(&head->left->token_data, \
-													close_token, close_token));
+	open_token = head->token_data;
+	close_token = get_last_node(open_token);
+	head->left = make_tree_node(TREE_UNDEFINED, head, head->token_data->next);
+	head->token_data = pop_node(&open_token, open_token);
+	merge_linked_list(head->token_data, pop_node(&close_token, close_token));
 	expand_token_to_tree(head);
 }
 
@@ -110,12 +108,11 @@ int	redi_to_left(t_tree *cur_tree, t_lx_token **token_data)
 
 	if (!is_redi_token(*token_data))
 		return (ERROR);
-	start_node = *token_data;
-	*token_data = (*token_data)->next;
-	while ((*token_data)->next && (*token_data)->next->token_str == NULL)
-		*token_data = (*token_data)->next;
 	end_node = *token_data;
-	poped_node = pop_node(token_data, start_node, end_node);
+	end_node = end_node->next;
+	while (end_node->next && end_node->next->token_str == NULL)
+		end_node= end_node->next;
+	poped_node = pop_node(token_data, end_node);
 	if (cur_tree->left)
 		merge_linked_list(cur_tree->left->token_data, poped_node);
 	else

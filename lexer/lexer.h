@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 21:11:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/07 22:36:27 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:57:23 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,7 @@
 # define LEXER_H
 # include <stdlib.h>
 # include <stdio.h>
-# include <dirent.h>
 # include "minishell.h"
-
-
-typedef struct s_file
-{
-	int				n;
-	DIR				*dirp;
-	char			*name;
-	int				type;
-	int				match_flag;
-}	t_file;
 
 // debug_function.c
 void			print_token_list(t_lx_token *token_list);
@@ -33,7 +22,7 @@ void			classify(struct dirent *ent);
 void			print_token_next(t_lx_token *token_list);
 void			print_token_prev(t_lx_token *token_list);
 // lexer.c
-int				lexer(t_lx_token **token_head, char *full_line, t_oflag *oflag);
+t_lx_token		*lexer(char *full_line, t_oflag *oflag);
 
 // tokenization_utils.c
 void			set_quote_flag(const char c, int *quote_flag);
@@ -77,7 +66,7 @@ char			*make_chunk_by_symbol(char **token_str, \
 					char *str_startpoint, unsigned char *symbol_type);
 
 // make_node.c
-t_lx_token	*connect_token(t_lx_token *token_head, t_lx_token *cur);
+t_lx_token		*connect_token(t_lx_token *token_head, t_lx_token *cur);
 
 unsigned int	check_syntax_error(t_lx_token *head);
 #endif

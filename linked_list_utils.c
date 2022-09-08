@@ -6,21 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 19:38:01 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/08 17:18:01 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:49:31 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// static int	_is_first_node(t_lx_token *cur_node)
-// {
-//     return ();
-// }
-//
-// static int	_is_last_node(t_lx_token *cur_node)
-// {
-//     return ();
-// }
 
 t_lx_token  *cut_front_node(t_lx_token *cur_node)
 {
@@ -54,28 +44,22 @@ t_lx_token	*cut_back_node(t_lx_token *cur_node)
 	return (rtn_node);
 }
 
-t_lx_token  *pop_node(t_lx_token **start_node, t_lx_token *end_node)
+t_lx_token  *pop_node(t_lx_token **cur_node, t_lx_token *end_node)
 {
-	t_lx_token	*const last_node = get_last_node(*start_node);
+	t_lx_token	*const start_node = *cur_node;
+	t_lx_token	*const last_node = get_last_node(*cur_node);
 
+	*cur_node = end_node->next;
+	if (start_node->prev == last_node && end_node == last_node)
+		return ((t_lx_token *)start_node);
 	if (start_node->prev == last_node)
-	{
-		*cur_node = end_node->next;
-		if (*cur_node == NULL)
-			return (start_node);
-		return (cut_front_node(*cur_node));
-	}
+		return (cut_front_node(end_node->next));
 	else if (end_node == last_node)
-	{
-		*cur_node = start_node->prev;
-		return (cut_back_node(*cur_node));
-	}
+		return (cut_back_node(start_node->prev));
 	else
 	{
-		if (*cur_node == start_node || *cur_node == end_node)
-			*cur_node = start_node->prev;
 		start_node->prev->next = end_node->next;
-		end_node->next->prev = start_node->prev;
+		end_node->prev = start_node->prev;
 		start_node->prev = end_node;
 		end_node->next = NULL;
 	}

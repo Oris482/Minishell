@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/07 22:34:01 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:57:03 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <readline/history.h>
 # include <unistd.h>
 # include <term.h>
-// # include "lexer.h"
+# include <dirent.h>
 
 # define UNDEFINED		0b00000000
 # define QUOTE			0b00000001
@@ -41,6 +41,37 @@ typedef struct s_lx_token
 	struct s_lx_token	*next;
 }	t_lx_token;
 
+typedef struct s_file
+{
+	int				n;
+	DIR				*dirp;
+	char			*name;
+	int				type;
+	int				match_flag;
+}	t_file;
+
+typedef struct s_tree
+{
+	unsigned char	type;
+	t_lx_token		*token_data;
+	struct s_tree	*parent_tree;
+	struct s_tree	*left;
+	struct s_tree	*right;
+}	t_tree;
+
+enum e_tree_type
+{
+	TREE_UNDEFINED =	0b00000001,
+	TREE_AND = 			0b00000010,
+	TREE_OR =			0b00000100,
+	TREE_PIPE =			0b00001000,
+	TREE_CMD =			0b00010000,
+	TREE_REDI =			0b00100000,
+	TREE_SIMPLE_CMD =	0b01000000,
+	TREE_SUBSHELL =		0b10000000,
+	TREE_ALL = 			0b11111111
+};
+
 enum	e_token_type
 {
 	WORD = 100,
@@ -57,8 +88,6 @@ enum	e_token_type
 	SPACE_SET,
 };
 
-
-
 enum	e_exit_code
 {
 	GENERAL_EXIT_CODE = 1,
@@ -72,13 +101,6 @@ enum	e_return
 	SUCCESS,
 	TRUE = 1
 };
-
-// typedef struct s_oflag
-// {
-//     unsigned char	quote;
-//     unsigned char	parentheses;
-//     unsigned char	and_if;
-// }	t_oflag;
 
 typedef struct s_oflag
 {
@@ -125,8 +147,7 @@ int				terminal_off_control_chars(void);
 // linked_list_utils.c
 t_lx_token  	*cut_front_node(t_lx_token *cur_node);
 t_lx_token		*cut_back_node(t_lx_token *cur_node);
-t_lx_token  	*pop_node(t_lx_token **cur_node, \
-						t_lx_token *start_node, t_lx_token *end_node);
+t_lx_token  	*pop_node(t_lx_token **cur_node, t_lx_token *end_node);
 void			merge_linked_list(t_lx_token *dst, t_lx_token *src);
 // minishell_utils.c
 char			*get_token_str(const t_lx_token *token);
@@ -136,4 +157,7 @@ t_lx_token		*make_new_token(char *token_str, int token_type, t_lx_token *prev);
 //error_utils.c
 void			print_error_syntax(char *token);
 void			print_error_not_close(char *str);
+// free_utils.c
+t_lx_token 		*lst_fclean(t_lx_token *cur_list);
+void			tree_free(t_tree *cur_tree);
 #endif

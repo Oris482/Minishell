@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/08 16:47:31 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:49:31 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,7 @@
 //     free(cur_tree);
 // }
 
-void lst_fclean(t_lx_token *cur_list)
-{
-	while (cur_list)
-	{
-		my_multi_free(cur_list->token_str, cur_list->interpreted_str, \
-															cur_list, NULL);
-		cur_list = cur_list->next;
-	}
-}
 
-void tree_free(t_tree *cur_tree)
-{
-	lst_fclean(cur_tree->token_data);
-	my_multi_free(cur_tree, NULL, NULL, NULL);
-}
 
 static void	_minishell_routine(char *full_line, t_oflag *oflag)
 {
@@ -48,11 +34,9 @@ static void	_minishell_routine(char *full_line, t_oflag *oflag)
 	t_tree			*root_tree;
 
 
-	if (lexer(&token_list, full_line, oflag) == ERROR)
-	{
-		lst_fclean(token_list);
+	token_list = lexer(full_line, oflag);
+	if (token_list == NULL)
 		return ;
-	}
 	print_token_list(token_list);
 	print_token_next(token_list);
 	print_token_prev(token_list);
