@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/08 17:57:23 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/08 17:59:17 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ MANDA_SRCS	=	minishell.c										\
 				custom_str_utils.c								\
 				terminal_setting.c								\
 				error_utils.c									\
+				free_utils.c									\
 				linked_list_utils.c								\
 				free_utils.c									\
 				$(addprefix $(MY_FUNC_DIR), $(MY_FUNC_SRCS))	\

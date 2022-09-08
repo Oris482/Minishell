@@ -6,16 +6,14 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 17:48:04 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/08 17:49:49 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:58:46 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "myfunc.h"
-#include "lexer.h"
-#include "parser.h"
 
-t_lx_token *lst_fclean(t_lx_token *cur_list)
+
+static void _linked_lst_fclean(t_lx_token *cur_list)
 {
 	while (cur_list)
 	{
@@ -23,11 +21,17 @@ t_lx_token *lst_fclean(t_lx_token *cur_list)
 															cur_list, NULL);
 		cur_list = cur_list->next;
 	}
-	return (NULL);
 }
 
-void tree_free(t_tree *cur_tree)
+static void _tree_node_free(t_tree *cur_tree)
 {
-	lst_fclean(cur_tree->token_data);
-	my_multi_free(cur_tree, NULL, NULL, NULL);
+	_linked_lst_fclean(cur_tree->token_data);
+	my_free(cur_tree);
+}
+
+void *list_tree_free(t_lx_token *list, t_tree *tree)
+{
+	_linked_lst_fclean(list);
+	tree_traversal(root_tree, TREE_ALL, _tree_node_free);
+	return (NULL);
 }

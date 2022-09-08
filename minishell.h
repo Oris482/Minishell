@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/08 17:57:03 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/08 18:00:20 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,6 @@
 # define WILDCARD		0b00001000
 # define TILDE			0b00010000
 
-typedef struct s_lx_token
-{
-	char				*token_str;
-	int					token_type;
-	char				interpret_symbol;
-	char				*interpreted_str;
-	int					pass_flag;
-	struct s_lx_token	*prev;
-	struct s_lx_token	*next;
-}	t_lx_token;
 
 typedef struct s_file
 {
@@ -149,15 +139,17 @@ t_lx_token  	*cut_front_node(t_lx_token *cur_node);
 t_lx_token		*cut_back_node(t_lx_token *cur_node);
 t_lx_token  	*pop_node(t_lx_token **cur_node, t_lx_token *end_node);
 void			merge_linked_list(t_lx_token *dst, t_lx_token *src);
-// minishell_utils.c
+
+							/* minishell_utils.c */
 char			*get_token_str(const t_lx_token *token);
 t_lx_token		*get_last_node(t_lx_token *token);
 void			*make_new_node(size_t size);
 t_lx_token		*make_new_token(char *token_str, int token_type, t_lx_token *prev);
-//error_utils.c
+
+							/* error_utils.c */
 void			print_error_syntax(char *token);
 void			print_error_not_close(char *str);
-// free_utils.c
-t_lx_token 		*lst_fclean(t_lx_token *cur_list);
-void			tree_free(t_tree *cur_tree);
+
+							/* free_utils.c */
+void			*list_tree_free(t_lx_token *list, t_tree *tree);
 #endif
