@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:31:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/08 03:46:26 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:17:34 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void    tree_traversal(t_tree *cur_tree, int tree_type, \
 {
 	if (cur_tree == NULL)
 		return ;
-	else if (cur_tree->type & tree_type)
-		handler(cur_tree);
 	tree_traversal(cur_tree->left, tree_type, handler);
 	tree_traversal(cur_tree->right, tree_type, handler);
+	if (cur_tree->type & tree_type)
+		handler(cur_tree);
 }
 
 // void    tree_traversal(t_tree *cur_tree, int tree_type, \
@@ -40,7 +40,7 @@ void    tree_traversal(t_tree *cur_tree, int tree_type, \
 //     else if (cur_tree->type & tree_type)
 //     {
 //         handler(cur_tree);
-//         if (tree_type & (TREE_ALL | TREE_OR | TREE_PIPE))
+//         if (tree_type & (TREE_AND | TREE_OR | TREE_PIPE))
 //             pass_right_flag = TRUE;
 //     }
 //     tree_traversal(cur_tree->left, tree_type, handler);
@@ -83,18 +83,8 @@ void making_tree_node(t_tree *const cur, unsigned char(* is_tree_type)(int))
 		return ;
 	cur->right = make_tree_node(first_type, cur, cut_back_node(find_node));
 	cur->left = make_tree_node(first_type, cur, cur->token_data);
-	cur->token_data = pop_node(&cur->token_data, find_node, find_node);
+	cur->token_data = cut_back_node(find_node->prev);
 	making_tree_node(cur->left, is_tree_type);
-}
-
-void	expand_and_or_tree(t_tree *cur)
-{
-	making_tree_node(cur, is_tree_and_or);
-}
-
-void	expand_pipe_tree(t_tree *cur)
-{
-	making_tree_node(cur, is_tree_pipe);
 }
 
 void	handle_subshell(t_tree *head)
@@ -105,7 +95,7 @@ void	handle_subshell(t_tree *head)
 	head->left = make_tree_node(TREE_UNDEFINED, head, head->token_data);
 	open_token = head->left->token_data;
 	head->token_data = pop_node(&head->left->token_data, \
-									open_token, open_token);
+													open_token, open_token);
 	close_token = get_last_node(head->left->token_data);
 	merge_linked_list(head->token_data, pop_node(&head->left->token_data, \
 													close_token, close_token));
@@ -119,7 +109,7 @@ int	redi_to_left(t_tree *cur_tree, t_lx_token **token_data)
 	t_lx_token	*poped_node;
 
 	if (!is_redi_token(*token_data))
-		return (FALSE);
+		return (ERROR);
 	start_node = *token_data;
 	*token_data = (*token_data)->next;
 	while ((*token_data)->next && (*token_data)->next->token_str == NULL)
@@ -152,7 +142,6 @@ void	remain_to_right(t_tree *cur_tree, t_lx_token *token_data)
 // void	expand_cmd_tree(t_tree *cur_tree)
 // {
 //     t_lx_token  *token_data;
-//     int					subshell_flag;
 //
 //     if (cur_tree->type != TREE_CMD)
 //         return ;
@@ -173,8 +162,39 @@ void	remain_to_right(t_tree *cur_tree, t_lx_token *token_data)
 //     remain_to_right(cur_tree, token_data);
 //     cur_tree->token_data = NULL;
 // }
+//
+void	expand_and_or_tree(t_tree *cur_tree)
+{
+	making_tree_node(cur_tree, is_tree_and_or);
+}
 
-void	expand_cmd_tree(t_tree *cur_tree)
+void	expand_pipe_tree(t_tree *cur_tree)
+{
+	making_tree_node(cur_tree, is_tree_pipe);
+}
+
+// void	expand_cmd_tree(t_tree *cur_tree) //		<-	minsuki2
+// {
+//     t_lx_token  *token_data;
+//     int			subshell_flag;
+//
+//     if (cur_tree->type != TREE_CMD)
+//         return ;
+//     token_data = cur_tree->token_data;
+//     subshell_flag = 0;
+//     while (token_data && token_data->next)
+//     {
+//         subshell_flag += (token_data->token_type == PARENTHESES_OPEN) \
+//                                 - (token_data->token_type == PARENTHESES_CLOSE);
+//         if (!subshell_flag && redi_to_left(cur_tree, &token_data) == SUCCESS)
+//             continue;
+//         token_data = token_data->next;
+//     }
+//     remain_to_right(cur_tree, token_data);
+//     cur_tree->token_data = NULL;
+// }
+
+void	expand_cmd_tree(t_tree *cur_tree)	// <- jaesjeon
 {
 	t_lx_token  *token_data;
 	int         parentheses_flag;
@@ -194,7 +214,7 @@ void	expand_cmd_tree(t_tree *cur_tree)
 			token_data = token_data->next;
 			continue;
 		}
-		if(!redi_to_left(cur_tree, &token_data))
+		if (redi_to_left(cur_tree, &token_data) == ERROR)
 			token_data = token_data->next;
 	}
 	remain_to_right(cur_tree, token_data);

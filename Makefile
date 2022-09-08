@@ -6,15 +6,15 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/07 22:36:12 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/09/08 04:01:30 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 			=	cc
 # CFLAGS 		=	-Wall -Wextra -Werror $(CPPFLAGS) # -fsanitize=address
 # CFLAGS 		=	-Wall -Wextra -Werror $(CPPFLAGS)
-CFLAGS			= 	-fsanitize=address
-# CFLAGS 		=	-Wall -Wextra -Werror
+# CFLAGS			= 	-fsanitize=address
+CFLAGS 		=	#-Wall -Wextra -Werror
 
 LINKER		=	$(LDFLAGS) -lreadline
 COMPILE		=	-c

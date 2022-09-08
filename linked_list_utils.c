@@ -6,64 +6,66 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 19:38:01 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/06 21:27:10 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:18:01 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	_is_first_node(t_lx_token *cur_node)
-{
-	return (cur_node->prev == get_last_node(cur_node));
-}
-
-static int	_is_last_node(t_lx_token *cur_node)
-{
-	return (cur_node == get_last_node(cur_node));
-}
+// static int	_is_first_node(t_lx_token *cur_node)
+// {
+//     return ();
+// }
+//
+// static int	_is_last_node(t_lx_token *cur_node)
+// {
+//     return ();
+// }
 
 t_lx_token  *cut_front_node(t_lx_token *cur_node)
 {
-	const t_lx_token    *last_node = get_last_node(cur_node);
-	const t_lx_token	*new_last_node = cur_node->prev;
+	t_lx_token	*const last_node = get_last_node(cur_node);
+	t_lx_token	*const new_last_node = cur_node->prev;
 
-	if (_is_first_node(cur_node))
+	if (cur_node->prev == last_node)
 		return (NULL);
-	cur_node->prev = (t_lx_token *)last_node;
-	cur_node = (t_lx_token *)new_last_node;
+	cur_node->prev = last_node;
+	cur_node = new_last_node;
 	cur_node->next = NULL;
 	while (cur_node->prev != last_node)
 		cur_node = cur_node->prev;
-	cur_node->prev = (t_lx_token *)new_last_node;
+	cur_node->prev = new_last_node;
 	return (cur_node);
 }
 
 t_lx_token	*cut_back_node(t_lx_token *cur_node)
 {
-	t_lx_token *const rtn_node = cur_node->next;
-	t_lx_token *const new_last_node = cur_node;
+	t_lx_token	*const last_node = get_last_node(cur_node);
+	t_lx_token	*const new_last_node = cur_node;
+	t_lx_token	*const rtn_node = cur_node->next;
 
-	if (_is_last_node(cur_node))
+	if (cur_node == last_node)
 		return (NULL);
-	rtn_node->prev = get_last_node(cur_node);
+	rtn_node->prev = last_node;
 	cur_node->next = NULL;
-	while (cur_node->prev->next)
+	while (cur_node->prev != last_node)
 		cur_node = cur_node->prev;
 	cur_node->prev = new_last_node;
 	return (rtn_node);
 }
 
-t_lx_token  *pop_node(t_lx_token **cur_node, \
-						t_lx_token *start_node, t_lx_token *end_node)
+t_lx_token  *pop_node(t_lx_token **start_node, t_lx_token *end_node)
 {
-	if (_is_first_node(start_node))
+	t_lx_token	*const last_node = get_last_node(*start_node);
+
+	if (start_node->prev == last_node)
 	{
 		*cur_node = end_node->next;
 		if (*cur_node == NULL)
 			return (start_node);
 		return (cut_front_node(*cur_node));
 	}
-	else if (_is_last_node(end_node))
+	else if (end_node == last_node)
 	{
 		*cur_node = start_node->prev;
 		return (cut_back_node(*cur_node));

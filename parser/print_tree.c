@@ -78,21 +78,17 @@ static char *_type_to_string(int type)
 		return ("ERROR");
 }
 
-static char *_token_data_to_string(t_lx_token *token_list)
+static void _token_data_to_string(char **ret, t_lx_token *token_list)
 {
-  char  *ret;
-
-  ret = NULL;
-  if (!token_list)
-    return ("CMD");
-  while (token_list)
-  {
-    ft_strjoin_self(&ret, get_token_str(token_list));
-	if (token_list->next)
-		ft_strjoin_self(&ret, " ");
-    token_list = token_list->next;
-  }
-  return (ret);
+	if (!token_list)
+		ft_strjoin_self(ret, "CMD");
+	while (token_list)
+	{
+		ft_strjoin_self(ret, get_token_str(token_list));
+		if (token_list->next)
+			ft_strjoin_self(ret, " ");
+		token_list = token_list->next;
+	}
 }
 
 asciinode * build_ascii_tree_recursive(t_tree * t)
@@ -107,32 +103,30 @@ asciinode * build_ascii_tree_recursive(t_tree * t)
 	node->right = build_ascii_tree_recursive(t->right);
 
 	if (node->left != NULL)
-	{
 		node->left->parent_dir = -1;
-	}
 	if (node->right != NULL)
-	{
 		node->right->parent_dir = 1;
-	}
 
 	join_str = NULL;
 
-	/* type off 주석 시작*/
+	/* if you want turn type off ...주석 시작*/
 	if (t->type != TREE_CMD)
 		join_str = ft_strsjoin(_type_to_string(t->type), "[", NULL);
-	/* type off 주석 끝*/
+	/* if you want turn type off ...주석 끝*/
 
-	ft_strjoin_self(&join_str, _token_data_to_string(t->token_data));
+	_token_data_to_string(&join_str, t->token_data);
 
-	/* type off 주석 시작*/
+	/* if you want turn type off ...주석 시작*/
 	if (t->type != TREE_CMD)
 		ft_strjoin_self(&join_str, "]");
-	/* type off 주석 끝*/
+	/* if you want turn type off ...주석 끝*/
 
 	node->label = (char *)malloc((strlen(join_str) + 1) * sizeof(char));
 	sprintf(node->label, "%s", join_str);
 	node->lablen = (int)strlen(node->label);
-	return node;
+
+	free(join_str);
+	return (node);
 }
 	// sprintf(node->label, "%s", _type_to_string(t->type));
 	// sprintf(node->label, "%s", _token_data_to_string(t->token_data));

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:38:13 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/07 23:45:36 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 04:56:04 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_tree
 }	t_tree;
 
 
+void    tree_traversal(t_tree *cur_tree, int tree_type, \
+								void (*handler)(t_tree *));
 // tree_utils.c
 unsigned char	is_tree_and_or(int token_type);
 unsigned char	is_tree_pipe(int token_type);

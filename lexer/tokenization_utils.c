@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:15:19 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/07 21:08:18 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 16:09:16 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,12 @@ void	set_quote_flag(const char c, int *quote_flag)
 		*quote_flag ^= DQUOTE;
 }
 
-// void	set_parentheses_flag(const char c, int *parentheses_flag, \
-//                                 int *quote_flag)
-// {
-//     if (!*quote_flag)
-//     {
-//         if (c == '(' && !*parentheses_flag)
-//             *parentheses_flag ^= PARENTHESES_OPEN;
-//         else if (c == ')')
-//             if (*parentheses_flag == PARENTHESES_OPEN)
-//                 *parentheses_flag ^= PARENTHESES_OPEN;
-//     }
-// }
+void	set_parentheses_flag(const char c, int *parentheses_flag, \
+								int *quote_flag)
+{
+	if (!*quote_flag)
+		*parentheses_flag += (c == '(') - (c == ')');
+}
 
 void	set_token_type(t_lx_token *token_node, char c)
 {

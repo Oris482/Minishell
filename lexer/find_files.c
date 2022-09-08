@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 23:35:33 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/06 16:31:03 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 04:00:48 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	_check_match_files(char *input, char *name)
 	{
 		if (*input == '*' && ((*name && (*(input + 1) == '\0' \
 			|| *(input + 1) == '/' || *(input + 1) != *name) && name++) \
-			|| (*(input + 1) == '/' || *(input + 1) == *name) && input++))
+			|| ((*(input + 1) == '/' || *(input + 1) == *name) && input++)))
 			continue ;
 		if (*input == '/' && input++)
 			continue ;

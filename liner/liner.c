@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 08:10:39 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/07 20:55:00 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 16:09:50 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,13 @@ static void	_handle_encounter_eof(t_oflag *oflag)
 		print_error_syntax(")");
 }
 
-static void	_cnt_parentheses_flag(const char c, int *parentheses_flag, \
-								int *quote_flag)
-{
-	if (!*quote_flag)
-		*parentheses_flag += (c == '(') - (c == ')');
-}
-
 static int	_check_line_oflag(char *line, int *parentheses_flag, \
 								int *quote_flag)
 {
 	while (*line)
 	{
 		set_quote_flag(*line, quote_flag);
-		_cnt_parentheses_flag(*line, parentheses_flag, quote_flag);
+		set_parentheses_flag(*line, parentheses_flag, quote_flag);
 		line++;
 	}
 	return (*parentheses_flag || *quote_flag);

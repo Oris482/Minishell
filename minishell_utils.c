@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:11:18 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/07 18:06:09 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:06:14 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ t_lx_token	*get_last_node(t_lx_token *token)
 {
 	if (!token)
 		return (NULL);
-	if (!token->prev->next)
-		return (token->prev);
 	while (token->next)
 		token = token->prev;
 	return (token);
