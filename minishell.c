@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/08 18:04:53 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:50:07 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ int	main(int argc, char *argv[], char *envp[])
 			continue ;
 		}
 		add_history(full_line);
-		if (!oflag.quote && !oflag.parentheses)
-			_minishell_routine(full_line, &oflag);
+		_minishell_routine(full_line, &oflag);
 		my_multi_free(full_line, NULL, NULL, NULL);
 		system("leaks -q minishell");
 	}

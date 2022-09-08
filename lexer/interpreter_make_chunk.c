@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 23:24:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/02 19:03:12 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/08 20:04:17 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static char	*_handle_quote_symbol(char **token_str, char *str_startpoint, \
 {
 	char	*str_chunk;
 
+	find_interpret_symbol(token_str, *symbol_type);
 	str_chunk = ft_strcpy(str_startpoint + 1, *token_str);
 	if ((*symbol_type == QUOTE || *symbol_type == DQUOTE) \
 								&& is_quote(**token_str))

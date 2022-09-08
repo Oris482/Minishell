@@ -6,13 +6,26 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/08 18:09:25 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:41:54 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "minishell.h"
 #include "myfunc.h"
+
+static void	*_handle_encounter_eof(t_oflag *oflag)
+{
+	if (oflag->quote == QUOTE)
+		print_error_not_close("'");
+	if (oflag->quote == DQUOTE)
+		print_error_not_close("\"");
+	if (oflag->parentheses > 0)
+		print_error_not_close("(");
+	if (oflag->parentheses < 0)
+		print_error_syntax(")");
+	return (NULL);
+}
 
 static int	_check_doubled_operator(char **line)
 {
@@ -70,6 +83,8 @@ t_lx_token	*lexer(char *full_line, t_oflag *oflag)
 	t_lx_token	*token_head;
 	t_lx_token	*token_cur;
 
+	if (oflag->parentheses || oflag->quote)
+		return (_handle_encounter_eof(oflag));
 	token_head = NULL;
 	while (*full_line || token_cur)
 	{
@@ -85,7 +100,5 @@ t_lx_token	*lexer(char *full_line, t_oflag *oflag)
 		else
 			token_cur = connect_token(token_head, token_cur);
 	}
-	if (check_syntax_error(token_head) != SUCCESS)
-		return (list_tree_free(token_head, NULL));
 	return (token_head);
 }

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:31:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/08 19:03:03 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:42:07 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,6 @@ void    tree_traversal(t_tree *cur_tree, int tree_type, \
 	if (cur_tree->type & tree_type)
 		handler(cur_tree);
 }
-
-// void    tree_traversal(t_tree *cur_tree, int tree_type, \
-//                                 void (*handler)(t_tree *))
-// {
-//     int	pass_right_flag;
-//
-//     pass_right_flag = FALSE;
-//     if (cur_tree == NULL)
-//         return ;
-//     else if (cur_tree->type & tree_type)
-//     {
-//         handler(cur_tree);
-//         if (tree_type & (TREE_AND | TREE_OR | TREE_PIPE))
-//             pass_right_flag = TRUE;
-//     }
-//     tree_traversal(cur_tree->left, tree_type, handler);
-//     if (!pass_right_flag)
-//         tree_traversal(cur_tree->right, tree_type, handler);
-//     return ;
-// }
 
 t_lx_token *find_tree_node(t_lx_token *cur_node, \
 		unsigned char *tree_type, unsigned char (*is_tree_type)(int))
@@ -109,14 +89,11 @@ int	redi_to_left(t_tree *cur_tree, t_lx_token **token_data)
 	if (!is_redi_token(*token_data))
 		return (ERROR);
 	prev_node = (*token_data)->prev;
-	end_node = *token_data;
-	end_node = end_node->next;
+	end_node = (*token_data)->next;
 	while (end_node->next && end_node->next->token_str == NULL)
 		end_node= end_node->next;
-	if (prev_node == end_node)
-		prev_node = NULL;
-	poped_node = pop_node(token_data, end_node);
-	if (*token_data == NULL)
+poped_node = pop_node(token_data, end_node);
+	if (*token_data == NULL && prev_node != end_node)
 		*token_data = prev_node;
 	if (cur_tree->left)
 		merge_linked_list(cur_tree->left->token_data, poped_node);
@@ -189,9 +166,9 @@ t_tree *parser(t_lx_token *head)
 {
 	t_tree	*root;
 
+	if (check_syntax_error(head) != SUCCESS)
+		return (list_tree_free(head, NULL));
 	root = make_tree_node(TREE_UNDEFINED, NULL, head);
 	expand_token_to_tree(root);
-	if (FALSE)
-		return (list_tree_free(NULL, root));
 	return (root);
 }

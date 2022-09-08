@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/08 18:10:58 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/08 20:08:12 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,13 @@ static void	_dollar_translator(t_lx_token *cur, char *chunk, int split_flag)
 static void	_dquote_translator(t_lx_token *cur, char *chunk)
 {
 	char	*pos;
+	char	*tmp;
 
 	pos = ft_strchr_null(chunk, '$');
-	ft_strjoin_self(&cur->interpreted_str, ft_strcpy(chunk, pos));
+	tmp = ft_strcpy(chunk, pos);
+	ft_strjoin_self(&cur->interpreted_str, tmp);
 	chunk = pos;
+	my_free(tmp);
 	if (*chunk == '$')
 		_dollar_translator(cur, ++chunk, 0);
 	return ;
