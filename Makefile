@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/08 18:16:20 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/12 01:48:10 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ MY_FUNC_DIR		=	myfunc/
 LINER_DIR 		=	liner/
 LEXER_DIR 		=	lexer/
 PARSER_DIR		=	parser/
-EXCUTER_DIR		=	excuter/
+EXECUTOR_DIR	=	executor/
 
 NAME	 	=	minishell
 
@@ -58,20 +58,30 @@ PARSER_SRCS			=	parser.c						\
 						print_tree.c					\
 						tree_utils.c
 
+EXECUTOR_SRCS		=	executor.c						\
+						redirections.c					\
+						builtin_echo.c					\
+						builtin_cd.c					\
+						builtin_pwd.c					\
+						builtin_exit.c
+
 MANDA_SRCS	=	minishell.c										\
 				minishell_utils.c								\
 				origin_str_utils.c								\
 				origin_str_utils2.c								\
 				origin_putfd_utils.c							\
 				custom_str_utils.c								\
+				custom_str_utils2.c								\
 				terminal_setting.c								\
 				error_utils.c									\
 				free_utils.c									\
 				linked_list_utils.c								\
+				exit_status.c									\
 				$(addprefix $(MY_FUNC_DIR), $(MY_FUNC_SRCS))	\
 				$(addprefix $(LINER_DIR), $(LINER_SRCS))		\
 				$(addprefix $(LEXER_DIR), $(LEXER_SRCS))		\
-				$(addprefix $(PARSER_DIR), $(PARSER_SRCS))
+				$(addprefix $(PARSER_DIR), $(PARSER_SRCS))		\
+				$(addprefix $(EXECUTOR_DIR), $(EXECUTOR_SRCS))
 
 
 

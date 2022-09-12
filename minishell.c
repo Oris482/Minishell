@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/08 19:50:07 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/12 03:17:23 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	_minishell_routine(char *full_line, t_oflag *oflag)
 		return ;
 	printf("----------- < TREE > --------------\n\n");
 	print_ascii_tree(root_tree);
+	executor(root_tree);
 	list_tree_free(NULL, root_tree);
 }
 
@@ -43,12 +44,13 @@ int	main(int argc, char *argv[], char *envp[])
 
 	signal_handler();
 	terminal_off_control_chars();
+	set_exit_status(0);
 	(void)envp;
 	// ft_str_array_dup envp 할당
 	while (true)
 	{
 		full_line = liner(&oflag);
-		system("leaks -q minishell");
+		// system("leaks -q minishell");
 		if (full_line && *full_line == '\0')
 		{
 			my_multi_free(full_line, NULL, NULL, NULL);
@@ -57,7 +59,7 @@ int	main(int argc, char *argv[], char *envp[])
 		add_history(full_line);
 		_minishell_routine(full_line, &oflag);
 		my_multi_free(full_line, NULL, NULL, NULL);
-		system("leaks -q minishell");
+		// system("leaks -q minishell");
 	}
 	(void)argc;
 	(void)argv;
