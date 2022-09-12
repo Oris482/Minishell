@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:31:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/08 19:42:07 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/12 02:48:43 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	expand_token_to_tree(t_tree *root);
 
 //edit
-void    tree_traversal(t_tree *cur_tree, int tree_type, \
+void	tree_traversal(t_tree *cur_tree, int tree_type, \
 								void (*handler)(t_tree *))
 {
 	if (cur_tree == NULL)
@@ -29,7 +29,7 @@ void    tree_traversal(t_tree *cur_tree, int tree_type, \
 		handler(cur_tree);
 }
 
-t_lx_token *find_tree_node(t_lx_token *cur_node, \
+t_lx_token	*find_tree_node(t_lx_token *cur_node, \
 		unsigned char *tree_type, unsigned char (*is_tree_type)(int))
 {
 	t_lx_token *const	last = cur_node;
@@ -50,7 +50,7 @@ t_lx_token *find_tree_node(t_lx_token *cur_node, \
 	return (NULL);
 }
 
-void making_tree_node(t_tree *const cur, unsigned char(* is_tree_type)(int))
+void	making_tree_node(t_tree *const cur, unsigned char (*is_tree_type)(int))
 {
 	t_lx_token	*find_node;
 	const int	first_type = is_tree_type(UNDEFINED);
@@ -92,7 +92,7 @@ int	redi_to_left(t_tree *cur_tree, t_lx_token **token_data)
 	end_node = (*token_data)->next;
 	while (end_node->next && end_node->next->token_str == NULL)
 		end_node= end_node->next;
-poped_node = pop_node(token_data, end_node);
+	poped_node = pop_node(token_data, end_node);
 	if (*token_data == NULL && prev_node != end_node)
 		*token_data = prev_node;
 	if (cur_tree->left)
@@ -104,7 +104,7 @@ poped_node = pop_node(token_data, end_node);
 
 void	remain_to_right(t_tree *cur_tree, t_lx_token *token_data)
 {
-	const t_lx_token  *remain_last_node = token_data;
+	const t_lx_token	*remain_last_node = token_data;
 
 	if (!token_data)
 		return ;
@@ -128,10 +128,10 @@ void	expand_pipe_tree(t_tree *cur_tree)
 	making_tree_node(cur_tree, is_tree_pipe);
 }
 
-void	expand_cmd_tree(t_tree *cur_tree)	// <- jaesjeon
+void	expand_cmd_tree(t_tree *cur_tree)
 {
-	t_lx_token  *token_data;
-	int         parentheses_flag;
+	t_lx_token	*token_data;
+	int			parentheses_flag;
 
 	if (cur_tree->type != TREE_CMD)
 		return ;
@@ -146,7 +146,7 @@ void	expand_cmd_tree(t_tree *cur_tree)	// <- jaesjeon
 		if (parentheses_flag)
 		{
 			token_data = token_data->next;
-			continue;
+			continue ;
 		}
 		if (redi_to_left(cur_tree, &token_data) == ERROR)
 			token_data = token_data->next;
@@ -162,7 +162,7 @@ void	expand_token_to_tree(t_tree *root)
 	tree_traversal(root, TREE_CMD, expand_cmd_tree);
 }
 
-t_tree *parser(t_lx_token *head)
+t_tree	*parser(t_lx_token *head)
 {
 	t_tree	*root;
 

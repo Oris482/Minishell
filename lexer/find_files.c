@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 23:35:33 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/08 04:00:48 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/12 03:04:46 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	_files_to_node(t_lx_token **cur, t_file *files, \
 	while (idx < files->n)
 	{
 		if (!files[idx].match_flag && ++idx)
-		    continue ;
+			continue ;
 		if (!((*cur)->pass_flag))
 		{
 			temp = (*cur)->interpreted_str;

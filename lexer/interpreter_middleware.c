@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/08 20:08:12 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/12 03:20:12 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,12 @@ static void	_dollar_translator(t_lx_token *cur, char *chunk, int split_flag)
 	char	*find_str;
 	char	*str_cur;
 
-	// if (*chunk == '?')
+	if (*chunk == '?')
+	{
+		cur->interpreted_str = ft_strsjoin(ft_itoa(get_exit_status()), \
+															chunk + 1, NULL);
+		return ;
+	}
 	find_str = getenv(chunk);
 	if (!find_str || !*find_str)
 		return ;
