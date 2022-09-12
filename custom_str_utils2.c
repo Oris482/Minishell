@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   origin_putfd_utils.c                               :+:      :+:    :+:   */
+/*   custom_str_utils2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/04 17:45:47 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/11 20:11:39 by jaesjeon         ###   ########.fr       */
+/*   Created: 2022/09/12 01:33:30 by jaesjeon          #+#    #+#             */
+/*   Updated: 2022/09/12 01:38:36 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_putchar_fd(const char c, int fd)
+int ft_strcmp_ignore_capital(char *ref, char *target)
 {
-	if (fd >= 0)
-		write(fd, &c, 1);
-}
+    unsigned char   c;
 
-void	ft_putstr_fd(const char *s, int fd)
-{
-	if (fd < 0 || !s)
-		return ;
-	while (*s)
-		ft_putchar_fd(*s++, fd);
-}
-
-void	ft_putendl_fd(const char *s, int fd)
-{
-	if (fd >= 0 && s)
+    if (!ref || !target)
+        return (FALSE);
+    while (*ref && *target)
 	{
-		ft_putstr_fd(s, fd);
-		ft_putchar_fd('\n', fd);
+        c = *target;
+        if (c >= 'A' && c <= 'Z')
+            c += 32;
+		if (*ref != c)
+			return (FALSE);
+		ref++;
+		target++;
 	}
+	return (SUCCESS);
 }

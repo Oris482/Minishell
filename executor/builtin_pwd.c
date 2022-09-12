@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   origin_putfd_utils.c                               :+:      :+:    :+:   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/04 17:45:47 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/11 20:11:39 by jaesjeon         ###   ########.fr       */
+/*   Created: 2022/09/11 19:48:16 by jaesjeon          #+#    #+#             */
+/*   Updated: 2022/09/12 00:19:30 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	ft_putchar_fd(const char c, int fd)
+int	builtin_pwd(void)
 {
-	if (fd >= 0)
-		write(fd, &c, 1);
-}
+	char	*buf;
 
-void	ft_putstr_fd(const char *s, int fd)
-{
-	if (fd < 0 || !s)
-		return ;
-	while (*s)
-		ft_putchar_fd(*s++, fd);
-}
-
-void	ft_putendl_fd(const char *s, int fd)
-{
-	if (fd >= 0 && s)
-	{
-		ft_putstr_fd(s, fd);
-		ft_putchar_fd('\n', fd);
-	}
+	buf = NULL;
+	buf = getcwd(buf, 1);
+	if (buf == NULL)
+		return (print_error_str("pwd", NULL, NULL, GENERAL_EXIT_CODE));
+	ft_putendl_fd(buf, STDOUT_FILENO);
+	my_free(buf);
+	return (SUCCESS_EXIT_CODE);
 }
