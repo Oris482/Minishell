@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/12 03:15:19 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:32:50 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,21 @@
 # define WILDCARD		0b00001000
 # define TILDE			0b00010000
 
+# define EVEN			0
+# define ODD			1
 # define F_READ			0
 # define F_WRITE		1
+
+# define BACKUP			1
+# define RESTORE		2
+
+typedef struct s_pipe
+{
+	int	fd[2][2];
+	int	pipe_cnt;
+	int	fork_cnt;
+}	t_pipe;
+
 
 typedef struct s_lx_token
 {
@@ -285,6 +298,6 @@ int 			builtin_pwd(void);
 int				builtin_exit(t_lx_token *token);
 
 // executor.c
-void			executor(t_tree *root);
+int				executor(t_tree *root, char set_exit_status_flag);
 
 #endif

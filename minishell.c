@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/12 03:17:23 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/12 16:58:37 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	_minishell_routine(char *full_line, t_oflag *oflag)
 		return ;
 	printf("----------- < TREE > --------------\n\n");
 	print_ascii_tree(root_tree);
-	executor(root_tree);
+	executor(root_tree, TRUE);
 	list_tree_free(NULL, root_tree);
 }
 

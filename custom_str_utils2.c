@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 01:33:30 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/12 01:38:36 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/12 20:28:49 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,7 @@ int ft_strcmp_ignore_capital(char *ref, char *target)
 		ref++;
 		target++;
 	}
+    if (*ref || *target)
+        return (FALSE);
 	return (SUCCESS);
 }
