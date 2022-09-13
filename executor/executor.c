@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/13 15:33:34 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/13 17:57:52 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,8 +239,6 @@ int	init_pipe(t_tree *tree_node, char set_exit_status_flag)
 	info.pipe_cnt = 0;
 	info.fork_cnt = 0;
 	exit_code = handle_pipe(tree_node, set_exit_status_flag, &info);
-	if (set_exit_status_flag)
-		set_exit_status(exit_code);
 	close (info.fd[EVEN][F_READ]);
 	close (info.fd[EVEN][F_WRITE]);
 	close (info.fd[ODD][F_READ]);
