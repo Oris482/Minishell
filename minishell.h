@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/13 21:08:03 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/13 23:03:34 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ typedef struct s_pipe
 
 typedef struct s_dict
 {
-	char			*name; 
-	char			*value; "A"
+	char			*name;
+	char			*value;
 	struct s_dict	*next;
 	struct s_dict	*prev;
 }	t_dict;
 
-t_dict	g_dic[DICT_MAX];
+t_dict	g_dict[DICT_MAX];
 
 typedef struct s_lx_token
 {
@@ -215,27 +215,30 @@ t_lx_token		*cut_back_node(t_lx_token *cur_node);
 t_lx_token  	*pop_node(t_lx_token **cur_node, t_lx_token *end_node);
 void			merge_linked_list(t_lx_token *dst, t_lx_token *src);
 
-							/* minishell_utils.c */
+// minishell_utils.c
 char			*get_token_str(const t_lx_token *token);
 t_lx_token		*get_last_token(t_lx_token *token);
 t_dict			*get_last_dict(t_dict *dic);
 t_dict			*get_first_dict(t_dict *dic);
 void			*make_new_node(size_t size);
 t_lx_token		*make_new_token(char *token_str, int token_type, t_lx_token *prev);
+int				check_match_word(const char *word1, const char *word2);
 
-							/* error_utils.c */
+// error_utils.c
 void			print_error_syntax(char *token);
 void			print_error_not_close(char *str);
 int				print_error_str(const char *err_cmd, const char *err_arg, \
 										const char *custom_msg, int err_code);
 
-							/* free_utils.c */
+// free_utils.c
 void			*list_tree_free(t_lx_token *list, t_tree *tree);
+
 // debug_function.c
 void			print_token_list(t_lx_token *token_list);
 void			classify(struct dirent *ent);
 void			print_token_next(t_lx_token *token_list);
 void			print_token_prev(t_lx_token *token_list);
+
 // lexer.c
 t_lx_token		*lexer(char *full_line, t_oflag *oflag);
 
@@ -281,21 +284,24 @@ unsigned int	check_syntax_error(t_lx_token *head);
 // liner.c
 char			*liner(t_oflag *oflag);
 
-/* about_dir */
+// about_dir
 DIR				*my_opendir(const char *name);
 struct dirent	*my_readdir(DIR *dirp);
 int				my_closedir(DIR *dirp);
 
-/* about_alloc */
+// about_alloc
 void			*my_malloc(size_t size);
 void			*my_calloc(size_t count, size_t size);
 void			my_free(void *ptr);
 void			my_multi_free(void *ptr1, void *ptr2, void *ptr3, void *ptr4);
 
-/* about_readline */
+// about_readline
 char			*my_readline(const char *prompt);
 void    		tree_traversal(t_tree *cur_tree, int tree_type, \
 											void (*handler)(t_tree *));
+// about_env.c
+char			*my_getenv(const char *name);
+
 // tree_utils.c
 unsigned char	is_tree_and_or(int token_type);
 unsigned char	is_tree_pipe(int token_type);
@@ -324,9 +330,14 @@ int				builtin_exit(t_lx_token *token);
 int				executor(t_tree *root, char set_exit_status_flag);
 
 // envp_utils.c
-void	char_dimen2_to_lst(char *envp[]);
+void			char_dimen2_to_lst(char *envp[]);
+int				chr_to_idx(char c);
 
 // debug_print_evnp.c
-void	print_dictionary_lst();
-void	print_envp(char *envp[]);
+void			print_dictionary_lst();
+void			print_envp(char *envp[]);
+
+// dict_utils.c
+t_dict			*find_env_dict(t_dict *cur, const char *name);
+
 #endif

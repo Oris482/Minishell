@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:25:42 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/13 21:09:33 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/13 23:02:21 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	setting_dictionary(void)
 	while (i < DICT_MAX)
 	{
 		// debug
-		category += 4 * (category == ''Z' + 1') + (category == '_' + 1);
-		g_dic[i].value = ft_chr_to_str(category++);
+		category += 4 * (category == 'Z' + 1) + (category == '_' + 1);
+		g_dict[i].value = ft_chr_to_str(category++);
 		// debug
-		g_dic[i].prev = &g_dic[i];
+		g_dict[i].prev = &g_dict[i];
 		i++;
 	}
 }
@@ -76,22 +76,6 @@ int	comapre_order_dict(const t_dict *next, const t_dict *new)
 	return (s1[i] - s2[i]);
 }
 
-// int	comapre_order_word(const char *s1, const char *s2)
-// {
-//     int i;
-//
-//     i = 0;
-//     if (!s1)
-//         return (GREATER_THAN);
-//     while (s1[i] && s2[i] && s1[i] == s2[i])
-//         i++;
-//     return (s1[i] - s2[i]);
-// }
-/*	AA AB AC	AA	AAB => 음수
- *				AAA AAB => 음수
- *	AAB			AB	AAB => 양수
- */
-
 void	ft_lstadd_order(t_dict *head, t_dict *new)
 {
 	int		val;
@@ -109,7 +93,6 @@ void	ft_lstadd_order(t_dict *head, t_dict *new)
 	}
 }
 
-
 int	chr_to_idx(char c)
 {
 	if ('A' <= c && c <= 'Z')
@@ -118,10 +101,6 @@ int	chr_to_idx(char c)
 		return (c - 'a' + 27);
 	return (c - '_' + 26);
 }
-// 'A' 0
-// 'Z' 25
-// '_' 26
-// 'a' 27
 
 void	char_dimen2_to_lst(char *envp[])
 {
@@ -136,23 +115,11 @@ void	char_dimen2_to_lst(char *envp[])
 	{
 		pos = ft_strchr_null(envp[j], '=');
 		idx = chr_to_idx(*envp[j]);
-		ft_lstadd_order(&g_dic[idx], make_envp_node(ft_strcpy(envp[j], pos), \
+		ft_lstadd_order(&g_dict[idx], make_envp_node(ft_strcpy(envp[j], pos), \
 											ft_strdup(pos + 1), NULL, NULL));
 		j++;
 	}
 	print_dictionary_lst();
 }
-  v
-A=hello
 
-aa0   aa_95    -95
-a_	  aa_   95 - 97 = -2
-aa_
-ab    aa_   97 - 96 = 1
-
-
-aa_
-
-
-a
 

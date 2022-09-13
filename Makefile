@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/13 18:30:14 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/13 23:29:28 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ NAME	 	=	minishell
 MY_FUNC_SRCS		=	about_alloc.c		\
 						about_dir.c			\
 						about_readline.c	\
+						about_env.c			\
 						about_pipe.c
 
 LINER_SRCS			= 	liner.c
@@ -78,6 +79,7 @@ MANDA_SRCS	=	minishell.c										\
 				linked_list_utils.c								\
 				exit_status.c									\
 				envp_utils.c									\
+				dict_utils.c									\
 				debug_print_envp.c								\
 				$(addprefix $(MY_FUNC_DIR), $(MY_FUNC_SRCS))	\
 				$(addprefix $(LINER_DIR), $(LINER_SRCS))		\
