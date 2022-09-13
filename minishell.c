@@ -6,15 +6,12 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/08 19:50:07 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/13 13:17:05 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "myfunc.h"
-#include "liner.h"
-#include "lexer.h"
-#include "parser.h"
+
 
 static void	_minishell_routine(char *full_line, t_oflag *oflag)
 {
@@ -43,8 +40,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	signal_handler();
 	terminal_off_control_chars();
-	(void)envp;
-	// ft_str_array_dup envp 할당
+	char_dimen2_to_lst(envp);
 	while (true)
 	{
 		full_line = liner(&oflag);
@@ -57,6 +53,7 @@ int	main(int argc, char *argv[], char *envp[])
 		add_history(full_line);
 		_minishell_routine(full_line, &oflag);
 		my_multi_free(full_line, NULL, NULL, NULL);
+		// list_tree_free(t_dic);
 		system("leaks -q minishell");
 	}
 	(void)argc;

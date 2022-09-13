@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:24:20 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/08 19:46:43 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/13 12:45:33 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	_check_parentheses_syntax(t_lx_token **token, \
 
 	if ((*token)->token_type == PARENTHESES_OPEN)
 	{
-		if (prev_token == get_last_node(prev_token) \
+		if (prev_token == get_last_token(prev_token) \
 					|| prev_token->token_type != WORD)
 			return (SUCCESS);
 		else if (prev_token && prev_token->prev->next != NULL)

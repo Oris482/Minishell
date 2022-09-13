@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:23:45 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/08 18:10:43 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/13 12:45:14 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	print_token_prev(t_lx_token *token_list)
 	if (!head)
 		return ;
 	printf(" [(null)] ");
-	token_list = get_last_node(token_list);
+	token_list = get_last_token(token_list);
 	while (token_list && token_list != head)
 	{
 		if (token_list->interpreted_str)

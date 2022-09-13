@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:11:18 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/08 17:06:14 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:28:29 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,31 @@ char	*get_token_str(const t_lx_token *token)
 	return (token->token_str);
 }
 
-t_lx_token	*get_last_node(t_lx_token *token)
+t_lx_token	*get_last_token(t_lx_token *token)
 {
 	if (!token)
 		return (NULL);
 	while (token->next)
 		token = token->prev;
 	return (token);
+}
+
+t_dic	*get_last_dic(t_dic *dic)
+{
+	if (!dic)
+		return (NULL);
+	while (dic->next)
+		dic = dic->prev;
+	return (dic);
+}
+
+t_dic	*get_first_dic(t_dic *dic)
+{
+	if (!dic)
+		return (NULL);
+	while (dic->prev->next)
+		dic = dic->prev;
+	return (dic);
 }
 
 void	*make_new_node(size_t size)

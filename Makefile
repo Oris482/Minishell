@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/08 18:16:20 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/12 23:32:01 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,14 +64,17 @@ MANDA_SRCS	=	minishell.c										\
 				origin_str_utils2.c								\
 				origin_putfd_utils.c							\
 				custom_str_utils.c								\
+				custom_str_utils2.c								\
 				terminal_setting.c								\
 				error_utils.c									\
 				free_utils.c									\
 				linked_list_utils.c								\
+				envp_utils.c									\
 				$(addprefix $(MY_FUNC_DIR), $(MY_FUNC_SRCS))	\
 				$(addprefix $(LINER_DIR), $(LINER_SRCS))		\
 				$(addprefix $(LEXER_DIR), $(LEXER_SRCS))		\
-				$(addprefix $(PARSER_DIR), $(PARSER_SRCS))
+				$(addprefix $(PARSER_DIR), $(PARSER_SRCS))		\
+				debug_print_envp.c
 
 
 

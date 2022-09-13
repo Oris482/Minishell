@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:31:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/08 19:42:07 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/13 12:45:43 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void making_tree_node(t_tree *const cur, unsigned char(* is_tree_type)(int))
 
 	if (!cur)
 		return ;
-	find_node = find_tree_node(get_last_node(cur->token_data), \
+	find_node = find_tree_node(get_last_token(cur->token_data), \
 												&cur->type, is_tree_type);
 	if (!find_node)
 		return ;
@@ -73,7 +73,7 @@ void	handle_subshell(t_tree *head)
 	t_lx_token	*close_token;
 
 	open_token = head->token_data;
-	close_token = get_last_node(open_token);
+	close_token = get_last_token(open_token);
 	head->left = make_tree_node(TREE_UNDEFINED, head, head->token_data->next);
 	head->token_data = pop_node(&open_token, open_token);
 	merge_linked_list(head->token_data, pop_node(&close_token, close_token));

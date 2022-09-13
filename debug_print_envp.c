@@ -1,0 +1,27 @@
+
+#include "minishell.h"
+
+void print_dictionary_lst()
+{
+	int	i;
+	t_dic	*cur;
+
+	i = 0;
+	while (i < DIC_MAX)
+	{
+		printf("category : %s\n", g_dic[i].value);
+		cur = g_dic[i].next;
+		while (cur)
+		{
+			printf("L %s=%s\n", cur->name, cur->value);
+			cur = cur->next;
+		}
+		i++;
+	}
+}
+
+void	print_envp(char *envp[])
+{
+	for (int i = 0; envp[i]; i++)
+		printf("%s\n", envp[i]);
+}
