@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 13:50:16 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/13 14:31:49 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/13 21:09:10 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,15 @@ int	redi_heredoc(char *limiter)
 
 	if (_make_tmpfile(&tmpname, &fd[F_WRITE]) == FALSE)
 		return (handle_redirections_error("Here-doc", NULL));
-	line = readline("> ");
+	line = my_readline("> ");
 	while (line && !ft_strcmp(line, limiter))
 	{
+		my_free(line);
 		write(fd[F_WRITE], line, ft_strlen(line));
 		write(fd[F_WRITE], "\n", 1);
-		line = readline("> ");
+		line = my_readline("> ");
 	}
+	my_free(line);
 	close(fd[F_WRITE]);
 	fd[F_READ] = open(tmpname, O_RDONLY);
 	unlink(tmpname);

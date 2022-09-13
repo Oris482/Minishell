@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/13 18:31:16 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/13 21:08:03 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ typedef struct s_pipe
 
 # define DICT_MAX		53
 
-typedef struct s_dic
+typedef struct s_dict
 {
-	char			*name;
-	char			*value;
-	struct s_dic	*next;
-	struct s_dic	*prev;
+	char			*name; 
+	char			*value; "A"
+	struct s_dict	*next;
+	struct s_dict	*prev;
 }	t_dict;
 
 t_dict	g_dic[DICT_MAX];
@@ -314,6 +314,7 @@ int				get_exit_status(void);
 
 // built-in functions
 int				redi_middleware(t_lx_token *token);
+int				redi_heredoc(char *limiter);
 int				builtin_echo(t_lx_token *token);
 int 			builtin_cd(t_lx_token *token);
 int 			builtin_pwd(void);

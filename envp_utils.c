@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:25:42 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/13 18:29:36 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/13 21:09:33 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,14 @@ void	setting_dictionary(void)
 	int		i;
 	char	category;
 
-	i = 0;
 	category = 'A';
+	i = 0;
 	while (i < DICT_MAX)
 	{
-		category += 4 * (category == 'Z' + 1) + (category == '_' + 1);
+		// debug
+		category += 4 * (category == ''Z' + 1') + (category == '_' + 1);
 		g_dic[i].value = ft_chr_to_str(category++);
+		// debug
 		g_dic[i].prev = &g_dic[i];
 		i++;
 	}
@@ -58,17 +60,17 @@ void	ft_lstadd_next(t_dict *cur, t_dict *new)
 	new->prev = cur;
 }
 
-int	comapre_order_dic(const t_dict *next, const t_dict *new)
+int	comapre_order_dict(const t_dict *next, const t_dict *new)
 {
 	int i;
 	const char *s1;
 	const char *s2;
 
-	i = 0;
 	if (!next)
 		return (GREATER_THAN);
 	s1 = next->name;
 	s2 = new->name;
+	i = 0;
 	while (s1[i] && s2[i] && s1[i] == s2[i])
 		i++;
 	return (s1[i] - s2[i]);
@@ -92,20 +94,17 @@ int	comapre_order_dic(const t_dict *next, const t_dict *new)
 
 void	ft_lstadd_order(t_dict *head, t_dict *new)
 {
-	int		old_val;
 	int		val;
 	t_dict	*cur;
 
 	if (!head)
 		return ;
 	cur = head;
-	old_val = LESS_THAN;
 	while (cur)
 	{
-		val = comapre_order_word(cur->next, new);
-		if (old_val < 0 && val > 0)
+		val = comapre_order_dict(cur->next, new);
+		if (val > 0)
 			return ft_lstadd_next(cur, new);
-		old_val = val;
 		cur = cur->next;
 	}
 }
@@ -141,5 +140,19 @@ void	char_dimen2_to_lst(char *envp[])
 											ft_strdup(pos + 1), NULL, NULL));
 		j++;
 	}
-	print_dicttionary_lst();
+	print_dictionary_lst();
 }
+  v
+A=hello
+
+aa0   aa_95    -95
+a_	  aa_   95 - 97 = -2
+aa_
+ab    aa_   97 - 96 = 1
+
+
+aa_
+
+
+a
+

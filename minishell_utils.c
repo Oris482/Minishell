@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:11:18 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/13 18:29:10 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/13 18:35:11 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,22 @@ t_lx_token	*get_last_token(t_lx_token *token)
 	return (token);
 }
 
-t_dict	*get_last_dict(t_dict *dic)
+t_dict	*get_last_dict(t_dict *dict)
 {
-	if (!dic)
+	if (!dict)
 		return (NULL);
-	while (dic->next)
-		dic = dic->prev;
-	return (dic);
+	while (dict->next)
+		dict = dict->prev;
+	return (dict);
 }
 
-t_dict	*get_first_dict(t_dict *dic)
+t_dict	*get_first_dict(t_dict *dict)
 {
-	if (!dic)
+	if (!dict)
 		return (NULL);
-	while (dic->prev->next)
-		dic = dic->prev;
-	return (dic);
+	while (dict->prev->next)
+		dict = dict->prev;
+	return (dict);
 }
 
 void	*make_new_node(size_t size)

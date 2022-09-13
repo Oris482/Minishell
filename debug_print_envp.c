@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-void print_dicttionary_lst()
+void print_dictionary_lst()
 {
 	int	i;
 	t_dict	*cur;

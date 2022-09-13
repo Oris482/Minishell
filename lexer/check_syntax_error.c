@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:24:20 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/13 18:31:26 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/13 21:09:07 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static int	_check_word_syntax(t_lx_token *token)
 {
-	const t_lx_token	*last_token = get_last_node(token);
+	const t_lx_token	*last_token = get_last_token(token);
 	t_lx_token			*target;
 
 	if (token->prev == last_token || token->prev->prev == last_token)
