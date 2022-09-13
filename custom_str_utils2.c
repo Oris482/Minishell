@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 01:33:30 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/12 20:28:49 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/13 18:27:37 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,31 @@ int ft_strcmp_ignore_capital(char *ref, char *target)
     if (*ref || *target)
         return (FALSE);
 	return (SUCCESS);
+}
+
+char	*ft_strcpy(const char *start, const char *end)
+{
+	char	*ret;
+	size_t	len;
+	int		idx;
+
+	len = end - start;
+	ret = (char *)malloc(len + 1);
+	if (ret == NULL)
+		exit(GENERAL_EXIT_CODE);
+	idx = 0;
+	while (idx < (int)len)
+		ret[idx++] = *start++;
+	ret[idx] = '\0';
+	return (ret);
+}
+
+char	*ft_chr_to_str(char c)
+{
+	char	*str;
+
+	str = (char *)my_malloc(2 * sizeof(char));
+	str[1] = '\0';
+	str[0] = c;
+	return (str);
 }

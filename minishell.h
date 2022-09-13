@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/13 14:32:50 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/13 18:31:16 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <sys/stat.h>
+
 
 # define UNDEFINED		0b00000000
 # define QUOTE			0b00000001
@@ -48,6 +49,17 @@ typedef struct s_pipe
 	int	fork_cnt;
 }	t_pipe;
 
+# define DICT_MAX		53
+
+typedef struct s_dic
+{
+	char			*name;
+	char			*value;
+	struct s_dic	*next;
+	struct s_dic	*prev;
+}	t_dict;
+
+t_dict	g_dic[DICT_MAX];
 
 typedef struct s_lx_token
 {
@@ -143,9 +155,16 @@ typedef struct s_oflag
 	int	and_if;
 }	t_oflag;
 
+enum	e_order
+{
+	LESS_THAN = -1,
+	EQUAL,
+	GREATER_THAN,
+};
+
+
 // origin_str_utils.c
 size_t			ft_strlen(const char *s);
-char			*ft_strcpy(const char *start, const char *end);
 char			*ft_strchr(const char *s, int c);
 size_t			ft_strlcat(char *dst, char const *src, size_t dstsize);
 size_t			ft_strlcpy(char *dst, char const *src, size_t dstsize);
@@ -154,6 +173,7 @@ size_t			ft_strlcpy(char *dst, char const *src, size_t dstsize);
 void			*ft_memset(void *b, int c, size_t len);
 int				ft_strcmp(char *s1, char *s2);
 char			*ft_itoa(int num);
+char			*ft_strdup(const char *s1);
 
 // origin_put_fd_utils.c
 void			ft_putchar_fd(const char c, int fd);
@@ -169,6 +189,8 @@ char			*ft_strrchr_right_away(const char *s, int c, char *const end);
 
 // custom_str_utils2.c
 int 			ft_strcmp_ignore_capital(char *ref, char *target);
+char			*ft_strcpy(const char *start, const char *end);
+char			*ft_chr_to_str(char c);
 
 // check_char_utils.c
 int				ft_isspace(const char c);
@@ -195,7 +217,9 @@ void			merge_linked_list(t_lx_token *dst, t_lx_token *src);
 
 							/* minishell_utils.c */
 char			*get_token_str(const t_lx_token *token);
-t_lx_token		*get_last_node(t_lx_token *token);
+t_lx_token		*get_last_token(t_lx_token *token);
+t_dict			*get_last_dict(t_dict *dic);
+t_dict			*get_first_dict(t_dict *dic);
 void			*make_new_node(size_t size);
 t_lx_token		*make_new_token(char *token_str, int token_type, t_lx_token *prev);
 
@@ -258,7 +282,6 @@ unsigned int	check_syntax_error(t_lx_token *head);
 char			*liner(t_oflag *oflag);
 
 /* about_dir */
-# include <dirent.h>
 DIR				*my_opendir(const char *name);
 struct dirent	*my_readdir(DIR *dirp);
 int				my_closedir(DIR *dirp);
@@ -270,7 +293,6 @@ void			my_free(void *ptr);
 void			my_multi_free(void *ptr1, void *ptr2, void *ptr3, void *ptr4);
 
 /* about_readline */
-# include <readline/readline.h>
 char			*my_readline(const char *prompt);
 void    		tree_traversal(t_tree *cur_tree, int tree_type, \
 											void (*handler)(t_tree *));
@@ -300,4 +322,10 @@ int				builtin_exit(t_lx_token *token);
 // executor.c
 int				executor(t_tree *root, char set_exit_status_flag);
 
+// envp_utils.c
+void	char_dimen2_to_lst(char *envp[]);
+
+// debug_print_evnp.c
+void	print_dictionary_lst();
+void	print_envp(char *envp[]);
 #endif

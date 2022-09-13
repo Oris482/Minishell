@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/12 01:48:10 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/13 18:30:14 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,8 @@ MANDA_SRCS	=	minishell.c										\
 				free_utils.c									\
 				linked_list_utils.c								\
 				exit_status.c									\
+				envp_utils.c									\
+				debug_print_envp.c								\
 				$(addprefix $(MY_FUNC_DIR), $(MY_FUNC_SRCS))	\
 				$(addprefix $(LINER_DIR), $(LINER_SRCS))		\
 				$(addprefix $(LEXER_DIR), $(LEXER_SRCS))		\

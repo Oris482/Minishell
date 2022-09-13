@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 19:38:01 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/08 19:03:02 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/13 12:44:57 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_lx_token  *cut_front_node(t_lx_token *cur_node)
 {
-	t_lx_token	*const last_node = get_last_node(cur_node);
+	t_lx_token	*const last_node = get_last_token(cur_node);
 	t_lx_token	*const new_last_node = cur_node->prev;
 
 	if (cur_node->prev == last_node)
@@ -30,7 +30,7 @@ t_lx_token  *cut_front_node(t_lx_token *cur_node)
 
 t_lx_token	*cut_back_node(t_lx_token *cur_node)
 {
-	t_lx_token	*const last_node = get_last_node(cur_node);
+	t_lx_token	*const last_node = get_last_token(cur_node);
 	t_lx_token	*const new_last_node = cur_node;
 	t_lx_token	*const rtn_node = cur_node->next;
 
@@ -47,7 +47,7 @@ t_lx_token	*cut_back_node(t_lx_token *cur_node)
 t_lx_token  *pop_node(t_lx_token **cur_node, t_lx_token *end_node)
 {
 	t_lx_token	*const start_node = *cur_node;
-	t_lx_token	*const last_node = get_last_node(*cur_node);
+	t_lx_token	*const last_node = get_last_token(*cur_node);
 
 	*cur_node = end_node->next;
 	if (start_node->prev == last_node && end_node == last_node)
@@ -68,8 +68,8 @@ t_lx_token  *pop_node(t_lx_token **cur_node, t_lx_token *end_node)
 
 void	merge_linked_list(t_lx_token *dst, t_lx_token *src)
 {
-	const t_lx_token	*dst_last_node = get_last_node(dst);
-	const t_lx_token	*src_last_node = get_last_node(src);
+	const t_lx_token	*dst_last_node = get_last_token(dst);
+	const t_lx_token	*src_last_node = get_last_token(src);
 
 	dst->prev->next = src;
 	dst->prev = (t_lx_token *)src_last_node;

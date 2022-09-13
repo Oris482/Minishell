@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:05:05 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/01 10:57:39 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/11 18:05:17 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,6 @@ size_t	ft_strlen(const char *s)
 	while (s[i])
 		i++;
 	return (i);
-}
-
-char	*ft_strcpy(const char *start, const char *end)
-{
-	char	*ret;
-	size_t	len;
-	int		idx;
-
-	len = end - start;
-	ret = (char *)malloc(len + 1);
-	if (ret == NULL)
-		exit(GENERAL_EXIT_CODE);
-	idx = 0;
-	while (idx < (int)len)
-		ret[idx++] = *start++;
-	ret[idx] = '\0';
-	return (ret);
 }
 
 char	*ft_strchr(const char *s, int c)
