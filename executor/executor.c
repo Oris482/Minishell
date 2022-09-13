@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/13 14:30:52 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/13 15:33:34 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	run_subshell(t_tree *tree_node, char set_exit_status_flag)
 
 	pid = fork();
 	if (pid == 0)
-		return (executor(tree_node->left, set_exit_status_flag));
+		exit(executor(tree_node->left, set_exit_status_flag));
 	waitpid(pid, &status, WUNTRACED);
 	return (get_exit_code(status));
 }
