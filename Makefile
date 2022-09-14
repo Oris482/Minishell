@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/13 23:29:28 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/09/14 21:25:56 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC 			=	cc
 # CFLAGS 		=	-Wall -Wextra -Werror $(CPPFLAGS) # -fsanitize=address
 # CFLAGS 		=	-Wall -Wextra -Werror $(CPPFLAGS)
 # CFLAGS			= 	-fsanitize=address
-CFLAGS 		=	#-Wall -Wextra -Werror
+# CFLAGS 		=	-Wall -Wextra -Werror
 
 LINKER		=	$(LDFLAGS) -lreadline
 COMPILE		=	-c

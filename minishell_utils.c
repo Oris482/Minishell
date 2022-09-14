@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:11:18 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/13 23:39:10 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/14 18:48:29 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,4 @@ t_lx_token	*make_new_token(char *token_str, int token_type, t_lx_token *prev)
 	token->token_type = token_type;
 	token->prev = prev;
 	return (token);
-}
-
-int	check_match_word(const char *word1, const char *word2)
-{
-	while (*word1 && *word2 && )
-		if (*word1 != *word2)
-			return (FALSE);
-	return (TRUE);
 }

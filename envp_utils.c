@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:25:42 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/13 23:02:21 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/14 21:17:22 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	setting_dictionary(void)
 	}
 }
 
-void	ft_lstadd_last(t_dict *head, t_dict *new)
+void	dict_lstadd_last(t_dict *head, t_dict *new)
 {
 	t_dict *const last = get_last_dict(head);
 
@@ -51,13 +51,15 @@ void	ft_lstadd_last(t_dict *head, t_dict *new)
 	new->prev = last;
 }
 
-void	ft_lstadd_next(t_dict *cur, t_dict *new)
+void	dict_lstadd_next(t_dict *cur, t_dict *new)
 {
 	if (cur == get_last_dict(cur))
-		return ft_lstadd_last(get_first_dict(cur), new);
-	new->next = cur->next;
-	cur->next = new;
+		return dict_lstadd_last(get_first_dict(cur), new);
 	new->prev = cur;
+	new->next = cur->next;
+	cur->next->prev = new;
+	cur->next = new;
+
 }
 
 int	comapre_order_dict(const t_dict *next, const t_dict *new)
@@ -76,7 +78,7 @@ int	comapre_order_dict(const t_dict *next, const t_dict *new)
 	return (s1[i] - s2[i]);
 }
 
-void	ft_lstadd_order(t_dict *head, t_dict *new)
+void	dict_lstadd_order(t_dict *head, t_dict *new)
 {
 	int		val;
 	t_dict	*cur;
@@ -84,11 +86,12 @@ void	ft_lstadd_order(t_dict *head, t_dict *new)
 	if (!head)
 		return ;
 	cur = head;
-	while (cur)
+	val = LESS_THAN;
+	while (cur && val < 0)
 	{
 		val = comapre_order_dict(cur->next, new);
 		if (val > 0)
-			return ft_lstadd_next(cur, new);
+			dict_lstadd_next(cur, new);
 		cur = cur->next;
 	}
 }
@@ -102,24 +105,65 @@ int	chr_to_idx(char c)
 	return (c - '_' + 26);
 }
 
-void	char_dimen2_to_lst(char *envp[])
+void	envp_to_dict(char *envp[])
 {
-	int		idx;
 	int		j;
-	char	*pos;
 
-	print_envp(envp);
 	setting_dictionary();
 	j = 0;
 	while (envp[j])
-	{
-		pos = ft_strchr_null(envp[j], '=');
-		idx = chr_to_idx(*envp[j]);
-		ft_lstadd_order(&g_dict[idx], make_envp_node(ft_strcpy(envp[j], pos), \
-											ft_strdup(pos + 1), NULL, NULL));
-		j++;
-	}
-	print_dictionary_lst();
+		add_dict(envp[j++]);
+//     print_dictionary_lst();
+// printf("------------------------------------------------------------\n");
+//     // erase_dict("aa");
+//     // erase_dict("a_");
+//     // erase_dict("a");
+//     // print_dictionary_lst();
+//     // add_dict("a=34");
+// printf("------------------------------------------------------------\n");
+//     print_dictionary_lst();
+//     erase_dict("a");
+//     printf("\nreal_total = %d\n", print_dictionary_lst());
+//     printf("my_total = %d\n", count_dict());
 }
 
+int	count_dict(void)
+{
+	int		idx;
+	int		total;
+	t_dict	*cur;
 
+	idx = 0;
+	total = 0;
+	while (idx < DICT_MAX)
+	{
+		cur = g_dict[idx++].next;
+		while (cur && ++total)
+			cur = cur->next;
+	}
+	return (total);
+}
+//
+char 	**dict_to_envp(void)
+{
+	int			idx;
+	int			cnt;
+	t_dict		*cur;
+	int			j;
+	char		**new_envp;
+
+	cnt = count_dict();
+	new_envp = (char **)my_calloc(cnt + 1, sizeof(char *));
+	j = 0;
+	idx = 0;
+	while (idx < DICT_MAX)
+	{
+		cur = g_dict[idx++].next;
+		while (cur)
+		{
+			new_envp[j++] = ft_strsjoin(cur->name, cur->value, NULL);
+			cur = cur->next;
+		}
+	}
+	return (new_envp);
+}
