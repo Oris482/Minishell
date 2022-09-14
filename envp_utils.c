@@ -6,11 +6,37 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:25:42 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/14 22:35:44 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/15 02:31:27 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	check_match_word(const char *word1, const char *word2)
+{
+	int	i;
+
+	if (!word1 || !word2)
+		return (FALSE);
+	i = -1;
+	while (++i + 1 && (word1[i] || word2[i]))
+		if (word1[i] != word2[i])
+			return (FALSE);
+	return (TRUE);
+}
+
+int check_vaild_env_name(char *name)
+{
+	if (!name)
+		return (FALSE);
+	while (*name)
+	{
+		if (chr_to_idx(*name) < 0)
+			return (FALSE);
+		name++;
+	}
+	return (TRUE);
+}
 
 t_dict	*make_envp_node(char *name, char *value, t_dict *next, t_dict *prev)
 {
@@ -102,9 +128,11 @@ int	chr_to_idx(char c)
 {
 	if ('A' <= c && c <= 'Z')
 		return (c - 'A' + 0);
+	else if (c == '_')
+		return (c - '_' + 26);
 	else if ('a' <= c && c <= 'z')
 		return (c - 'a' + 27);
-	return (c - '_' + 26);
+	return (ERROR);
 }
 
 void	envp_to_dict(char *envp[])
@@ -117,23 +145,6 @@ void	envp_to_dict(char *envp[])
 		add_dict(NULL, NULL, envp[j++]);
 }
 
-int	count_dict(void)
-{
-	int		idx;
-	int		total;
-	t_dict	*cur;
-
-	idx = 0;
-	total = 0;
-	while (idx < DICT_MAX)
-	{
-		cur = g_dict[idx++].next;
-		while (cur && ++total)
-			cur = cur->next;
-	}
-	return (total);
-}
-//
 char 	**dict_to_envp(void)
 {
 	int			idx;
@@ -157,3 +168,4 @@ char 	**dict_to_envp(void)
 	}
 	return (new_envp);
 }
+

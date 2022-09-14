@@ -6,24 +6,29 @@
 /*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 22:51:24 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/14 22:52:33 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/15 03:10:03 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_match_word(const char *word1, const char *word2)
+int	count_dict(void)
 {
-	int	i;
+	int		idx;
+	int		total;
+	t_dict	*cur;
 
-	if (!word1 || !word2)
-		return (FALSE);
-	i = -1;
-	while (++i + 1 && (word1[i] || word2[i]))
-		if (word1[i] != word2[i])
-			return (FALSE);
-	return (TRUE);
+	idx = 0;
+	total = 0;
+	while (idx < DICT_MAX)
+	{
+		cur = g_dict[idx++].next;
+		while (cur && ++total)
+			cur = cur->next;
+	}
+	return (total);
 }
+
 
 t_dict	*find_dict(t_dict *cur, const char *name)
 {
@@ -34,6 +39,53 @@ t_dict	*find_dict(t_dict *cur, const char *name)
 		cur = cur->next;
 	}
 	return (NULL);
+}
+
+
+t_dict	*add_dict(char *name, char *value, char *merge_str)
+{
+	int			idx;
+	char		*pos;
+	t_dict		*add_node;
+
+	if ((!name && !value && !merge_str) \
+		|| (merge_str && (name || value)) \
+		|| (!name && value))
+		return (NULL);
+	if (merge_str)
+	{
+		idx = chr_to_idx(*merge_str);
+		pos = ft_strchr_null(merge_str + 1, '=');
+		name = ft_strcpy(merge_str, pos);
+		if (*pos)
+			value = ft_strdup(pos + 1);
+	}
+	else
+		idx = chr_to_idx(*name);
+	add_node = make_envp_node(name, value, NULL, NULL);
+	dict_lstadd_order(&g_dict[idx], add_node);
+	return (add_node);
+}
+
+t_dict *put_dict(char *name, char *value)
+{
+	t_dict	*find_node;
+	int		idx;
+
+	if (!name)
+		return (NULL);
+	idx = chr_to_idx(*name);
+	find_node = find_dict(&g_dict[idx], name);
+	if (!find_node)
+		return (add_dict(name, value, NULL));
+	else if (find_node && find_node->value && !value)
+		my_multi_free(name, value, NULL, NULL);
+	else
+	{
+		my_multi_free(name, find_node->value, NULL, NULL);
+		find_node->value = value;
+	}
+	return (find_node);
 }
 
 void	erase_dict(char *name)
@@ -55,33 +107,4 @@ void	erase_dict(char *name)
 	if (find_node == last_node)
 		g_dict[idx].prev = find_node->prev;
 	my_multi_free(find_node->name, find_node->value, find_node, NULL);
-}
-
-void add_dict(char *name, char *value, char *merge_str)
-{
-	int			idx;
-	char		*pos;
-
-	if ((!name && !value && !merge_str) \
-		|| (merge_str && (name || value)) \
-		|| (!name && value))
-		return ;
-	if (merge_str)
-	{
-		idx = chr_to_idx(*merge_str);
-		pos = ft_strchr_null(merge_str, '=');
-		name = ft_strcpy(merge_str, pos);
-		value = ft_strdup(pos + 1);
-	}
-	else
-		idx = chr_to_idx(*name);
-	dict_lstadd_order(&g_dict[idx], make_envp_node(name, value, NULL, NULL));
-}
-
-void put_dict(char *name, char *value)
-{
-	if (!name)
-		return ;
-	erase_dict(name);
-	add_dict(name, value, NULL);
 }

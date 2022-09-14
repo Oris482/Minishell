@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/14 22:14:51 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/15 03:48:37 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 
 # define BACKUP			1
 # define RESTORE		2
+
+#define EXPORT_HEAD_MSG "declare -x "
 
 typedef struct s_pipe
 {
@@ -320,6 +322,12 @@ int				builtin_echo(t_lx_token *token);
 int 			builtin_cd(t_lx_token *token);
 int 			builtin_pwd(void);
 int				builtin_exit(t_lx_token *token);
+int				builtin_export(t_lx_token *token);
+int				builtin_unset(t_lx_token *token);
+int				builtin_env(t_lx_token *token);
+
+//builtin_export.c <- 옮겨야 함
+int				 get_env_nameval_at_token(t_lx_token *token, char **name, char **value);
 
 // executor.c
 int				executor(t_tree *root, char set_exit_status_flag);
@@ -333,15 +341,16 @@ t_dict			*make_envp_node(char *name, char *value, t_dict *next, t_dict *prev);
 void			dict_lstadd_last(t_dict *head, t_dict *new);
 void			dict_lstadd_next(t_dict *cur, t_dict *new);
 void			dict_lstadd_order(t_dict *head, t_dict *new);
-int				count_dict(void);
+int				check_match_word(const char *word1, const char *word2);
+int				check_vaild_env_name(char *name);
 
 
 // dict_utils.c
-int				check_match_word(const char *word1, const char *word2);
+int				count_dict(void);
 t_dict			*find_dict(t_dict *cur, const char *name);
 void			erase_dict(char *name);
-void			add_dict(char *name, char *value, char *merge_str);
-void			put_dict(char *name, char *value);
+t_dict			*add_dict(char *name, char *value, char *merge_str);
+t_dict			*put_dict(char *name, char *value);
 
 // debug_print_evnp.c
 int	print_dictionary_lst();

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 19:12:42 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/12 02:05:33 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/15 02:48:12 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ int	print_error_str(const char *err_cmd, const char *err_arg, \
 	ft_putstr_fd(": ", STDERR_FILENO);
 	if (err_arg != NULL)
 	{
+		ft_putchar_fd('`', STDERR_FILENO);
 		ft_putstr_fd(err_arg, STDERR_FILENO);
+		ft_putchar_fd('\'', STDERR_FILENO);
 		ft_putstr_fd(": ", STDERR_FILENO);
 	}
 	if (custom_msg == NULL)

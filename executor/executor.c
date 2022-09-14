@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/13 17:57:52 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/15 02:19:20 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int	builtin_middleware(t_lx_token *token, int builtin_idx)
 		return (builtin_cd(token));
 	else if (builtin_idx == BI_PWD)
 		return (builtin_pwd());
-	// else if (builtin_idx == BI_EXPORT)
-	// 	return (builtin_export(token));
-	// else if (builtin_idx == BI_UNSET)
-	// 	return (builtin_unset(token));
-	// else if (builtin_idx == BI_ENV)
-	// 	return (builtin_env(token));
+	else if (builtin_idx == BI_EXPORT)
+		return (builtin_export(token));
+	else if (builtin_idx == BI_UNSET)
+		return (builtin_unset(token));
+	else if (builtin_idx == BI_ENV)
+		return (builtin_env(token));
 	else if (builtin_idx == BI_EXIT)
 		return (builtin_exit(token));
 	else

@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/14 21:25:56 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/09/15 02:19:59 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,9 @@ EXECUTOR_SRCS		=	executor.c						\
 						builtin_echo.c					\
 						builtin_cd.c					\
 						builtin_pwd.c					\
+						builtin_export.c					\
+						builtin_env.c					\
+						builtin_unset.c					\
 						builtin_exit.c
 
 MANDA_SRCS	=	minishell.c										\
