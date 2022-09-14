@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 17:48:04 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/08 18:05:44 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/14 21:14:18 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,14 @@ void *list_tree_free(t_lx_token *list, t_tree *tree)
 	_linked_lst_fclean(list);
 	tree_traversal(tree, TREE_ALL, _tree_node_free);
 	return (NULL);
+}
+
+void	char_dimen2_free(char **strs)
+{
+	int i;
+
+	i = 0;
+	while (strs && strs[i])
+		my_free(strs[i++]);
+	my_free(strs);
 }

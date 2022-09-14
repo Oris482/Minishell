@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/13 23:30:41 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/14 21:27:15 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	_tilde_translator(t_lx_token *cur, char *chunk)
 	env_home = NULL;
 	if (is_tilde(*(cur->token_str)) && !cur->interpreted_str \
 		&& (*(chunk + 1) == '\0' || *(chunk + 1) == '/'))
-		env_home = getenv("HOME");
+		env_home = my_getenv("HOME");
 	if (env_home != NULL)
 		chunk++;
 	ft_strjoin_self(&cur->interpreted_str, env_home);

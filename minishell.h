@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/13 23:03:34 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/14 21:20:31 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,6 @@ t_dict			*get_last_dict(t_dict *dic);
 t_dict			*get_first_dict(t_dict *dic);
 void			*make_new_node(size_t size);
 t_lx_token		*make_new_token(char *token_str, int token_type, t_lx_token *prev);
-int				check_match_word(const char *word1, const char *word2);
 
 // error_utils.c
 void			print_error_syntax(char *token);
@@ -232,12 +231,8 @@ int				print_error_str(const char *err_cmd, const char *err_arg, \
 
 // free_utils.c
 void			*list_tree_free(t_lx_token *list, t_tree *tree);
+void			char_dimen2_free(char **strs);
 
-// debug_function.c
-void			print_token_list(t_lx_token *token_list);
-void			classify(struct dirent *ent);
-void			print_token_next(t_lx_token *token_list);
-void			print_token_prev(t_lx_token *token_list);
 
 // lexer.c
 t_lx_token		*lexer(char *full_line, t_oflag *oflag);
@@ -331,13 +326,29 @@ int				executor(t_tree *root, char set_exit_status_flag);
 
 // envp_utils.c
 void			char_dimen2_to_lst(char *envp[]);
+void			envp_to_dict(char *envp[]);
+char		 	**dict_to_envp(void);
 int				chr_to_idx(char c);
+t_dict			*make_envp_node(char *name, char *value, t_dict *next, t_dict *prev);
+void			dict_lstadd_last(t_dict *head, t_dict *new);
+void			dict_lstadd_next(t_dict *cur, t_dict *new);
+void			dict_lstadd_order(t_dict *head, t_dict *new);
+int				count_dict(void);
 
-// debug_print_evnp.c
-void			print_dictionary_lst();
-void			print_envp(char *envp[]);
 
 // dict_utils.c
+int				check_match_word(const char *word1, const char *word2);
 t_dict			*find_env_dict(t_dict *cur, const char *name);
+void			erase_dict(char *name);
+void			add_dict(char *merge_str);
 
+// debug_print_evnp.c
+int	print_dictionary_lst();
+int	print_strs(char *strs[]);
+
+// debug_function.c
+void			print_token_list(t_lx_token *token_list);
+void			classify(struct dirent *ent);
+void			print_token_next(t_lx_token *token_list);
+void			print_token_prev(t_lx_token *token_list);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:23:45 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/13 12:45:14 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/14 19:31:53 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,3 +108,39 @@ void	print_token_next(t_lx_token *token_list)
 	}
 	printf(" [(null)]\n\n");
 }
+
+// void	print_dict_prev(t_dict *token_list)
+// {
+//     t_lx_token * const	head = token_list;
+//
+//     if (!head)
+//         return ;
+//     printf(" [(null)] ");
+//     token_list = get_last_token(token_list);
+//     while (token_list && token_list != head)
+//     {
+//         if (token_list->interpreted_str)
+//             printf("← [%s] ", token_list->interpreted_str);
+//         else
+//             printf("← [%s] ", token_list->token_str);
+//         token_list = token_list->prev;
+//     }
+//     if (token_list->interpreted_str)
+//         printf("← [%s] ", token_list->interpreted_str);
+//     else
+//         printf("← [%s] ", token_list->token_str);
+//     printf("\n\n");
+// }
+//
+// void	print_dict_next(t_lx_token *token_list)
+// {
+//     while (token_list)
+//     {
+//         if (token_list->interpreted_str)
+//             printf(" [%s] →", token_list->interpreted_str);
+//         else
+//             printf(" [%s] →", token_list->token_str);
+//         token_list = token_list->next;
+//     }
+//     printf(" [(null)]\n\n");
+// }

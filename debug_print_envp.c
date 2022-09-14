@@ -1,9 +1,10 @@
 
 #include "minishell.h"
 
-void print_dictionary_lst()
+int print_dictionary_lst()
 {
 	int	i;
+	int	total = 0;
 	t_dict	*cur;
 
 	i = 0;
@@ -14,14 +15,20 @@ void print_dictionary_lst()
 		while (cur)
 		{
 			printf("L %s=%s\n", cur->name, cur->value);
+			total++;
 			cur = cur->next;
 		}
 		i++;
 	}
+	return (total);
 }
 
-void	print_envp(char *envp[])
+int	print_strs(char *strs[])
 {
-	for (int i = 0; envp[i]; i++)
-		printf("%s\n", envp[i]);
+	int	i;
+
+	i = 0;
+	while (strs[i])
+		printf("%s\n", strs[i++]);
+	return (i);
 }
