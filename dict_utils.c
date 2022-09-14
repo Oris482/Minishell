@@ -6,7 +6,7 @@
 /*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 22:51:24 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/14 22:32:29 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/14 22:52:33 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,24 @@ t_dict	*find_dict(t_dict *cur, const char *name)
 	return (NULL);
 }
 
-/* Please never NULL */
 void	erase_dict(char *name)
 {
-	int				idx = chr_to_idx(*name);
-	t_dict *const	head_node = &g_dict[idx];
-	t_dict *const	last_node = head_node->prev;
-	t_dict			*find_node;
+	int		idx;
+	t_dict	*last_node;
+	t_dict	*find_node;
 
+	if (!name)
+		return ;
+	idx = chr_to_idx(*name);
 	find_node = find_dict(&g_dict[idx], name);
 	if (!find_node)
 		return ;
 	find_node->prev->next = find_node->next;
 	if (find_node->next)
 		find_node->next->prev = find_node->prev;
+	last_node = g_dict[idx].prev;
 	if (find_node == last_node)
-		head_node->prev = find_node->prev;
+		g_dict[idx].prev = find_node->prev;
 	my_multi_free(find_node->name, find_node->value, find_node, NULL);
 }
 

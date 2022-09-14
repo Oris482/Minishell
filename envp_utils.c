@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:25:42 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/14 22:28:39 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/14 22:35:44 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	dict_lstadd_order(t_dict *head, t_dict *new)
 		val = comapre_order_dict(cur->next, new);
 		if (val > 0)
 			dict_lstadd_next(cur, new);
+		else if (val == 0)
+			return ;
 		cur = cur->next;
 	}
 }
