@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:25:42 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/14 21:17:22 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/14 22:28:39 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,19 +112,7 @@ void	envp_to_dict(char *envp[])
 	setting_dictionary();
 	j = 0;
 	while (envp[j])
-		add_dict(envp[j++]);
-//     print_dictionary_lst();
-// printf("------------------------------------------------------------\n");
-//     // erase_dict("aa");
-//     // erase_dict("a_");
-//     // erase_dict("a");
-//     // print_dictionary_lst();
-//     // add_dict("a=34");
-// printf("------------------------------------------------------------\n");
-//     print_dictionary_lst();
-//     erase_dict("a");
-//     printf("\nreal_total = %d\n", print_dictionary_lst());
-//     printf("my_total = %d\n", count_dict());
+		add_dict(NULL, NULL, envp[j++]);
 }
 
 int	count_dict(void)
@@ -161,7 +149,7 @@ char 	**dict_to_envp(void)
 		cur = g_dict[idx++].next;
 		while (cur)
 		{
-			new_envp[j++] = ft_strsjoin(cur->name, cur->value, NULL);
+			new_envp[j++] = ft_strsjoin(cur->name, "=", cur->value);
 			cur = cur->next;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/14 21:23:06 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/14 22:30:56 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,18 @@ int	main(int argc, char *argv[], char *envp[])
 	set_exit_status(0);
 	envp_to_dict(envp);
 
-	printf("\nreal_total = %d\n", print_strs(envp));
-	printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
-	strs = dict_to_envp();
-	printf("\nmy_total = %d\n", print_strs(strs));
-	char_dimen2_free(strs);
+	put_dict(ft_strdup("a"), ft_strdup("123"));
+	print_dictionary_lst();
+printf("------------------------------------------------------------\n");
+printf("------------------------------------------------------------\n");
+	// add_dict(NULL, NULL, "a=34");
+	put_dict(ft_strdup("a"), ft_strdup("341"));
+	print_dictionary_lst();
+	// printf("\nreal_total = %d\n", print_strs(envp));
+	// printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+	// strs = dict_to_envp();
+	// printf("\nmy_total = %d\n", print_strs(strs));
+	// char_dimen2_free(strs);
 	while (true)
 	{
 		full_line = liner(&oflag);

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/14 21:20:31 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/14 22:14:51 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,9 +338,10 @@ int				count_dict(void);
 
 // dict_utils.c
 int				check_match_word(const char *word1, const char *word2);
-t_dict			*find_env_dict(t_dict *cur, const char *name);
+t_dict			*find_dict(t_dict *cur, const char *name);
 void			erase_dict(char *name);
-void			add_dict(char *merge_str);
+void			add_dict(char *name, char *value, char *merge_str);
+void			put_dict(char *name, char *value);
 
 // debug_print_evnp.c
 int	print_dictionary_lst();

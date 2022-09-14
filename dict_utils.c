@@ -6,7 +6,7 @@
 /*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 22:51:24 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/14 21:10:09 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/14 22:32:29 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_match_word(const char *word1, const char *word2)
 	return (TRUE);
 }
 
-t_dict	*find_env_dict(t_dict *cur, const char *name)
+t_dict	*find_dict(t_dict *cur, const char *name)
 {
 	while (cur)
 	{
@@ -44,7 +44,7 @@ void	erase_dict(char *name)
 	t_dict *const	last_node = head_node->prev;
 	t_dict			*find_node;
 
-	find_node = find_env_dict(&g_dict[idx], name);
+	find_node = find_dict(&g_dict[idx], name);
 	if (!find_node)
 		return ;
 	find_node->prev->next = find_node->next;
@@ -55,13 +55,31 @@ void	erase_dict(char *name)
 	my_multi_free(find_node->name, find_node->value, find_node, NULL);
 }
 
-/* Please never NULL */
-void add_dict(char *merge_str)
+void add_dict(char *name, char *value, char *merge_str)
 {
-	const int	idx = chr_to_idx(*merge_str);
+	int			idx;
 	char		*pos;
 
-	pos = ft_strchr_null(merge_str, '=');
-	dict_lstadd_order(&g_dict[idx], make_envp_node(ft_strcpy(merge_str, pos), \
-											ft_strdup(pos + 1), NULL, NULL));
+	if ((!name && !value && !merge_str) \
+		|| (merge_str && (name || value)) \
+		|| (!name && value))
+		return ;
+	if (merge_str)
+	{
+		idx = chr_to_idx(*merge_str);
+		pos = ft_strchr_null(merge_str, '=');
+		name = ft_strcpy(merge_str, pos);
+		value = ft_strdup(pos + 1);
+	}
+	else
+		idx = chr_to_idx(*name);
+	dict_lstadd_order(&g_dict[idx], make_envp_node(name, value, NULL, NULL));
+}
+
+void put_dict(char *name, char *value)
+{
+	if (!name)
+		return ;
+	erase_dict(name);
+	add_dict(name, value, NULL);
 }
