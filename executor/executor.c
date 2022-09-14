@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/15 02:19:20 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/15 03:55:16 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ int	builtin_middleware(t_lx_token *token, int builtin_idx)
 		return (builtin_env(token));
 	else if (builtin_idx == BI_EXIT)
 		return (builtin_exit(token));
-	else
-		return (ERROR);
+	return (ERROR);
 }
 
 int	simple_cmd_middleware(t_lx_token *token)
