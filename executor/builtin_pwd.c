@@ -6,11 +6,25 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:48:16 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/12 00:19:30 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/15 18:41:04 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	_handle_pwd_error(void)
+{
+	char	*err_msg;
+
+	err_msg = NULL;
+	if (errno == ENOENT)
+		err_msg = "Current working directory is no more exist";
+	else if (errno == ENOMEM)
+		err_msg = "Insufficient memory to store cwd";
+	else if (errno == EACCES)
+		err_msg = "Permission denied";
+	return (print_error_str("pwd", NULL, err_msg, GENERAL_EXIT_CODE));
+}
 
 int	builtin_pwd(void)
 {
@@ -19,7 +33,7 @@ int	builtin_pwd(void)
 	buf = NULL;
 	buf = getcwd(buf, 1);
 	if (buf == NULL)
-		return (print_error_str("pwd", NULL, NULL, GENERAL_EXIT_CODE));
+		return (_handle_pwd_error());
 	ft_putendl_fd(buf, STDOUT_FILENO);
 	my_free(buf);
 	return (SUCCESS_EXIT_CODE);
