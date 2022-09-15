@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:24:20 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/13 21:09:07 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/15 19:28:42 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static unsigned int	_check_syntax_middleware(t_lx_token *token, \
 	const int	token_type = token->token_type;
 	int			is_valid;
 
-	if (token_type == WORD)
+	if (token_type == WORD && token->token_str != NULL)
 		is_valid = _check_word_syntax(token);
 	else if (token_type == AND_IF || token_type == OR_IF || token_type == PIPE)
 		is_valid = _check_operator_syntax(token);
