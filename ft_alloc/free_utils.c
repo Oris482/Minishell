@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 17:48:04 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 00:29:58 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 02:44:46 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,3 +52,14 @@ void	char_dimen2_free(char **strs)
 		my_free(strs[i++]);
 	my_free(strs);
 }
+
+void	files_free(t_file *files)
+{
+	int i;
+
+	i = -1;
+	while (++i < files->n)
+		my_free(files[i].name);
+	my_free(files);
+}
+
