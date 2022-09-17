@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 22:52:48 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 02:00:34 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,25 @@ static void	_dollar_translator(t_lx_token *cur, char *chunk, int split_flag)
 		my_free(temp);
 		return ;
 	}
+	if (*chunk == '$')
+	{
+		ft_strjoin_self(&cur->interpreted_str, "$");
+		ft_strjoin_self(&cur->interpreted_str, chunk);
+		return ;
+	}
+	if (*chunk == '\0')
+	{
+		ft_strjoin_self(&cur->interpreted_str, "$");
+		return ;
+	}
 	find_str = my_getenv(chunk);
 	if (!find_str || !*find_str)
 		return ;
 	str_cur = find_str;
 	if (split_flag && _cursor_to_space(&str_cur))
 		;
+	while (*str_cur)
+		str_cur++;
 	temp = ft_strcpy(find_str, str_cur);
 	ft_strjoin_self(&cur->interpreted_str, temp);
 	my_free(temp);
@@ -76,13 +89,28 @@ static void	_dquote_translator(t_lx_token *cur, char *chunk)
 	char	*pos;
 	char	*tmp;
 
-	pos = ft_strchr_null(chunk, '$');
-	tmp = ft_strcpy(chunk, pos);
-	ft_strjoin_self(&cur->interpreted_str, tmp);
-	chunk = pos;
-	my_free(tmp);
-	if (*chunk == '$')
-		_dollar_translator(cur, ++chunk, 0);
+	while (*chunk)
+	{
+		pos = ft_strchr_null(chunk, '$');
+		tmp = ft_strcpy(chunk, pos);
+		ft_strjoin_self(&cur->interpreted_str, tmp);
+		chunk = pos;
+		my_free(tmp);
+		if (*chunk == '$')
+		{
+			pos++;
+			while (*pos)
+			{
+				if (is_interpret_symbol(*pos) || *pos == ' ')
+					break ;
+				pos++;
+			}
+			tmp = ft_strcpy(chunk + 1, pos);
+			_dollar_translator(cur, tmp, 0);
+			my_free(tmp);
+			chunk = pos;
+		}
+	}
 	return ;
 }
 
