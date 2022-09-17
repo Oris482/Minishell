@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 22:51:24 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 22:51:07 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 05:04:50 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ t_dict	*add_dict(char *name, char *value, char *merge_str)
 		return (NULL);
 	if (merge_str)
 	{
-		idx = chr_to_idx(*merge_str);
+		idx = chr_to_dict_idx(*merge_str);
 		pos = ft_strchr_null(merge_str + 1, '=');
 		name = ft_strcpy(merge_str, pos);
 		if (*pos)
 			value = ft_strdup(pos + 1);
 	}
 	else
-		idx = chr_to_idx(*name);
+		idx = chr_to_dict_idx(*name);
 	add_node = make_envp_node(name, value, NULL, NULL);
 	dict_lstadd_order(&g_dict[idx], add_node);
 	return (add_node);
@@ -77,7 +77,7 @@ t_dict *put_dict(char *name, char *value)
 
 	if (!name)
 		return (NULL);
-	idx = chr_to_idx(*name);
+	idx = chr_to_dict_idx(*name);
 	find_node = find_dict(&g_dict[idx], name);
 	if (!find_node)
 		return (add_dict(name, value, NULL));
@@ -99,7 +99,7 @@ void	erase_dict(char *name)
 
 	if (!name)
 		return ;
-	idx = chr_to_idx(*name);
+	idx = chr_to_dict_idx(*name);
 	find_node = find_dict(&g_dict[idx], name);
 	if (!find_node)
 		return ;

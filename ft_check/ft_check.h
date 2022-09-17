@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:15:28 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 22:14:27 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 04:57:15 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,12 @@ unsigned char	is_dollar(const char c);
 unsigned char	is_wildcard(const char c);
 unsigned char	is_tilde(const char c);
 unsigned char	is_interpret_symbol(const char c);
+
+// check_env_utils.c
+int				is_number_chr(int c);
+int				is_upper_alpha_chr(int c);
+int				is_lower_alpha_chr(int c);
+int				is_dict_chr(int c);
+int				is_env_chr(char *head, char *cur);
 
 #endif
