@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 13:50:16 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 23:31:02 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 00:19:16 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,34 @@
 static char	*_make_tmpname(char *prefix)
 {
 	struct stat	buf;
-	char		*ret;
-	char		*suffix;
+	char		*ref;
+	char		*filename;
 	int			i;
+	char		*i_str;
 
-	ret = NULL;
-	ft_strjoin_self(&ret, "/tmp/");
-	ft_strjoin_self(&ret, prefix);
-	suffix = "_j2m1";
-	i = 0;
-	while (i++ < 5)
+	ref = NULL;
+	ft_strjoin_self(&ref, "/tmp/");
+	ft_strjoin_self(&ref, prefix);
+	i = -1;
+	while (++i < 4242)
 	{
-		stat(ret, &buf);
+		i_str = ft_itoa(i);
+		filename = ft_strsjoin(ref, i_str, NULL);
+		my_free(i_str);
+		stat(filename, &buf);
 		if (errno == ENOENT)
 		{
 			errno = 0;
-			return (ret);
+			return (filename);
 		}
-		ft_strjoin_self(&ret, suffix);
+		my_free(filename);
 	}
 	return (NULL);
 }
 
 static int	_make_tmpfile(char **tmpname, int *fd)
 {
-	*tmpname = _make_tmpname("minishell");
+	*tmpname = _make_tmpname("minishell_");
 	if (*tmpname == NULL)
 		return (FALSE);
 	*fd = open(*tmpname, O_WRONLY | O_CREAT | O_EXCL | O_TRUNC, 0600);
@@ -81,30 +84,51 @@ int	handle_redirections_error(const char *cmd, const char *arg)
 		return (print_error_str(cmd, arg, NULL, GENERAL_EXIT_CODE));
 }
 
-int	redi_heredoc(char *limiter)
+void	write_tmp_heredoc(char *limiter, int write_fd)
 {
-	int		fd[2];
-	char	*tmpname;
 	char	*line;
-
-	if (_make_tmpfile(&tmpname, &fd[F_WRITE]) == FALSE)
-		return (handle_redirections_error("Here-doc", NULL));
+	
 	line = my_readline("> ");
 	while (line && !ft_strcmp(line, limiter))
 	{
+		write(write_fd, line, ft_strlen(line));
+		write(write_fd, "\n", 1);
 		my_free(line);
-		write(fd[F_WRITE], line, ft_strlen(line));
-		write(fd[F_WRITE], "\n", 1);
 		line = my_readline("> ");
 	}
 	my_free(line);
-	close(fd[F_WRITE]);
-	fd[F_READ] = open(tmpname, O_RDONLY);
-	unlink(tmpname);
-	my_free(tmpname);
-	if (dup2(fd[F_READ], STDIN_FILENO) == ERROR)
+	close(write_fd);
+	exit(SUCCESS_EXIT_CODE);
+}
+
+int	make_tmp_heredoc(t_lx_token *token, char *limiter)
+{
+	int		write_fd;
+	pid_t	pid;
+	int		status;
+	char	*tmpname;
+
+	if (_make_tmpfile(&tmpname, &write_fd) == FALSE)
+		return (handle_redirections_error("Here-doc", NULL));
+	token->interpreted_str = tmpname;
+	pid = fork();
+	if (pid == 0)
+		write_tmp_heredoc(limiter, write_fd);
+	waitpid(pid, &status, WUNTRACED);
+	close(write_fd);
+	return (SUCCESS_EXIT_CODE);
+}
+
+int	redi_heredoc(char *filename)
+{
+	int	read_fd;
+
+	read_fd = open(filename, O_RDONLY);
+	if (read_fd == ERROR)
+		return (print_error_str("here-doc", NULL, "can't open tmp file", GENERAL_EXIT_CODE));
+	if (dup2(read_fd, STDIN_FILENO) == ERROR)
 		return (print_error_str("here-doc", NULL, NULL, GENERAL_EXIT_CODE));
-	close(fd[F_READ]);
+	close(read_fd);
 	return (SUCCESS_EXIT_CODE);
 }
 
@@ -156,7 +180,7 @@ int	redi_middleware(t_lx_token *token)
 		else if (token->token_type == RED_APD_OUT)
 			exit_code = redi_out(get_token_str(token->next), O_APPEND);
 		else if (token->token_type == HERE_DOC)
-			exit_code = redi_heredoc(token->next->token_str);
+			exit_code = redi_heredoc(token->interpreted_str);
 		else
 			break ;
 		if (exit_code != SUCCESS_EXIT_CODE)

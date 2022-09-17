@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:24:20 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 23:29:20 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 00:20:34 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "ft_token.h"
 #include "ft_print.h"
 #include "ft_check.h"
+#include "ft_command.h"
 
 static int	_check_word_syntax(t_lx_token *token)
 {
@@ -110,8 +111,12 @@ static unsigned int	_check_syntax_middleware(t_lx_token *token, \
 	const int	token_type = token->token_type;
 	int			is_valid;
 
-	if (token_type == WORD && token->token_str != NULL)
-		is_valid = _check_word_syntax(token);
+	if (token_type == WORD)
+	{	if (token->token_str != NULL)
+			is_valid = _check_word_syntax(token);
+		else
+			is_valid = SUCCESS;
+	}
 	else if (token_type == AND_IF || token_type == OR_IF || token_type == PIPE)
 		is_valid = _check_operator_syntax(token);
 	else if (token_type == RED_IN || token_type == RED_OUT \
@@ -126,18 +131,20 @@ static unsigned int	_check_syntax_middleware(t_lx_token *token, \
 
 unsigned int	check_syntax_error(t_lx_token *cur_node)
 {
-	const int	head_token_type = cur_node->token_type;
 	int			parentheses_counter;
 
 	parentheses_counter = 0;
 	while (cur_node)
 	{
-		if (head_token_type == PARENTHESES_OPEN)
+		if (cur_node->token_type == PARENTHESES_OPEN)
 			parentheses_counter++;
-		else if (head_token_type == PARENTHESES_CLOSE)
+		else if (cur_node->token_type == PARENTHESES_CLOSE)
 			parentheses_counter--;
 		if (_check_syntax_middleware(cur_node, &parentheses_counter) == FALSE)
 			return (SYNTAX_ERROR_EXIT_CODE);
+		if (cur_node->token_type == HERE_DOC)
+			if (make_tmp_heredoc(cur_node, cur_node->next->token_str) == GENERAL_EXIT_CODE)
+				return (GENERAL_EXIT_CODE);
 		cur_node = cur_node->next;
 	}
 	return (SUCCESS);

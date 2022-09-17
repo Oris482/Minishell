@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 17:48:04 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 22:16:31 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 00:29:58 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,17 @@
 
 static void _linked_lst_fclean(t_lx_token *cur_list)
 {
+	t_lx_token	*tmp;
+
 	while (cur_list)
 	{
+		if (cur_list->token_type == HERE_DOC && cur_list->interpreted_str != NULL)
+			unlink(cur_list->interpreted_str);
 		my_multi_free(cur_list->token_str, cur_list->interpreted_str, \
-															cur_list, NULL);
+															NULL, NULL);
+		tmp = cur_list;
 		cur_list = cur_list->next;
+		my_free(tmp);
 	}
 }
 

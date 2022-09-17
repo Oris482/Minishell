@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:46:45 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 22:41:03 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 23:58:33 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 
 // built-in functions
+int	            make_tmp_heredoc(t_lx_token *token, char *limiter);
 int				redi_middleware(t_lx_token *token);
 int				redi_heredoc(char *limiter);
 int				builtin_echo(t_lx_token *token);
