@@ -6,11 +6,12 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 01:33:30 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 20:45:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 21:28:25 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell_info.h"
+#include "ft_string.h"
+#include "ft_alloc.h"
 
 int ft_strcmp_ignore_capital(char *ref, char *target)
 {

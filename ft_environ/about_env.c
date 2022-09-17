@@ -6,13 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 16:59:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 20:45:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 21:43:10 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell_info.h"
-
-#include "../minishell.h"
+#include "ft_environ.h"
 
 char	*my_getenv(const char *name)
 {

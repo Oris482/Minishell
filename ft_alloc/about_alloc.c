@@ -6,11 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 11:23:44 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 20:45:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 21:26:27 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell_info.h"
+#include "ft_alloc.h"
 
 void	*my_malloc(size_t size)
 {
