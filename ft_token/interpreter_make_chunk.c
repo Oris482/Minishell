@@ -6,12 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 23:24:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 20:45:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 21:40:08 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell_info.h"
-#include "lexer.h"
+#include "ft_token.h"
+#include "ft_string.h"
+#include "ft_check.h"
 
 static char	*_handle_quote_symbol(char **token_str, char *str_startpoint, \
 								unsigned char *symbol_type)

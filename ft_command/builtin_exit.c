@@ -6,11 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 20:23:17 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/12 00:18:17 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 21:23:59 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "ft_command.h"
+#include "ft_token.h"
+#include "ft_print.h"
 
 int	is_numeric(char *str)
 {

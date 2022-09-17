@@ -6,13 +6,14 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 20:45:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 21:37:41 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell_info.h"
-#include "lexer.h"
-#include "myfunc.h"
+#include "ft_token.h"
+#include "ft_check.h"
+#include "ft_string.h"
+#include "ft_alloc.h"
 
 unsigned char	find_interpret_symbol(char **token_str, \
 												unsigned char target)

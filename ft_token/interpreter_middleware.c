@@ -6,11 +6,15 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 20:45:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 21:39:11 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell_info.h"
+#include "ft_token.h"
+#include "ft_check.h"
+#include "ft_string.h"
+#include "ft_alloc.h"
+#include "ft_environ.h"
 
 static int	_cursor_to_space(char **str_cur)
 {
@@ -34,7 +38,7 @@ static void	_dollar_translator(t_lx_token *cur, char *chunk, int split_flag)
 		temp = ft_itoa(get_exit_status());
 		ft_strjoin_self(&cur->interpreted_str, temp);
 		ft_strjoin_self(&cur->interpreted_str, chunk + 1);
-		free(temp);
+		my_free(temp);
 		return ;
 	}
 	find_str = my_getenv(chunk);
@@ -45,7 +49,7 @@ static void	_dollar_translator(t_lx_token *cur, char *chunk, int split_flag)
 		;
 	temp = ft_strcpy(find_str, str_cur);
 	ft_strjoin_self(&cur->interpreted_str, temp);
-	free(temp);
+	my_free(temp);
 	while (*str_cur)
 	{
 		if (ft_isspace(*str_cur) && str_cur++)

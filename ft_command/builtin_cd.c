@@ -6,11 +6,14 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:57:27 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/15 19:11:36 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 21:23:34 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "ft_command.h"
+#include "ft_print.h"
+#include "ft_alloc.h"
+#include "ft_environ.h"
 
 static int	_handle_cd_error(const char *path)
 {

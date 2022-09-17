@@ -6,13 +6,17 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:59:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 20:45:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 21:18:46 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_info.h"
+#include "ft_command.h"
+#include "ft_environ.h"
+#include "ft_string.h"
+#include "ft_alloc.h"
 
-char	*find_cmd_path(char *cmd)
+static char	*_find_cmd_path(char *cmd)
 {
 	const char	*set_path = my_getenv("PATH");
 	char		*find_path;
@@ -36,7 +40,7 @@ char	*find_cmd_path(char *cmd)
 	return (find_path);
 }
 
-int	count_cur_token(t_lx_token *token)
+static int	_count_cur_token(t_lx_token *token)
 {
 	int	cnt;
 
@@ -52,7 +56,7 @@ char **make_cmd_argv(char *cmd_str, t_lx_token *token)
 	char	**cmd_argv;
 	int		cnt;
 
-	cnt = count_cur_token(token);
+	cnt = _count_cur_token(token);
 	cmd_argv = (char **)my_calloc(cnt + 1, sizeof(char *));
 	i = 0;
 	cmd_argv[i] = ft_strdup(cmd_str);
@@ -91,7 +95,7 @@ void	execute_middleware(t_lx_token *token)
 	if (S_ISDIR(statbuf->st_mode))
 	if (ft_strchr(cmd_str, '/') == NULL)
 	{
-		cmd_path = find_cmd_path(cmd_str);
+		cmd_path = _find_cmd_path(cmd_str);
 		if (!cmd_path)
 			exit(print_error_str(cmd_str, NULL, "command not found", 127));
 	}

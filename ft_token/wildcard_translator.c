@@ -6,13 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 20:03:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 20:45:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 21:41:47 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell_info.h"
-#include "lexer.h"
-#include "myfunc.h"
+#include "ft_token.h"
+#include "ft_string.h"
+#include "ft_alloc.h"
 
 static int	_level_check(const char *s)
 {
@@ -69,10 +69,10 @@ void	wildcard_translator(t_lx_token **cur)
 	compressed_str = compress_target_char((*cur)->interpreted_str, '*');
 	temp = compressed_str;
 	compressed_str = compress_target_char(compressed_str, '/');
-	free(temp);
+	my_free(temp);
 	splited = _path_split(compressed_str);
-	free(compressed_str);
+	my_free(compressed_str);
 	ft_strjoin_self(&pwd, splited[0]);
 	recursive_find_files(cur, 1, pwd, splited);
-	free(splited);
+	my_free(splited);
 }

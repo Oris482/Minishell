@@ -6,9 +6,12 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 19:59:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 20:00:07 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 21:34:40 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_token.h"
+#include "ft_alloc.h"
 
 t_lx_token	*make_token_node(char *token_str, int token_type)
 {

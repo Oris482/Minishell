@@ -6,11 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:07:28 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 20:45:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 21:41:02 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell_info.h"
+#include "ft_token.h"
+#include "ft_check.h"
+#include "ft_alloc.h"
 
 static int	_count_compressed_len(char *target_str, const char target)
 {
@@ -34,7 +36,7 @@ char	*compress_target_char(char *target_str, const char target)
 	char	*compressed_str;
 
 	compressed_str = \
-			(char *)malloc(_count_compressed_len(target_str, target) + 1);
+			(char *)my_malloc(_count_compressed_len(target_str, target) + 1);
 	idx = 0;
 	while (*target_str)
 	{

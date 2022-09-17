@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cmd.h                                           :+:      :+:    :+:   */
+/*   ft_command.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:46:45 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 20:50:24 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 21:29:51 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_CMD_H
-# define FT_CMD_H
+#ifndef FT_COMMAND_H
+# define FT_COMMAND_H
 
+# include "minishell_info.h" 
 # include <sys/stat.h>
+# include <unistd.h>
 # include <fcntl.h>
+# include <errno.h>
+# include <stdlib.h>
 
 // built-in functions
 int				redi_middleware(t_lx_token *token);

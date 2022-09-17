@@ -1,6 +1,16 @@
-#include <string.h>
-#include "minishell_info.h"
-#include "parser.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   debug_print_tree.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/17 21:25:04 by jaesjeon          #+#    #+#             */
+/*   Updated: 2022/09/17 21:26:16 by jaesjeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_debug.h"
 
 // Program to print binary tree in 2D}
 t_tree	*newNode(int type)

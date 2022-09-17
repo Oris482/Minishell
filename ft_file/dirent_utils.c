@@ -6,13 +6,15 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:49:35 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 20:45:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 21:31:17 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_info.h"
+#include "ft_alloc.h"
+#include "ft_string.h"
 
-int	count_cur_dir(const char *cur_pwd, char dir_flag)
+static int	_count_cur_dir(const char *cur_pwd, char dir_flag)
 {
 	struct dirent	*file;
 	DIR				*dirp;
@@ -38,7 +40,7 @@ t_file	*get_files_cur_pwd(const char *cur_pwd, char dir_flag)
 	t_file			*files;
 	int				files_n;
 
-	files_n = count_cur_dir(cur_pwd, dir_flag);
+	files_n = _count_cur_dir(cur_pwd, dir_flag);
 	if (!files_n)
 		return (NULL);
 	files = (t_file *)(my_calloc(files_n, sizeof(t_file)));
