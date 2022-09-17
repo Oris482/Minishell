@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:42:47 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 04:23:22 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 04:30:32 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void			char_dimen2_to_lst(char *envp[]);
 void			envp_to_dict(char *envp[]);
 char		 	**dict_to_envp(void);
-int				chr_to_idx(char c);
+int				chr_to_dict_idx(char c);
 t_dict			*make_envp_node(char *name, char *value, t_dict *next, t_dict *prev);
 void			dict_lstadd_last(t_dict *head, t_dict *new);
 void			dict_lstadd_next(t_dict *cur, t_dict *new);

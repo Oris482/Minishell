@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 16:59:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 01:39:54 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 05:02:52 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*my_getenv(const char *name)
 
 	if (*name == '\0')
 		return (NULL);
-	idx = chr_to_idx(*name);
+	idx = chr_to_dict_idx(*name);
 	find_node = find_dict(g_dict[idx].next, name);
 	if (!find_node)
 		return (NULL);

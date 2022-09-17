@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/18 03:06:56 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/18 05:03:30 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ FT_DEBUG_SRCS	=	debug_function.c				\
 FT_ALLOC_SRCS	=	about_alloc.c					\
 					free_utils.c
 FT_CHECK_SRCS	=	check_char_utils.c				\
+					check_env_utils.c				\
 					check_interpret_symbol_utils.c
 FT_COMMAND_SRCS	=	builtin_cd.c					\
 					builtin_exit.c					\

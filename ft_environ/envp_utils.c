@@ -6,12 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:25:42 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 04:23:21 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 05:01:21 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_info.h"
 #include "ft_environ.h"
+#include "ft_check.h"
 #include "ft_alloc.h"
 #include "ft_string.h"
 
@@ -30,13 +31,16 @@ int	check_match_word(const char *word1, const char *word2)
 
 int check_valid_env_name(char *name)
 {
-	if (!name)
+	char *cur;
+
+	if (!cur)
 		return (FALSE);
-	while (*name)
+	cur = name;
+	while (*cur)
 	{
-		if (chr_to_idx(*name) < 0)
+		if (is_env_chr(name, cur) == FALSE)
 			return (FALSE);
-		name++;
+		cur++;
 	}
 	return (TRUE);
 }
@@ -127,13 +131,13 @@ void	dict_lstadd_order(t_dict *head, t_dict *new)
 	}
 }
 
-int	chr_to_idx(char c)
+int	chr_to_dict_idx(char c)
 {
-	if ('A' <= c && c <= 'Z')
+	if (is_upper_alpha_chr(c))
 		return (c - 'A' + 0);
 	else if (c == '_')
 		return (c - '_' + 26);
-	else if ('a' <= c && c <= 'z')
+	else if (is_lower_alpha_chr(c))
 		return (c - 'a' + 27);
 	return (ERROR);
 }
