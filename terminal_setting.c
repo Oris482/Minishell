@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:07:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 06:59:08 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 07:45:59 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,18 @@ int	terminal_off_control_chars(void)
 	if (tcgetattr(STDIN_FILENO, &termios_p) == ERROR)
 		exit(GENERAL_EXIT_CODE);
 	termios_p.c_lflag &= ~(ECHOCTL);
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &termios_p) == ERROR)
+		exit(GENERAL_EXIT_CODE);
+	return (SUCCESS);
+}
+
+int	terminal_on_control_chars(void)
+{
+	struct termios	termios_p;
+
+	if (tcgetattr(STDIN_FILENO, &termios_p) == ERROR)
+		exit(GENERAL_EXIT_CODE);
+	termios_p.c_lflag |= ECHOCTL;
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &termios_p) == ERROR)
 		exit(GENERAL_EXIT_CODE);
 	return (SUCCESS);

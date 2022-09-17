@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 13:50:16 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 01:11:13 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 07:21:04 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,28 @@ int	handle_redirections_error(const char *cmd, const char *arg)
 		return (print_error_str(cmd, arg, NULL, GENERAL_EXIT_CODE));
 }
 
+void	heredoc_sigint_handler(int signum)
+{
+	if (signum == SIGINT)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		exit(129);
+	}
+}
+
+void	heredoc_signal_handler(void)
+{
+	signal(SIGINT, 	heredoc_sigint_handler);
+	signal(SIGTERM, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+}
+
 void	write_tmp_heredoc(char *limiter, int write_fd)
 {
 	char	*line;
 	
+	heredoc_signal_handler();
 	line = my_readline("> ");
 	while (line && !ft_strcmp(line, limiter))
 	{
@@ -114,9 +132,11 @@ int	make_tmp_heredoc(t_lx_token *token, char *limiter)
 		return (handle_redirections_error("Here-doc", NULL));
 	token->interpreted_str = tmpname;
 	pid = fork();
+	signal(SIGINT, SIG_IGN);
 	if (pid == 0)
 		write_tmp_heredoc(limiter, write_fd);
 	waitpid(pid, &status, WUNTRACED);
+	signal_handler();
 	close(write_fd);
 	return (SUCCESS_EXIT_CODE);
 }

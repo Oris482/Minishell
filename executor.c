@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 05:43:00 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 07:50:38 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,18 @@ int	simple_cmd_middleware(t_lx_token *token)
 	else
 	{
 		pid = fork();
+		terminal_on_control_chars();
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (pid == 0)
 			execute_middleware(token);
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		waitpid(pid, &status, WUNTRACED);
+		if (WIFSIGNALED(status))
+			write(1, "\n", 1);
+		terminal_off_control_chars();
+		signal_handler();
 		return (get_exit_code(status));
 	}
 	return (GENERAL_EXIT_CODE);
