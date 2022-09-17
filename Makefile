@@ -6,14 +6,14 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/15 02:19:59 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/09/17 05:45:38 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 			=	cc
 # CFLAGS 		=	-Wall -Wextra -Werror $(CPPFLAGS) # -fsanitize=address
 # CFLAGS 		=	-Wall -Wextra -Werror $(CPPFLAGS)
-# CFLAGS			= 	-fsanitize=address
+CFLAGS			= 	-fsanitize=address
 # CFLAGS 		=	-Wall -Wextra -Werror
 
 LINKER		=	$(LDFLAGS) -lreadline
@@ -64,10 +64,11 @@ EXECUTOR_SRCS		=	executor.c						\
 						builtin_echo.c					\
 						builtin_cd.c					\
 						builtin_pwd.c					\
-						builtin_export.c					\
+						builtin_export.c				\
 						builtin_env.c					\
 						builtin_unset.c					\
-						builtin_exit.c
+						builtin_exit.c					\
+						program.c
 
 MANDA_SRCS	=	minishell.c										\
 				minishell_utils.c								\
@@ -136,5 +137,8 @@ list:
 
 lldb:
 	$(CC) $(CFLAGS) $(MANDA_SRCS) $(LINKER) $(INC_HEADERS) $(CPPFLAGS) -o $(NAME) -g
+
+gdb:
+	gcc $(CFLAGS) $(MANDA_SRCS) $(LINKER) $(INC_HEADERS) $(CPPFLAGS) -o $(NAME) -g
 
 .PHONY: all clean fclean re bonus

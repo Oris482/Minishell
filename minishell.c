@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/15 01:49:21 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/17 04:21:56 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	_minishell_routine(char *full_line, t_oflag *oflag)
 	if (!root_tree)
 		return ;
 	printf("----------- < TREE > --------------\n\n");
-	print_ascii_tree(root_tree);	// debug
+	// print_ascii_tree(root_tree);	// debug
 	executor(root_tree, TRUE);
 	list_tree_free(NULL, root_tree);
 }
@@ -69,7 +69,7 @@ int	main(int argc, char *argv[], char *envp[])
 		_minishell_routine(full_line, &oflag);
 		my_multi_free(full_line, NULL, NULL, NULL);
 		// list_tree_free(t_dict);
-		system("leaks -q minishell");
+		// system("leaks -q minishell");
 	}
 	(void)argc;
 	(void)argv;

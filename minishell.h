@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/15 03:48:37 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/17 04:29:38 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ void			ft_putendl_fd(const char *s, int fd);
 // custom_str_utils.c
 size_t			ft_strcnt(const char *s, const char c);
 char			*ft_strsjoin(char const *s1, char const *s2, char const *s3);
-int				ft_strjoin_self(char **str, char *add);
+char			*ft_strjoin_self(char **str, char *add);
 char			*ft_strchr_null(const char *s, int c);
 char			*ft_strrchr_right_away(const char *s, int c, char *const end);
 
@@ -351,6 +351,9 @@ t_dict			*find_dict(t_dict *cur, const char *name);
 void			erase_dict(char *name);
 t_dict			*add_dict(char *name, char *value, char *merge_str);
 t_dict			*put_dict(char *name, char *value);
+
+//program.c
+void			execute_middleware(t_lx_token *token);
 
 // debug_print_evnp.c
 int	print_dictionary_lst();

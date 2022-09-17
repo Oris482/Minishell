@@ -6,14 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 23:35:33 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/12 03:04:46 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 03:16:55 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
-#include "lexer.h"
 #include "minishell.h"
-#include "myfunc.h"
 
 static int	_check_match_files(char *input, char *name)
 {
@@ -42,7 +39,7 @@ int	is_matching_file(char *input, t_file *const files)
 
 	i = 0;
 	cnt = 0;
-	wildcard_flag = strchr(input, '*');
+	wildcard_flag = ft_strchr(input, '*');
 	while (i < files->n)
 	{
 		files[i].match_flag = _check_match_files(input, files[i].name);

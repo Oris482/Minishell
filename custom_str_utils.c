@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:05:57 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/15 01:19:50 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/17 02:45:51 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,20 @@ char	*ft_strsjoin(char const *s1, char const *s2, char const *s3)
 	return (start);
 }
 
-int	ft_strjoin_self(char **str, char *add)
+char	*ft_strjoin_self(char **str, char *add)
 {
 	char	*new;
 	int		len;
 
-	if (!str | !add)
-		return (ERROR);
+	if (!str || !add)
+		return (NULL);
 	len = ft_strlen(*str) + ft_strlen(add) + 1;
 	new = (char *)my_malloc(sizeof(char) * (len + 1));
-	if (!new)
-		return (ERROR);
 	ft_strlcpy(new, *str, len + 1);
 	ft_strlcat(new, add, len + 1);
-	if (*str)
-		free(*str);
+	my_free(*str);
 	*str = new;
-	return (0);
+	return (*str);
 }
 
 char	*ft_strchr_null(const char *s, int c)
