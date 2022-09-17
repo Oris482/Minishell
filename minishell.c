@@ -6,11 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 04:21:56 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/17 20:45:29 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_info.h"
 
 
 static void	_minishell_routine(char *full_line, t_oflag *oflag)
