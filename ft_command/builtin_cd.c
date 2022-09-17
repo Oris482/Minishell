@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:57:27 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 22:44:34 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 05:07:01 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ int	set_oldpwd_then_chdir(const char *dst_path)
 	int		chdir_status;
 
 	cwd = getcwd(NULL, 1);
+	if (dst_path && *dst_path != '/' && cwd == NULL)
+		return (print_error_str("cd", NULL, 
+				"Invalid current working directory", GENERAL_EXIT_CODE));
 	if (dst_path == NULL)
 		dst_path = cwd;
 	chdir_status = chdir(dst_path);
@@ -85,22 +88,17 @@ int	builtin_cd(t_lx_token *token)
 	char				*path;
 
 	if (arg_token == NULL || get_token_str(arg_token) == NULL)
+	{
 		path = my_getenv("HOME");
+		if (path == NULL)
+			return (print_error_str("cd", NULL, \
+					"HOME not set", GENERAL_EXIT_CODE));
+	}
 	else if (ft_strlen(get_token_str(arg_token)) == 0)
 		path = NULL;
 	else if (ft_strcmp("-", get_token_str(arg_token)))
 		path = my_getenv("OLDPWD");
 	else
-	{
 		path = get_token_str(arg_token);
-		if (*path != '/')
-		{
-			path = check_valid_cwd(path);
-			if (path == NULL)
-				return (print_error_str("cd", NULL, \
-						"Invalid current working directory", \
-							GENERAL_EXIT_CODE));
-		}
-	}
 	return (set_oldpwd_then_chdir(path));
 }
