@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:49:35 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 13:30:59 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/17 16:53:32 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,10 @@ t_file	*get_files_cur_pwd(const char *cur_pwd, char dir_flag)
 		file_set = my_readdir(files->dirp);
 		if (dir_flag && file_set->d_type != DT_DIR)
 			continue ;
-		// files[i].name = ft_strdup(file_set->d_name);
-		files[i].name = file_set->d_name;
-		// files[i].match_flag = UNDEFINED;
+		files[i].name = ft_strdup(file_set->d_name);
 		files[i].type = file_set->d_type;
 		i++;
 	}
-	// my_closedir(files->dirp);
+	my_closedir(files->dirp);
 	return (files);
 }

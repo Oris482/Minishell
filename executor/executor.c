@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 05:44:39 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/17 17:57:50 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ int	simple_cmd_middleware(t_lx_token *token)
 		return (builtin_middleware(token, builtin_idx));
 	else
 	{
-		// pid = fork();
-		// if (pid == 0)
-		execute_middleware(token);
-		// waitpid(pid, &status, WUNTRACED);
+		pid = fork();
+		if (pid == 0)
+			execute_middleware(token);
+		waitpid(pid, &status, WUNTRACED);
 		return (get_exit_code(status));
 	}
 	return (GENERAL_EXIT_CODE);

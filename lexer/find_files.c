@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 23:35:33 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 03:16:55 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/17 16:54:29 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,19 +104,17 @@ void	recursive_find_files(t_lx_token **cur, int cur_level, \
 	if (!files)
 		return ;
 	matching_cnt = is_matching_file(splited[cur_level], files);
-	idx = 0;
+	idx = -1;
 	if (cur_level == target_level && matching_cnt > 0)
 		_files_to_node(cur, files, pwd, dir_flag);
 	else
 	{
-		while (idx < files->n)
-		{
+		while (++idx < files->n)
 			if (files[idx].match_flag)
 				recursive_find_files(cur, cur_level + 1, \
 							ft_strsjoin(pwd, files[idx].name, "/"), splited);
-			idx++;
-		}
 	}
-	my_closedir(files->dirp);
+	while (files->n)
+		my_free(files->name);
 	my_multi_free(pwd, files, NULL, NULL);
 }
