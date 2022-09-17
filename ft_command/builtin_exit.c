@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 20:23:17 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 22:17:05 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 01:18:01 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	builtin_exit(t_lx_token *token)
 						"too many arguments", GENERAL_EXIT_CODE));
 		exit_code = ft_atouc(token_str);
 	}
+	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	exit(exit_code);
 	return (exit_code);
 }
