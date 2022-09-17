@@ -6,13 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 23:21:08 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 00:26:08 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_info.h"
 #include "minishell.h"
-#include "ft_debug.h"
+#include "ft_debug/ft_debug.h"
 #include "ft_alloc.h"
 #include "ft_environ.h"
 
@@ -25,6 +25,7 @@ static void	_minishell_routine(char *full_line, t_oflag *oflag)
 	token_list = lexer(full_line, oflag);
 	if (!token_list)
 		return ;
+	// print_token_next(token_list);
 	root_tree = parser(token_list);
 	if (!root_tree)
 		return ;

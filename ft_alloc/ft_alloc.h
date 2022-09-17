@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:42:44 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 22:44:12 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 23:49:26 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,5 @@ void			my_multi_free(void *ptr1, void *ptr2, void *ptr3, void *ptr4);
 // free_utils.c
 void			*list_tree_free(t_lx_token *list, t_tree *tree);
 void			char_dimen2_free(char **strs);
+void			files_free(t_file *files);
 #endif

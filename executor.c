@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 22:41:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 01:21:19 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,21 +155,11 @@ void	set_pipe_for_child(t_pipe *info)
 	const int	idx = info->fork_cnt;
 
 	if (idx != 0)
-	{
-		printf("-------------------\nIN = %d\n", info->fd[!(idx % 2)][F_READ]);
 		if (dup2(info->fd[!(idx % 2)][F_READ], STDIN_FILENO) == ERROR)
 			exit(GENERAL_EXIT_CODE);
-	}
-	else
-		printf("-------------------\nIN = %d\n", STDIN_FILENO);
 	if (idx != info->pipe_cnt)
-	{
-		printf("OUT = %d\n-------------------\n", info->fd[idx % 2][F_WRITE]);
 		if (dup2(info->fd[idx % 2][F_WRITE], STDOUT_FILENO) == ERROR)
 			exit(GENERAL_EXIT_CODE);
-	}
-	else
-		printf("OUT = %d\n-------------------\n", STDOUT_FILENO);
 	close(info->fd[EVEN][F_READ]);
 	close(info->fd[EVEN][F_WRITE]);
 	close(info->fd[ODD][F_READ]);

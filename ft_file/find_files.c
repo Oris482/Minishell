@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 23:35:33 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 22:17:47 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 23:49:00 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ void	recursive_find_files(t_lx_token **cur, int cur_level, \
 				recursive_find_files(cur, cur_level + 1, \
 							ft_strsjoin(pwd, files[idx].name, "/"), splited);
 	}
-	while (files->n)
-		my_free(files->name);
-	my_multi_free(pwd, files, NULL, NULL);
+	files_free(files);
+	my_multi_free(pwd, NULL, NULL, NULL);
 }
