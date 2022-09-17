@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:59:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 07:50:43 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 07:52:12 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,14 @@ char **make_cmd_argv(char *cmd_str, t_lx_token *token)
 	return (cmd_argv);
 }
 
-int	failed_execve(char *cmd_str, char *cmd_path, char **cmd_argv, char **cmd_envp)
+int	failed_execve(char *cmd_path, char **cmd_argv, char **cmd_envp)
 {
 	int			rtn_exit_code;
 
 	if (errno == ENOTDIR)
-		rtn_exit_code = print_error_str(cmd_str, NULL, NULL, 126);
+		rtn_exit_code = print_error_str(cmd_path, NULL, NULL, 126);
 	else if (errno == ENOENT)
-		rtn_exit_code = print_error_str(cmd_str, NULL, NULL, 127);
+		rtn_exit_code = print_error_str(cmd_path, NULL, NULL, 127);
 	else
 		rtn_exit_code = GENERAL_EXIT_CODE;
 	my_free(cmd_path);
@@ -108,9 +108,10 @@ void	execute_middleware(t_lx_token *token)
 			exit(print_error_str(cmd_str, NULL, "command not found", 127));
 	}
 	else
-		cmd_str = ft_strrchr_right_away(ft_strchr_null(cmd_str, '\0'), '/', cmd_str) + 1;
+		cmd_str = ft_strrchr_right_away(ft_strchr_null(cmd_str, \
+													'\0'), '/', cmd_str) + 1;
 	cmd_argv = make_cmd_argv(cmd_str, token);
 	cmd_envp = dict_to_envp();
 	execve(cmd_path, cmd_argv, cmd_envp);
-	failed_execve(cmd_str, cmd_path, cmd_argv, cmd_envp);
+	failed_execve(cmd_path, cmd_argv, cmd_envp);
 }
