@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:52:19 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 22:19:21 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 03:24:26 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*my_readline(const char *prompt)
 	line = readline(prompt);
 	if (!line)
 	{
-		ft_putendl_fd("BYE", STDOUT_FILENO);
+		// ft_putendl_fd("BYE", STDOUT_FILENO);
 		exit(0);
 	}
 	return (line);

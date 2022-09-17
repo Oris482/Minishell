@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:42:47 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 22:52:27 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 04:23:22 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void			dict_lstadd_last(t_dict *head, t_dict *new);
 void			dict_lstadd_next(t_dict *cur, t_dict *new);
 void			dict_lstadd_order(t_dict *head, t_dict *new);
 int				check_match_word(const char *word1, const char *word2);
-int				check_vaild_env_name(char *name);
+int				check_valid_env_name(char *name);
 
 // dict_utils.c
 int				count_dict(void);

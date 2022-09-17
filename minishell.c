@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 00:26:08 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/18 03:23:25 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char *argv[], char *envp[])
 	t_oflag			oflag;
 
 	signal_handler();
-	terminal_off_control_chars();
+	// terminal_off_control_chars();
 	set_exit_status(0);
 	envp_to_dict(envp);
 	while (TRUE)

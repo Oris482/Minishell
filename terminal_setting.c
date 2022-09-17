@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:07:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 22:26:49 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 03:03:57 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	_sigint_handler(int signum)
 		write(STDOUT_FILENO, "\n", 1);
 		if (rl_on_new_line() == -1)
 			exit(GENERAL_EXIT_CODE);
-		rl_replace_line("", 1);
+		// rl_replace_line("", 1);
 		rl_redisplay();
 	}
 }

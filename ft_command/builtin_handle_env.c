@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 23:08:01 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 23:29:33 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 04:23:23 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int _get_env_nameval_at_token(t_lx_token *token, \
 	}
 	else
 		*name = merge_str;
-	if (check_vaild_env_name(*name) == FALSE)
+	if (check_valid_env_name(*name) == FALSE)
 		return (FALSE);
 	if (value && *pos)
 		*value = ft_strdup(pos + 1);
