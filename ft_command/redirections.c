@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 13:50:16 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 00:19:16 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 01:11:13 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@
 #include "ft_print.h"
 #include "ft_alloc.h"
 #include "ft_token.h"
+#include "ft_environ.h"
 
-static char	*_make_tmpname(char *prefix)
+static char	*_make_tmpname(char *ref, char *prefix)
 {
 	struct stat	buf;
-	char		*ref;
 	char		*filename;
 	int			i;
 	char		*i_str;
 
-	ref = NULL;
-	ft_strjoin_self(&ref, "/tmp/");
+	if (ref == NULL)
+		ft_strjoin_self(&ref, "/tmp/");
 	ft_strjoin_self(&ref, prefix);
 	i = -1;
 	while (++i < 4242)
@@ -39,16 +39,18 @@ static char	*_make_tmpname(char *prefix)
 		if (errno == ENOENT)
 		{
 			errno = 0;
+			my_free(ref);
 			return (filename);
 		}
 		my_free(filename);
 	}
+	my_free(ref);
 	return (NULL);
 }
 
 static int	_make_tmpfile(char **tmpname, int *fd)
 {
-	*tmpname = _make_tmpname("minishell_");
+	*tmpname = _make_tmpname(ft_strdup(my_getenv("TMPDIR")), "minishell_");
 	if (*tmpname == NULL)
 		return (FALSE);
 	*fd = open(*tmpname, O_WRONLY | O_CREAT | O_EXCL | O_TRUNC, 0600);

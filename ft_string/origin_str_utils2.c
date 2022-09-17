@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 23:05:40 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 22:18:05 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 01:04:42 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,15 @@ char	*ft_itoa(int num)
 	return (ret);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(const char *s)
 {
 	char	*dup;
 	size_t	size;
 
-	if (!s1)
+	if (!s)
 		return (NULL);
-	size = ft_strlen(s1) + 1;
+	size = ft_strlen(s) + 1;
 	dup = (char *)my_malloc(size * sizeof(char));
-	ft_strlcpy(dup, s1, size);
+	ft_strlcpy(dup, s, size);
 	return (dup);
 }
