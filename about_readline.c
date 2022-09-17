@@ -6,12 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:52:19 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 20:45:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:19:21 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "myfunc.h"
 #include "minishell_info.h"
+#include "minishell.h"
+#include "ft_print.h"
 
 char	*my_readline(const char *prompt)
 {

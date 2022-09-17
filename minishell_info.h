@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:40:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 20:46:02 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:11:53 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define RESTORE		2
 
 # define EXPORT_HEAD_MSG "declare -x "
+
+# include <dirent.h>
 
 typedef struct s_pipe
 {

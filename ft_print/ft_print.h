@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:19:00 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 21:32:29 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:52:14 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define FT_PRINT_H
 # include <unistd.h>
 # include <stdio.h>
+# include <string.h>
 # include <errno.h>
-# include "minishell_info.h"
 
 // origin_put_fd_utils.c
 void			ft_putchar_fd(const char c, int fd);

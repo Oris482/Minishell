@@ -6,10 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 23:08:01 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 21:24:11 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 23:29:33 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell_info.h"
 #include "ft_command.h"
 #include "ft_print.h"
 #include "ft_string.h"
@@ -94,6 +95,7 @@ static int _put_export_msg(void)
 	int		idx;
 	t_dict	*cur;
 
+	idx = 0;
 	while (idx < DICT_MAX)
 	{
 		cur = &g_dict[idx];
@@ -117,7 +119,6 @@ static int _put_export_msg(void)
 
 int	builtin_export(t_lx_token *token)
 {
-	int		idx;
 	char	*name;
 	char	*value;
 	int		rtn_exit_code;

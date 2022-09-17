@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:15:28 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 21:41:41 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:14:27 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_CHECK_H
 # define FT_CHECK_H
-# include "minishell_info.h"
 
 // check_char_utils.c
 int				ft_isspace(const char c);

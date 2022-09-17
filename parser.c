@@ -6,18 +6,16 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:31:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 20:45:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:40:22 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
-#include "lexer.h"
 #include "minishell_info.h"
-#include "myfunc.h"
-
-void	expand_token_to_tree(t_tree *root);
-
-//edit
+#include "minishell.h"
+#include "ft_tree.h"
+#include "ft_token.h"
+#include "ft_check.h"
+#include "ft_alloc.h"
 
 t_lx_token	*find_tree_node(t_lx_token *cur_node, \
 		unsigned char *tree_type, unsigned char (*is_tree_type)(int))
@@ -51,9 +49,9 @@ void	making_tree_node(t_tree *const cur, unsigned char (*is_tree_type)(int))
 												&cur->type, is_tree_type);
 	if (!find_node)
 		return ;
-	cur->right = make_tree_node(first_type, cur, cut_back_node(find_node));
+	cur->right = make_tree_node(first_type, cur, cut_back_token(find_node));
 	cur->left = make_tree_node(first_type, cur, cur->token_data);
-	cur->token_data = cut_back_node(find_node->prev);
+	cur->token_data = cut_back_token(find_node->prev);
 	making_tree_node(cur->left, is_tree_type);
 }
 
@@ -65,8 +63,8 @@ void	handle_subshell(t_tree *head)
 	open_token = head->token_data;
 	close_token = get_last_token(open_token);
 	head->left = make_tree_node(TREE_UNDEFINED, head, head->token_data->next);
-	head->token_data = pop_node(&open_token, open_token);
-	merge_linked_list(head->token_data, pop_node(&close_token, close_token));
+	head->token_data = pop_token(&open_token, open_token);
+	merge_linked_list(head->token_data, pop_token(&close_token, close_token));
 	expand_token_to_tree(head);
 }
 
@@ -82,7 +80,7 @@ int	redi_to_left(t_tree *cur_tree, t_lx_token **token_data)
 	end_node = (*token_data)->next;
 	while (end_node->next && end_node->next->token_str == NULL)
 		end_node= end_node->next;
-	poped_node = pop_node(token_data, end_node);
+	poped_node = pop_token(token_data, end_node);
 	if (*token_data == NULL && prev_node != end_node)
 		*token_data = prev_node;
 	if (cur_tree->left)

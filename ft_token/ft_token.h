@@ -6,14 +6,14 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:33:13 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 21:42:02 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:53:32 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_TOKEN_H
 # define FT_TOKEN_H
 
-# include "minishell_info.h"
+# include <unistd.h>
 
 // token_list_utils.c
 t_lx_token  	*cut_front_token(t_lx_token *cur_token);

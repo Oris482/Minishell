@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_string.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:20 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 21:44:18 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:14:27 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_STRING_H
 # define FT_STRING_H
-# include "minishell_info.h"
 # include <unistd.h>
 
 // origin_str_utils.c

@@ -6,10 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:07:28 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 21:41:02 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:18:08 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell_info.h"
 #include "ft_token.h"
 #include "ft_check.h"
 #include "ft_alloc.h"

@@ -6,10 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:45:47 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 21:32:45 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:17:51 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell_info.h"
 #include "ft_print.h"
 
 void	ft_putchar_fd(const char c, int fd)

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 21:44:44 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:37:11 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 # define MINISHELL_H
 # include <signal.h>
 # include <term.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 # include <errno.h>
-// # include <sys/stat.h>
 
 // terminal_setting.c
 void			signal_handler(void);

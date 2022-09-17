@@ -6,20 +6,21 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 13:50:16 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 21:23:18 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 23:31:02 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell_info.h"
+#include "minishell.h"
 #include "ft_command.h"
 #include "ft_string.h"
 #include "ft_print.h"
-#include "minishell.h"
-#include "ft_free.h"
+#include "ft_alloc.h"
 #include "ft_token.h"
 
 static char	*_make_tmpname(char *prefix)
 {
-	struct stat	*buf;
+	struct stat	buf;
 	char		*ret;
 	char		*suffix;
 	int			i;
@@ -31,7 +32,7 @@ static char	*_make_tmpname(char *prefix)
 	i = 0;
 	while (i++ < 5)
 	{
-		stat(ret, buf);
+		stat(ret, &buf);
 		if (errno == ENOENT)
 		{
 			errno = 0;

@@ -6,15 +6,17 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:42:44 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 21:25:50 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:44:12 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef FT_ALLOC_H
 # define FT_ALLOC_H
-# include "minishell_info.h"
 # include <stdlib.h>
+# include <string.h>
+# include <stdio.h>
+# include <errno.h>
 
 // about_alloc.c
 void			*my_malloc(size_t size);

@@ -6,11 +6,12 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:07:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/25 14:00:46 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:26:49 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./minishell.h"
+#include "minishell_info.h"
+#include "minishell.h"
 
 static void	_sigint_handler(int signum)
 {

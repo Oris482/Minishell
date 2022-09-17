@@ -6,13 +6,16 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:55:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 20:45:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:23:14 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
 #include "minishell_info.h"
-#include "myfunc.h"
+#include "minishell.h"
+#include "ft_print.h"
+#include "ft_string.h"
+#include "ft_token.h"
+#include "ft_check.h"
 
 static void	*_handle_encounter_eof(t_oflag *oflag)
 {

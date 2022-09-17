@@ -6,14 +6,14 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:42:47 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 21:43:31 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:52:27 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_ENVIRON_H
 # define FT_ENVIRON_H
 
-# include "minishell_info.h"
+# include <unistd.h>
 
 // envp_utils.c
 void			char_dimen2_to_lst(char *envp[]);

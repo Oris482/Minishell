@@ -6,10 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 19:38:01 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 21:34:14 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:18:18 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell_info.h"
 #include "ft_token.h"
 
 t_lx_token  *cut_front_token(t_lx_token *cur_token)

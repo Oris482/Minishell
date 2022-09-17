@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:59:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 21:18:46 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 23:30:35 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 #include "ft_environ.h"
 #include "ft_string.h"
 #include "ft_alloc.h"
+#include "ft_token.h"
+#include "ft_print.h"
 
 static char	*_find_cmd_path(char *cmd)
 {
 	const char	*set_path = my_getenv("PATH");
 	char		*find_path;
-	t_file		*files;
 	char		*pos;
 	struct stat statbuf;
 
@@ -73,8 +74,12 @@ int	failed_execve(char *cmd_str, char *cmd_path, char **cmd_argv, char **cmd_env
 {
 	int			rtn_exit_code;
 
-	// errno = 2;
-	rtn_exit_code = print_error_str(cmd_str, NULL, NULL, 127);
+	if (errno == ENOTDIR)
+		rtn_exit_code = print_error_str(cmd_str, NULL, NULL, 126);
+	else if (errno == ENOENT)
+		rtn_exit_code = print_error_str(cmd_str, NULL, NULL, 127);
+	else
+		rtn_exit_code = GENERAL_EXIT_CODE;
 	my_free(cmd_path);
 	char_dimen2_free(cmd_argv);
 	char_dimen2_free(cmd_envp);
@@ -92,7 +97,8 @@ void	execute_middleware(t_lx_token *token)
 	cmd_str = get_token_str(token);
 	cmd_path = cmd_str;
 	stat(cmd_path, &statbuf);
-	if (S_ISDIR(statbuf->st_mode))
+	if (S_ISDIR(statbuf.st_mode))
+		exit(print_error_str(cmd_path, NULL, "is a directory", 126));
 	if (ft_strchr(cmd_str, '/') == NULL)
 	{
 		cmd_path = _find_cmd_path(cmd_str);

@@ -6,10 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:25:42 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 21:26:07 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:16:03 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell_info.h"
 #include "ft_debug.h"
 
 int print_dictionary_lst()

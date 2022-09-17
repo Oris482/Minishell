@@ -6,14 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:20:36 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 21:26:01 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:14:07 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_DEBUG_H
 # define FT_DEBUG_H
 
-# include "minishell_info.h"
 # include <string.h>
 # include <stdio.h>
 

@@ -6,12 +6,14 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 22:19:28 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 21:23:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:49:56 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell_info.h"
 #include "ft_string.h"
 #include "ft_token.h"
+#include "ft_print.h"
 
 int	builtin_echo(t_lx_token *token)
 {

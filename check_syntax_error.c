@@ -6,13 +6,15 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:24:20 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 20:45:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 23:29:20 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_info.h"
-#include "parser.h"
-#include "lexer.h"
+#include "minishell.h"
+#include "ft_token.h"
+#include "ft_print.h"
+#include "ft_check.h"
 
 static int	_check_word_syntax(t_lx_token *token)
 {
@@ -78,7 +80,6 @@ static int	_check_parentheses_syntax(t_lx_token *token, \
 										int *parentheses_counter)
 {
 	t_lx_token *const	prev_token = token->prev;
-	t_lx_token *const	next_token = token->next;
 	t_lx_token			*target;
 
 	if (token->token_type == PARENTHESES_OPEN)
@@ -98,7 +99,6 @@ static int	_check_parentheses_syntax(t_lx_token *token, \
 	}
 	else if (*parentheses_counter >= 0 && (prev_token->token_type == WORD \
 			|| prev_token->token_type == PARENTHESES_CLOSE))
-			// && (!next_token || next_token->token_type != WORD))
 		return (SUCCESS);
 	print_error_syntax(get_token_str(token));
 	return (FALSE);
@@ -119,6 +119,8 @@ static unsigned int	_check_syntax_middleware(t_lx_token *token, \
 		is_valid = _check_redirect_syntax(token);
 	else if (token_type == PARENTHESES_OPEN || token_type == PARENTHESES_CLOSE)
 		is_valid = _check_parentheses_syntax(token, parentheses_counter);
+	else
+		is_valid = UNDEFINED;
 	return (is_valid);
 }
 
@@ -130,9 +132,9 @@ unsigned int	check_syntax_error(t_lx_token *cur_node)
 	parentheses_counter = 0;
 	while (cur_node)
 	{
-		if (cur_node->token_type == PARENTHESES_OPEN)
+		if (head_token_type == PARENTHESES_OPEN)
 			parentheses_counter++;
-		else if (cur_node->token_type == PARENTHESES_CLOSE)
+		else if (head_token_type == PARENTHESES_CLOSE)
 			parentheses_counter--;
 		if (_check_syntax_middleware(cur_node, &parentheses_counter) == FALSE)
 			return (SYNTAX_ERROR_EXIT_CODE);

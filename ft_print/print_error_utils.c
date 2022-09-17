@@ -6,10 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 19:12:42 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 21:32:13 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:17:54 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell_info.h"
 #include "ft_print.h"
 
 void print_error_not_close(char *str)

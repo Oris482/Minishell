@@ -6,10 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:18:47 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 21:29:50 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:16:37 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell_info.h"
 #include "ft_check.h"
 
 int	ft_isspace(const char c)

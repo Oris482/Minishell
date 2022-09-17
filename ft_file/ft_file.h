@@ -6,17 +6,17 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:26:57 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 21:30:20 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:51:34 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_FILE_H
 # define FT_FILE_H
 
-# include "minishell_info.h"
 # include <dirent.h>
 # include <errno.h>
 # include <stdio.h>
+# include <string.h>
 # include <stdlib.h>
 
 // about_dir.c

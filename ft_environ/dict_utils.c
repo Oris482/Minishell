@@ -6,11 +6,14 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 22:51:24 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 21:47:07 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:51:07 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell_info.h"
 #include "ft_environ.h"
+#include "ft_string.h"
+#include "ft_alloc.h"
 
 int	count_dict(void)
 {

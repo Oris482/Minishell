@@ -6,11 +6,15 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:25:04 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 21:26:16 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:42:47 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell_info.h"
 #include "ft_debug.h"
+#include "ft_string.h"
+#include "ft_alloc.h"
+#include "ft_token.h"
 
 // Program to print binary tree in 2D}
 t_tree	*newNode(int type)
@@ -135,7 +139,7 @@ asciinode * build_ascii_tree_recursive(t_tree * t)
 	sprintf(node->label, "%s", join_str);
 	node->lablen = (int)strlen(node->label);
 
-	free(join_str);
+	my_free(join_str);
 	return (node);
 }
 	// sprintf(node->label, "%s", _type_to_string(t->type));
@@ -160,8 +164,8 @@ void free_ascii_tree(asciinode *node)
 	  return;
   free_ascii_tree(node->left);
   free_ascii_tree(node->right);
-  free(node->label);
-  free(node);
+  my_free(node->label);
+  my_free(node);
 }
 
 //The following function fills in the lprofile array for the given tree.

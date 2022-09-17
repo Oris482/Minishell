@@ -6,13 +6,15 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 20:03:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 21:41:47 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:53:18 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell_info.h"
 #include "ft_token.h"
 #include "ft_string.h"
 #include "ft_alloc.h"
+#include "ft_file.h"
 
 static int	_level_check(const char *s)
 {

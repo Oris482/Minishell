@@ -6,11 +6,16 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 17:57:50 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:41:29 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell_info.h"
+#include "minishell.h"
+#include "ft_command.h"
+#include "ft_print.h"
+#include "ft_string.h"
+#include "ft_token.h"
 
 int	get_exit_code(int status)
 {

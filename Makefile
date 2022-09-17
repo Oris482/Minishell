@@ -6,14 +6,13 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/17 17:50:48 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/09/17 23:20:42 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 			=	cc
-# CFLAGS 		=	-Wall -Wextra -Werror $(CPPFLAGS) # -fsanitize=address
-# CFLAGS 		=	-Wall -Wextra -Werror $(CPPFLAGS)
-# CFLAGS			= 	-fsanitize=address
+CFLAGS 		=	-Wall -Wextra -Werror -fsanitize=address
+# CFLAGS		= 	-fsanitize=address
 # CFLAGS 		=	-Wall -Wextra -Werror
 
 LINKER		=	$(LDFLAGS) -lreadline
@@ -22,86 +21,99 @@ RM 			=	rm -vf
 AR 			= ar
 MAKE_C 		= make -C
 
-MY_FUNC_DIR		=	myfunc/
-LINER_DIR 		=	liner/
-LEXER_DIR 		=	lexer/
-PARSER_DIR		=	parser/
-EXECUTOR_DIR	=	executor/
+FT_DEBUG_DIR 		=	ft_debug/
+FT_ALLOC_DIR		=	ft_alloc/
+FT_CHECK_DIR		=	ft_check/
+FT_COMMAND_DIR		=	ft_command/
+FT_ENVIRON_DIR		=	ft_environ/
+FT_FILE_DIR			=	ft_file/
+FT_PRINT_DIR 		=	ft_print/
+FT_STRING_DIR 		=	ft_string/
+FT_TOKEN_DIR 		=	ft_token/
+FT_TREE_DIR			=	ft_tree/
 
 NAME	 	=	minishell
 
 # 파일 기능별로 분류해서 소스파일 넣기
-MY_FUNC_SRCS		=	about_alloc.c		\
-						about_dir.c			\
-						about_readline.c	\
-						about_env.c			\
-						about_pipe.c
 
-LINER_SRCS			= 	liner.c
+FT_DEBUG_SRCS	=	debug_function.c				\
+					debug_print_envp.c				\
+					debug_print_tree.c
+FT_ALLOC_SRCS	=	about_alloc.c					\
+					free_utils.c
+FT_CHECK_SRCS	=	check_char_utils.c				\
+					check_interpret_symbol_utils.c
+FT_COMMAND_SRCS	=	builtin_cd.c					\
+					builtin_exit.c					\
+					builtin_handle_env.c			\
+					program.c						\
+					builtin_echo.c					\
+					builtin_pwd.c					\
+					redirections.c
+FT_ENVIRON_SRCS	=	about_env.c						\
+					dict_utils.c					\
+					dict_utils2.c					\
+					envp_utils.c
+FT_FILE_SRCS	=	about_dir.c						\
+					dirent_utils.c					\
+					find_files.c					\
+					find_files_utils.c
+FT_PRINT_SRCS	=	origin_putfd_utils.c			\
+					print_error_utils.c
+FT_STRING_SRCS	=	custom_str_utils.c				\
+					custom_str_utils2.c				\
+					origin_str_utils.c				\
+					origin_str_utils2.c
+FT_TOKEN_SRCS	=	compress_target_char.c			\
+					interpreter.c					\
+					interpreter_middleware.c		\
+					token_node_utils.c				\
+					wildcard_translator.c			\
+					interpreter_make_chunk.c		\
+					token_list_utils.c				\
+					tokenization_utils.c
+FT_TREE_SRCS	=	tree_utils.c
 
-LEXER_SRCS			=	lexer.c							\
-						debug_function.c				\
-						check_char_utils.c				\
-						check_interpret_symbol_utils.c	\
-						tokenization_utils.c			\
-						interpreter.c					\
-						interpreter_middleware.c		\
-						interpreter_make_chunk.c		\
-						compress_target_char.c			\
-						wildcard_translator.c			\
-						dirent_utils.c					\
-						find_files.c					\
-						make_node.c						\
-						check_syntax_error.c			\
-						find_files_utils.c
-
-PARSER_SRCS			=	parser.c						\
-						print_tree.c					\
-						tree_utils.c
-
-EXECUTOR_SRCS		=	executor.c						\
-						redirections.c					\
-						builtin_echo.c					\
-						builtin_cd.c					\
-						builtin_pwd.c					\
-						builtin_export.c				\
-						builtin_env.c					\
-						builtin_unset.c					\
-						builtin_exit.c					\
-						program.c
-
-MANDA_SRCS	=	minishell.c										\
-				minishell_utils.c								\
-				origin_str_utils.c								\
-				origin_str_utils2.c								\
-				origin_putfd_utils.c							\
-				custom_str_utils.c								\
-				custom_str_utils2.c								\
-				terminal_setting.c								\
-				error_utils.c									\
-				free_utils.c									\
-				linked_list_utils.c								\
-				exit_status.c									\
-				envp_utils.c									\
-				dict_utils.c									\
-				debug_print_envp.c								\
-				$(addprefix $(MY_FUNC_DIR), $(MY_FUNC_SRCS))	\
-				$(addprefix $(LINER_DIR), $(LINER_SRCS))		\
-				$(addprefix $(LEXER_DIR), $(LEXER_SRCS))		\
-				$(addprefix $(PARSER_DIR), $(PARSER_SRCS))		\
-				$(addprefix $(EXECUTOR_DIR), $(EXECUTOR_SRCS))
-
-
+MANDA_SRCS	=	minishell.c											\
+				terminal_setting.c									\
+				exit_status.c										\
+				about_readline.c									\
+				liner.c												\
+				lexer.c												\
+				check_syntax_error.c								\
+				parser.c											\
+				executor.c									
+MANDA_SRCS	+=	$(addprefix $(FT_DEBUG_DIR), $(FT_DEBUG_SRCS))		\
+				$(addprefix $(FT_ALLOC_DIR), $(FT_ALLOC_SRCS))		\
+				$(addprefix $(FT_CHECK_DIR), $(FT_CHECK_SRCS))		\
+				$(addprefix $(FT_COMMAND_DIR), $(FT_COMMAND_SRCS))	\
+				$(addprefix $(FT_ENVIRON_DIR), $(FT_ENVIRON_SRCS))	\
+				$(addprefix $(FT_FILE_DIR), $(FT_FILE_SRCS))		\
+				$(addprefix $(FT_PRINT_DIR), $(FT_PRINT_SRCS))		\
+				$(addprefix $(FT_STRING_DIR), $(FT_STRING_SRCS))	\
+				$(addprefix $(FT_TOKEN_DIR), $(FT_TOKEN_SRCS))		\
+				$(addprefix $(FT_TREE_DIR), $(FT_TREE_SRCS))
 
 # SRCS			= 	$(MANDA_SRCS)
-# HADS			=	$(MANDATORY_DIR)push_swap.h
 OBJS			=	$(MANDA_SRCS:.c=.o)
-INC_HEADERS		=	-I. -I$(MY_FUNC_DIR) -I$(LINER_DIR) -I$(LEXER_DIR) -I$(PARSER_DIR) $(CPPFLAGS)
+INC_HEADERS		=	-I. 				\
+					$(CPPFLAGS)			\
+					-I$(FT_DEBUG_DIR)	\
+					-I$(FT_ALLOC_DIR)	\
+					-I$(FT_CHECK_DIR)	\
+					-I$(FT_COMMAND_DIR)	\
+					-I$(FT_ENVIRON_DIR)	\
+					-I$(FT_FILE_DIR)	\
+					-I$(FT_PRINT_DIR)	\
+					-I$(FT_STRING_DIR)	\
+					-I$(FT_TOKEN_DIR)	\
+					-I$(FT_TREE_DIR)
+					
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $^ $(LINKER) -I$(LEXER_DIR) -o $@
+	$(CC) $(CFLAGS) $^ $(LINKER) -o $@
 	@echo @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	@echo ">>>>>>>>>> Minishell Compiled! <<<<<<<<<<"
 	@echo @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

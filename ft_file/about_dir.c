@@ -6,10 +6,11 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 11:30:54 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 21:28:31 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:17:41 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell_info.h"
 #include "ft_file.h"
 
 DIR	*my_opendir(const char *name)
