@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 06:16:56 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 06:58:29 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "ft_alloc.h"
 #include "ft_environ.h"
 #include "ft_string.h"
-#include "ft_command.h"
+#include "ft_library.h"
 
 static void	_minishell_routine(char *full_line, t_oflag *oflag)
 {
@@ -42,7 +42,7 @@ int	main(int argc, char *argv[], char *envp[])
 	t_oflag			oflag;
 
 	signal_handler();
-	// terminal_off_control_chars();
+	terminal_off_control_chars();
 	set_exit_status(0);
 	envp_to_dict(envp);
 	put_dict(ft_strdup("OLDPWD"), NULL);
@@ -51,7 +51,7 @@ int	main(int argc, char *argv[], char *envp[])
 	if (cur_shlvl == NULL)
 		put_dict(ft_strdup("SHLVL"), ft_strdup("1"));
 	else
-		put_dict(ft_strdup("SHLVL"), ft_itoa(ft_atouc(cur_shlvl) + 1));
+		put_dict(ft_strdup("SHLVL"), ft_itoa(ft_atoi(cur_shlvl) + 1));
 	while (TRUE)
 	{
 		full_line = liner(&oflag);

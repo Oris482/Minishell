@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:25:42 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 05:01:21 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/18 06:55:20 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int check_valid_env_name(char *name)
 {
 	char *cur;
 
-	if (!cur)
+	if (!name)
 		return (FALSE);
 	cur = name;
 	while (*cur)

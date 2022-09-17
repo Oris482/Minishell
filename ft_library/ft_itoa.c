@@ -3,12 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 06:23:03 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 06:29:31 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/18 06:57:46 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell_info.h"
+#include "ft_library.h"
+#include "ft_alloc.h"
 
 static void	_itoa_nbr(int n, char *dst, size_t len)
 {
@@ -22,7 +26,7 @@ static void	_itoa_nbr(int n, char *dst, size_t len)
 		dst[len - 1] = n % 10 + '0';
 		return ;
 	}
-	itoa_nbr(n / 10, dst, len - 1);
+	_itoa_nbr(n / 10, dst, len - 1);
 	if (n >= 0)
 		dst[len - 1] = n % 10 + '0';
 	else
@@ -41,9 +45,7 @@ char	*ft_itoa(int n)
 		tmp /= 10;
 	if (n > 0)
 		cnt--;
-	ptr = (char *)malloc(sizeof(char) * (cnt + 1));
-	if (!ptr)
-		return (NULL);
+	ptr = (char *)my_malloc(sizeof(char) * (cnt + 1));
 	ptr[cnt] = '\0';
 	_itoa_nbr(n, ptr, cnt);
 	return (ptr);

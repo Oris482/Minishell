@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 06:25:15 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 06:27:06 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/18 06:55:52 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell_info.h"
+#include "ft_library.h"
+#include "ft_check.h"
 
 static	size_t	make_max(int sign)
 {
 	if (sign == -1)
 		return ((size_t)LONG_MIN);
 	return ((size_t)LONG_MAX);
-}
-
-static	int	ft_isspace(int c)
-{
-	return ((c >= 0x09 && c <= 0x0d) || c == 0x20);
 }
 
 static	int	plma_check(int c, int *sign_ptr)
@@ -48,7 +47,7 @@ int	ft_atoi(const char *str)
 		i++;
 	i += plma_check(str[i], &sign);
 	over_value = make_max(sign);
-	while (ft_isdigit(str[i]) && str[i])
+	while (is_number_chr(str[i]) && str[i])
 	{
 		c = str[i] - '0';
 		if (num > (long)(over_value / 10) || (num == (long)(over_value / 10)

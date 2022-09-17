@@ -6,16 +6,16 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/18 05:03:30 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/09/18 07:00:50 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 			=	cc
 # CFLAGS 		=	-Wall -Wextra -Werror -fsanitize=address
 # CFLAGS		= 	-fsanitize=address
-# CFLAGS 		=	-Wall -Wextra -Werror
+CFLAGS 		=	-Wall -Wextra -Werror
 
-LINKER		=	-lreadline
+LINKER		=	$(LDFLAGS) -lreadline
 COMPILE		=	-c
 RM 			=	rm -vf
 AR 			= ar
@@ -27,6 +27,7 @@ FT_CHECK_DIR		=	ft_check/
 FT_COMMAND_DIR		=	ft_command/
 FT_ENVIRON_DIR		=	ft_environ/
 FT_FILE_DIR			=	ft_file/
+FT_LIBRARY_DIR		=	ft_library/
 FT_PRINT_DIR 		=	ft_print/
 FT_STRING_DIR 		=	ft_string/
 FT_TOKEN_DIR 		=	ft_token/
@@ -59,6 +60,9 @@ FT_FILE_SRCS	=	about_dir.c						\
 					dirent_utils.c					\
 					find_files.c					\
 					find_files_utils.c
+FT_LIBRARY_SRCS	=	ft_atoi.c						\
+					ft_itoa.c						\
+					ft_memset.c
 FT_PRINT_SRCS	=	origin_putfd_utils.c			\
 					print_error_utils.c
 FT_STRING_SRCS	=	custom_str_utils.c				\
@@ -90,6 +94,7 @@ MANDA_SRCS	+=	$(addprefix $(FT_DEBUG_DIR), $(FT_DEBUG_SRCS))		\
 				$(addprefix $(FT_COMMAND_DIR), $(FT_COMMAND_SRCS))	\
 				$(addprefix $(FT_ENVIRON_DIR), $(FT_ENVIRON_SRCS))	\
 				$(addprefix $(FT_FILE_DIR), $(FT_FILE_SRCS))		\
+				$(addprefix $(FT_LIBRARY_DIR), $(FT_LIBRARY_SRCS))	\
 				$(addprefix $(FT_PRINT_DIR), $(FT_PRINT_SRCS))		\
 				$(addprefix $(FT_STRING_DIR), $(FT_STRING_SRCS))	\
 				$(addprefix $(FT_TOKEN_DIR), $(FT_TOKEN_SRCS))		\
@@ -98,12 +103,14 @@ MANDA_SRCS	+=	$(addprefix $(FT_DEBUG_DIR), $(FT_DEBUG_SRCS))		\
 # SRCS			= 	$(MANDA_SRCS)
 OBJS			=	$(MANDA_SRCS:.c=.o)
 INC_HEADERS		=	-I. 				\
+					$(CPPFLAGS)			\
 					-I$(FT_DEBUG_DIR)	\
 					-I$(FT_ALLOC_DIR)	\
 					-I$(FT_CHECK_DIR)	\
 					-I$(FT_COMMAND_DIR)	\
 					-I$(FT_ENVIRON_DIR)	\
 					-I$(FT_FILE_DIR)	\
+					-I$(FT_LIBRARY_DIR)	\
 					-I$(FT_PRINT_DIR)	\
 					-I$(FT_STRING_DIR)	\
 					-I$(FT_TOKEN_DIR)	\
