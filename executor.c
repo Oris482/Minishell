@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 01:21:19 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/18 05:43:00 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,10 +172,6 @@ void	pipe_child(t_tree *tree_node, char set_exit_status_flag, t_pipe *info)
 
 	set_pipe_for_child(info);
 	exit_code = handle_cmd(tree_node, set_exit_status_flag);
-	if (exit_code != SUCCESS_EXIT_CODE)
-	{
-		printf("pipe_child\n");
-	}
 	exit(exit_code);
 }
 
@@ -207,11 +203,10 @@ void	handle_pipe_fd(t_pipe *info)
 	}
 }
 
-int	handle_pipe(t_tree *tree_node, char set_exit_status_flag, t_pipe *info)
+void	handle_pipe(t_tree *tree_node, char set_exit_status_flag, t_pipe *info)
 {
 	pid_t	pid;
 	int		status;
-	int		exit_code;
 
 	if (tree_node->type == TREE_PIPE)
 		info->pipe_cnt++;
@@ -229,25 +224,25 @@ int	handle_pipe(t_tree *tree_node, char set_exit_status_flag, t_pipe *info)
 		handle_pipe_fd(info);
 		info->fork_cnt++;
 		waitpid(pid, &status, WUNTRACED);
-		return (get_exit_code(status));
+		if (set_exit_status_flag)
+			set_exit_status(get_exit_code(status));
+		return ;
 	}
-	exit_code = handle_pipe(tree_node->right, set_exit_status_flag, info);
-	return (exit_code);
+	handle_pipe(tree_node->right, set_exit_status_flag, info);
 }
 
 int	init_pipe(t_tree *tree_node, char set_exit_status_flag)
 {
 	t_pipe	info;
-	int		exit_code;
 
 	info.pipe_cnt = 0;
 	info.fork_cnt = 0;
-	exit_code = handle_pipe(tree_node, set_exit_status_flag, &info);
+	handle_pipe(tree_node, set_exit_status_flag, &info);
 	close (info.fd[EVEN][F_READ]);
 	close (info.fd[EVEN][F_WRITE]);
 	close (info.fd[ODD][F_READ]);
 	close (info.fd[ODD][F_WRITE]);
-	return (exit_code);
+	return (SUCCESS_EXIT_CODE);
 }
 
 int	executor(t_tree *root, char set_exit_status_flag)

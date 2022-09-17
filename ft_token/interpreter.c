@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 04:23:00 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 05:17:22 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ unsigned char	find_interpret_symbol(char **token_str, \
 {
 	if (target == UNDEFINED || target == DOLLAR)
 	{
-		while (**token_str && (!is_interpret_symbol(**token_str) && **token_str != '/' && **token_str != '.' && **token_str != '=' && **token_str != '-'))
+		while (**token_str && (!is_interpret_symbol(**token_str) \
+					&& (is_dict_chr(**token_str) || is_number_chr(**token_str))))
 			(*token_str)++;
 		return (is_interpret_symbol(**token_str));
 	}

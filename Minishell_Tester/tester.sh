@@ -114,7 +114,7 @@ function	help()
 	echo "\033[1;37m	-p		${NORMAL}Pipes"
 	echo "\033[1;37m	-u		${NORMAL}Unset"
 	echo "\033[1;37m	-x		${NORMAL}Exit\n"
-	# echo "\033[1;37m	-y		${NORMAL}Checklist (Page Correction)"
+	echo "\033[1;37m	-y		${NORMAL}Custom Test"
 }
 
 function ProgressBar
@@ -926,63 +926,54 @@ if [[ $1 = "-y" ]]; then
 {
 	printf	"%s""\033[1mSimple Command\033[0m${NORMAL}\n\n"$RESET
 
-	testing /bin/ls
-	testing /usr/sbin/ac
-	testing /usr/bin/ssh
+	testing "/bin/ls"
+	testing "/bin/echo"
+	testing "/bin/cat"
+	testing "/adsasdasd/sadasd/ls"
 
 	printf	"\n %s""\033[1mArguments\033[0m${NORMAL}\n\n"$RESET
 
-	testing \"\"
-	testing "                                                                                 l"
-	testing echo "\t Poms"
+	testing "/bin/ls -l ."
+	testing "/bin/echo Hello"
+	testing "/bin/cat srcs/main.c"
 
 	printf	"\n %s""\033[1mEcho\033[0m${NORMAL}\n\n"$RESET
 	
-	testing echo -nnnnn -nnnnn -nnnnn -nnnnn -nnnnn -nnnnn -nnnnn -nnnnn -nnnnn Salam Alikoum -nnnnn
-	testing echo -n Salam Alikoum	
-	testing echo \'\-n\'\  -n -n -n Salam Alikoum		
+	testing "echo"
+	testing	"echo Hello"
+	testing	"echo -n Hello"
+	testing	"echo -nnnn Hello"
+	testing	"echo -n -n -n Hello"
+	testing	"echo Hel     lo	"
 
 
 	printf	"\n %s""\033[1mExit\033[0m${NORMAL}\n\n"$RESET
 
-	testing exit 1337 42
-	testing exit -1-3-3-7
-	testing exit exit exit +21 exit
+	testing	"exit"
+	testing	"exit 3"
+	testing	"exit 123"
+	testing	"exit a"
 
 	printf	"\n %s""\033[1mReturn value of a process\033[0m${NORMAL}\n\n"$RESET
 	
-	testing echo '>'
-	testing expr $? + $?
-	testing /bin/ls filethatdoesntexist
+	testing "/bin/ls -l ."
+	testing "/bin/ls -l invalid"
+	testing "asdf"
+	testing "/bin"
+	testing ">>>>>"
 
-	printf	"\n %s""\033[1mDouble Quotes\033[0m${NORMAL}\n\n"$RESET
+	printf	"\n %s""\033[1mPipe\033[0m${NORMAL}\n\n"$RESET
+	testing "cat /etc/passwd | grep ':' | more"
+	testing "ls -l | grep d"
+	testing "ls invalid | grep d | more"
+	testing "ls -l | grep d > tmp5"
+	testing "Cat | cat | ls"
 
-	testing echo '"cat     lol.c | cat > lol.c"' 
-	testing echo '"cat     $FILE | cat > $USER"' 
-
-
-	printf	"\n %s""\033[1mSingle Quotes\033[0m${NORMAL}\n\n"$RESET
-
-	testing echo '"cat     lol.c | cat > lol.c"' 
-	testing echo "\'\$USER\'"
-
-
-	printf	"\n %s""\033[1mEnv\033[0m${NORMAL}\n\n"$RESET
-
-	testing echo "env"
-	testing echo "env" "|" "grep" \'"$NONEXIT"\'
-
-
-	printf	"\n %s""\033[1mExport\033[0m${NORMAL}\n\n"$RESET
-
-
-	printf	"\n %s""\033[1mUnset\033[0m${NORMAL}\n\n"$RESET
-
-
-	printf	"\n %s""\033[1mCd\033[0m${NORMAL}\n\n"$RESET
-
-
-	printf	"\n %s""\033[1mPwd\033[0m${NORMAL}\n\n"$RESET
-
+	printf	"\n %s""\033[1mInvalid pwd\033[0m${NORMAL}\n\n"$RESET
+	testing 'echo ' " $HOME " ''
+	testing "mkdir test"
+	testing "cd test"
+	testing "rm -rf ../test"
+	testing "pwd"
 }
 fi

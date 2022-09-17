@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:46:45 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 23:58:33 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 06:16:44 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int				builtin_exit(t_lx_token *token);
 int				builtin_env(t_lx_token *token);
 int				builtin_export(t_lx_token *token);
 int				builtin_unset(t_lx_token *token);
+
+unsigned char	ft_atouc(char *str);
 
 // program.c
 void			execute_middleware(t_lx_token *token);

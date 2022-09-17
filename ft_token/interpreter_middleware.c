@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 04:22:19 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 05:18:17 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ static void	_dquote_translator(t_lx_token *cur, char *chunk)
 			pos++;
 			while (*pos)
 			{
-				if (is_token_seperator(*pos) || is_interpret_symbol(*pos) || *pos == '/' || *pos == '.' || *pos == '=' || *pos == '-')
+				if (is_token_seperator(*pos) || is_interpret_symbol(*pos) || \
+										(!is_dict_chr(*pos) && !is_number_chr(*pos)))
 					break ;
 				pos++;
 			}
