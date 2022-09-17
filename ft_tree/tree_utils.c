@@ -6,18 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 14:34:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 20:45:29 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 21:41:26 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell_info.h"
-#include "lexer.h"
-#include "parser.h"
-#include "myfunc.h"
+#include "ft_tree.h"
+#include "ft_alloc.h"
 
-/*
- * is_xx 함수 계열 프로토타입int 따라감
- */
 unsigned char	is_tree_and_or(int token_type)
 {
 	if (token_type == AND_IF)
@@ -34,15 +29,6 @@ unsigned char	is_tree_pipe(int token_type)
 	return (TREE_CMD);
 }
 
-int     is_redi_token(t_lx_token *token)
-{
-	const int   type = token->token_type;
-
-	if (type == RED_IN || type == RED_OUT || type == HERE_DOC \
-														|| type == RED_APD_OUT)
-		return (TRUE);
-	return (FALSE);
-}
 
 
 t_tree	*make_tree_node(const int type, t_tree *parent_tree, t_lx_token *data)
