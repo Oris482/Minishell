@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/19 00:38:03 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 00:54:32 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ unsigned int	check_syntax_error(t_lx_token *head);
 
 // parser.c
 t_tree			*parser(t_lx_token *head);
+
+// parser_utils.c
+void			making_tree_node(t_tree *const cur, \
+									unsigned char (*is_tree_type)(int));
+
+// expand_cmd_tree_utils.c
+int				redi_to_left(t_tree *cur_tree, t_lx_token **token_data);
+void			remain_to_right(t_tree *cur_tree, t_lx_token *token_data);
 
 // executor.c
 int				handle_cmd(t_tree *tree_node, char set_exit_status_flag);

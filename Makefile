@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/19 00:36:03 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/19 00:51:56 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,6 +92,8 @@ MANDA_SRCS	=	minishell.c											\
 				lexer.c												\
 				check_syntax_error.c								\
 				parser.c											\
+				parser_utils.c										\
+				expand_cmd_tree_utils.c								\
 				executor.c									
 MANDA_SRCS	+=	$(addprefix $(FT_DEBUG_DIR), $(FT_DEBUG_SRCS))		\
 				$(addprefix $(FT_ALLOC_DIR), $(FT_ALLOC_SRCS))		\
