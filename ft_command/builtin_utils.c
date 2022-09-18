@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 21:18:27 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 23:41:38 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 00:34:13 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,25 @@ int	is_builtin(const char *str)
 		return (BI_EXIT);
 	else
 		return (FALSE);
+}
+
+int	builtin_middleware(t_lx_token *token, int builtin_idx)
+{
+	if (builtin_idx == BI_ECHO)
+		return (builtin_echo(token));
+	else if (builtin_idx == BI_CD)
+		return (builtin_cd(token));
+	else if (builtin_idx == BI_PWD)
+		return (builtin_pwd(token));
+	else if (builtin_idx == BI_EXPORT)
+		return (builtin_export(token));
+	else if (builtin_idx == BI_UNSET)
+		return (builtin_unset(token));
+	else if (builtin_idx == BI_ENV)
+		return (builtin_env(token));
+	else if (builtin_idx == BI_EXIT)
+		return (builtin_exit(token));
+	return (ERROR);
 }
 
 static void	_option_arg_counter(t_lx_token *token, \
@@ -102,26 +121,4 @@ int	builtin_option_arg_checker(t_lx_token **token)
 		return (ARG_ERROR);
 	}
 	return (_builtin_set_to_target_token(token));
-}
-
-void	print_env(void)
-{
-	int		idx;
-	t_dict	*cur;
-
-		idx = 0;
-	while (idx < DICT_MAX)
-	{
-		cur = &g_dict[idx];
-		while (cur->next)
-		{
-			cur = cur->next;
-			if (!cur->value)
-				continue ;
-			ft_putstr_fd(cur->name, STDOUT_FILENO);
-			ft_putchar_fd('=', STDOUT_FILENO);
-			ft_putendl_fd(cur->value, STDOUT_FILENO);
-		}
-		idx++;
-	}
 }

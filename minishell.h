@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 20:42:46 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 00:38:03 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,12 @@ unsigned int	check_syntax_error(t_lx_token *head);
 t_tree			*parser(t_lx_token *head);
 
 // executor.c
+int				handle_cmd(t_tree *tree_node, char set_exit_status_flag);
 int				executor(t_tree *root, char set_exit_status_flag);
 
 // exit_status.c
 void			set_exit_status(int status);
 int				get_exit_status(void);
+int				get_exit_code(int status);
 
 #endif

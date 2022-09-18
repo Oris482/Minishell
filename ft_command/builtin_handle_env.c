@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 23:08:01 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 23:37:12 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 00:33:03 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,32 +84,6 @@ int	builtin_unset(t_lx_token *token)
 	return (rtn_exit_code);
 }
 
-static int	_put_export_msg(void)
-{
-	int		idx;
-	t_dict	*cur;
-
-	idx = 0;
-	while (idx < DICT_MAX)
-	{
-		cur = &g_dict[idx];
-		while (cur->next)
-		{
-			cur = cur->next;
-			ft_putstr_fd(EXPORT_HEAD_MSG, STDOUT_FILENO);
-			ft_putstr_fd(cur->name, STDOUT_FILENO);
-			if (cur->value)
-			{
-				ft_putstr_fd("=\"", STDOUT_FILENO);
-				ft_putstr_fd(cur->value, STDOUT_FILENO);
-				ft_putchar_fd('\"', STDOUT_FILENO);
-			}
-			ft_putchar_fd('\n', STDOUT_FILENO);
-		}
-		idx++;
-	}
-	return (SUCCESS_EXIT_CODE);
-}
 
 int	builtin_export(t_lx_token *token)
 {
@@ -123,7 +97,7 @@ int	builtin_export(t_lx_token *token)
 		return (print_error_str("export", get_token_str(arg_token), \
 								"invalid option", INVALID_OPTION_EXIT_CODE));
 	if (!arg_token)
-		return (_put_export_msg());
+		return (print_export());
 	rtn_exit_code = SUCCESS_EXIT_CODE;
 	while (arg_token)
 	{

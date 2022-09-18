@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/18 23:26:52 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/19 00:36:03 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,9 +48,11 @@ FT_CHECK_SRCS	=	check_char_utils.c				\
 FT_COMMAND_SRCS	=	builtin_cd.c					\
 					builtin_exit.c					\
 					builtin_handle_env.c			\
+					print_env.c						\
 					program.c						\
 					builtin_echo.c					\
 					builtin_pwd.c					\
+					about_pipe.c					\
 					redirections.c					\
 					heredoc.c						\
 					heredoc_utils.c					\

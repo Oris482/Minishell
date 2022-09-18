@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:46:45 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 23:41:52 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 00:36:52 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ int				builtin_env(t_lx_token *token);
 int				builtin_export(t_lx_token *token);
 int				builtin_unset(t_lx_token *token);
 
+// about_pipe.c
+int				init_pipe(t_tree *tree_node, char set_exit_status_flag);
+
 // heredoc.c
 int				make_tmp_heredoc(t_lx_token *token, char *limiter);
 int				handle_redirections_error(const char *cmd, const char *arg);
@@ -44,7 +47,11 @@ void			write_tmp_heredoc(char *limiter, int write_fd);
 // builtin_utils.c
 int				is_builtin(const char *str);
 int				builtin_option_arg_checker(t_lx_token **token);
+int				builtin_middleware(t_lx_token *token, int builtin_idx);
+
+// print_env.c
 void			print_env(void);
+int				print_export(void);
 
 // program.c
 void			execute_middleware(t_lx_token *token);

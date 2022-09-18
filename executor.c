@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 23:54:18 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 00:39:44 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,40 +17,7 @@
 #include "ft_string.h"
 #include "ft_token.h"
 
-int	get_exit_code(int status)
-{
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	else if (WIFSIGNALED(status))
-		return (WTERMSIG(status) + SIG_DEFAULT_EXIT_CODE);
-	else if (WIFSTOPPED(status))
-		return (SIGSTOP + SIG_DEFAULT_EXIT_CODE);
-	else if (WIFCONTINUED(status))
-		return (SIGCONT + SIG_DEFAULT_EXIT_CODE);
-	else
-		return (GENERAL_EXIT_CODE);
-}
-
-int	builtin_middleware(t_lx_token *token, int builtin_idx)
-{
-	if (builtin_idx == BI_ECHO)
-		return (builtin_echo(token));
-	else if (builtin_idx == BI_CD)
-		return (builtin_cd(token));
-	else if (builtin_idx == BI_PWD)
-		return (builtin_pwd(token));
-	else if (builtin_idx == BI_EXPORT)
-		return (builtin_export(token));
-	else if (builtin_idx == BI_UNSET)
-		return (builtin_unset(token));
-	else if (builtin_idx == BI_ENV)
-		return (builtin_env(token));
-	else if (builtin_idx == BI_EXIT)
-		return (builtin_exit(token));
-	return (ERROR);
-}
-
-int	simple_cmd_middleware(t_lx_token *token)
+int	run_simple_cmd(t_lx_token *token)
 {
 	int		builtin_idx;
 	int		status;
@@ -125,7 +92,7 @@ int	handle_cmd(t_tree *tree_node, char set_exit_status_flag)
 	if (exit_code == SUCCESS_EXIT_CODE && tree_node->right)
 	{
 		if (tree_node->right->type == TREE_SIMPLE_CMD)
-			exit_code = simple_cmd_middleware(tree_node->right->token_data);
+			exit_code = run_simple_cmd(tree_node->right->token_data);
 		else
 			exit_code = run_subshell(tree_node->right, set_exit_status_flag);
 	}
@@ -134,101 +101,6 @@ int	handle_cmd(t_tree *tree_node, char set_exit_status_flag)
 	if (handle_fd(backup_fd, RESTORE) == FALSE)
 		return (GENERAL_EXIT_CODE);
 	return (exit_code);
-}
-
-void	set_pipe_for_child(t_pipe *info)
-{
-	const int	idx = info->fork_cnt;
-
-	if (idx != 0)
-		if (dup2(info->fd[!(idx % 2)][F_READ], STDIN_FILENO) == ERROR)
-			exit(GENERAL_EXIT_CODE);
-	if (idx != info->pipe_cnt)
-		if (dup2(info->fd[idx % 2][F_WRITE], STDOUT_FILENO) == ERROR)
-			exit(GENERAL_EXIT_CODE);
-	close(info->fd[EVEN][F_READ]);
-	close(info->fd[EVEN][F_WRITE]);
-	close(info->fd[ODD][F_READ]);
-	close(info->fd[ODD][F_WRITE]);
-}
-
-void	pipe_child(t_tree *tree_node, char set_exit_status_flag, t_pipe *info)
-{
-	int	exit_code;
-
-	set_pipe_for_child(info);
-	exit_code = handle_cmd(tree_node, set_exit_status_flag);
-	exit(exit_code);
-}
-
-void	handle_pipe_fd(t_pipe *info)
-{
-	const int	idx = info->fork_cnt;
-
-	if (idx == 0)
-		close(info->fd[EVEN][F_WRITE]);
-	else if (idx == info->pipe_cnt)
-	{
-		if (idx % 2)
-			close(info->fd[ODD][F_WRITE]);
-		else
-			close(info->fd[EVEN][F_WRITE]);
-	}
-	else
-	{
-		if (idx % 2)
-		{
-			close(info->fd[ODD][F_WRITE]);
-			close(info->fd[EVEN][F_READ]);
-		}
-		else
-		{
-			close(info->fd[EVEN][F_WRITE]);
-			close(info->fd[ODD][F_READ]);
-		}
-	}
-}
-
-void	handle_pipe(t_tree *tree_node, char set_exit_status_flag, t_pipe *info)
-{
-	pid_t	pid;
-	int		status;
-
-	if (tree_node->type == TREE_PIPE)
-		info->pipe_cnt++;
-	if (tree_node->type != TREE_CMD)
-		handle_pipe(tree_node->left, FALSE, info);
-	else
-	{
-		if (pipe(info->fd[info->fork_cnt % 2]) == ERROR)
-			exit(GENERAL_EXIT_CODE);
-		pid = fork();
-		if (pid == ERROR)
-			exit(GENERAL_EXIT_CODE);
-		else if (pid == 0)
-			pipe_child(tree_node, set_exit_status_flag, info);
-		handle_pipe_fd(info);
-		info->fork_cnt++;
-		waitpid(pid, &status, WUNTRACED);
-		if (set_exit_status_flag)
-			set_exit_status(get_exit_code(status));
-		return ;
-	}
-	handle_pipe(tree_node->right, set_exit_status_flag, info);
-}
-
-int	init_pipe(t_tree *tree_node, char set_exit_status_flag)
-{
-	t_pipe	info;
-
-	info.pipe_cnt = 0;
-	info.fork_cnt = 0;
-	handle_pipe(tree_node, set_exit_status_flag, &info);
-	close (info.fd[EVEN][F_READ]);
-	close (info.fd[EVEN][F_WRITE]);
-	close (info.fd[ODD][F_READ]);
-	close (info.fd[ODD][F_WRITE]);
-	return (SUCCESS_EXIT_CODE);
 }
 
 int	executor(t_tree *root, char set_exit_status_flag)
