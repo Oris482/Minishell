@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:25:42 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 23:47:09 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 02:12:58 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,14 @@ int	check_match_word(const char *word1, const char *word2)
 
 int	check_valid_env_name(char *name)
 {
-	char	*cur;
+	int		i;
 
 	if (!name)
 		return (FALSE);
-	cur = name;
-	while (*cur)
-	{
-		if (is_env_chr(name, cur) == FALSE)
+	i = -1;
+	while (name[++i])
+		if (is_env_chr(name[i], i) == FALSE)
 			return (FALSE);
-		cur++;
-	}
 	return (TRUE);
 }
 

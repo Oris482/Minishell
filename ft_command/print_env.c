@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 00:27:25 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 00:33:02 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 02:21:34 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	print_export(void)
 			ft_putstr_fd(cur->name, STDOUT_FILENO);
 			if (cur->value)
 			{
+				ft_putstr_fd("=\"", STDOUT_FILENO);
 				ft_putstr_fd(cur->value, STDOUT_FILENO);
 				ft_putchar_fd('\"', STDOUT_FILENO);
 			}
@@ -45,7 +46,7 @@ void	print_env(void)
 	int		idx;
 	t_dict	*cur;
 
-		idx = 0;
+	idx = 0;
 	while (idx < DICT_MAX)
 	{
 		cur = &g_dict[idx];
