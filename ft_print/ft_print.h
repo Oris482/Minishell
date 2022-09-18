@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:19:00 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 22:52:14 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 01:00:48 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void			ft_putstr_fd(const char *s, int fd);
 void			ft_putendl_fd(const char *s, int fd);
 
 // error_utils.c
-void			print_error_syntax(char *token);
 void			print_error_not_close(char *str);
+int				print_error_syntax(char *str);
 int				print_error_str(const char *err_cmd, const char *err_arg, \
 										const char *custom_msg, int err_code);
 

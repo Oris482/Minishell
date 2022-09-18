@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 00:35:19 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 00:39:21 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 01:09:44 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	_set_pipe_for_child(t_pipe *info)
 }
 
 static void	_pipe_child(t_tree *tree_node, \
-                                char set_exit_status_flag, t_pipe *info)
+							char set_exit_status_flag, t_pipe *info)
 {
 	int	exit_code;
 
@@ -69,7 +69,7 @@ static void	_handle_pipe_fd(t_pipe *info)
 }
 
 static void	_handle_pipe(t_tree *tree_node, \
-                                char set_exit_status_flag, t_pipe *info)
+								char set_exit_status_flag, t_pipe *info)
 {
 	pid_t	pid;
 	int		status;

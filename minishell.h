@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/19 00:54:32 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 01:05:07 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ t_lx_token		*lexer(char *full_line, t_oflag *oflag);
 
 // check_syntax_error.c
 unsigned int	check_syntax_error(t_lx_token *head);
+
+// check_syntax_middleware.c
+unsigned int	check_syntax_middleware(t_lx_token *token, \
+												int *parentheses_counter);
 
 // parser.c
 t_tree			*parser(t_lx_token *head);

@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/19 00:51:56 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/19 01:03:44 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,7 @@ MANDA_SRCS	=	minishell.c											\
 				liner.c												\
 				lexer.c												\
 				check_syntax_error.c								\
+				check_syntax_middleware.c							\
 				parser.c											\
 				parser_utils.c										\
 				expand_cmd_tree_utils.c								\
