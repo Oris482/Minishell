@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 07:26:44 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 20:42:46 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@
 # include <errno.h>
 
 // terminal_setting.c
-void			signal_handler(void);
+void			set_init_signal(void);
+void			set_int_quit_signal(void *sigint_action, void *sigquit_action);
 int				terminal_off_control_chars(void);
-int	            terminal_on_control_chars(void);
+int				terminal_on_control_chars(void);
 
 // liner.c
 char			*liner(t_oflag *oflag);

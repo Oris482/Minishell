@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:57:27 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 05:07:01 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 21:57:54 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,13 @@ char	*check_valid_cwd(char *path)
 
 int	builtin_cd(t_lx_token *token)
 {
-	const t_lx_token	*arg_token = token->next;
+	t_lx_token			*arg_token;
 	char				*path;
 
+	arg_token = token;
+	if (builtin_option_arg_checker(&arg_token) == OPTION_ERROR)
+		return (print_error_str("cd", get_token_str(arg_token), \
+				"invalid option", INVALID_OPTION_EXIT_CODE));
 	if (arg_token == NULL || get_token_str(arg_token) == NULL)
 	{
 		path = my_getenv("HOME");

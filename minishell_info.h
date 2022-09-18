@@ -6,10 +6,12 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:40:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 22:11:53 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 21:05:41 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MINISHELL_INFO_H
+# define MINISHELL_INFO_H
 # define UNDEFINED		0b00000000
 # define QUOTE			0b00000001
 # define DQUOTE			0b00000010
@@ -88,14 +90,14 @@ typedef struct s_oflag
 enum e_tree_type
 {
 	TREE_UNDEFINED =	0b00000001,
-	TREE_AND = 			0b00000010,
+	TREE_AND =			0b00000010,
 	TREE_OR =			0b00000100,
 	TREE_PIPE =			0b00001000,
 	TREE_CMD =			0b00010000,
 	TREE_REDI =			0b00100000,
 	TREE_SIMPLE_CMD =	0b01000000,
 	TREE_SUBSHELL =		0b10000000,
-	TREE_ALL = 			0b11111111
+	TREE_ALL =			0b11111111
 };
 
 enum	e_token_type
@@ -130,6 +132,8 @@ enum	e_exit_code
 	SUCCESS_EXIT_CODE = 0,
 	GENERAL_EXIT_CODE = 1,
 	PERMISSION_EXIT_CODE = 2,
+	INVALID_OPTION_EXIT_CODE = 2,
+	SIG_DEFAULT_EXIT_CODE = 128,
 	NONE_NUMERIC_EXIT_CODE = 255,
 	SYNTAX_ERROR_EXIT_CODE = 258
 };
@@ -148,3 +152,4 @@ enum	e_order
 	EQUAL,
 	GREATER_THAN,
 };
+#endif

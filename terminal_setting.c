@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:07:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 07:45:59 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 20:15:24 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	_sigint_handler(int signum)
 	}
 }
 
-void	signal_handler(void)
+void	set_init_signal(void)
 {
 	signal(SIGINT, _sigint_handler);
 	signal(SIGTERM, SIG_IGN);
@@ -33,6 +33,12 @@ void	signal_handler(void)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
+}
+
+void	set_int_quit_signal(void *sigint_action, void *sigquit_action)
+{
+	signal(SIGINT, sigint_action);
+	signal(SIGQUIT, sigquit_action);
 }
 
 int	terminal_off_control_chars(void)

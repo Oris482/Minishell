@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 07:50:38 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 21:58:47 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ int	get_exit_code(int status)
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))
-		return (WTERMSIG(status) + 128);
+		return (WTERMSIG(status) + SIG_DEFAULT_EXIT_CODE);
 	else if (WIFSTOPPED(status))
-		return (17 + 128);
+		return (SIGSTOP + SIG_DEFAULT_EXIT_CODE);
 	else if (WIFCONTINUED(status))
-		return (19 + 128);
+		return (SIGCONT + SIG_DEFAULT_EXIT_CODE);
 	else
 		return (GENERAL_EXIT_CODE);
 }
 
-int	is_builtin(char *str)
+int	is_builtin(const char *str)
 {
 	if (ft_strcmp_ignore_capital("echo", str) == SUCCESS)
 		return (BI_ECHO);
@@ -58,7 +58,7 @@ int	builtin_middleware(t_lx_token *token, int builtin_idx)
 	else if (builtin_idx == BI_CD)
 		return (builtin_cd(token));
 	else if (builtin_idx == BI_PWD)
-		return (builtin_pwd());
+		return (builtin_pwd(token));
 	else if (builtin_idx == BI_EXPORT)
 		return (builtin_export(token));
 	else if (builtin_idx == BI_UNSET)
@@ -82,18 +82,16 @@ int	simple_cmd_middleware(t_lx_token *token)
 	else
 	{
 		pid = fork();
-		terminal_on_control_chars();
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
+		set_int_quit_signal(SIG_DFL, SIG_DFL);
 		if (pid == 0)
 			execute_middleware(token);
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
+		set_int_quit_signal(SIG_IGN, SIG_IGN);
 		waitpid(pid, &status, WUNTRACED);
-		if (WIFSIGNALED(status))
-			write(1, "\n", 1);
-		terminal_off_control_chars();
-		signal_handler();
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			write(1, "Int : 2\n", 9);
+		else if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+			write(1, "Quit : 3\n", 10);
+		set_init_signal();
 		return (get_exit_code(status));
 	}
 	return (GENERAL_EXIT_CODE);

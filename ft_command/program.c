@@ -6,11 +6,12 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:59:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 07:52:12 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 20:14:12 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_info.h"
+#include "minishell.h"
 #include "ft_command.h"
 #include "ft_environ.h"
 #include "ft_string.h"
@@ -96,6 +97,7 @@ void	execute_middleware(t_lx_token *token)
 	char		**cmd_envp;
 	struct stat statbuf;
 
+	terminal_on_control_chars();
 	cmd_str = get_token_str(token);
 	cmd_path = cmd_str;
 	stat(cmd_path, &statbuf);

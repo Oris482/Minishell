@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 23:08:01 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 04:23:23 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 22:27:57 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,23 @@
 #include "ft_string.h"
 #include "ft_environ.h"
 #include "ft_alloc.h"
+#include "ft_token.h"
 
 int	builtin_env(t_lx_token *token)
 {
-	int		idx;
-	t_dict	*cur;
+	int			idx;
+	int			err_code;
+	t_lx_token	*arg_token;
+	t_dict		*cur;
 
-	if (token->next)
-		return (GENERAL_EXIT_CODE);
+	arg_token = token;
+	err_code = builtin_option_arg_checker(&arg_token);
+	if (err_code == OPTION_ERROR)
+		return (print_error_str("env", get_token_str(arg_token), \
+								"invalid option", INVALID_OPTION_EXIT_CODE));
+	else if (err_code == ARG_ERROR)
+		return (print_error_str("env", get_token_str(arg_token), \
+								"invalid arg", GENERAL_EXIT_CODE));
 	idx = 0;
 	while (idx < DICT_MAX)
 	{
@@ -42,7 +51,7 @@ int	builtin_env(t_lx_token *token)
 	return (SUCCESS_EXIT_CODE);
 }
 
-static int _get_env_nameval_at_token(t_lx_token *token, \
+static int	_get_env_nameval_at_token(t_lx_token *token, \
 										char **name, char **value)
 {
 	char	*merge_str;
@@ -70,27 +79,28 @@ static int _get_env_nameval_at_token(t_lx_token *token, \
 
 int	builtin_unset(t_lx_token *token)
 {
-	char	*name;
-	int		rtn_exit_code;
+	t_lx_token	*arg_token;
+	char		*name;
+	int			rtn_exit_code;
 
-	if (!token->next)
-		return (SUCCESS_EXIT_CODE);
+	arg_token = token;
+	if (builtin_option_arg_checker(&arg_token) == OPTION_ERROR)
+		return (print_error_str("unset", get_token_str(arg_token), \
+								"invalid option", INVALID_OPTION_EXIT_CODE));
 	rtn_exit_code = SUCCESS_EXIT_CODE;
-	while (token->next)
+	while (arg_token)
 	{
-		token = token->next;
-		if (_get_env_nameval_at_token(token, &name, NULL) == FALSE)
-		{
+		if (_get_env_nameval_at_token(arg_token, &name, NULL) == TRUE)
+			erase_dict(name);
+		else
 			rtn_exit_code = print_error_str("unset", name, \
 								"not a valid identifier", GENERAL_EXIT_CODE);
-			continue ;
-		}
-		erase_dict(name);
+		arg_token = arg_token->next;
 	}
 	return (rtn_exit_code);
 }
 
-static int _put_export_msg(void)
+static int	_put_export_msg(void)
 {
 	int		idx;
 	t_dict	*cur;
@@ -119,24 +129,29 @@ static int _put_export_msg(void)
 
 int	builtin_export(t_lx_token *token)
 {
-	char	*name;
-	char	*value;
-	int		rtn_exit_code;
+	t_lx_token	*arg_token;
+	char		*name;
+	char		*value;
+	int			rtn_exit_code;
 
-	if (!token->next)
+	arg_token = token;
+	if (builtin_option_arg_checker(&arg_token) == OPTION_ERROR)
+		return (print_error_str("export", get_token_str(arg_token), \
+								"invalid option", INVALID_OPTION_EXIT_CODE));
+	if (!arg_token)
 		return (_put_export_msg());
 	rtn_exit_code = SUCCESS_EXIT_CODE;
-	while (token->next)
+	while (arg_token)
 	{
-		token = token->next;
-		if (_get_env_nameval_at_token(token, &name, &value) == FALSE)
+		if (_get_env_nameval_at_token(arg_token, &name, &value) == TRUE)
+			put_dict(name, value);
+		else
 		{
 			rtn_exit_code = print_error_str("export", name, \
 								"not a valid identifier", GENERAL_EXIT_CODE);
 			my_multi_free(name, value, NULL, NULL);
-			continue ;
 		}
-		put_dict(name, value);
+		arg_token = arg_token->next;
 	}
 	return (rtn_exit_code);
 }

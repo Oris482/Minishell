@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:20 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 22:14:27 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 22:00:16 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char			*ft_strchr_null(const char *s, int c);
 char			*ft_strrchr_right_away(const char *s, int c, char *const end);
 
 // custom_str_utils2.c
-int 			ft_strcmp_ignore_capital(char *ref, char *target);
+int				ft_strcmp_ignore_capital(const char *ref, const char *target);
 char			*ft_strcpy(const char *start, const char *end);
 char			*ft_chr_to_str(char c);
 #endif
