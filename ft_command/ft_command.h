@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:46:45 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 22:00:53 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:41:52 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,8 @@
 # define ARG_ERROR		4
 
 // built-in functions
-int				make_tmp_heredoc(t_lx_token *token, char *limiter);
-int				redi_middleware(t_lx_token *token);
 int				redi_heredoc(char *limiter);
-int				is_builtin(const char *str);
-int				builtin_option_arg_checker(t_lx_token **token);
+int				redi_middleware(t_lx_token *token);
 int				builtin_echo(t_lx_token *token);
 int				builtin_cd(t_lx_token *token);
 int				builtin_pwd(t_lx_token *token);
@@ -36,8 +33,20 @@ int				builtin_env(t_lx_token *token);
 int				builtin_export(t_lx_token *token);
 int				builtin_unset(t_lx_token *token);
 
-unsigned char	ft_atouc(char *str);
+// heredoc.c
+int				make_tmp_heredoc(t_lx_token *token, char *limiter);
+int				handle_redirections_error(const char *cmd, const char *arg);
+
+// heredoc_utils.c
+int				make_tmpfile(char **tmpname, int *fd);
+void			write_tmp_heredoc(char *limiter, int write_fd);
+
+// builtin_utils.c
+int				is_builtin(const char *str);
+int				builtin_option_arg_checker(t_lx_token **token);
+void			print_env(void);
 
 // program.c
 void			execute_middleware(t_lx_token *token);
+
 #endif

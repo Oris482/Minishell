@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/18 22:41:38 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/18 23:26:52 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,8 @@ FT_COMMAND_SRCS	=	builtin_cd.c					\
 					builtin_echo.c					\
 					builtin_pwd.c					\
 					redirections.c					\
+					heredoc.c						\
+					heredoc_utils.c					\
 					builtin_utils.c
 FT_ENVIRON_SRCS	=	about_env.c						\
 					dict_utils.c					\

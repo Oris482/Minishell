@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 14:34:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 22:18:28 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:52:07 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ unsigned char	is_tree_pipe(int token_type)
 		return (TREE_PIPE);
 	return (TREE_CMD);
 }
-
-
 
 t_tree	*make_tree_node(const int type, t_tree *parent_tree, t_lx_token *data)
 {

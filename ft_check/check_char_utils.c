@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:18:47 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 06:54:12 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:20:47 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int	is_metacharacter(const char c)
 		return (FALSE);
 }
 
-int     is_redi_token(t_lx_token *token)
+int	is_redi_token(t_lx_token *token)
 {
-	const int   type = token->token_type;
+	const int	type = token->token_type;
 
 	if (type == RED_IN || type == RED_OUT || type == HERE_DOC \
-														|| type == RED_APD_OUT)
+											|| type == RED_APD_OUT)
 		return (TRUE);
 	return (FALSE);
 }

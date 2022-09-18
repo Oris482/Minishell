@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 23:08:01 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 22:27:57 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:37:12 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@
 
 int	builtin_env(t_lx_token *token)
 {
-	int			idx;
 	int			err_code;
 	t_lx_token	*arg_token;
-	t_dict		*cur;
 
 	arg_token = token;
 	err_code = builtin_option_arg_checker(&arg_token);
@@ -33,21 +31,7 @@ int	builtin_env(t_lx_token *token)
 	else if (err_code == ARG_ERROR)
 		return (print_error_str("env", get_token_str(arg_token), \
 								"invalid arg", GENERAL_EXIT_CODE));
-	idx = 0;
-	while (idx < DICT_MAX)
-	{
-		cur = &g_dict[idx];
-		while (cur->next)
-		{
-			cur = cur->next;
-			if (!cur->value)
-				continue ;
-			ft_putstr_fd(cur->name, STDOUT_FILENO);
-			ft_putchar_fd('=', STDOUT_FILENO);
-			ft_putendl_fd(cur->value, STDOUT_FILENO);
-		}
-		idx++;
-	}
+	print_env();
 	return (SUCCESS_EXIT_CODE);
 }
 

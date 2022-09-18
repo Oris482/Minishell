@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 21:58:47 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:54:18 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,6 @@ int	get_exit_code(int status)
 		return (SIGCONT + SIG_DEFAULT_EXIT_CODE);
 	else
 		return (GENERAL_EXIT_CODE);
-}
-
-int	is_builtin(const char *str)
-{
-	if (ft_strcmp_ignore_capital("echo", str) == SUCCESS)
-		return (BI_ECHO);
-	else if (ft_strcmp_ignore_capital("cd", str) == SUCCESS)
-		return (BI_CD);
-	else if (ft_strcmp_ignore_capital("pwd", str) == SUCCESS)
-		return (BI_PWD);
-	else if (ft_strcmp_ignore_capital("export", str) == SUCCESS)
-		return (BI_EXPORT);
-	else if (ft_strcmp_ignore_capital("unset", str) == SUCCESS)
-		return (BI_UNSET);
-	else if (ft_strcmp_ignore_capital("env", str) == SUCCESS)
-		return (BI_ENV);
-	else if (ft_strcmp_ignore_capital("exit", str) == SUCCESS)
-		return (BI_EXIT);
-	else
-		return (FALSE);
 }
 
 int	builtin_middleware(t_lx_token *token, int builtin_idx)
@@ -118,7 +98,6 @@ int	handle_fd(int *backup_fd, int task)
 		return (FALSE);
 	return (SUCCESS);
 }
-
 
 int	run_subshell(t_tree *tree_node, char set_exit_status_flag)
 {

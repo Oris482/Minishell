@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:31:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 22:40:22 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:56:04 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	redi_to_left(t_tree *cur_tree, t_lx_token **token_data)
 	prev_node = (*token_data)->prev;
 	end_node = (*token_data)->next;
 	while (end_node->next && end_node->next->token_str == NULL)
-		end_node= end_node->next;
+		end_node = end_node->next;
 	poped_node = pop_token(token_data, end_node);
 	if (*token_data == NULL && prev_node != end_node)
 		*token_data = prev_node;

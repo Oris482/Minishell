@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_env_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:56:31 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 05:03:39 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/18 22:46:39 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	is_dict_chr(int c)
 	return (is_upper_alpha_chr(c) || is_lower_alpha_chr(c) || c == '_');
 }
 
-int is_env_chr(char *head, char *cur)
+int	is_env_chr(char *head, char *cur)
 {
 	if (!head || !cur)
 		return (0);

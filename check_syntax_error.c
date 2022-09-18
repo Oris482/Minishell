@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:24:20 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 00:20:34 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:53:30 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ static unsigned int	_check_syntax_middleware(t_lx_token *token, \
 	int			is_valid;
 
 	if (token_type == WORD)
-	{	if (token->token_str != NULL)
+	{
+		if (token->token_str != NULL)
 			is_valid = _check_word_syntax(token);
 		else
 			is_valid = SUCCESS;
@@ -143,7 +144,8 @@ unsigned int	check_syntax_error(t_lx_token *cur_node)
 		if (_check_syntax_middleware(cur_node, &parentheses_counter) == FALSE)
 			return (SYNTAX_ERROR_EXIT_CODE);
 		if (cur_node->token_type == HERE_DOC)
-			if (make_tmp_heredoc(cur_node, cur_node->next->token_str) == GENERAL_EXIT_CODE)
+			if (make_tmp_heredoc(cur_node, cur_node->next->token_str) == \
+															GENERAL_EXIT_CODE)
 				return (GENERAL_EXIT_CODE);
 		cur_node = cur_node->next;
 	}

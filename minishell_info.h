@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:40:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 21:05:41 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:54:54 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct s_lx_token
 	struct s_lx_token	*prev;
 	struct s_lx_token	*next;
 }	t_lx_token;
-
 
 typedef struct s_file
 {

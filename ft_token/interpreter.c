@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 05:17:22 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:50:08 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ unsigned char	find_interpret_symbol(char **token_str, \
 	if (target == UNDEFINED || target == DOLLAR)
 	{
 		while (**token_str && (!is_interpret_symbol(**token_str) \
-					&& (is_dict_chr(**token_str) || is_number_chr(**token_str))))
+				&& (is_dict_chr(**token_str) || is_number_chr(**token_str))))
 			(*token_str)++;
 		return (is_interpret_symbol(**token_str));
 	}
@@ -61,7 +61,8 @@ void	interpreter(t_lx_token *token)
 			find_interpret_symbol(&token_str, TILDE);
 			str_chunk = ft_strcpy(str_startpoint, token_str);
 		}
-		if (symbol_type == DOLLAR && ft_strlen(str_chunk) == 0 && is_quote(*token_str))
+		if (symbol_type == DOLLAR && ft_strlen(str_chunk) == 0 \
+											&& is_quote(*token_str))
 		{
 			while (token->next)
 				token = token->next;

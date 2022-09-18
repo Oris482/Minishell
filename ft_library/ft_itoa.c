@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 06:23:03 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 06:57:46 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:47:50 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,3 @@ char	*ft_itoa(int n)
 	_itoa_nbr(n, ptr, cnt);
 	return (ptr);
 }
-

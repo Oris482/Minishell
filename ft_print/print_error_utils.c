@@ -6,14 +6,14 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 19:12:42 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 22:17:54 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:48:14 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_info.h"
 #include "ft_print.h"
 
-void print_error_not_close(char *str)
+void	print_error_not_close(char *str)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd("syntax error not close token`", STDERR_FILENO);
@@ -21,7 +21,7 @@ void print_error_not_close(char *str)
 	ft_putendl_fd("'", STDERR_FILENO);
 }
 
-void print_error_syntax(char *str)
+void	print_error_syntax(char *str)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd("syntax error near unexpected token`", STDERR_FILENO);

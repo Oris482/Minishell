@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:59:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 20:14:12 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:34:10 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*_find_cmd_path(char *cmd)
 	const char	*set_path = my_getenv("PATH");
 	char		*find_path;
 	char		*pos;
-	struct stat statbuf;
+	struct stat	statbuf;
 
 	find_path = NULL;
 	if (!set_path)
@@ -54,7 +54,7 @@ static int	_count_cur_token(t_lx_token *token)
 	return (cnt);
 }
 
-char **make_cmd_argv(char *cmd_str, t_lx_token *token)
+char	**make_cmd_argv(char *cmd_str, t_lx_token *token)
 {
 	int		i;
 	char	**cmd_argv;
@@ -95,7 +95,7 @@ void	execute_middleware(t_lx_token *token)
 	char		*cmd_path;
 	char		**cmd_argv;
 	char		**cmd_envp;
-	struct stat statbuf;
+	struct stat	statbuf;
 
 	terminal_on_control_chars();
 	cmd_str = get_token_str(token);

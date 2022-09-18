@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:57:27 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 21:57:54 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:34:38 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	set_oldpwd_then_chdir(const char *dst_path)
 
 	cwd = getcwd(NULL, 1);
 	if (dst_path && *dst_path != '/' && cwd == NULL)
-		return (print_error_str("cd", NULL, 
+		return (print_error_str("cd", NULL, \
 				"Invalid current working directory", GENERAL_EXIT_CODE));
 	if (dst_path == NULL)
 		dst_path = cwd;

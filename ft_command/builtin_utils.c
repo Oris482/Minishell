@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 21:18:27 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 22:13:04 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:41:38 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,27 @@
 #include "ft_command.h"
 #include "ft_token.h"
 #include "ft_string.h"
+#include "ft_print.h"
+
+int	is_builtin(const char *str)
+{
+	if (ft_strcmp_ignore_capital("echo", str) == SUCCESS)
+		return (BI_ECHO);
+	else if (ft_strcmp_ignore_capital("cd", str) == SUCCESS)
+		return (BI_CD);
+	else if (ft_strcmp_ignore_capital("pwd", str) == SUCCESS)
+		return (BI_PWD);
+	else if (ft_strcmp_ignore_capital("export", str) == SUCCESS)
+		return (BI_EXPORT);
+	else if (ft_strcmp_ignore_capital("unset", str) == SUCCESS)
+		return (BI_UNSET);
+	else if (ft_strcmp_ignore_capital("env", str) == SUCCESS)
+		return (BI_ENV);
+	else if (ft_strcmp_ignore_capital("exit", str) == SUCCESS)
+		return (BI_EXIT);
+	else
+		return (FALSE);
+}
 
 static void	_option_arg_counter(t_lx_token *token, \
 												int *option_cnt, int *arg_cnt)
@@ -81,4 +102,26 @@ int	builtin_option_arg_checker(t_lx_token **token)
 		return (ARG_ERROR);
 	}
 	return (_builtin_set_to_target_token(token));
+}
+
+void	print_env(void)
+{
+	int		idx;
+	t_dict	*cur;
+
+		idx = 0;
+	while (idx < DICT_MAX)
+	{
+		cur = &g_dict[idx];
+		while (cur->next)
+		{
+			cur = cur->next;
+			if (!cur->value)
+				continue ;
+			ft_putstr_fd(cur->name, STDOUT_FILENO);
+			ft_putchar_fd('=', STDOUT_FILENO);
+			ft_putendl_fd(cur->value, STDOUT_FILENO);
+		}
+		idx++;
+	}
 }

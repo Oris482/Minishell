@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:25:42 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 06:55:20 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:47:09 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	check_match_word(const char *word1, const char *word2)
 	return (TRUE);
 }
 
-int check_valid_env_name(char *name)
+int	check_valid_env_name(char *name)
 {
-	char *cur;
+	char	*cur;
 
 	if (!name)
 		return (FALSE);
@@ -66,10 +66,8 @@ void	setting_dictionary(void)
 	i = 0;
 	while (i < DICT_MAX)
 	{
-		// debug
 		category += 4 * (category == 'Z' + 1) + (category == '_' + 1);
 		g_dict[i].value = ft_chr_to_str(category++);
-		// debug
 		g_dict[i].prev = &g_dict[i];
 		i++;
 	}
@@ -77,7 +75,7 @@ void	setting_dictionary(void)
 
 void	dict_lstadd_last(t_dict *head, t_dict *new)
 {
-	t_dict *const last = get_last_dict(head);
+	t_dict *const	last = get_last_dict(head);
 
 	head->prev = new;
 	last->next = new;
@@ -87,19 +85,18 @@ void	dict_lstadd_last(t_dict *head, t_dict *new)
 void	dict_lstadd_next(t_dict *cur, t_dict *new)
 {
 	if (cur == get_last_dict(cur))
-		return dict_lstadd_last(get_first_dict(cur), new);
+		return (dict_lstadd_last(get_first_dict(cur), new));
 	new->prev = cur;
 	new->next = cur->next;
 	cur->next->prev = new;
 	cur->next = new;
-
 }
 
 int	comapre_order_dict(const t_dict *next, const t_dict *new)
 {
-	int i;
-	const char *s1;
-	const char *s2;
+	int			i;
+	const char	*s1;
+	const char	*s2;
 
 	if (!next)
 		return (GREATER_THAN);
@@ -152,7 +149,7 @@ void	envp_to_dict(char *envp[])
 		add_dict(NULL, NULL, envp[j++]);
 }
 
-char 	**dict_to_envp(void)
+char	**dict_to_envp(void)
 {
 	int			idx;
 	int			cnt;
@@ -175,4 +172,3 @@ char 	**dict_to_envp(void)
 	}
 	return (new_envp);
 }
-

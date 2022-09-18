@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 23:05:40 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 06:26:26 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:48:35 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	ft_strcmp(char *s1, char *s2)
 		return (FALSE);
 	return (SUCCESS);
 }
-
 
 char	*ft_strdup(const char *s)
 {

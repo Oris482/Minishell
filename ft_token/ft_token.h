@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:33:13 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 22:53:32 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:49:06 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include <unistd.h>
 
 // token_list_utils.c
-t_lx_token  	*cut_front_token(t_lx_token *cur_token);
+t_lx_token		*cut_front_token(t_lx_token *cur_token);
 t_lx_token		*cut_back_token(t_lx_token *cur_token);
-t_lx_token  	*pop_token(t_lx_token **cur_token, t_lx_token *end_token);
+t_lx_token		*pop_token(t_lx_token **cur_token, t_lx_token *end_token);
 void			merge_linked_list(t_lx_token *dst, t_lx_token *src);
 t_lx_token		*connect_token(t_lx_token *token_head, t_lx_token *cur);
 
@@ -49,5 +49,4 @@ char			*make_chunk_by_symbol(char **token_str, \
 char			*compress_target_char(char *target_str, const char target);
 // wildcard_translator.c
 void			wildcard_translator(t_lx_token **cur);
-
 #endif

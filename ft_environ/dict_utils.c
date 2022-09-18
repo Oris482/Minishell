@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 22:51:24 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 05:04:50 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:47:23 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	count_dict(void)
 	return (total);
 }
 
-
 t_dict	*find_dict(t_dict *cur, const char *name)
 {
 	while (cur)
@@ -43,7 +42,6 @@ t_dict	*find_dict(t_dict *cur, const char *name)
 	}
 	return (NULL);
 }
-
 
 t_dict	*add_dict(char *name, char *value, char *merge_str)
 {
@@ -70,7 +68,7 @@ t_dict	*add_dict(char *name, char *value, char *merge_str)
 	return (add_node);
 }
 
-t_dict *put_dict(char *name, char *value)
+t_dict	*put_dict(char *name, char *value)
 {
 	t_dict	*find_node;
 	int		idx;

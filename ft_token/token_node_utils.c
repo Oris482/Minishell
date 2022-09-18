@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 19:59:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 22:18:20 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:49:49 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 t_lx_token	*make_token_node(char *token_str, int token_type)
 {
-	t_lx_token *token;
+	t_lx_token	*token;
 
 	token = (t_lx_token *)my_calloc(1, sizeof(t_lx_token));
 	token->token_str = token_str;

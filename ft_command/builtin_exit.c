@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 20:23:17 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 06:59:14 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:41:17 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_numeric(char *str)
 	return (TRUE);
 }
 
-unsigned char	ft_atouc(char *str)
+static unsigned char	_ft_atouc(char *str)
 {
 	unsigned char	ret;
 	char			sign;
@@ -65,7 +65,7 @@ int	builtin_exit(t_lx_token *token)
 		else if (token->next->next != NULL)
 			return (print_error_str("exit", NULL, \
 						"too many arguments", GENERAL_EXIT_CODE));
-		exit_code = ft_atouc(token_str);
+		exit_code = _ft_atouc(token_str);
 	}
 	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	exit(exit_code);

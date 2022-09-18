@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:42:47 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 04:30:32 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:44:20 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 // envp_utils.c
 void			char_dimen2_to_lst(char *envp[]);
 void			envp_to_dict(char *envp[]);
-char		 	**dict_to_envp(void);
+char			**dict_to_envp(void);
 int				chr_to_dict_idx(char c);
-t_dict			*make_envp_node(char *name, char *value, t_dict *next, t_dict *prev);
+t_dict			*make_envp_node(char *name, char *value, \
+												t_dict *next, t_dict *prev);
 void			dict_lstadd_last(t_dict *head, t_dict *new);
 void			dict_lstadd_next(t_dict *cur, t_dict *new);
 void			dict_lstadd_order(t_dict *head, t_dict *new);
@@ -40,5 +41,4 @@ t_dict			*get_first_dict(t_dict *dic);
 
 // about_env.c
 char			*my_getenv(const char *name);
-
 #endif
