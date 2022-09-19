@@ -1,19 +1,78 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   compress_target_char.c                             :+:      :+:    :+:   */
+/*   translator_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/31 15:07:28 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 22:18:08 by jaesjeon         ###   ########.fr       */
+/*   Created: 2022/09/19 16:40:10 by minsuki2          #+#    #+#             */
+/*   Updated: 2022/09/19 17:26:40 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_info.h"
-#include "ft_token.h"
+#include "minishell.h"
 #include "ft_check.h"
+#include "ft_token.h"
+#include "ft_string.h"
 #include "ft_alloc.h"
+#include "ft_file.h"
+#include "ft_environ.h"
+
+char	*cursor_to_space(int split_flag, char *str_cur)
+{
+	while (*str_cur)
+	{
+		if (split_flag && ft_isspace(*str_cur))
+			return (str_cur);
+		str_cur++;
+	}
+	return (str_cur);
+}
+
+static int	level_check(const char *s)
+{
+	int	cnt;
+
+	cnt = 1;
+	while (*s)
+	{
+		s++;
+		s = ft_strchr_null(s, '/');
+		if (*s == '/' && *(s + 1) != '\0')
+			cnt++;
+	}
+	return (cnt);
+}
+
+char	**path_split(char *start)
+{
+	char	*cursor;
+	char	*end;
+	char	**ret;
+	int		idx;
+
+	cursor = ft_strchr(start, '*');
+	ret = (char **)my_malloc(sizeof(char *) * (level_check(cursor) + 2));
+	idx = 1;
+	if (ft_strchr_null(start, '/') < cursor)
+	{
+		end = ft_strrchr_right_away(cursor, '/', start);
+		ret[0] = ft_strcpy(start, ++end);
+		start = end;
+	}
+	else
+		ret[0] = (char *)my_calloc(2, sizeof(char));
+	while (*cursor)
+	{
+		cursor = ft_strchr_null(cursor, '/');
+		cursor += !!(*cursor);
+		ret[idx++] = ft_strcpy(start, cursor);
+		start = (char *)cursor;
+	}
+	ret[idx] = NULL;
+	return (ret);
+}
 
 static int	_count_compressed_len(char *target_str, const char target)
 {

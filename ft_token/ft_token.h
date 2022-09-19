@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:33:13 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 23:49:06 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 17:25:57 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,20 @@ void			set_token_type(t_lx_token *token_node, char c);
 void			interpreter(t_lx_token *token);
 unsigned char	find_interpret_symbol(char **token_str, \
 												unsigned char target);
-// interpreter_middleware.c
-void			interpret_middleware(t_lx_token *token, char *chunk, \
-											unsigned char symbol_type);
 // interpreter_make_chunk.c
 char			*make_chunk_by_symbol(char **token_str, \
 					char *str_startpoint, unsigned char *symbol_type);
 // compress_target_char.c
 char			*compress_target_char(char *target_str, const char target);
-// wildcard_translator.c
+
+// translator.c
+void			dollar_translator(t_lx_token *token_cur, char *chunk, \
+															int split_flag);
+void			dquote_translator(t_lx_token *cur, char *chunk);
+void			tilde_translator(t_lx_token *cur, char *chunk);
 void			wildcard_translator(t_lx_token **cur);
+
+// translator_utils.c
+char			*cursor_to_space(int split_flag, char *str_cur);
+char			**path_split(char *start);
 #endif

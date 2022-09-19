@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/19 16:18:54 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/19 17:19:23 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,30 @@ unsigned char	find_interpret_symbol(char **token_str, \
 			(*token_str)++;
 		return (target);
 	}
+}
+
+static void	_interpret_middleware(t_lx_token *token, char *chunk, \
+									unsigned char symbol_type)
+{
+	if (symbol_type == UNDEFINED || symbol_type == QUOTE)
+		ft_strjoin_self(&token->interpreted_str, chunk);
+	else if (symbol_type == TILDE && token->interpret_symbol & TILDE)
+		tilde_translator(token, chunk);
+	else if (symbol_type == DQUOTE)
+		dquote_translator(token, chunk);
+	else if (symbol_type == DOLLAR && token->interpret_symbol & DOLLAR)
+	{
+		if (*chunk == '\0' || is_tilde(*chunk))
+		{
+			ft_strjoin_self(&token->interpreted_str, "$");
+			ft_strjoin_self(&token->interpreted_str, chunk);
+			return ;
+		}
+		dollar_translator(token, chunk, 1);
+	}
+	else if (symbol_type == WILDCARD)
+		ft_strjoin_self(&token->interpreted_str, chunk);
+	return ;
 }
 
 static void	_make_chunk_middleware(char **str_startpoint, char **token_str, \
@@ -75,7 +99,7 @@ void	interpreter(t_lx_token *token)
 				token = token->next;
 			continue ;
 		}
-		interpret_middleware(token, str_chunk, symbol_type);
+		_interpret_middleware(token, str_chunk, symbol_type);
 		my_free(str_chunk);
 		while (token->next)
 			token = token->next;

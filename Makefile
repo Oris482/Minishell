@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/19 15:41:59 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/09/19 17:27:09 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,11 +75,10 @@ FT_STRING_SRCS	=	custom_str_utils.c				\
 					custom_str_utils2.c				\
 					origin_str_utils.c				\
 					origin_str_utils2.c
-FT_TOKEN_SRCS	=	compress_target_char.c			\
-					interpreter.c					\
-					interpreter_middleware.c		\
+FT_TOKEN_SRCS	=	interpreter.c					\
 					token_node_utils.c				\
-					wildcard_translator.c			\
+					translator.c					\
+					translator_utils.c				\
 					interpreter_make_chunk.c		\
 					token_list_utils.c				\
 					tokenization_utils.c
