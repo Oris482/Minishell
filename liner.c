@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 08:10:39 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/17 22:23:51 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/20 03:57:47 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*liner(t_oflag *oflag)
 	char			*line;
 
 	ft_memset(oflag, 0, sizeof(t_oflag));
-	line = my_readline("minishell$> ");
+	line = my_readline("SUNSH$> ");
 	_check_line_oflag(line, &oflag->parentheses, &oflag->quote);
 	return (line);
 }

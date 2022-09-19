@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 19:12:42 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/19 01:07:33 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/20 03:58:23 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	print_error_not_close(char *str)
 {
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd("SUNSH: ", STDERR_FILENO);
 	ft_putstr_fd("syntax error not close token`", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putendl_fd("'", STDERR_FILENO);
@@ -23,7 +23,7 @@ void	print_error_not_close(char *str)
 
 int	print_error_syntax(char *str)
 {
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd("SUNSH: ", STDERR_FILENO);
 	ft_putstr_fd("syntax error near unexpected token`", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putendl_fd("'", STDERR_FILENO);
@@ -35,7 +35,7 @@ int	print_error_str(const char *err_cmd, const char *err_arg, \
 {
 	const char	*err_msg = strerror(errno);
 
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd("SUNSH: ", STDERR_FILENO);
 	ft_putstr_fd(err_cmd, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	if (err_arg != NULL)
