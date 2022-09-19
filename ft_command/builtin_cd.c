@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:57:27 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 23:34:38 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 21:37:11 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,17 @@ int	builtin_cd(t_lx_token *token)
 	if (builtin_option_arg_checker(&arg_token) == OPTION_ERROR)
 		return (print_error_str("cd", get_token_str(arg_token), \
 				"invalid option", INVALID_OPTION_EXIT_CODE));
-	if (arg_token == NULL || get_token_str(arg_token) == NULL)
+	if (arg_token == NULL || (arg_token->interpret_symbol & DOLLAR \
+									&& get_token_str(arg_token) == NULL))
 	{
 		path = my_getenv("HOME");
 		if (path == NULL)
 			return (print_error_str("cd", NULL, \
 					"HOME not set", GENERAL_EXIT_CODE));
 	}
-	else if (ft_strlen(get_token_str(arg_token)) == 0)
+	else if ((get_token_str(arg_token) == NULL \
+				|| ft_strlen(get_token_str(arg_token)) == 0) \
+				&& arg_token->interpret_symbol & DQUOTE)
 		path = NULL;
 	else if (ft_strcmp("-", get_token_str(arg_token)))
 		path = my_getenv("OLDPWD");

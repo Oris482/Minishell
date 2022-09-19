@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 21:18:27 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 00:34:13 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 21:26:43 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static void	_option_arg_counter(t_lx_token *token, \
 	while (token)
 	{
 		token_str = get_token_str(token);
+		if (token_str == NULL)
+			break ;
 		if (*token_str != '-' || ft_strcmp("-", token_str))
 			break ;
 		if (ft_strcmp("--", token_str))
