@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 01:33:30 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 22:00:39 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 03:52:52 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,11 @@ char	*ft_chr_to_str(char c)
 	str[1] = '\0';
 	str[0] = c;
 	return (str);
+}
+
+char	*ft_strjoin_myself_free(char **str, char *add)
+{
+	ft_strjoin_self(str, add);
+	my_free(add);
+	return (*str);
 }

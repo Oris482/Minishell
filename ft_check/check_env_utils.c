@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 04:56:31 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/19 02:05:34 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/19 02:27:36 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,3 @@ int	is_env_chr(int c, int idx)
 		return (is_dict_chr(c));
 	return (is_number_chr(c) || is_dict_chr(c));
 }
-
-// int	is_env_chr(char *head, char *cur)
-// {
-//     if (!head || !cur)
-//         return (0);
-//     if (head == cur)
-//         return (is_dict_chr(*cur));
-//     return (is_number_chr(*cur) || is_dict_chr(*cur));
-// }

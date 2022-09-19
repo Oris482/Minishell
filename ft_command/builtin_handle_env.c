@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 23:08:01 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/19 01:09:55 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 03:14:51 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,11 @@ static int	_get_env_nameval_at_token(t_lx_token *token, \
 	return (TRUE);
 }
 
-int	builtin_unset(t_lx_token *token)
+int	builtin_unset(t_lx_token *arg_token)
 {
-	t_lx_token	*arg_token;
 	char		*name;
 	int			rtn_exit_code;
 
-	arg_token = token;
 	if (builtin_option_arg_checker(&arg_token) == OPTION_ERROR)
 		return (print_error_str("unset", get_token_str(arg_token), \
 								"invalid option", INVALID_OPTION_EXIT_CODE));
@@ -84,14 +82,12 @@ int	builtin_unset(t_lx_token *token)
 	return (rtn_exit_code);
 }
 
-int	builtin_export(t_lx_token *token)
+int	builtin_export(t_lx_token *arg_token)
 {
-	t_lx_token	*arg_token;
 	char		*name;
 	char		*value;
 	int			rtn_exit_code;
 
-	arg_token = token;
 	if (builtin_option_arg_checker(&arg_token) == OPTION_ERROR)
 		return (print_error_str("export", get_token_str(arg_token), \
 								"invalid option", INVALID_OPTION_EXIT_CODE));

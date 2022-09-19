@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:59:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 23:34:10 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 03:11:31 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static char	*_find_cmd_path(char *cmd)
 	char		*pos;
 	struct stat	statbuf;
 
-	find_path = NULL;
 	if (!set_path)
 		return (NULL);
+	find_path = NULL;
 	while (*set_path)
 	{
 		pos = ft_strchr_null(set_path, ':');

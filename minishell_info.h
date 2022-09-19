@@ -6,18 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:40:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 23:54:54 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 03:59:27 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_INFO_H
 # define MINISHELL_INFO_H
-# define UNDEFINED		0b00000000
-# define QUOTE			0b00000001
-# define DQUOTE			0b00000010
-# define DOLLAR			0b00000100
-# define WILDCARD		0b00001000
-# define TILDE			0b00010000
+# include <dirent.h>
 
 # define EVEN			0
 # define ODD			1
@@ -27,9 +22,8 @@
 # define BACKUP			1
 # define RESTORE		2
 
-# define EXPORT_HEAD_MSG "declare -x "
-
-# include <dirent.h>
+# define EXPORT_HEAD_MSG	"declare -x "
+# define IDX_ONE_OR_MORE	1
 
 typedef struct s_pipe
 {
@@ -86,6 +80,16 @@ typedef struct s_oflag
 	int	and_if;
 }	t_oflag;
 
+enum	e_interpreted_type
+{
+	UNDEFINED	=	0b00000000,
+	QUOTE		=	0b00000001,
+	DQUOTE		=	0b00000010,
+	DOLLAR		=	0b00000100,
+	WILDCARD	=	0b00001000,
+	TILDE		=	0b00010000
+};
+
 enum e_tree_type
 {
 	TREE_UNDEFINED =	0b00000001,
@@ -135,6 +139,12 @@ enum	e_exit_code
 	SIG_DEFAULT_EXIT_CODE = 128,
 	NONE_NUMERIC_EXIT_CODE = 255,
 	SYNTAX_ERROR_EXIT_CODE = 258
+};
+
+enum	e_switch
+{
+	OFF,
+	ON,
 };
 
 enum	e_return
