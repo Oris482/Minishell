@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 22:01:01 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 22:14:56 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 static void	_minishell_init_setting(char *envp[])
 {
-	char			*cur_shlvl;
-	
+	char	*cur_shlvl;
+
 	set_init_signal();
 	terminal_off_control_chars();
 	set_exit_status(0);

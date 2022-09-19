@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 00:35:19 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 20:46:48 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 22:20:21 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,6 @@ static void	_handle_pipe_fd(t_pipe *info)
 	}
 }
 
-void	add_pid_to_list(t_pid_list *pid_list, pid_t pid)
-{
-	if (pid_list->pid == 0)
-		pid_list->pid = pid;
-	else
-	{
-		while (pid_list->next)
-			pid_list = pid_list->next;
-		pid_list->next = (t_pid_list *)my_calloc(1, sizeof(t_pid_list));
-		pid_list->next->pid = pid;
-	}
-}
-
 static void	_handle_pipe(t_tree *tree_node, char set_exit_status_flag, \
 							t_pipe *info, t_pid_list *pid_list)
 {
@@ -99,15 +86,6 @@ static void	_handle_pipe(t_tree *tree_node, char set_exit_status_flag, \
 		return ;
 	}
 	_handle_pipe(tree_node->right, set_exit_status_flag, info, pid_list);
-}
-
-void	count_pipe(t_tree *tree_node, t_pipe *info)
-{
-	while (tree_node->type != TREE_CMD)
-	{
-		info->pipe_cnt++;
-		tree_node = tree_node->left;
-	}
 }
 
 int	init_pipe(t_tree *tree_node, char set_exit_status_flag)
