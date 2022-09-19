@@ -6,9 +6,12 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 22:15:48 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 22:19:42 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 22:24:56 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell_info.h"
+#include "ft_alloc.h"
 
 void	count_pipe(t_tree *tree_node, t_pipe *info)
 {

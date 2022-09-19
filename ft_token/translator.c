@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 20:59:02 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 22:39:04 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,5 @@ void	wildcard_translator(t_lx_token **cur)
 	my_free(compressed_str);
 	ft_strjoin_self(&pwd, splited[0]);
 	recursive_find_files(cur, 1, pwd, splited);
-	my_free(splited);
+	char_dimen2_free(splited);
 }
