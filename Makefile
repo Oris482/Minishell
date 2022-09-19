@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/19 22:57:18 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/09/19 23:09:27 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ FT_COMMAND_SRCS	=	builtin_cd.c					\
 					builtin_echo.c					\
 					builtin_pwd.c					\
 					about_pipe.c					\
+					pipe_utils.c					\
 					redirections.c					\
 					heredoc.c						\
 					heredoc_utils.c					\
