@@ -6,11 +6,12 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:07:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/25 14:00:46 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/18 20:15:24 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./minishell.h"
+#include "minishell_info.h"
+#include "minishell.h"
 
 static void	_sigint_handler(int signum)
 {
@@ -24,7 +25,7 @@ static void	_sigint_handler(int signum)
 	}
 }
 
-void	signal_handler(void)
+void	set_init_signal(void)
 {
 	signal(SIGINT, _sigint_handler);
 	signal(SIGTERM, SIG_IGN);
@@ -34,6 +35,12 @@ void	signal_handler(void)
 	signal(SIGTTOU, SIG_IGN);
 }
 
+void	set_int_quit_signal(void *sigint_action, void *sigquit_action)
+{
+	signal(SIGINT, sigint_action);
+	signal(SIGQUIT, sigquit_action);
+}
+
 int	terminal_off_control_chars(void)
 {
 	struct termios	termios_p;
@@ -41,6 +48,18 @@ int	terminal_off_control_chars(void)
 	if (tcgetattr(STDIN_FILENO, &termios_p) == ERROR)
 		exit(GENERAL_EXIT_CODE);
 	termios_p.c_lflag &= ~(ECHOCTL);
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &termios_p) == ERROR)
+		exit(GENERAL_EXIT_CODE);
+	return (SUCCESS);
+}
+
+int	terminal_on_control_chars(void)
+{
+	struct termios	termios_p;
+
+	if (tcgetattr(STDIN_FILENO, &termios_p) == ERROR)
+		exit(GENERAL_EXIT_CODE);
+	termios_p.c_lflag |= ECHOCTL;
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &termios_p) == ERROR)
 		exit(GENERAL_EXIT_CODE);
 	return (SUCCESS);

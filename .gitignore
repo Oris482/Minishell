@@ -57,3 +57,5 @@ dkms.conf
 # custom
 minishell
 .DS_Store
+memo
+tags
