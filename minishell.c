@@ -6,13 +6,12 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 16:58:52 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 21:10:14 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_info.h"
 #include "minishell.h"
-#include "ft_debug/ft_debug.h"
 #include "ft_alloc.h"
 #include "ft_environ.h"
 #include "ft_string.h"

@@ -6,13 +6,11 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/19 20:43:01 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/19 21:10:05 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 			=	cc
-# CFLAGS 		=	-Wall -Wextra -Werror -fsanitize=address
-# CFLAGS		= 	-fsanitize=address
 CFLAGS 		=	-Wall -Wextra -Werror
 
 LINKER		=	$(LDFLAGS) -lreadline
@@ -21,7 +19,6 @@ RM 			=	rm -vf
 AR 			= ar
 MAKE_C 		= make -C
 
-FT_DEBUG_DIR 		=	ft_debug/
 FT_ALLOC_DIR		=	ft_alloc/
 FT_CHECK_DIR		=	ft_check/
 FT_COMMAND_DIR		=	ft_command/
@@ -35,11 +32,6 @@ FT_TREE_DIR			=	ft_tree/
 
 NAME	 	=	minishell
 
-# 파일 기능별로 분류해서 소스파일 넣기
-
-FT_DEBUG_SRCS	=	debug_function.c				\
-					debug_print_envp.c				\
-					debug_print_tree.c
 FT_ALLOC_SRCS	=	about_alloc.c					\
 					free_utils.c
 FT_CHECK_SRCS	=	check_char_utils.c				\
@@ -97,8 +89,7 @@ MANDA_SRCS	=	minishell.c											\
 				parser_utils.c										\
 				expand_cmd_tree_utils.c								\
 				executor.c
-MANDA_SRCS	+=	$(addprefix $(FT_DEBUG_DIR), $(FT_DEBUG_SRCS))		\
-				$(addprefix $(FT_ALLOC_DIR), $(FT_ALLOC_SRCS))		\
+MANDA_SRCS	+=	$(addprefix $(FT_ALLOC_DIR), $(FT_ALLOC_SRCS))		\
 				$(addprefix $(FT_CHECK_DIR), $(FT_CHECK_SRCS))		\
 				$(addprefix $(FT_COMMAND_DIR), $(FT_COMMAND_SRCS))	\
 				$(addprefix $(FT_ENVIRON_DIR), $(FT_ENVIRON_SRCS))	\
@@ -113,7 +104,6 @@ MANDA_SRCS	+=	$(addprefix $(FT_DEBUG_DIR), $(FT_DEBUG_SRCS))		\
 OBJS			=	$(MANDA_SRCS:.c=.o)
 INC_HEADERS		=	-I. 				\
 					$(CPPFLAGS)			\
-					-I$(FT_DEBUG_DIR)	\
 					-I$(FT_ALLOC_DIR)	\
 					-I$(FT_CHECK_DIR)	\
 					-I$(FT_COMMAND_DIR)	\
@@ -154,10 +144,7 @@ re:
 	@make fclean
 	@make all
 
-bonus:
-	@$(MAKE) \
-	"NAME 			=	$(BONUS_NAME)"									\
-	"OBJS			=	$(BONUS_SRCS:.c=.o)"							\
+bonus: all
 
 list:
 	@echo $(MANDA_SRCS)
