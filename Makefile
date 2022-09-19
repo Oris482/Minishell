@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/19 17:27:09 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/09/19 18:06:24 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ FT_COMMAND_SRCS	=	builtin_cd.c					\
 					redirections.c					\
 					heredoc.c						\
 					heredoc_utils.c					\
+					allow_about_pipe_func.c			\
 					builtin_utils.c
 FT_ENVIRON_SRCS	=	about_env.c						\
 					dict_utils.c					\
@@ -76,11 +77,11 @@ FT_STRING_SRCS	=	custom_str_utils.c				\
 					origin_str_utils.c				\
 					origin_str_utils2.c
 FT_TOKEN_SRCS	=	interpreter.c					\
+					interpreter_make_chunk.c		\
 					token_node_utils.c				\
+					token_list_utils.c				\
 					translator.c					\
 					translator_utils.c				\
-					interpreter_make_chunk.c		\
-					token_list_utils.c				\
 					tokenization_utils.c
 FT_TREE_SRCS	=	tree_utils.c
 

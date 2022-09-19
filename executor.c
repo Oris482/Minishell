@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 00:39:44 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 17:38:59 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	run_simple_cmd(t_lx_token *token)
 		return (builtin_middleware(token, builtin_idx));
 	else
 	{
-		pid = fork();
+		pid = my_fork();
 		set_int_quit_signal(SIG_DFL, SIG_DFL);
 		if (pid == 0)
 			execute_middleware(token);

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:46:45 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 00:36:52 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 18:05:39 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int				builtin_unset(t_lx_token *token);
 
 // about_pipe.c
 int				init_pipe(t_tree *tree_node, char set_exit_status_flag);
+pid_t			my_fork(void);
 
 // heredoc.c
 int				make_tmp_heredoc(t_lx_token *token, char *limiter);
@@ -55,5 +56,12 @@ int				print_export(void);
 
 // program.c
 void			execute_middleware(t_lx_token *token);
+
+//allow_about_pipe.c
+int		my_dup2(int fildes, int fildes2);
+int		my_pipe(int files[2]);
+pid_t	my_fork(void);
+int		my_close(int fildes);
+
 
 #endif
