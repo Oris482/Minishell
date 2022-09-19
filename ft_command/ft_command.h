@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:46:45 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 23:07:45 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/20 02:55:01 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@
 # include <errno.h>
 # include <stdlib.h>
 
-# define OPTION_ERROR	3
-# define ARG_ERROR		4
+# define DO_NOT_TRANSLATE	0
+# define TRANSLATE_ENV		1
+
+# define OPTION_ERROR		3
+# define ARG_ERROR			4
 
 // built-in functions
 int				redi_heredoc(char *limiter);
@@ -42,12 +45,12 @@ void			count_pipe(t_tree *tree_node, t_pipe *info);
 void			add_pid_to_list(t_pid_list *pid_list, pid_t pid);
 
 // heredoc.c
-int				make_tmp_heredoc(t_lx_token *token, char *limiter);
+int				make_tmp_heredoc(t_lx_token *token, char *pure_limiter);
 int				handle_redirections_error(const char *cmd, const char *arg);
 
 // heredoc_utils.c
 int				make_tmpfile(char **tmpname, int *fd);
-void			write_tmp_heredoc(char *limiter, int write_fd);
+void			write_tmp_heredoc(t_heredoc_info *heredoc_info, int write_fd);
 
 // builtin_utils.c
 int				is_builtin(const char *str);

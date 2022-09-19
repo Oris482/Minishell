@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:31:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/19 01:06:38 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/20 00:27:17 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,12 @@ void	expand_token_to_tree(t_tree *root)
 t_tree	*parser(t_lx_token *head)
 {
 	t_tree	*root;
+	int		exit_code;
 
-	if (check_syntax_error(head) == SYNTAX_ERROR_EXIT_CODE)
+	exit_code = check_syntax_error(head);
+	if (exit_code != SUCCESS_EXIT_CODE)
 	{
-		set_exit_status(SYNTAX_ERROR_EXIT_CODE);
+		set_exit_status(exit_code);
 		return (list_tree_free(head, NULL));
 	}
 	root = make_tree_node(TREE_UNDEFINED, NULL, head);

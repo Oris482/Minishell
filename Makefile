@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/19 23:09:27 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/09/19 23:22:57 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,8 +55,7 @@ FT_COMMAND_SRCS	=	builtin_cd.c					\
 FT_ENVIRON_SRCS	=	about_env.c						\
 					dict_utils.c					\
 					dict_list_utils.c				\
-					dict_node_utils.c				\
-					envp_utils.c
+					dict_node_utils.c
 FT_FILE_SRCS	=	about_dir.c						\
 					dirent_utils.c					\
 					find_files.c					\

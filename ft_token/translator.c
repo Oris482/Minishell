@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 22:39:04 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/20 02:53:01 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*_make_dollar_find_str(char *chunk)
 	else if (*chunk == '$' || *chunk == '\0')
 		ret_str = ft_chr_to_str('$');
 	else
-		ret_str = my_getenv(chunk);
+		ret_str = ft_strdup(my_getenv(chunk));
 	if (!ret_str || !*ret_str)
 		return (NULL);
 	return (ret_str);
@@ -48,6 +48,7 @@ void	dollar_translator(t_lx_token *token_cur, char *chunk, int split_flag)
 	str_cur = cursor_to_space(split_flag, find_str);
 	ft_strjoin_self_add_free(&token_cur->interpreted_str, \
 												ft_strcpy(find_str, str_cur));
+	my_free(find_str);
 	while (*str_cur)
 	{
 		if (ft_isspace(*str_cur) && str_cur++)

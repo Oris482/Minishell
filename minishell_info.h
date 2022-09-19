@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:40:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 23:08:26 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/20 00:47:11 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ typedef struct s_pid_list
 	pid_t				pid;
 	struct s_pid_list	*next;
 }	t_pid_list;
+
+typedef struct s_heredoc_info
+{
+	int		option;
+	char	*limiter;
+}	t_heredoc_info;
 
 # define DICT_MAX		53
 

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 23:26:11 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 23:32:37 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/20 01:33:06 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "ft_string.h"
 #include "ft_alloc.h"
 #include "ft_environ.h"
+#include "ft_token.h"
+#include "ft_print.h"
 
 static char	*_make_tmpname(char *ref, char *prefix)
 {
@@ -74,15 +76,25 @@ static void	_heredoc_signal_handler(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	write_tmp_heredoc(char *limiter, int write_fd)
+void	write_tmp_heredoc(t_heredoc_info *heredoc_info, int write_fd)
 {
-	char	*line;
+	char		*line;
+	t_lx_token	tmp_token;
 
 	_heredoc_signal_handler();
 	line = my_readline("> ");
-	while (line && !ft_strcmp(line, limiter))
+	while (line && !ft_strcmp(line, heredoc_info->limiter))
 	{
-		write(write_fd, line, ft_strlen(line));
+		if (heredoc_info->option == DO_NOT_TRANSLATE \
+								|| !ft_strchr(line, '$'))
+			write(write_fd, line, ft_strlen(line));
+		else
+		{
+			tmp_token.interpreted_str = NULL;
+			dquote_translator(&tmp_token, line);
+			ft_putstr_fd(tmp_token.interpreted_str, write_fd);
+			my_free(tmp_token.interpreted_str);
+		}
 		write(write_fd, "\n", 1);
 		my_free(line);
 		line = my_readline("> ");
