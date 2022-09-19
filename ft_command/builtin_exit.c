@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 20:23:17 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/20 04:19:41 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/20 04:23:13 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "ft_token.h"
 #include "ft_print.h"
 
-int	is_numeric(char *str)
+static int	_is_numeric(char *str)
 {
 	if (*str == '+' || *str == '-')
 		str++;
@@ -61,7 +61,7 @@ int	builtin_exit(t_lx_token *token)
 	if (token->next)
 	{
 		token_str = get_token_str(token->next);
-		if (is_numeric(token_str) == FALSE)
+		if (_is_numeric(token_str) == FALSE)
 			return (print_error_str("exit", token_str, \
 						"numeric argument required", NONE_NUMERIC_EXIT_CODE));
 		else if (token->next->next != NULL)
