@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:46:45 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 20:40:30 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 23:00:17 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,9 @@ int				print_export(void);
 void			execute_middleware(t_lx_token *token);
 
 //allow_about_pipe.c
-int		my_dup(int fildes);
-int		my_dup2(int fildes, int fildes2);
-int		my_pipe(int files[2]);
-pid_t	my_fork(void);
-
+int				my_dup(int fildes);
+int				my_dup2(int fildes, int fildes2);
+int				my_pipe(int files[2]);
+pid_t			my_fork(void);
 
 #endif

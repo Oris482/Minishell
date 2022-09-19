@@ -6,12 +6,12 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/19 22:08:22 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/19 22:57:18 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 			=	cc
-CFLAGS 		=	-Wall -Wextra -Werror -fsanitize=address
+CFLAGS 		=	-Wall -Wextra -Werror #-fsanitize=address
 
 LINKER		=	$(LDFLAGS) -lreadline
 COMPILE		=	-c
@@ -53,7 +53,8 @@ FT_COMMAND_SRCS	=	builtin_cd.c					\
 					builtin_utils.c
 FT_ENVIRON_SRCS	=	about_env.c						\
 					dict_utils.c					\
-					dict_utils2.c					\
+					dict_list_utils.c				\
+					dict_node_utils.c				\
 					envp_utils.c
 FT_FILE_SRCS	=	about_dir.c						\
 					dirent_utils.c					\
@@ -100,7 +101,6 @@ MANDA_SRCS	+=	$(addprefix $(FT_ALLOC_DIR), $(FT_ALLOC_SRCS))		\
 				$(addprefix $(FT_TOKEN_DIR), $(FT_TOKEN_SRCS))		\
 				$(addprefix $(FT_TREE_DIR), $(FT_TREE_SRCS))
 
-# SRCS			= 	$(MANDA_SRCS)
 OBJS			=	$(MANDA_SRCS:.c=.o)
 INC_HEADERS		=	-I. 				\
 					$(CPPFLAGS)			\
@@ -114,7 +114,6 @@ INC_HEADERS		=	-I. 				\
 					-I$(FT_STRING_DIR)	\
 					-I$(FT_TOKEN_DIR)	\
 					-I$(FT_TREE_DIR)
-					
 
 all: $(NAME)
 
@@ -146,14 +145,7 @@ re:
 
 bonus: all
 
-list:
-	@echo $(MANDA_SRCS)
-	@echo $(OBJS)
-
 lldb:
 	$(CC) $(CFLAGS) $(MANDA_SRCS) $(LINKER) $(INC_HEADERS) $(CPPFLAGS) -o $(NAME) -g
-
-gdb:
-	gcc $(CFLAGS) $(MANDA_SRCS) $(LINKER) $(INC_HEADERS) $(CPPFLAGS) -o $(NAME) -g
 
 .PHONY: all clean fclean re bonus

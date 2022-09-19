@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 22:01:01 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 22:55:20 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,10 @@
 
 static void	_minishell_init_setting(char *envp[])
 {
-	char			*cur_shlvl;
-	
 	set_init_signal();
 	terminal_off_control_chars();
 	set_exit_status(0);
 	envp_to_dict(envp);
-	put_dict(ft_strdup("OLDPWD"), ft_strdup(""));
-	erase_dict("_");
-	cur_shlvl = my_getenv("SHLVL");
-	if (cur_shlvl == NULL)
-		put_dict(ft_strdup("SHLVL"), ft_strdup("1"));
-	else
-		put_dict(ft_strdup("SHLVL"), ft_itoa(ft_atoi(cur_shlvl) + 1));
 }
 
 static void	_minishell_routine(char *full_line, t_oflag *oflag)
