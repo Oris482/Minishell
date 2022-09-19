@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:18:47 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 23:20:47 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 15:43:24 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ unsigned char	is_target_char(const char c, const char target)
 	return (FALSE);
 }
 
-int	is_token_seperator(const char c)
-{
-	return (ft_isspace(c) | is_metacharacter(c));
-}
-
 int	is_metacharacter(const char c)
 {
 	if (c == '|')
@@ -46,6 +41,11 @@ int	is_metacharacter(const char c)
 		return (RED_OUT);
 	else
 		return (FALSE);
+}
+
+int	is_token_seperator(const char c)
+{
+	return (ft_isspace(c) | is_metacharacter(c));
 }
 
 int	is_redi_token(t_lx_token *token)

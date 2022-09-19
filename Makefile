@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/19 01:03:44 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/19 15:41:59 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ FT_DEBUG_SRCS	=	debug_function.c				\
 FT_ALLOC_SRCS	=	about_alloc.c					\
 					free_utils.c
 FT_CHECK_SRCS	=	check_char_utils.c				\
+					check_special_char_utils.c		\
 					check_env_utils.c				\
 					check_interpret_symbol_utils.c
 FT_COMMAND_SRCS	=	builtin_cd.c					\
@@ -95,7 +96,7 @@ MANDA_SRCS	=	minishell.c											\
 				parser.c											\
 				parser_utils.c										\
 				expand_cmd_tree_utils.c								\
-				executor.c									
+				executor.c
 MANDA_SRCS	+=	$(addprefix $(FT_DEBUG_DIR), $(FT_DEBUG_SRCS))		\
 				$(addprefix $(FT_ALLOC_DIR), $(FT_ALLOC_SRCS))		\
 				$(addprefix $(FT_CHECK_DIR), $(FT_CHECK_SRCS))		\

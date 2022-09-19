@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:15:28 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/19 02:11:49 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/19 16:18:00 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ unsigned char	is_target_char(const char c, const char target);
 int				is_token_seperator(const char c);
 int				is_metacharacter(const char c);
 int				is_redi_token(t_lx_token *token);
+
+// check_special_char_utils.c
+unsigned char	is_question_mark(int c);
 
 // check_interpret_symbol_utils.c
 unsigned char	is_quote(const char c);

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 04:15:44 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/19 16:25:25 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static void	_dollar_translator(t_lx_token *token_cur, char *chunk, int split_fla
 
 	if (*chunk == '?')
 		find_str = ft_itoa(get_exit_status());
+	else
+		find_str = my_getenv(chunk);
 	// {
 	//     // ft_strjoin_self(&token_cur->interpreted_str, temp);
 	//     // ft_strjoin_self(&token_cur->interpreted_str, chunk + 1);
@@ -54,11 +56,10 @@ static void	_dollar_translator(t_lx_token *token_cur, char *chunk, int split_fla
 	//     ft_strjoin_self(&token_cur->interpreted_str, "$");
 	//     return ;
 	// }
-	find_str = my_getenv(chunk);
 	if (!find_str || !*find_str)
 		return ;
 	str_cur = _cursor_to_space(split_flag, find_str);
-	ft_strjoin_myself_free(&token_cur->interpreted_str, \
+	ft_strjoin_self_add_free(&token_cur->interpreted_str, \
 												ft_strcpy(find_str, str_cur));
 	while (*str_cur)
 	{
@@ -84,16 +85,16 @@ static void	_dquote_translator(t_lx_token *cur, char *chunk)
 	while (*chunk)
 	{
 		pos = ft_strchr_null(chunk, '$');
-		tmp = ft_strcpy(chunk, pos);
-		ft_strjoin_self(&cur->interpreted_str, tmp);
+		ft_strjoin_self_add_free(&cur->interpreted_str, \
+													ft_strcpy(chunk, pos));
 		chunk = pos;
-		my_free(tmp);
 		if (*chunk == '$' && pos++)
 		{
 			while (*pos)
 			{
 				if (is_token_seperator(*pos) || is_interpret_symbol(*pos) \
-										|| !is_env_chr(*pos, IDX_ONE_OR_MORE))
+								|| (!is_env_chr(*pos, IDX_ONE_OR_MORE) \
+												&& !is_question_mark(*pos)))
 					break ;
 				pos++;
 			}
