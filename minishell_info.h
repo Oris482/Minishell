@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:40:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 03:59:27 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/19 20:33:34 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define MINISHELL_INFO_H
 # include <dirent.h>
 
-# define EVEN			0
-# define ODD			1
+# define A			0
+# define B			1
 # define F_READ			0
 # define F_WRITE		1
 
@@ -25,12 +25,22 @@
 # define EXPORT_HEAD_MSG	"declare -x "
 # define IDX_ONE_OR_MORE	1
 
+# include <dirent.h>
+# include <unistd.h>
+
 typedef struct s_pipe
 {
 	int	fd[2][2];
 	int	pipe_cnt;
 	int	fork_cnt;
 }	t_pipe;
+
+typedef struct s_pid_list
+{
+	pid_t				pid;
+	struct s_pid_list	*next;
+}	t_pid_list;
+
 
 # define DICT_MAX		53
 

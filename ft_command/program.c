@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:59:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/19 03:11:31 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/19 20:33:59 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void	execute_middleware(t_lx_token *token)
 	char		**cmd_envp;
 	struct stat	statbuf;
 
-	terminal_on_control_chars();
 	cmd_str = get_token_str(token);
 	cmd_path = cmd_str;
 	stat(cmd_path, &statbuf);

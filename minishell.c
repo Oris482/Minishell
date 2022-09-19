@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 23:55:34 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 16:58:52 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ static void	_minishell_routine(char *full_line, t_oflag *oflag)
 	root_tree = parser(token_list);
 	if (!root_tree)
 		return ;
+	terminal_on_control_chars();
 	executor(root_tree, TRUE);
+	terminal_off_control_chars();
 	list_tree_free(NULL, root_tree);
 }
 
