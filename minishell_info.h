@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:40:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 20:33:34 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 20:46:22 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define B			1
 # define F_READ			0
 # define F_WRITE		1
+
+# define CHILD_PID		0
 
 # define BACKUP			1
 # define RESTORE		2

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 17:38:59 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/19 20:46:31 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	run_simple_cmd(t_lx_token *token)
 	{
 		pid = my_fork();
 		set_int_quit_signal(SIG_DFL, SIG_DFL);
-		if (pid == 0)
+		if (pid == CHILD_PID)
 			execute_middleware(token);
 		set_int_quit_signal(SIG_IGN, SIG_IGN);
 		waitpid(pid, &status, WUNTRACED);
@@ -48,16 +48,13 @@ int	handle_fd(int *backup_fd, int task)
 {
 	if (task == BACKUP)
 	{
-		backup_fd[F_READ] = dup(STDIN_FILENO);
-		backup_fd[F_WRITE] = dup(STDOUT_FILENO);
-		if (backup_fd[F_READ] == ERROR || backup_fd[F_WRITE] == ERROR)
-			return (FALSE);
+		backup_fd[F_READ] = my_dup(STDIN_FILENO);
+		backup_fd[F_WRITE] = my_dup(STDOUT_FILENO);
 	}
 	else if (task == RESTORE)
 	{
-		if (dup2(backup_fd[F_READ], STDIN_FILENO) == ERROR \
-			|| dup2(backup_fd[F_WRITE], STDOUT_FILENO) == ERROR)
-			return (FALSE);
+		my_dup2(backup_fd[F_READ], STDIN_FILENO);
+		my_dup2(backup_fd[F_WRITE], STDOUT_FILENO);
 		close(backup_fd[F_READ]);
 		close(backup_fd[F_WRITE]);
 	}
@@ -71,8 +68,8 @@ int	run_subshell(t_tree *tree_node, char set_exit_status_flag)
 	pid_t	pid;
 	int		status;
 
-	pid = fork();
-	if (pid == 0)
+	pid = my_fork();
+	if (pid == CHILD_PID)
 		exit(executor(tree_node->left, set_exit_status_flag));
 	waitpid(pid, &status, WUNTRACED);
 	return (get_exit_code(status));

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 00:35:19 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 20:26:59 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 20:46:48 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,9 @@ static void	_set_pipe_for_child(t_pipe *info)
 	const int	idx = info->fork_cnt;
 
 	if (idx != 0)
-		if (dup2(info->fd[!(idx % 2)][F_READ], STDIN_FILENO) == ERROR)
-			exit(GENERAL_EXIT_CODE);
+		my_dup2(info->fd[!(idx % 2)][F_READ], STDIN_FILENO);
 	if (idx != info->pipe_cnt)
-		if (dup2(info->fd[idx % 2][F_WRITE], STDOUT_FILENO) == ERROR)
-			exit(GENERAL_EXIT_CODE);
+		my_dup2(info->fd[idx % 2][F_WRITE], STDOUT_FILENO);
 	if (idx == 0)
 		close(info->fd[A][F_READ]);
 	else if (idx == info->pipe_cnt)
@@ -91,12 +89,9 @@ static void	_handle_pipe(t_tree *tree_node, char set_exit_status_flag, \
 		_handle_pipe(tree_node->left, FALSE, info, pid_list);
 	else
 	{
-		if (pipe(info->fd[info->fork_cnt % 2]) == ERROR)
-			exit(GENERAL_EXIT_CODE);
-		pid = fork();
-		if (pid == ERROR)
-			exit(GENERAL_EXIT_CODE);
-		else if (pid == 0)
+		my_pipe(info->fd[info->fork_cnt % 2]);
+		pid = my_fork();
+		if (pid == CHILD_PID)
 			_pipe_child(tree_node, set_exit_status_flag, info);
 		add_pid_to_list(pid_list, pid);
 		_handle_pipe_fd(info);

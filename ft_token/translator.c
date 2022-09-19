@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 17:25:48 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/19 20:59:02 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ static char	*_make_dollar_find_str(char *chunk)
 	char	*ret_str;
 
 	if (*chunk == '?')
+	{
 		ret_str = ft_itoa(get_exit_status());
+		ft_strjoin_self(&ret_str, chunk + 1);
+	}
 	else if (*chunk == '$' || *chunk == '\0')
 		ret_str = ft_chr_to_str('$');
 	else
@@ -77,7 +80,7 @@ void	dquote_translator(t_lx_token *cur, char *chunk)
 			while (*pos)
 			{
 				if (is_token_seperator(*pos) || is_interpret_symbol(*pos) \
-								|| (!is_env_chr(*pos, IDX_ONE_OR_MORE) \
+							|| (!is_env_chr(*pos, IDX_ONE_OR_MORE) \
 												&& !is_question_mark(*pos)))
 					break ;
 				pos++;

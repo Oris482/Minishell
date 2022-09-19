@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 13:50:16 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 23:33:44 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 20:42:03 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,7 @@ int	redi_in(char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd == ERROR)
 		return (handle_redirections_error("Redi-in", filename));
-	if (dup2(fd, STDIN_FILENO) == ERROR)
-	{
-		close(fd);
-		return (print_error_str("Redi-in", NULL, NULL, GENERAL_EXIT_CODE));
-	}
+	my_dup2(fd, STDIN_FILENO);
 	close(fd);
 	return (SUCCESS_EXIT_CODE);
 }
@@ -67,11 +63,7 @@ int	redi_out(char *filename, int extra_mode)
 	fd = open(filename, open_mode, file_modes);
 	if (fd == ERROR)
 		return (handle_redirections_error("Redi-out", filename));
-	if (dup2(fd, STDOUT_FILENO) == ERROR)
-	{
-		close(fd);
-		return (print_error_str("redi-out", NULL, NULL, GENERAL_EXIT_CODE));
-	}
+	my_dup2(fd, STDOUT_FILENO);
 	close(fd);
 	return (SUCCESS_EXIT_CODE);
 }

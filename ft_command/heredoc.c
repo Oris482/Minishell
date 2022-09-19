@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 23:22:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 23:33:07 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/19 20:47:05 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	make_tmp_heredoc(t_lx_token *token, char *limiter)
 		return (handle_redirections_error("Here-doc", NULL));
 	token->interpreted_str = tmpname;
 	signal(SIGINT, SIG_IGN);
-	pid = fork();
-	if (pid == 0)
+	pid = my_fork();
+	if (pid == CHILD_PID)
 		write_tmp_heredoc(limiter, write_fd);
 	waitpid(pid, &status, WUNTRACED);
 	set_init_signal();
@@ -43,8 +43,7 @@ int	redi_heredoc(char *filename)
 	if (read_fd == ERROR)
 		return (print_error_str("here-doc", NULL, \
 					"can't open tmp file", GENERAL_EXIT_CODE));
-	if (dup2(read_fd, STDIN_FILENO) == ERROR)
-		return (print_error_str("here-doc", NULL, NULL, GENERAL_EXIT_CODE));
+	my_dup2(read_fd, STDIN_FILENO);
 	close(read_fd);
 	return (SUCCESS_EXIT_CODE);
 }
