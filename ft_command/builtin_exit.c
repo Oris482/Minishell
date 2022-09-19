@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 20:23:17 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 23:41:17 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/20 04:19:41 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	is_numeric(char *str)
 {
 	if (*str == '+' || *str == '-')
 		str++;
+	if (*str == '\0')
+		return (FALSE);
 	while (*str >= '0' && *str <= '9')
 		str++;
 	if (*str != '\0')
