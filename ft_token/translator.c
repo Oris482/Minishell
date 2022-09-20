@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/20 02:53:01 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/20 08:30:32 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,13 @@
 #include "ft_alloc.h"
 #include "ft_environ.h"
 
-static char	*_make_dollar_find_str(char *chunk)
+char	*interpreted_chunk(char *chunk)
 {
 	char	*ret_str;
 
 	if (*chunk == '?')
-	{
 		ret_str = ft_itoa(get_exit_status());
-		ft_strjoin_self(&ret_str, chunk + 1);
-	}
-	else if (*chunk == '$' || *chunk == '\0')
+	else if (*chunk == '$')// || *chunk == '\0')
 		ret_str = ft_chr_to_str('$');
 	else
 		ret_str = ft_strdup(my_getenv(chunk));
@@ -37,18 +34,51 @@ static char	*_make_dollar_find_str(char *chunk)
 	return (ret_str);
 }
 
-void	dollar_translator(t_lx_token *token_cur, char *chunk, int split_flag)
+static char	*_make_dollar_find_str(char *token_str)
+{
+	char	*ret_str;
+	char	*chunk;
+
+	ret_str = NULL;
+	token_str = ft_strchr_null(token_str, '$');
+	while (*token_str)
+	{
+		if (is_interpret_symbol(*token_str))
+		{
+			chunk = handle_dollar_symbol(&token_str, token_str);
+			ft_strjoin_self_add_free(&ret_str, interpreted_chunk(chunk));
+			my_free(chunk);
+		}
+		else
+		{
+			ft_strjoin_self_add_free(&ret_str, ft_chr_to_str(*token_str));
+			token_str++;
+		}
+	}
+	return (ret_str);
+}
+
+void	dollar_translator(t_lx_token *token_cur, int split_flag)
 {
 	char	*find_str;
 	char	*str_cur;
+	char	*tmp;
 
-	find_str = _make_dollar_find_str(chunk);
+	find_str = _make_dollar_find_str(token_cur->token_str);
+	tmp = find_str;
 	if (!find_str)
 		return ;
+	if (token_cur->interpreted_str == NULL)
+		while (ft_isspace(*find_str) && find_str++);
 	str_cur = cursor_to_space(split_flag, find_str);
-	ft_strjoin_self_add_free(&token_cur->interpreted_str, \
+	if (!ft_isspace(*find_str))
+	{
+		ft_strjoin_self_add_free(&token_cur->interpreted_str, \
 												ft_strcpy(find_str, str_cur));
-	my_free(find_str);
+		token_cur->interpret_symbol = 0;
+		token_cur->interpret_symbol |= DOLLAR * split_flag \
+			| WILDCARD * !!ft_strchr(token_cur->interpreted_str, '*');
+	}
 	while (*str_cur)
 	{
 		if (ft_isspace(*str_cur) && str_cur++)
@@ -63,6 +93,7 @@ void	dollar_translator(t_lx_token *token_cur, char *chunk, int split_flag)
 			| WILDCARD * !!ft_strchr(token_cur->next->interpreted_str, '*');
 		token_cur = token_cur->next;
 	}
+	my_free(tmp);
 }
 
 void	dquote_translator(t_lx_token *cur, char *chunk)
@@ -87,7 +118,7 @@ void	dquote_translator(t_lx_token *cur, char *chunk)
 				pos++;
 			}
 			tmp = ft_strcpy(chunk + 1, pos);
-			dollar_translator(cur, tmp, 0);
+			dollar_translator(cur, 0);
 			my_free(tmp);
 			chunk = pos;
 		}

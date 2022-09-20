@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/19 23:22:57 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/20 04:34:16 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ RM 			=	rm -vf
 AR 			= ar
 MAKE_C 		= make -C
 
+FT_DEBUG_DIR 		=	ft_debug/
 FT_ALLOC_DIR		=	ft_alloc/
 FT_CHECK_DIR		=	ft_check/
 FT_COMMAND_DIR		=	ft_command/
@@ -32,6 +33,9 @@ FT_TREE_DIR			=	ft_tree/
 
 NAME	 	=	minishell
 
+FT_DEBUG_SRCS	=	debug_function.c				\
+					debug_print_envp.c				\
+					debug_print_tree.c
 FT_ALLOC_SRCS	=	about_alloc.c					\
 					free_utils.c
 FT_CHECK_SRCS	=	check_char_utils.c				\
@@ -99,11 +103,13 @@ MANDA_SRCS	+=	$(addprefix $(FT_ALLOC_DIR), $(FT_ALLOC_SRCS))		\
 				$(addprefix $(FT_PRINT_DIR), $(FT_PRINT_SRCS))		\
 				$(addprefix $(FT_STRING_DIR), $(FT_STRING_SRCS))	\
 				$(addprefix $(FT_TOKEN_DIR), $(FT_TOKEN_SRCS))		\
+				$(addprefix $(FT_DEBUG_DIR), $(FT_DEBUG_SRCS))		\
 				$(addprefix $(FT_TREE_DIR), $(FT_TREE_SRCS))
 
 OBJS			=	$(MANDA_SRCS:.c=.o)
 INC_HEADERS		=	-I. 				\
 					$(CPPFLAGS)			\
+					-I$(FT_DEBUG_DIR)	\
 					-I$(FT_ALLOC_DIR)	\
 					-I$(FT_CHECK_DIR)	\
 					-I$(FT_COMMAND_DIR)	\
