@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/20 11:18:08 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/20 11:38:54 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,64 +16,30 @@
 #include "ft_string.h"
 #include "ft_alloc.h"
 
-unsigned char	find_interpret_symbol(char **token_str, \
-												unsigned char target)
-{
-	if (target == UNDEFINED || target == DOLLAR)
-	{
-		while (**token_str && (!is_interpret_symbol(**token_str) \
-							&& is_env_chr(**token_str, IDX_ONE_OR_MORE)))
-			(*token_str)++;
-		return (is_interpret_symbol(**token_str));
-	}
-	else if (target == TILDE)
-	{
-		while (**token_str && !is_dollar(**token_str) \
-							&& !is_quote(**token_str))
-			(*token_str)++;
-		return (TILDE);
-	}
-	else
-	{
-		while ((is_quote(**token_str) | is_dollar(**token_str)) != target)
-			(*token_str)++;
-		return (target);
-	}
-}
-
-static void	_interpret_middleware(t_lx_token *token, char *chunk, \
-									unsigned char symbol_type)
-{
-	if (is_quote())
-		return (quote_translator);
-	else if (is_dquote())
-		return (dquote_translator);
-	else if (is_dollar())
-		return (dollar_translator);
-	else if (c == '*')
-		return (wildcard_translator);
-
-
-	if (symbol_type == UNDEFINED || symbol_type == QUOTE)
-		ft_strjoin_self(&token->interpreted_str, chunk);
-	else if (symbol_type == TILDE && token->interpret_symbol & TILDE)
-		tilde_translator(token, chunk);
-	else if (symbol_type == DQUOTE)
-		dquote_translator(token, chunk);
-	else if (symbol_type == DOLLAR && token->interpret_symbol & DOLLAR)
-	{
-		if (*chunk == '\0' || is_tilde(*chunk))
-		{
-			ft_strjoin_self(&token->interpreted_str, "$");
-			ft_strjoin_self(&token->interpreted_str, chunk);
-			return ;
-		}
-		dollar_translator(token, chunk, 1);
-	}
-	else if (symbol_type == WILDCARD)
-		ft_strjoin_self(&token->interpreted_str, chunk);
-	return ;
-}
+// unsigned char	find_interpret_symbol(char **token_str, \
+//                                                 unsigned char target)
+// {
+//     if (target == UNDEFINED || target == DOLLAR)
+//     {
+//         while (**token_str && (!is_interpret_symbol(**token_str) \
+//                             && is_env_chr(**token_str, IDX_ONE_OR_MORE)))
+//             (*token_str)++;
+//         return (is_interpret_symbol(**token_str));
+//     }
+//     else if (target == TILDE)
+//     {
+//         while (**token_str && !is_dollar(**token_str) \
+//                             && !is_quote(**token_str))
+//             (*token_str)++;
+//         return (TILDE);
+//     }
+//     else
+//     {
+//         while ((is_quote(**token_str) | is_dollar(**token_str)) != target)
+//             (*token_str)++;
+//         return (target);
+//     }
+// }
 
 static void	_make_chunk_middleware(char **str_startpoint, char **token_str, \
 								char **str_chunk, unsigned char *symbol_type)
@@ -120,8 +86,8 @@ static char	*_make_dollar_interpreted(char *chunk)
 	return (ret_str);
 }
 
-int dollar_translator(t_lx_token **cur_token, char **cur_token_str, \
-																int split_flag)
+int dollar_translator(t_lx_token *cur_token, char **cur_token_str, \
+															int split_flag)
 {
 	char	*find_pos;
 	char	*chunk;
@@ -132,25 +98,46 @@ int dollar_translator(t_lx_token **cur_token, char **cur_token_str, \
 	chunk = _make_dollar_interpreted(chunk);
 	if (!chunk)
 		return (FALSE);
+	cursor_to_space(split_flag, chunk);
+	ft_strjoin_self_add_free(&cur_token->interpreted_str, \
+											ft_strcpy(find_str, str_cur));
+	while (*)
+	{
+
+	}
+	while (*str_cur)
+	{
+		if (ft_isspace(*str_cur) && str_cur++)
+			continue ;
+		if (token_cur->interpret_symbol & WILDCARD)
+			wildcard_translator(&token_cur);
+		find_str = str_cur;
+		str_cur = cursor_to_space(split_flag, find_str);
+		token_cur->next = make_token_node(NULL, WORD);
+		token_cur->next->interpreted_str = ft_strcpy(find_str, str_cur);
+		token_cur->next->interpret_symbol |= DOLLAR * split_flag \
+			| WILDCARD * !!ft_strchr(token_cur->next->interpreted_str, '*');
+		token_cur = token_cur->next;
+	}
 	if ()
 	str_cur = cursor_to_space(split_flag, find_str);
-	ft_strjoin_self_add_free(&token_cur->interpreted_str, \
-												ft_strcpy(find_str, str_cur));
 	while ()
 	*cur_token_str =
 
+	return ()
 
 }
 
 
-static int	_interpret_middleware(t_lx_token **cur_token, unsigned char symbol_type)
+static int	_interpret_middleware(t_lx_token *cur_token, \
+									unsigned char symbol_type, int split_flag)
 {
 	if (is_quote())
 		return (quote_translator());
 	else if (is_dquote())
 		return (dquote_translator());
 	else if (is_dollar())
-		return (dollar_translator());
+		return (dollar_translator(cur_token, ));
 	else if (c == '*')
 		return (wildcard_translator());
 	return (just_string());
@@ -161,7 +148,6 @@ static int	_interpret_middleware(t_lx_token **cur_token, unsigned char symbol_ty
 //     if (token_str && **token_str == interpret_chr)
 //         handler(token_str);
 // }
-
 void	interpreter(t_lx_token *token)
 {
 	char			*token_str;
@@ -172,11 +158,9 @@ void	interpreter(t_lx_token *token)
 	token_str = token->token_str;
 	while (*token_str)
 	{
-		_interpret_middleware(token, symbol_type);
-		token = token->next;
+		split_flag = _interpret_middleware(token, symbol_type, split_flag);
 		token_str++;
+		token = token->next;
 	}
-	if (token->interpret_symbol & WILDCARD)
-		wildcard_translator(&token);
 }
 
