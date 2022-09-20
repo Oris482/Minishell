@@ -6,7 +6,7 @@
 /*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:40:10 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/19 17:26:40 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/21 00:18:31 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,33 @@ char	*compress_target_char(char *target_str, const char target)
 	}
 	compressed_str[idx] = '\0';
 	return (compressed_str);
+}
+
+void _get_pos_dollar_chunk(char *cur_token_str)
+{
+	int	i;
+
+	i = -1;
+	while (++i && (*cur_token_str)[i])
+		if (!is_env_chr((*cur_token_str)[i], i))
+			return (*cur_token_str + i);
+	return (*cur_token_str + i);
+}
+
+char	*_make_dollar_interpreted(char *chunk)
+{
+	char	*ret_str;
+
+	if (*chunk == '?')
+	{
+		ret_str = ft_itoa(get_exit_status());
+		ft_strjoin_self(&ret_str, chunk + 1);
+	}
+	else if (*chunk == '$' || *chunk == '\0')
+		ret_str = ft_chr_to_str('$');
+	else
+		ret_str = ft_strdup(my_getenv(chunk));
+	if (!ret_str || !*ret_str)
+		return (NULL);
+	return (ret_str);
 }
