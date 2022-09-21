@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 23:24:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/21 16:35:28 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:09:47 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static char	*_handle_quote_symbol(char **token_str, char *str_startpoint, \
 
 static char	*_handle_dollar_symbol(char **token_str, char *str_startpoint)
 {
-	(*token_str)++;
 	if (is_tilde(**token_str))
 		find_interpret_symbol(token_str, TILDE);
 	else if (**token_str == '?')

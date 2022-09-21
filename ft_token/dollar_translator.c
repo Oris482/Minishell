@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:51:43 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/21 16:59:35 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:15:21 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ static char	*_make_dollar_find_str(char *chunk)
 	else
 		ret_str = ft_strdup(my_getenv(chunk));
 	if (!ret_str || !*ret_str)
+	{
+		my_free(ret_str);
 		return (NULL);
+	}
 	return (ret_str);
 }
 
@@ -67,7 +70,8 @@ static void	_dollar_translated_to_node(t_lx_token **token_cur, \
 		(*token_cur)->next = make_token_node(NULL, WORD);
 		(*token_cur) = (*token_cur)->next;
 	}
-	(*token_cur)->interpreted_str = ft_strcpy(find_str, str_cur);
+	ft_strjoin_self_add_free(&(*token_cur)->interpreted_str, \
+									ft_strcpy(find_str, str_cur));
 	(*token_cur)->interpret_symbol = 0;
 	(*token_cur)->interpret_symbol |= DOLLAR \
 			| WILDCARD * !!ft_strchr((*token_cur)->interpreted_str, '*');
@@ -78,14 +82,15 @@ void	dollar_translator(t_lx_token *token_cur, \
 {
 	char	*find_str;
 	char	*str_cur;
+	char	*tmp;
 
 	find_str = _make_dollar_find_str(chunk);
 	if (!find_str)
 		return ;
+	tmp = find_str;
 	str_cur = _cursor_to_space(split_flag, find_str);
 	ft_strjoin_self_add_free(&token_cur->interpreted_str, \
 												ft_strcpy(find_str, str_cur));
-	my_free(find_str);
 	while (*str_cur)
 	{
 		str_cur = _cursor_to_not_space(str_cur);
@@ -95,4 +100,5 @@ void	dollar_translator(t_lx_token *token_cur, \
 		str_cur = _cursor_to_space(split_flag, find_str);
 		_dollar_translated_to_node(&token_cur, find_str, str_cur);
 	}
+	my_free(tmp);
 }

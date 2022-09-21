@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/21 16:35:26 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:47:59 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,33 +68,34 @@ static void	_interpret_middleware(t_lx_token *token, char *chunk, \
 	return ;
 }
 
-static void	_make_chunk_middleware(char **str_startpoint, char **token_str, \
-								char **str_chunk, unsigned char *symbol_type)
+static char	*_make_chunk_middleware(char **token_str, unsigned char *symbol_type)
 {
-	*str_startpoint = *token_str;
+	char	*str_startpoint;
+	char	*str_chunk;
+
+	str_startpoint = *token_str;
 	*symbol_type = UNDEFINED;
-	if (is_interpret_symbol(**str_startpoint))
-		*str_chunk = make_chunk_by_symbol(token_str, \
-											*str_startpoint, symbol_type);
+	if (is_interpret_symbol(*str_startpoint))
+		str_chunk = make_chunk_by_symbol(token_str, \
+											str_startpoint, symbol_type);
 	else
 	{
 		find_interpret_symbol(token_str, TILDE);
-		*str_chunk = ft_strcpy(*str_startpoint, *token_str);
+		str_chunk = ft_strcpy(str_startpoint, *token_str);
 	}
+	return (str_chunk);
 }
 
 void	interpreter(t_lx_token *token)
 {
 	char			*token_str;
 	unsigned char	symbol_type;
-	char			*str_startpoint;
 	char			*str_chunk;
 
 	token_str = token->token_str;
 	while (*token_str)
 	{
-		_make_chunk_middleware(&str_startpoint, &token_str, \
-										&str_chunk, &symbol_type);
+		str_chunk = _make_chunk_middleware(&token_str, &symbol_type);
 		if (symbol_type == DOLLAR && ft_strlen(str_chunk) == 0 \
 											&& is_quote(*token_str))
 		{

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 00:48:19 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/21 17:26:48 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:43:37 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,24 @@
 #include "ft_token.h"
 #include "ft_tree.h"
 #include "ft_string.h"
+#include "ft_alloc.h"
 
 void	pop_empty_token(t_lx_token *token)
 {
+	t_lx_token *poped;
+	
 	while (token)
 	{
 		if (token->token_str == NULL && \
 			(token->interpreted_str == NULL \
 				|| ft_strlen(token->interpreted_str) == 0))
-			token = pop_token(&token, token);
+		{
+			poped = token;
+			token = token->prev;
+			poped = pop_token(&poped, poped);
+			my_free(poped->interpreted_str);
+			my_free(poped);
+		}
 		token = token->next;
 	}
 }
