@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/20 04:34:16 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/21 16:55:45 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,7 @@ FT_TOKEN_SRCS	=	interpreter.c					\
 					token_node_utils.c				\
 					token_list_utils.c				\
 					translator.c					\
+					dollar_translator.c				\
 					translator_utils.c				\
 					tokenization_utils.c
 FT_TREE_SRCS	=	tree_utils.c

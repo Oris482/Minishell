@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 23:24:18 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/20 07:44:39 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/21 16:35:28 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char	*_handle_quote_symbol(char **token_str, char *str_startpoint, \
 	return (str_chunk);
 }
 
-char	*handle_dollar_symbol(char **token_str, char *str_startpoint)
+static char	*_handle_dollar_symbol(char **token_str, char *str_startpoint)
 {
 	(*token_str)++;
 	if (is_tilde(**token_str))
@@ -54,13 +54,6 @@ static char	*_handle_wildcard_symbol(char **token_str, char *str_startpoint)
 	return (ft_strcpy(str_startpoint, *token_str));
 }
 
-static char *_dollar_wind_to_end(char **token_str)
-{
-	while (**token_str)
-		(*token_str)++;
-	return (NULL);
-}
-
 char	*make_chunk_by_symbol(char **token_str, \
 					char *str_startpoint, unsigned char *symbol_type)
 {
@@ -69,7 +62,7 @@ char	*make_chunk_by_symbol(char **token_str, \
 	if (is_quote(*str_startpoint))
 		return (_handle_quote_symbol(token_str, str_startpoint, symbol_type));
 	else if (is_dollar(*str_startpoint))
-		return (_dollar_wind_to_end(token_str));
+		return (_handle_dollar_symbol(token_str, str_startpoint));
 	else if (is_tilde(*str_startpoint))
 		return (_handle_tilde_symbol(token_str, str_startpoint));
 	else if (is_wildcard(*str_startpoint))

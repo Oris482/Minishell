@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/20 03:42:05 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:22:49 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,4 @@ int				executor(t_tree *root, char set_exit_status_flag);
 void			set_exit_status(int status);
 int				get_exit_status(void);
 int				get_exit_code(int status);
-
 #endif

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 20:46:31 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:21:39 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	run_simple_cmd(t_lx_token *token)
 	int		status;
 	pid_t	pid;
 
+	if (get_token_str(token) == NULL)
+		return (SUCCESS_EXIT_CODE);
 	builtin_idx = is_builtin(get_token_str(token));
 	if (builtin_idx)
 		return (builtin_middleware(token, builtin_idx));

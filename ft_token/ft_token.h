@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:33:13 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/20 07:16:13 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:22:42 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,23 @@ void			interpreter(t_lx_token *token);
 unsigned char	find_interpret_symbol(char **token_str, \
 												unsigned char target);
 // interpreter_make_chunk.c
-char			*handle_dollar_symbol(char **token_str, char *str_startpoint);
 char			*make_chunk_by_symbol(char **token_str, \
 					char *str_startpoint, unsigned char *symbol_type);
 // compress_target_char.c
 char			*compress_target_char(char *target_str, const char target);
 
 // translator.c
-void			dollar_translator(t_lx_token *token_cur, int split_flag);
 void			dquote_translator(t_lx_token *cur, char *chunk);
 void			tilde_translator(t_lx_token *cur, char *chunk);
 void			wildcard_translator(t_lx_token **cur);
 
+// dollar_translator.c
+void			dollar_translator(t_lx_token *token_cur, \
+										char *chunk, int split_flag);
+
 // translator_utils.c
-char			*cursor_to_space(int split_flag, char *str_cur);
 char			**path_split(char *start);
+
+// parser_utils.c
+void			pop_empty_token(t_lx_token *token);
 #endif

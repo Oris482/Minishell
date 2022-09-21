@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 00:48:19 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 00:54:31 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:26:48 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,19 @@
 #include "minishell.h"
 #include "ft_token.h"
 #include "ft_tree.h"
+#include "ft_string.h"
+
+void	pop_empty_token(t_lx_token *token)
+{
+	while (token)
+	{
+		if (token->token_str == NULL && \
+			(token->interpreted_str == NULL \
+				|| ft_strlen(token->interpreted_str) == 0))
+			token = pop_token(&token, token);
+		token = token->next;
+	}
+}
 
 static t_lx_token	*_find_tree_node(t_lx_token *cur_node, \
 		unsigned char *tree_type, unsigned char (*is_tree_type)(int))

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/20 09:04:43 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/21 16:35:26 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,19 @@ static void	_interpret_middleware(t_lx_token *token, char *chunk, \
 		dquote_translator(token, chunk);
 	else if (symbol_type == DOLLAR && token->interpret_symbol & DOLLAR)
 	{
-		// if (*chunk == '\0' || is_tilde(*chunk))
-		// {
-		// 	ft_strjoin_self(&token->interpreted_str, "$");
-		// 	ft_strjoin_self(&token->interpreted_str, chunk);
-		// 	return ;
-		// }
-		dollar_translator(token, 1);
+		if (*chunk == '\0' || is_tilde(*chunk))
+		{
+			ft_strjoin_self(&token->interpreted_str, "$");
+			ft_strjoin_self(&token->interpreted_str, chunk);
+			return ;
+		}
+		dollar_translator(token, chunk, 1);
 	}
 	else if (symbol_type == WILDCARD)
+	{
 		ft_strjoin_self(&token->interpreted_str, chunk);
+		token->interpret_symbol |= WILDCARD;
+	}
 	return ;
 }
 
