@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/21 19:12:01 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:17:19 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,4 @@ void	interpreter(t_lx_token *cur_token)
 			cur_token->interpret_symbol = backup_interpret_symbol;
 		}
 	}
-
 }
