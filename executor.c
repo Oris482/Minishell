@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 20:46:31 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/21 22:17:32 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,23 @@
 
 int	run_simple_cmd(t_lx_token *token)
 {
-	int		builtin_idx;
-	int		status;
-	pid_t	pid;
+	t_lx_token	*backup;
+	int			builtin_idx;
+	int			status;
+	pid_t		pid;
 
+	// 함수 분리 예정
+	while (token)
+	{
+		if (token->interpret_symbol)
+		{
+			backup = token->next;
+			token  = interpreter(token);
+			token->next = backup;
+		}
+		token = token->next;
+	}
+	//
 	builtin_idx = is_builtin(get_token_str(token));
 	if (builtin_idx)
 		return (builtin_middleware(token, builtin_idx));
