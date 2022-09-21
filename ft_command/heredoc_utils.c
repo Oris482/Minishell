@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 23:26:11 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/20 01:33:06 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/21 14:29:50 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	write_tmp_heredoc(t_heredoc_info *heredoc_info, int write_fd)
 		else
 		{
 			tmp_token.interpreted_str = NULL;
-			dquote_translator(&tmp_token, line);
+			// dquote_translator(&tmp_token, line);
 			ft_putstr_fd(tmp_token.interpreted_str, write_fd);
 			my_free(tmp_token.interpreted_str);
 		}

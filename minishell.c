@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/20 03:55:31 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:13:00 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "ft_string.h"
 #include "ft_library.h"
 #include "ft_print.h"
+#include "ft_debug.h"
 
 static void	_minishell_init_setting(char *envp[])
 {
@@ -40,6 +41,9 @@ static void	_minishell_routine(char *full_line, t_oflag *oflag)
 	token_list = lexer(full_line, oflag);
 	if (!token_list)
 		return ;
+	// print_token_list(token_list);
+	// print_token_next(token_list);
+	// print_token_prev(token_list);
 	root_tree = parser(token_list);
 	if (!root_tree)
 		return ;

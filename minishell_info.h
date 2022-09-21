@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:40:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/20 00:47:11 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/21 13:10:32 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,10 +158,10 @@ enum	e_exit_code
 	SYNTAX_ERROR_EXIT_CODE = 258
 };
 
-enum	e_switch
+enum	e_sperate
 {
-	OFF,
-	ON,
+	NOT_SPERATE,
+	SPERATE,
 };
 
 enum	e_return
