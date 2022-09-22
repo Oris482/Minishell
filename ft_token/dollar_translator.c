@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 17:01:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/22 19:39:00 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 21:57:52 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char	*_get_pos_dollar_chunk(char **cur_str)
 	return ((*cur_str) + i);
 }
 
-static char	*_make_dollar_interpreted(char *chunk)
+static char	*_get_dollar_value(t_dict dict[], char *chunk)
 {
 	char	*ret_str;
 
@@ -57,7 +57,7 @@ static char	*_make_dollar_interpreted(char *chunk)
 	else if (*chunk == '$' || *chunk == '\0')
 		ret_str = ft_chr_to_str('$');
 	else
-		ret_str = ft_strdup(my_getenv(chunk));
+		ret_str = ft_strdup(my_getenv(dict, chunk));
 	if (!ret_str || !*ret_str)
 	{
 		my_multi_free(chunk, ret_str, NULL, NULL);
@@ -88,7 +88,7 @@ static char	*_making_next_token_dollar_func(t_lx_token *cur_token, char *pos, \
 	return (pos);
 }
 
-int	dollar_translator(t_lx_token *cur_token, char **cur_str, \
+int	dollar_translator(t_dict dict[], t_lx_token *cur_token, char **cur_str, \
 												unsigned char symbol_type)
 {
 	const int	split_flag = !(symbol_type == (DQUOTE | DOLLAR));
@@ -98,7 +98,7 @@ int	dollar_translator(t_lx_token *cur_token, char **cur_str, \
 	char		*pos;
 
 	pos = _get_pos_dollar_chunk(cur_str);
-	value = _make_dollar_interpreted(ft_strcpy(*cur_str, pos));
+	value = _get_dollar_value(dict, ft_strcpy(*cur_str, pos));
 	*cur_str = pos;
 	if (!value)
 		return (NOT_SPERATE);

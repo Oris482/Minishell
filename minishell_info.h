@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:40:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 12:23:38 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 21:21:13 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 # define EXPORT_HEAD_MSG	"declare -x "
 # define IDX_ONE_OR_MORE	1
+# define DICT_MAX		53
 
 # include <dirent.h>
 # include <unistd.h>
@@ -49,7 +50,6 @@ typedef struct s_heredoc_info
 	char	*limiter;
 }	t_heredoc_info;
 
-# define DICT_MAX		53
 
 typedef struct s_dict
 {
@@ -59,7 +59,6 @@ typedef struct s_dict
 	struct s_dict	*prev;
 }	t_dict;
 
-t_dict	g_dict[DICT_MAX];
 
 typedef struct s_lx_token
 {

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 18:19:20 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:02:33 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 #include "ft_token.h"
 #include "ft_debug.h"
 
-int	run_simple_cmd(t_lx_token *token)
+int	run_simple_cmd(t_dict dict[], t_lx_token *token)
 {
 	int			builtin_idx;
 	int			status;
 	pid_t		pid;
 
-	interpret_token_data(token);
+	interpret_token_data(dict, token);
 	builtin_idx = is_builtin(get_token_str(token));
 	if (builtin_idx)
 		return (builtin_middleware(token, builtin_idx));
@@ -65,19 +65,19 @@ int	handle_fd(int *backup_fd, int task)
 	return (SUCCESS);
 }
 
-int	run_subshell(t_tree *tree_node, char set_exit_status_flag)
+int	run_subshell(t_dict dict[], t_tree *tree_node, char set_exit_status_flag)
 {
 	pid_t	pid;
 	int		status;
 
 	pid = my_fork();
 	if (pid == CHILD_PID)
-		exit(executor(tree_node->left, set_exit_status_flag));
+		exit(executor(dict, tree_node->left, set_exit_status_flag));
 	waitpid(pid, &status, WUNTRACED);
 	return (get_exit_code(status));
 }
 
-int	handle_cmd(t_tree *tree_node, char set_exit_status_flag)
+int	handle_cmd(t_dict dict[], t_tree *tree_node, char set_exit_status_flag)
 {
 	int	backup_fd[2];
 	int	exit_code;
@@ -91,9 +91,10 @@ int	handle_cmd(t_tree *tree_node, char set_exit_status_flag)
 	if (exit_code == SUCCESS_EXIT_CODE && tree_node->right)
 	{
 		if (tree_node->right->type == TREE_SIMPLE_CMD)
-			exit_code = run_simple_cmd(tree_node->right->token_data);
+			exit_code = run_simple_cmd(dict, tree_node->right->token_data);
 		else
-			exit_code = run_subshell(tree_node->right, set_exit_status_flag);
+			exit_code = run_subshell(dict, tree_node->right, \
+														set_exit_status_flag);
 	}
 	if (set_exit_status_flag)
 		set_exit_status(exit_code);
@@ -102,21 +103,21 @@ int	handle_cmd(t_tree *tree_node, char set_exit_status_flag)
 	return (exit_code);
 }
 
-int	executor(t_tree *root, char set_exit_status_flag)
+int	executor(t_dict dict[], t_tree *root, char set_exit_status_flag)
 {
 	int	exit_code;
 
 	if (root->type == TREE_AND || root->type == TREE_OR)
 	{
-		exit_code = executor(root->left, set_exit_status_flag);
+		exit_code = executor(dict, root->left, set_exit_status_flag);
 		if (root->type == TREE_AND && exit_code == SUCCESS_EXIT_CODE)
-			exit_code = executor(root->right, set_exit_status_flag);
+			exit_code = executor(dict, root->right, set_exit_status_flag);
 		else if (root->type == TREE_OR && exit_code != SUCCESS_EXIT_CODE)
-			exit_code = executor(root->right, set_exit_status_flag);
+			exit_code = executor(dict, root->right, set_exit_status_flag);
 	}
 	if (root->type == TREE_PIPE)
 		return (init_pipe(root, set_exit_status_flag));
 	if (root->type == TREE_CMD)
-		return (handle_cmd(root, set_exit_status_flag));
+		return (handle_cmd(dict, root, set_exit_status_flag));
 	return (exit_code);
 }

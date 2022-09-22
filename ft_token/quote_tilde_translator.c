@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 19:27:47 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 21:55:51 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	quote_translator(t_lx_token *cur_token, char **cur_str)
 	return (NOT_SPERATE);
 }
 
-int	dquote_translator(t_lx_token *cur_token, char **cur_str)
+int	dquote_translator(t_dict dict[], t_lx_token *cur_token, char **cur_str)
 {
 	char	*end;
 
@@ -49,14 +49,14 @@ int	dquote_translator(t_lx_token *cur_token, char **cur_str)
 	(*cur_str)++;
 	end = ft_strchr(*cur_str, '\"');
 	while (*cur_str != end)
-		interpret_middleware(cur_token, cur_str, \
-				DQUOTE | is_interpret_symbol(**cur_str), 2);
+		interpret_middleware(dict, cur_token, cur_str, \
+				DQUOTE | is_interpret_symbol(**cur_str));
 	*cur_str = end + 1;
 	cur_token->interpret_symbol |= DQUOTE;
 	return (NOT_SPERATE);
 }
 
-int	tilde_translator(t_lx_token *cur_token, char **cur_str)
+int	tilde_translator(t_dict dict[], t_lx_token *cur_token, char **cur_str)
 {
 	// <- 일단 앞으로 아니면 앞으로 옮기지 x
 	// 첫노드가 아니면 나가기 + 이미 interpreted_str에 앞 문자열이 있으면 붙이고 나가기
@@ -68,7 +68,7 @@ int	tilde_translator(t_lx_token *cur_token, char **cur_str)
 	else if (*(cur_token->token_str + 1) != '\0' \
 										&& *(cur_token->token_str + 1) != '/')
 		return (ERROR);
-	ft_strjoin_self(&cur_token->interpreted_str, my_getenv("HOME"));
+	ft_strjoin_self(&cur_token->interpreted_str, my_getenv(dict, "HOME"));
 	(*cur_str)++;
 	cur_token->interpret_symbol |= TILDE;
 	return (NOT_SPERATE);

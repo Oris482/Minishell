@@ -6,14 +6,14 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:25:42 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/20 04:30:22 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 21:22:50 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_info.h"
 #include "ft_debug.h"
 
-int print_dictionary_lst()
+int print_dictionary_lst(t_dict dict[])
 {
 	int	i;
 	int	total = 0;
@@ -22,8 +22,8 @@ int print_dictionary_lst()
 	i = 0;
 	while (i < DICT_MAX)
 	{
-		printf("category : %s\n", g_dict[i].value);
-		cur = g_dict[i].next;
+		printf("category : %s\n", dict[i].value);
+		cur = dict[i].next;
 		while (cur)
 		{
 			printf("L %s=%s\n", cur->name, cur->value);

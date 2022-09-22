@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:57:27 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 21:37:11 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:06:30 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	_handle_cd_error(const char *path)
 	return (SUCCESS_EXIT_CODE);
 }
 
-int	set_oldpwd_then_chdir(const char *dst_path)
+int	set_oldpwd_then_chdir(t_dict dict[], const char *dst_path)
 {
 	char	*cwd;
 	int		chdir_status;
@@ -62,10 +62,10 @@ int	set_oldpwd_then_chdir(const char *dst_path)
 	else
 	{
 		if (cwd != NULL)
-			put_dict(ft_strdup("OLDPWD"), cwd);
+			put_dict(dict, ft_strdup("OLDPWD"), cwd);
 		else
-			erase_dict("OLDPWD");
-		put_dict(ft_strdup("PWD"), getcwd(NULL, 1));
+			erase_dict(dict, "OLDPWD");
+		put_dict(dict, ft_strdup("PWD"), getcwd(NULL, 1));
 	}
 	return (SUCCESS_EXIT_CODE);
 }
@@ -82,7 +82,7 @@ char	*check_valid_cwd(char *path)
 	return (path);
 }
 
-int	builtin_cd(t_lx_token *token)
+int	builtin_cd(t_dict dict[], t_lx_token *token)
 {
 	t_lx_token			*arg_token;
 	char				*path;
@@ -94,7 +94,7 @@ int	builtin_cd(t_lx_token *token)
 	if (arg_token == NULL || (arg_token->interpret_symbol & DOLLAR \
 									&& get_token_str(arg_token) == NULL))
 	{
-		path = my_getenv("HOME");
+		path = my_getenv(dict, "HOME");
 		if (path == NULL)
 			return (print_error_str("cd", NULL, \
 					"HOME not set", GENERAL_EXIT_CODE));
@@ -104,8 +104,8 @@ int	builtin_cd(t_lx_token *token)
 				&& arg_token->interpret_symbol & DQUOTE)
 		path = NULL;
 	else if (ft_strcmp("-", get_token_str(arg_token)))
-		path = my_getenv("OLDPWD");
+		path = my_getenv(dict, "OLDPWD");
 	else
 		path = get_token_str(arg_token);
-	return (set_oldpwd_then_chdir(path));
+	return (set_oldpwd_then_chdir(dict, path));
 }

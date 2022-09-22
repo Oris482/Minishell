@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:46:45 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 15:32:18 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:15:17 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@
 int				redi_heredoc(t_lx_token *token);
 int				redi_middleware(t_lx_token *token);
 int				builtin_echo(t_lx_token *token);
-int				builtin_cd(t_lx_token *token);
+int				builtin_cd(t_dict dict[], t_lx_token *token);
 int				builtin_pwd(t_lx_token *token);
 int				builtin_exit(t_lx_token *token);
-int				builtin_env(t_lx_token *token);
-int				builtin_export(t_lx_token *token);
-int				builtin_unset(t_lx_token *token);
+int				builtin_env(t_dict dict[], t_lx_token *token);
+int				builtin_export(t_dict dict[], t_lx_token *token);
+int				builtin_unset(t_dict dict[], t_lx_token *token);
 
 // about_pipe.c
 int				init_pipe(t_tree *tree_node, char set_exit_status_flag);
@@ -58,11 +58,11 @@ int				builtin_option_arg_checker(t_lx_token **token);
 int				builtin_middleware(t_lx_token *token, int builtin_idx);
 
 // print_env.c
-void			print_env(void);
-int				print_export(void);
+void			print_env(t_dict dict[]);
+int				print_export(t_dict dict[]);
 
 // program.c
-void			execute_middleware(t_lx_token *token);
+void			execute_middleware(t_dict dict[], t_lx_token *token);
 
 // allow_about_pipe.c
 int				my_dup(int fildes);

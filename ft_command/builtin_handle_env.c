@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 23:08:01 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/19 03:14:51 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:12:34 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "ft_alloc.h"
 #include "ft_token.h"
 
-int	builtin_env(t_lx_token *token)
+int	builtin_env(t_dict dict[], t_lx_token *token)
 {
 	int			err_code;
 	t_lx_token	*arg_token;
@@ -31,7 +31,7 @@ int	builtin_env(t_lx_token *token)
 	else if (err_code == ARG_ERROR)
 		return (print_error_str("env", get_token_str(arg_token), \
 								"invalid arg", GENERAL_EXIT_CODE));
-	print_env();
+	print_env(dict);
 	return (SUCCESS_EXIT_CODE);
 }
 
@@ -61,7 +61,7 @@ static int	_get_env_nameval_at_token(t_lx_token *token, \
 	return (TRUE);
 }
 
-int	builtin_unset(t_lx_token *arg_token)
+int	builtin_unset(t_dict dict[], t_lx_token *arg_token)
 {
 	char		*name;
 	int			rtn_exit_code;
@@ -73,7 +73,7 @@ int	builtin_unset(t_lx_token *arg_token)
 	while (arg_token)
 	{
 		if (_get_env_nameval_at_token(arg_token, &name, NULL) == TRUE)
-			erase_dict(name);
+			erase_dict(dict, name);
 		else
 			rtn_exit_code = print_error_str("unset", name, \
 								"not a valid identifier", GENERAL_EXIT_CODE);
@@ -82,7 +82,7 @@ int	builtin_unset(t_lx_token *arg_token)
 	return (rtn_exit_code);
 }
 
-int	builtin_export(t_lx_token *arg_token)
+int	builtin_export(t_dict dict[], t_lx_token *arg_token)
 {
 	char		*name;
 	char		*value;
@@ -92,12 +92,12 @@ int	builtin_export(t_lx_token *arg_token)
 		return (print_error_str("export", get_token_str(arg_token), \
 								"invalid option", INVALID_OPTION_EXIT_CODE));
 	if (!arg_token)
-		return (print_export());
+		return (print_export(dict));
 	rtn_exit_code = SUCCESS_EXIT_CODE;
 	while (arg_token)
 	{
 		if (_get_env_nameval_at_token(arg_token, &name, &value) == TRUE)
-			put_dict(name, value);
+			put_dict(dict, name, value);
 		else
 		{
 			rtn_exit_code = print_error_str("export", name, \

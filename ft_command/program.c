@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:59:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/19 20:33:59 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:14:16 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 #include "ft_token.h"
 #include "ft_print.h"
 
-static char	*_find_cmd_path(char *cmd)
+static char	*_find_cmd_path(t_dict dict[], char *cmd)
 {
-	const char	*set_path = my_getenv("PATH");
+	const char	*set_path = my_getenv(dict, "PATH");
 	char		*find_path;
 	char		*pos;
 	struct stat	statbuf;
@@ -89,7 +89,7 @@ int	failed_execve(char *cmd_path, char **cmd_argv, char **cmd_envp)
 	exit(rtn_exit_code);
 }
 
-void	execute_middleware(t_lx_token *token)
+void	execute_middleware(t_dict dict[], t_lx_token *token)
 {
 	char		*cmd_str;
 	char		*cmd_path;
@@ -104,7 +104,7 @@ void	execute_middleware(t_lx_token *token)
 		exit(print_error_str(cmd_path, NULL, "is a directory", 126));
 	if (ft_strchr(cmd_str, '/') == NULL)
 	{
-		cmd_path = _find_cmd_path(cmd_str);
+		cmd_path = _find_cmd_path(dict, cmd_str);
 		if (!cmd_path)
 			exit(print_error_str(cmd_str, NULL, "command not found", 127));
 	}
@@ -112,7 +112,7 @@ void	execute_middleware(t_lx_token *token)
 		cmd_str = ft_strrchr_right_away(ft_strchr_null(cmd_str, \
 													'\0'), '/', cmd_str) + 1;
 	cmd_argv = make_cmd_argv(cmd_str, token);
-	cmd_envp = dict_to_envp();
+	cmd_envp = dict_to_envp(dict);
 	execve(cmd_path, cmd_argv, cmd_envp);
 	failed_execve(cmd_path, cmd_argv, cmd_envp);
 }

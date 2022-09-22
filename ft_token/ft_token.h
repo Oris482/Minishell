@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:33:13 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 21:04:27 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 21:55:23 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void			set_need_translate_symbol(t_lx_token *token_node, char c, \
 															int *quote_flag);
 
 // interpreter.c
-int				interpret_middleware(t_lx_token *cur_token, char **cur_str, \
-									unsigned char symbol_type, int func_level);
+int				interpret_middleware(t_dict dict[], t_lx_token *cur_token, \
+									char **cur_str, unsigned char symbol_type);
 void			interpret_wildcard_token(t_lx_token **token);
-void			interpret_token_data(t_lx_token *token);
+void			interpret_token_data(t_dict dict[], t_lx_token *token);
 
 // interpreter_make_chunk.c
 char			*handle_dollar_symbol(char **token_str, char *str_startpoint);
@@ -51,12 +51,14 @@ char			*compress_target_char(char *target_str, const char target);
 
 // quote_tilde_translator.c
 int				quote_translator(t_lx_token *cur_token, char **cur_str);
-int				dquote_translator(t_lx_token *cur, char **cur_str);
-int				tilde_translator(t_lx_token *cur_token, char **cur_str);
+int				dquote_translator(t_dict dict[], t_lx_token *cur_token, \
+															char **cur_str);
+int				tilde_translator(t_dict dict[], t_lx_token *cur_token, \
+															char **cur_str);
 
 // dollar_translator.c
-int				dollar_translator(t_lx_token *cur_token, \
-							char **cur_str, unsigned char symbol_type);
+int				dollar_translator(t_dict dict[], t_lx_token *cur_token, \
+									char **cur_str, unsigned char symbol_type);
 // wildcard_translator.c
 int				wildcard_translator(t_lx_token **cur_token);
 #endif

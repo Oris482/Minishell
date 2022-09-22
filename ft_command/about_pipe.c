@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 00:35:19 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 22:20:21 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:16:37 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ static void	_set_pipe_for_child(t_pipe *info)
 					+ !(idx % 2) * info->fd[B][F_READ]);
 }
 
-static void	_pipe_child(t_tree *tree_node, \
+static void	_pipe_child(t_dict dict[], t_tree *tree_node, \
 							char set_exit_status_flag, t_pipe *info)
 {
 	int	exit_code;
 
 	_set_pipe_for_child(info);
-	exit_code = handle_cmd(tree_node, set_exit_status_flag);
+	exit_code = handle_cmd(dict, tree_node, set_exit_status_flag);
 	exit(exit_code);
 }
 
@@ -79,7 +79,7 @@ static void	_handle_pipe(t_tree *tree_node, char set_exit_status_flag, \
 		my_pipe(info->fd[info->fork_cnt % 2]);
 		pid = my_fork();
 		if (pid == CHILD_PID)
-			_pipe_child(tree_node, set_exit_status_flag, info);
+			_pipe_child(dict, tree_node, set_exit_status_flag, info);
 		add_pid_to_list(pid_list, pid);
 		_handle_pipe_fd(info);
 		info->fork_cnt++;
@@ -88,7 +88,7 @@ static void	_handle_pipe(t_tree *tree_node, char set_exit_status_flag, \
 	_handle_pipe(tree_node->right, set_exit_status_flag, info, pid_list);
 }
 
-int	init_pipe(t_tree *tree_node, char set_exit_status_flag)
+int	init_pipe(t_dict dict[], t_tree *tree_node, char set_exit_status_flag)
 {
 	t_pipe		info;
 	t_pid_list	*pid_list;

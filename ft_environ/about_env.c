@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 16:59:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/19 22:57:32 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 21:28:12 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "minishell_info.h"
 #include "ft_environ.h"
 
-char	*my_getenv(const char *name)
+char	*my_getenv(t_dict dict[], const char *name)
 {
 	int		idx;
 	t_dict	*find_node;
@@ -27,13 +27,13 @@ char	*my_getenv(const char *name)
 	if (*name == '\0')
 		return (NULL);
 	idx = chr_to_dict_idx(*name);
-	find_node = find_dict(g_dict[idx].next, name);
+	find_node = find_dict(dict[idx].next, name);
 	if (!find_node)
 		return (NULL);
 	return (find_node->value);
 }
 
-char	**dict_to_envp(void)
+char	**dict_to_envp(t_dict dict[])
 {
 	int			idx;
 	int			cnt;
@@ -47,7 +47,7 @@ char	**dict_to_envp(void)
 	idx = 0;
 	while (idx < DICT_MAX)
 	{
-		cur = g_dict[idx++].next;
+		cur = dict[idx++].next;
 		while (cur)
 		{
 			new_envp[j++] = ft_strsjoin(cur->name, "=", cur->value);
@@ -57,7 +57,7 @@ char	**dict_to_envp(void)
 	return (new_envp);
 }
 
-static void	_setting_dictionary(void)
+static void	_setting_dictionary(t_dict dict[])
 {
 	int		i;
 	char	category;
@@ -67,24 +67,24 @@ static void	_setting_dictionary(void)
 	while (i < DICT_MAX)
 	{
 		category += 4 * (category == 'Z' + 1) + (category == '_' + 1);
-		g_dict[i].value = ft_chr_to_str(category++);
-		g_dict[i].prev = &g_dict[i];
+		dict[i].value = ft_chr_to_str(category++);
+		dict[i].prev = &dict[i];
 		i++;
 	}
 }
 
-void	envp_to_dict(char *envp[])
+void	envp_to_dict(char *envp[], t_dict dict[])
 {
 	int		j;
 	char	*cur_shlvl;
 
-	_setting_dictionary();
+	_setting_dictionary(dict);
 	j = 0;
 	while (envp[j])
 		add_dict(NULL, NULL, envp[j++]);
 	put_dict(ft_strdup("OLDPWD"), ft_strdup(""));
 	erase_dict("_");
-	cur_shlvl = my_getenv("SHLVL");
+	cur_shlvl = my_getenv(dict, "SHLVL");
 	if (cur_shlvl == NULL)
 		put_dict(ft_strdup("SHLVL"), ft_strdup("1"));
 	else

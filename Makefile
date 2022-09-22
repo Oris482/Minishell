@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/22 21:02:58 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/22 21:32:07 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,6 @@ FT_STRING_SRCS	=	custom_str_utils.c				\
 					get_next_line.c					\
 					get_next_line_utils.c
 FT_TOKEN_SRCS	=	interpreter.c					\
-					interpreter_make_chunk.c		\
 					token_node_utils.c				\
 					token_list_utils.c				\
 					quote_tilde_translator.c		\

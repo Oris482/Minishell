@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 21:03:28 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 21:25:15 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "ft_tree.h"
 #include "ft_debug/ft_debug.h"
 
-static void	_minishell_init_setting(char *envp[])
+static void	_minishell_init_setting(char *envp[], t_dict dict[])
 {
 	int		fd;
 	char	line[2045];
@@ -28,7 +28,7 @@ static void	_minishell_init_setting(char *envp[])
 	set_init_signal();
 	terminal_off_control_chars();
 	set_exit_status(0);
-	envp_to_dict(envp);
+	envp_to_dict(envp, dict);
 	fd = open("ascii_art", O_RDONLY);
 	if (fd > 0 && read(fd, line, 2045) > 0)
 		ft_putstr_fd(line, STDOUT_FILENO);
@@ -59,8 +59,9 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	char			*full_line;
 	t_oflag			oflag;
+	t_dict			dict[DICT_MAX];
 
-	_minishell_init_setting(envp);
+	_minishell_init_setting(envp, dict);
 	while (TRUE)
 	{
 		full_line = liner(&oflag);
