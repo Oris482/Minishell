@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_translator.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 17:00:14 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/21 19:09:26 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 13:19:00 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,7 @@ static char	*_compress_target_char(char *target_str, const char target)
 	return (compressed_str);
 }
 
-
-int	wildcard_translator(t_lx_token **cur_token, char **cur_token_str)
+int	wildcard_translator(t_lx_token **cur_token)
 {
 	char	*compressed_str;
 	char	*temp;
@@ -108,7 +107,6 @@ int	wildcard_translator(t_lx_token **cur_token, char **cur_token_str)
 	char	*pwd;
 
 	pwd = NULL;
-	(void)cur_token_str;
 	compressed_str = _compress_target_char((*cur_token)->interpreted_str, '*');
 	temp = compressed_str;
 	compressed_str = _compress_target_char(compressed_str, '/');

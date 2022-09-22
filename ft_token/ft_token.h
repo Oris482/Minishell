@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:33:13 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/21 19:08:36 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 13:03:35 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,17 @@ t_lx_token		*get_last_token(t_lx_token *token);
 void			set_quote_flag(const char c, int *quote_flag);
 void			set_parentheses_flag(const char c, int *parentheses_flag, \
 															int *quote_flag);
-void			set_interpret_symbol(t_lx_token *token_node, char c, \
-								int *quote_flag);
+void			set_interpret_symbol(t_lx_token *token_node);
 void			set_token_type(t_lx_token *token_node, char c);
+void			set_need_translate_symbol(t_lx_token *token_node, char c, \
+															int *quote_flag);
 
 // interpreter.c
 int				interpret_middleware_is_sperated(t_lx_token **cur_token, \
-				char **cur_str, unsigned char symbol_type, \
-																int func_level);
-void			interpreter(t_lx_token *token);
+				char **cur_str, unsigned char symbol_type, int func_level);
+t_lx_token		*interpreter(t_lx_token *cur_token);
+void			interpret_wildcard_token(t_lx_token **token);
+
 // interpreter_make_chunk.c
 char			*make_chunk_by_symbol(char **token_str, \
 					char *str_startpoint, unsigned char *symbol_type);
@@ -55,6 +57,5 @@ int				tilde_translator(t_lx_token *cur_token, char **cur_str);
 int				dollar_translator(t_lx_token **cur_token, \
 							char **cur_str, unsigned char symbol_type);
 // wildcard_translator.c
-int				wildcard_translator(t_lx_token **cur_token, \
-														char **cur_str);
+int				wildcard_translator(t_lx_token **cur_token);
 #endif

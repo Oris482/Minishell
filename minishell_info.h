@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:40:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/21 22:16:37 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 12:23:38 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ enum	e_interpreted_type
 	DOLLAR			=	0b00000100,
 	WILDCARD		=	0b00001000,
 	TILDE			=	0b00010000,
-	NEED_TRANSLATE	=	0b10000000
+	NEED_TRANSLATE	=	0b01000000
 };
 
 enum e_tree_type

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/21 19:07:25 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 13:19:43 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@
 #include "ft_alloc.h"
 #include "ft_environ.h"
 
-#include "../ft_string/ft_string.h"
-
 int	quote_translator(t_lx_token *cur_token, char **cur_token_str)
 {
-	char *end;
+	char	*end;
 
 	/*
 	 * DQUOTE에 들어갔다가 여기에 들어오는 QUOTE를 무시하기 위해서
@@ -52,7 +50,6 @@ int	dquote_translator(t_lx_token **cur_token, char **cur_token_str)
 	while (*cur_token_str != end)
 		interpret_middleware_is_sperated(cur_token, cur_token_str, \
 				DQUOTE | is_interpret_symbol(**cur_token_str), 2);
-
 	*cur_token_str = end + 1;
 	return (NOT_SPERATE);
 }

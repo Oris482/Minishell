@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_translator.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 17:01:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/21 19:06:30 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 14:35:11 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ static char	*_make_dollar_interpreted(char *chunk)
 	else
 		ret_str = ft_strdup(my_getenv(chunk));
 	if (!ret_str || !*ret_str)
+	{
+		my_multi_free(chunk, ret_str, NULL, NULL);
 		return (NULL);
+	}
 	my_free(chunk);
 	return (ret_str);
 }
@@ -78,19 +81,22 @@ static char	*_making_next_token_dollar_func(t_lx_token **cur_token, \
 		(*cur_token)->next = make_token_node(NULL, WORD);
 		*cur_token = (*cur_token)->next;
 		(*cur_token)->interpreted_str = ft_strcpy(cur_value, pos);
+		// wildcard flag on && interpret
 		(*cur_token)->interpret_symbol |= DOLLAR * split_flag \
-			   | WILDCARD * !!ft_strchr((*cur_token)->interpreted_str, '*');
+				| WILDCARD * !!ft_strchr((*cur_token)->interpreted_str, '*');
 		if ((*cur_token)->interpret_symbol & WILDCARD)
-			wildcard_translator(cur_token, cur_token_str);
+			interpret_wildcard_token(cur_token);
+		//
+		(void)cur_token_str;
 		cur_value = pos;
 	}
 	return (pos);
 }
 
-int dollar_translator(t_lx_token **cur_token, char **cur_token_str, \
+int	dollar_translator(t_lx_token **cur_token, char **cur_token_str, \
 												unsigned char symbol_type)
 {
-	const	int split_flag = !(symbol_type == (DQUOTE | DOLLAR));
+	const int	split_flag = !(symbol_type == (DQUOTE | DOLLAR));
 	int			ret;
 	char		*value;
 	char		*cur_value;
@@ -108,6 +114,12 @@ int dollar_translator(t_lx_token **cur_token, char **cur_token_str, \
 	if (!ft_isspace(*cur_value))
 		ft_strjoin_self_add_free(&(*cur_token)->interpreted_str, \
 													ft_strcpy(cur_value, pos));
+	// wildcard flag on && interpret
+	(*cur_token)->interpret_symbol |= DOLLAR * split_flag \
+			| WILDCARD * !!ft_strchr((*cur_token)->interpreted_str, '*');
+	if ((*cur_token)->interpret_symbol & WILDCARD)
+		interpret_wildcard_token(cur_token);
+	//
 	cur_value = _making_next_token_dollar_func(cur_token, cur_token_str, \
 															pos, split_flag);
 	ret = !!(ft_isspace(*(cur_value - 1)));

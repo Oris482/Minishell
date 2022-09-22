@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/21 19:21:31 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 12:23:01 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	_minishell_init_setting(char *envp[])
 	fd = open("ascii_art", O_RDONLY);
 	if (fd > 0 && read(fd, line, 2045) > 0)
 		ft_putstr_fd(line, STDOUT_FILENO);
+	close(fd);
 }
 
 static void	_minishell_routine(char *full_line, t_oflag *oflag)
@@ -43,7 +44,6 @@ static void	_minishell_routine(char *full_line, t_oflag *oflag)
 		return ;
 	print_token_list(token_list);
 	print_token_next(token_list);
-	print_token_prev(token_list);
 	root_tree = parser(token_list);
 	if (!root_tree)
 		return ;

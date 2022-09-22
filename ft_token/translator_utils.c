@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   translator_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsuki2 <minsuki2@student.42seoul.kr      +#+  +:+       +#+        */
+/*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:40:10 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/21 17:04:15 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 13:19:10 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,3 @@ char	*cursor_to_space(int split_flag, char *str_cur)
 	}
 	return (str_cur);
 }
-
-
