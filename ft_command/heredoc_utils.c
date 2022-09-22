@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 23:26:11 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/21 14:29:50 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:08:18 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,23 +79,16 @@ static void	_heredoc_signal_handler(void)
 void	write_tmp_heredoc(t_heredoc_info *heredoc_info, int write_fd)
 {
 	char		*line;
-	t_lx_token	tmp_token;
 
 	_heredoc_signal_handler();
+	if (heredoc_info->option == TRANSLATE_ENV)
+		ft_putendl_fd("t", write_fd);
+	else
+		ft_putendl_fd("n", write_fd);
 	line = my_readline("> ");
 	while (line && !ft_strcmp(line, heredoc_info->limiter))
 	{
-		if (heredoc_info->option == DO_NOT_TRANSLATE \
-								|| !ft_strchr(line, '$'))
-			write(write_fd, line, ft_strlen(line));
-		else
-		{
-			tmp_token.interpreted_str = NULL;
-			// dquote_translator(&tmp_token, line);
-			ft_putstr_fd(tmp_token.interpreted_str, write_fd);
-			my_free(tmp_token.interpreted_str);
-		}
-		write(write_fd, "\n", 1);
+		ft_putendl_fd(line, write_fd);
 		my_free(line);
 		line = my_readline("> ");
 	}

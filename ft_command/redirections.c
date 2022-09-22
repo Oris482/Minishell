@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 13:50:16 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/21 22:24:57 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:33:39 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	redi_middleware(t_lx_token *token)
 		else if (token->token_type == RED_APD_OUT)
 			exit_code = redi_out(get_token_str(token->next), O_APPEND);
 		else if (token->token_type == HERE_DOC)
-			exit_code = redi_heredoc(token->interpreted_str);
+			exit_code = redi_heredoc(token);
 		else
 			break ;
 		if (exit_code != SUCCESS_EXIT_CODE)

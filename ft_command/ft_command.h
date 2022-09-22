@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:46:45 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/20 02:55:01 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:32:18 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define ARG_ERROR			4
 
 // built-in functions
-int				redi_heredoc(char *limiter);
+int				redi_heredoc(t_lx_token *token);
 int				redi_middleware(t_lx_token *token);
 int				builtin_echo(t_lx_token *token);
 int				builtin_cd(t_lx_token *token);

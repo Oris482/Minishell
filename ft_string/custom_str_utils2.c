@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 01:33:30 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/21 00:47:35 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:57:45 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*ft_strjoin_self_add_free(char **str, char *add)
 	return (*str);
 }
 
-char	*ft_chrjoin_myself(char **str, char c)
+char	*ft_chrjoin_myself(char **str, char c, int pos)
 {
 	char	*pt;
 	int		len;
@@ -77,9 +77,18 @@ char	*ft_chrjoin_myself(char **str, char c)
 		return (NULL);
 	len = ft_strlen(*str) + 1;
 	pt = (char *)my_calloc(len + 1, sizeof(char));
-	ft_strlcpy(pt, *str, len + 1);
-	if (len > 0)
-		pt[len - 1] = c;
+	if (pos == FRONT)
+	{
+		if (len > 0)
+			pt[0] = c;
+		ft_strlcat(pt, *str, len + 1);
+	}
+	else
+	{
+		ft_strlcpy(pt, *str, len + 1);
+		if (len > 0)
+			pt[len - 1] = c;
+	}
 	free(*str);
 	*str = pt;
 	return (*str);

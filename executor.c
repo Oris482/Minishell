@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 12:33:12 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 18:08:46 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@
 void	interpret_token_data(t_lx_token *token)
 {
 	t_lx_token	*backup;
-	
+
 	while (token)
 	{
 		if (token->interpret_symbol)
 		{
 			backup = token->next;
-			token  = interpreter(token);
+			token = interpreter(token);
 			token->next = backup;
 		}
 		token = token->next;

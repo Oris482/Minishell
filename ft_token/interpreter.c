@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/22 13:20:28 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:36:41 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	interpret_middleware_is_sperated(t_lx_token **cur_token, \
 		ret = tilde_translator(*cur_token, cur_str);
 	if (ret != ERROR)
 		return (ret);
-	ft_chrjoin_myself(&(*cur_token)->interpreted_str, **cur_str);
+	ft_chrjoin_myself(&(*cur_token)->interpreted_str, **cur_str, BACK);
 	(*cur_str)++;
 	return (NOT_SPERATE);
 }
