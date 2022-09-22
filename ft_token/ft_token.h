@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:33:13 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 15:33:40 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 21:04:27 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void			interpret_wildcard_token(t_lx_token **token);
 void			interpret_token_data(t_lx_token *token);
 
 // interpreter_make_chunk.c
+char			*handle_dollar_symbol(char **token_str, char *str_startpoint);
 char			*make_chunk_by_symbol(char **token_str, \
 					char *str_startpoint, unsigned char *symbol_type);
 // compress_target_char.c
