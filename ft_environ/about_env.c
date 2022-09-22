@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 16:59:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/22 23:35:06 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 00:03:40 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ static void	_setting_dictionary(t_dict dict[])
 	while (i < DICT_MAX)
 	{
 		category += 4 * (category == 'Z' + 1) + (category == '_' + 1);
+		dict[i].name = NULL;
 		dict[i].value = ft_chr_to_str(category++);
+		dict[i].next = NULL;
 		dict[i].prev = &dict[i];
 		i++;
 	}
@@ -83,6 +85,8 @@ void	envp_to_dict(t_dict dict[], char *envp[])
 	j = 0;
 	while (envp[j])
 		add_dict(dict, NULL, NULL, envp[j++]);
+
+
 	put_dict(dict, ft_strdup("OLDPWD"), ft_strdup(""));
 	erase_dict(dict, "_");
 	cur_shlvl = my_getenv(dict, "SHLVL");

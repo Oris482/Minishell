@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 22:51:24 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/22 21:31:32 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 00:09:24 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_dict	*put_dict(t_dict dict[], char *name, char *value)
 	if (!name)
 		return (NULL);
 	idx = chr_to_dict_idx(*name);
-	find_node = find_dict(&dict[idx], name);
+	find_node = find_dict(dict[idx].next, name);
 	if (!find_node)
 		return (add_dict(dict, name, value, NULL));
 	else if (find_node && find_node->value && !value)

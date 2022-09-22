@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 23:34:32 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 23:41:18 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	char			*full_line;
 	t_oflag			oflag;
-	t_dict			dict[DICT_MAX];
+	t_dict			dict[53];
 
 	printf("address : %p\n", dict);
 	_minishell_init_setting(dict, envp);
