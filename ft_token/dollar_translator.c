@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 17:01:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/22 21:57:52 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:34:24 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static char	*_get_pos_dollar_chunk(char **cur_str)
 
 	(*cur_str)++;
 	i = 0;
+	if (**cur_str == '?')
+		return ((*cur_str) + 1);
 	while ((*cur_str)[i])
 	{
 		if (!is_env_chr((*cur_str)[i], i))
