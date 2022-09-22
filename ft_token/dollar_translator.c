@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 17:01:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/22 14:35:11 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:40:38 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ char	*_cursor_to_space(int split_flag, char *str_cur)
 	return (str_cur);
 }
 
-static char	*_get_pos_dollar_chunk(char **cur_token_str)
+static char	*_get_pos_dollar_chunk(char **cur_str)
 {
 	int	i;
 
-	(*cur_token_str)++;
+	(*cur_str)++;
 	i = 0;
-	while ((*cur_token_str)[i])
+	while ((*cur_str)[i])
 	{
-		if (!is_env_chr((*cur_token_str)[i], i))
-			return ((*cur_token_str) + i);
+		if (!is_env_chr((*cur_str)[i], i))
+			return ((*cur_str) + i);
 		i++;
 	}
-	return ((*cur_token_str) + i);
+	return ((*cur_str) + i);
 }
 
 static char	*_make_dollar_interpreted(char *chunk)
@@ -67,8 +67,8 @@ static char	*_make_dollar_interpreted(char *chunk)
 	return (ret_str);
 }
 
-static char	*_making_next_token_dollar_func(t_lx_token **cur_token, \
-							char **cur_token_str, char *pos, int split_flag)
+static char	*_making_next_token_dollar_func(t_lx_token *cur_token, char *pos, \
+																int split_flag)
 {
 	char	*cur_value;
 
@@ -78,22 +78,20 @@ static char	*_making_next_token_dollar_func(t_lx_token **cur_token, \
 			continue ;
 		cur_value = pos;
 		pos = _cursor_to_space(split_flag, cur_value);
-		(*cur_token)->next = make_token_node(NULL, WORD);
-		*cur_token = (*cur_token)->next;
-		(*cur_token)->interpreted_str = ft_strcpy(cur_value, pos);
-		// wildcard flag on && interpret
-		(*cur_token)->interpret_symbol |= DOLLAR * split_flag \
-				| WILDCARD * !!ft_strchr((*cur_token)->interpreted_str, '*');
-		if ((*cur_token)->interpret_symbol & WILDCARD)
-			interpret_wildcard_token(cur_token);
+		cur_token->next = make_token_node(NULL, WORD);
+		cur_token = cur_token->next;
+		cur_token->interpreted_str = ft_strcpy(cur_value, pos);
+		cur_token->interpret_symbol |= DOLLAR * split_flag \
+				| WILDCARD * !!ft_strchr(cur_token->interpreted_str, '*');
+		// if ((*cur_token)->interpret_symbol & WILDCARD)
+		// //     interpret_wildcard_token(cur_token);
 		//
-		(void)cur_token_str;
 		cur_value = pos;
 	}
 	return (pos);
 }
 
-int	dollar_translator(t_lx_token **cur_token, char **cur_token_str, \
+int	dollar_translator(t_lx_token *cur_token, char **cur_str, \
 												unsigned char symbol_type)
 {
 	const int	split_flag = !(symbol_type == (DQUOTE | DOLLAR));
@@ -102,26 +100,25 @@ int	dollar_translator(t_lx_token **cur_token, char **cur_token_str, \
 	char		*cur_value;
 	char		*pos;
 
-	pos = _get_pos_dollar_chunk(cur_token_str);
-	value = _make_dollar_interpreted(ft_strcpy(*cur_token_str, pos));
-	*cur_token_str = pos;
+	pos = _get_pos_dollar_chunk(cur_str);
+	value = _make_dollar_interpreted(ft_strcpy(*cur_str, pos));
+	*cur_str = pos;
 	if (!value)
 		return (NOT_SPERATE);
 	cur_value = value;
-	if (split_flag && !(*cur_token)->interpreted_str)
+	if (split_flag && !cur_token->interpreted_str)
 		while (*cur_value && ft_isspace(*cur_value) && cur_value++);
 	pos = _cursor_to_space(split_flag, cur_value);
 	if (!ft_isspace(*cur_value))
-		ft_strjoin_self_add_free(&(*cur_token)->interpreted_str, \
+		ft_strjoin_self_add_free(&cur_token->interpreted_str, \
 													ft_strcpy(cur_value, pos));
 	// wildcard flag on && interpret
-	(*cur_token)->interpret_symbol |= DOLLAR * split_flag \
-			| WILDCARD * !!ft_strchr((*cur_token)->interpreted_str, '*');
-	if ((*cur_token)->interpret_symbol & WILDCARD)
-		interpret_wildcard_token(cur_token);
+	cur_token->interpret_symbol |= DOLLAR * split_flag \
+			| WILDCARD * !!ft_strchr(cur_token->interpreted_str, '*');
+	// if (cur_token->interpret_symbol & WILDCARD)
+	//     interpret_wildcard_token(cur_token);
 	//
-	cur_value = _making_next_token_dollar_func(cur_token, cur_token_str, \
-															pos, split_flag);
+	cur_value = _making_next_token_dollar_func(cur_token, pos, split_flag);
 	ret = !!(ft_isspace(*(cur_value - 1)));
 	my_free(value);
 	return (ret);

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 12:23:01 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:14:22 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "ft_string.h"
 #include "ft_library.h"
 #include "ft_print.h"
-#include "ft_debug.h"
+#include "ft_debug/ft_debug.h"
 
 static void	_minishell_init_setting(char *envp[])
 {
@@ -50,6 +50,7 @@ static void	_minishell_routine(char *full_line, t_oflag *oflag)
 	terminal_on_control_chars();
 	executor(root_tree, TRUE);
 	terminal_off_control_chars();
+	print_ascii_tree(root_tree);
 	list_tree_free(NULL, root_tree);
 }
 
