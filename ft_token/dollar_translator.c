@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 17:01:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/22 15:40:38 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 19:39:00 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,6 @@ static char	*_making_next_token_dollar_func(t_lx_token *cur_token, char *pos, \
 		cur_token->interpreted_str = ft_strcpy(cur_value, pos);
 		cur_token->interpret_symbol |= DOLLAR * split_flag \
 				| WILDCARD * !!ft_strchr(cur_token->interpreted_str, '*');
-		// if ((*cur_token)->interpret_symbol & WILDCARD)
-		// //     interpret_wildcard_token(cur_token);
-		//
 		cur_value = pos;
 	}
 	return (pos);
@@ -112,12 +109,8 @@ int	dollar_translator(t_lx_token *cur_token, char **cur_str, \
 	if (!ft_isspace(*cur_value))
 		ft_strjoin_self_add_free(&cur_token->interpreted_str, \
 													ft_strcpy(cur_value, pos));
-	// wildcard flag on && interpret
 	cur_token->interpret_symbol |= DOLLAR * split_flag \
 			| WILDCARD * !!ft_strchr(cur_token->interpreted_str, '*');
-	// if (cur_token->interpret_symbol & WILDCARD)
-	//     interpret_wildcard_token(cur_token);
-	//
 	cur_value = _making_next_token_dollar_func(cur_token, pos, split_flag);
 	ret = !!(ft_isspace(*(cur_value - 1)));
 	my_free(value);

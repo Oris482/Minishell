@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 23:22:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 18:08:31 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 19:15:59 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,24 @@ static void	_translate_heredoc_line(char *line, int write_fd, \
 												int translate_option)
 {
 	t_lx_token	*token_tmp;
+	char		*chunk;
+	char		*pos;
 
 	if (translate_option)
 	{
-		token_tmp = make_token_node(NULL, WORD);
-		token_tmp->interpret_symbol |= DQUOTE;
-		token_tmp->token_str = ft_strdup(line);
-		ft_chrjoin_myself(&token_tmp->token_str, '\"', FRONT);
-		ft_chrjoin_myself(&token_tmp->token_str, '\"', BACK);
-		interpreter(token_tmp);
-		ft_putstr_fd(token_tmp->interpreted_str, write_fd);
+		token_tmp = make_token_node(ft_strdup(line), WORD);
+		token_tmp->token_str[ft_strlen(token_tmp->token_str) - 1] = '\0';
+		chunk = token_tmp->token_str;
+		while (*chunk)
+		{
+			pos = ft_strchr_null(chunk, '$');
+			ft_strjoin_self_add_free(&token_tmp->interpreted_str, \
+														ft_strcpy(chunk, pos));
+			chunk = pos;
+			if (*chunk != '\0')
+				dollar_translator(token_tmp, &chunk, DOLLAR | DQUOTE);
+		}
+		ft_putendl_fd(token_tmp->interpreted_str, write_fd);
 		my_multi_free(token_tmp->token_str, token_tmp->interpreted_str, \
 															token_tmp, NULL);
 	}

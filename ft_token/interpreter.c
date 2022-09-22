@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/22 18:20:35 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 20:56:49 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	interpret_wildcard_token(t_lx_token **token)
 static t_lx_token	*_interpreter(t_lx_token *cur_token)
 {
 	char				*cur_str;
-	const int			backup_interpret_symbol = cur_token->interpret_symbol;
 
 	cur_token->next = NULL;
 	cur_str = cur_token->token_str;
@@ -84,11 +83,7 @@ static t_lx_token	*_interpreter(t_lx_token *cur_token)
 	{
 		if (interpret_middleware(cur_token, &cur_str, \
 					is_interpret_symbol(*cur_str), 1) == SPERATE && *cur_str)
-		{
 			cur_token->next = make_token_node(NULL, WORD);
-			cur_token->next->interpret_symbol = backup_interpret_symbol;
-		}
-		// if 
 		if (cur_token->next)
 			interpret_wildcard_token(&cur_token);
 	}

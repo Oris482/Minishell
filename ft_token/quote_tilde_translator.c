@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 15:46:09 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 19:27:47 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	quote_translator(t_lx_token *cur_token, char **cur_str)
 	ft_strjoin_self_add_free(&cur_token->interpreted_str, \
 											ft_strcpy(*cur_str, end));
 	(*cur_str) = end + 1;
+	cur_token->interpret_symbol |= QUOTE;
 	return (NOT_SPERATE);
 }
 
@@ -51,6 +52,7 @@ int	dquote_translator(t_lx_token *cur_token, char **cur_str)
 		interpret_middleware(cur_token, cur_str, \
 				DQUOTE | is_interpret_symbol(**cur_str), 2);
 	*cur_str = end + 1;
+	cur_token->interpret_symbol |= DQUOTE;
 	return (NOT_SPERATE);
 }
 
@@ -68,5 +70,6 @@ int	tilde_translator(t_lx_token *cur_token, char **cur_str)
 		return (ERROR);
 	ft_strjoin_self(&cur_token->interpreted_str, my_getenv("HOME"));
 	(*cur_str)++;
+	cur_token->interpret_symbol |= TILDE;
 	return (NOT_SPERATE);
 }
