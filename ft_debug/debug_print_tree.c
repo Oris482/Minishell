@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:25:04 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/20 04:37:17 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 21:03:57 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,6 +336,7 @@ void print_ascii_tree(t_tree * t)
 	asciinode *proot;
 	int xmin, i;
 
+	printf("\n----------------------< TREE >------------------------\n\n");
 	if (t == NULL)
 	  return;
 	proot = build_ascii_tree(t);
@@ -363,44 +364,3 @@ void print_ascii_tree(t_tree * t)
 	free_ascii_tree(proot); 
 	printf("\n------------------------------------------------------\n\n");
 }
-
-// int main(void) 
-// {
-//   t_tree *root = newNode(TREE_AND);
-  
-// 	root->left = newNode(TREE_OR);
-// 	root->right = newNode(TREE_PIPE);
-
-// 	root->left->left = newNode(TREE_PIPE);
-// 	root->left->right = newNode(TREE_SUBSHELL);
-// 	root->right->left = newNode(TREE_CMD);
-// 	root->right->right = newNode(TREE_CMD);
-
-// 	root->left->left->left = newNode(TREE_CMD);
-// 	root->left->left->right = newNode(TREE_CMD);
-// 	root->left->right->left = newNode(TREE_AND);
-// 	root->right->left->left = newNode(TREE_REDI);
-// 	// root->right->left->right = newNode(TREE_UNDEFINED);
-// 	root->right->right->left = newNode(TREE_REDI);
-// 	root->right->right->right = newNode(TREE_SIMPLE_CMD);
-
-// 	// root->left->left->left->left = newNode(TREE_UNDEFINED);
-// 	root->left->left->left->right = newNode(TREE_SIMPLE_CMD);
-// 	root->left->left->right->left = newNode(TREE_REDI);
-// 	root->left->left->right->right = newNode(TREE_SIMPLE_CMD);
-// 	root->left->right->left->left = newNode(TREE_CMD);
-// 	root->left->right->left->right = newNode(TREE_PIPE);
-
-// 	root->left->right->left->left->left = newNode(TREE_REDI);
-// 	root->left->right->left->left->right = newNode(TREE_SIMPLE_CMD);
-// 	root->left->right->left->right->left = newNode(TREE_CMD);
-// 	root->left->right->left->right->right = newNode(TREE_CMD);
-
-// 	// root->left->right->left->right->left->left = newNode(TREE_UNDEFINED);
-// 	root->left->right->left->right->left->right = newNode(TREE_SIMPLE_CMD);
-// 	root->left->right->left->right->right->left = newNode(TREE_REDI);
-// 	// root->left->right->left->right->right->right = newNode(TREE_UNDEFINED);
-//   print_ascii_tree(root);
-
-//   return (0);
-// }

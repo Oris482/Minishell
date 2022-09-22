@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/20 04:34:57 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 21:03:28 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 #include "ft_string.h"
 #include "ft_library.h"
 #include "ft_print.h"
-#include "ft_debug.h"
+#include "ft_tree.h"
+#include "ft_debug/ft_debug.h"
 
 static void	_minishell_init_setting(char *envp[])
 {
@@ -31,7 +32,7 @@ static void	_minishell_init_setting(char *envp[])
 	fd = open("ascii_art", O_RDONLY);
 	if (fd > 0 && read(fd, line, 2045) > 0)
 		ft_putstr_fd(line, STDOUT_FILENO);
-	print_dictionary_lst();
+	close(fd);
 }
 
 static void	_minishell_routine(char *full_line, t_oflag *oflag)

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 20:46:31 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 18:19:20 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@
 #include "ft_print.h"
 #include "ft_string.h"
 #include "ft_token.h"
+#include "ft_debug.h"
 
 int	run_simple_cmd(t_lx_token *token)
 {
-	int		builtin_idx;
-	int		status;
-	pid_t	pid;
+	int			builtin_idx;
+	int			status;
+	pid_t		pid;
 
+	interpret_token_data(token);
 	builtin_idx = is_builtin(get_token_str(token));
 	if (builtin_idx)
 		return (builtin_middleware(token, builtin_idx));

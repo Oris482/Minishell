@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 23:22:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/20 01:38:49 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 19:15:59 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "ft_string.h"
 #include "ft_check.h"
 #include "ft_alloc.h"
+#include "ft_token.h"
 
 void	_set_heredoc_info(t_heredoc_info *heredoc_info, char *pure_limiter)
 {
@@ -62,10 +63,72 @@ int	make_tmp_heredoc(t_lx_token *token, char *pure_limiter)
 	return (WEXITSTATUS(status));
 }
 
-int	redi_heredoc(char *filename)
+static void	_translate_heredoc_line(char *line, int write_fd, \
+												int translate_option)
 {
-	int	read_fd;
+	t_lx_token	*token_tmp;
+	char		*chunk;
+	char		*pos;
 
+	if (translate_option)
+	{
+		token_tmp = make_token_node(ft_strdup(line), WORD);
+		token_tmp->token_str[ft_strlen(token_tmp->token_str) - 1] = '\0';
+		chunk = token_tmp->token_str;
+		while (*chunk)
+		{
+			pos = ft_strchr_null(chunk, '$');
+			ft_strjoin_self_add_free(&token_tmp->interpreted_str, \
+														ft_strcpy(chunk, pos));
+			chunk = pos;
+			if (*chunk != '\0')
+				dollar_translator(token_tmp, &chunk, DOLLAR | DQUOTE);
+		}
+		ft_putendl_fd(token_tmp->interpreted_str, write_fd);
+		my_multi_free(token_tmp->token_str, token_tmp->interpreted_str, \
+															token_tmp, NULL);
+	}
+	else
+		ft_putstr_fd(line, write_fd);
+	my_free(line);
+}
+
+static void	_translate_heredoc_file(t_lx_token *token)
+{
+	const char	*old_filename = token->interpreted_str;
+	char		*new_filename;
+	char		*line;
+	int			translate_option;
+	int			fd[2];
+
+	fd[F_READ] = open(old_filename, O_RDONLY);
+	if (make_tmpfile(&new_filename, &fd[F_WRITE]) == FALSE)
+		exit(print_error_str("heredoc", NULL, NULL, GENERAL_EXIT_CODE));
+	line = get_next_line(fd[F_READ]);
+	translate_option = FALSE;
+	if (line && *line == 't')
+		translate_option = TRUE;
+	my_free(line);
+	line = get_next_line(fd[F_READ]);
+	while (line)
+	{
+		_translate_heredoc_line(line, fd[F_WRITE], translate_option);
+		line = get_next_line(fd[F_READ]);
+	}
+	close(fd[F_READ]);
+	close(fd[F_WRITE]);
+	unlink(old_filename);
+	token->interpreted_str = new_filename;
+	my_multi_free(line, (char *)old_filename, NULL, NULL);
+}
+
+int	redi_heredoc(t_lx_token *token)
+{
+	int		read_fd;
+	char	*filename;
+
+	_translate_heredoc_file(token);
+	filename = token->interpreted_str;
 	read_fd = open(filename, O_RDONLY);
 	if (read_fd == ERROR)
 		return (print_error_str("here-doc", NULL, \

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:40:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/20 00:47:11 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 12:23:38 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,13 @@ typedef struct s_oflag
 
 enum	e_interpreted_type
 {
-	UNDEFINED	=	0b00000000,
-	QUOTE		=	0b00000001,
-	DQUOTE		=	0b00000010,
-	DOLLAR		=	0b00000100,
-	WILDCARD	=	0b00001000,
-	TILDE		=	0b00010000
+	UNDEFINED		=	0b00000000,
+	QUOTE			=	0b00000001,
+	DQUOTE			=	0b00000010,
+	DOLLAR			=	0b00000100,
+	WILDCARD		=	0b00001000,
+	TILDE			=	0b00010000,
+	NEED_TRANSLATE	=	0b01000000
 };
 
 enum e_tree_type
@@ -158,10 +159,10 @@ enum	e_exit_code
 	SYNTAX_ERROR_EXIT_CODE = 258
 };
 
-enum	e_switch
+enum	e_sperate
 {
-	OFF,
-	ON,
+	NOT_SPERATE,
+	SPERATE,
 };
 
 enum	e_return

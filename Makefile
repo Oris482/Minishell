@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/20 04:34:16 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/22 21:02:58 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,12 +72,16 @@ FT_PRINT_SRCS	=	origin_putfd_utils.c			\
 FT_STRING_SRCS	=	custom_str_utils.c				\
 					custom_str_utils2.c				\
 					origin_str_utils.c				\
-					origin_str_utils2.c
+					origin_str_utils2.c				\
+					get_next_line.c					\
+					get_next_line_utils.c
 FT_TOKEN_SRCS	=	interpreter.c					\
 					interpreter_make_chunk.c		\
 					token_node_utils.c				\
 					token_list_utils.c				\
-					translator.c					\
+					quote_tilde_translator.c		\
+					dollar_translator.c				\
+					wildcard_translator.c			\
 					translator_utils.c				\
 					tokenization_utils.c
 FT_TREE_SRCS	=	tree_utils.c
