@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:25:04 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/20 04:37:17 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:19:09 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,6 +336,7 @@ void print_ascii_tree(t_tree * t)
 	asciinode *proot;
 	int xmin, i;
 
+	printf("\n----------------------< TREE >------------------------\n\n");
 	if (t == NULL)
 	  return;
 	proot = build_ascii_tree(t);

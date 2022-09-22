@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 18:08:46 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 18:19:20 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,7 @@
 #include "ft_print.h"
 #include "ft_string.h"
 #include "ft_token.h"
-
-void	interpret_token_data(t_lx_token *token)
-{
-	t_lx_token	*backup;
-
-	while (token)
-	{
-		if (token->interpret_symbol)
-		{
-			backup = token->next;
-			token = interpreter(token);
-			token->next = backup;
-		}
-		token = token->next;
-	}
-}
+#include "ft_debug.h"
 
 int	run_simple_cmd(t_lx_token *token)
 {
