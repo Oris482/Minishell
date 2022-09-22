@@ -6,12 +6,12 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/22 22:35:01 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/09/22 23:30:47 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 			=	cc
-CFLAGS 		=	-Wall -Wextra -Werror #-fsanitize=address
+CFLAGS 		=	-Wall -Wextra -Werror -fsanitize=address
 
 LINKER		=	$(LDFLAGS) -lreadline
 COMPILE		=	-c

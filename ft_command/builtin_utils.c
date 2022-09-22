@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 21:18:27 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 21:26:43 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:45:38 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,20 @@ int	is_builtin(const char *str)
 		return (FALSE);
 }
 
-int	builtin_middleware(t_lx_token *token, int builtin_idx)
+int	builtin_middleware(t_dict dict[], t_lx_token *token, int builtin_idx)
 {
 	if (builtin_idx == BI_ECHO)
 		return (builtin_echo(token));
 	else if (builtin_idx == BI_CD)
-		return (builtin_cd(token));
+		return (builtin_cd(dict, token));
 	else if (builtin_idx == BI_PWD)
 		return (builtin_pwd(token));
 	else if (builtin_idx == BI_EXPORT)
-		return (builtin_export(token));
+		return (builtin_export(dict, token));
 	else if (builtin_idx == BI_UNSET)
-		return (builtin_unset(token));
+		return (builtin_unset(dict, token));
 	else if (builtin_idx == BI_ENV)
-		return (builtin_env(token));
+		return (builtin_env(dict, token));
 	else if (builtin_idx == BI_EXIT)
 		return (builtin_exit(token));
 	return (ERROR);

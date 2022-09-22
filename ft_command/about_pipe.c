@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 00:35:19 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 22:34:46 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:38:01 by minsuki2         ###   ########.fr       */
 /*   Updated: 2022/09/22 22:28:32 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -68,25 +68,26 @@ static void	_handle_pipe_fd(t_pipe *info)
 	}
 }
 
-static void	_handle_pipe(t_tree *tree_node, char set_exit_status_flag, \
+static void	_handle_pipe(t_dict dict[], t_tree *tree_node, char set_exit_status_flag, \
 							t_pipe_info *pipe_info)
 {
 	pid_t	pid;
 
 	if (tree_node->type != TREE_CMD)
-		_handle_pipe(tree_node->left, FALSE, pipe_info);
+		_handle_pipe(dict, tree_node->left, FALSE, pipe_info);
 	else
 	{
 		my_pipe(pipe_info->pipe.fd[pipe_info->pipe.fork_cnt % 2]);
 		pid = my_fork();
 		if (pid == CHILD_PID)
-			_pipe_child(tree_node, set_exit_status_flag, &pipe_info->pipe);
+			_pipe_child(dict, tree_node, set_exit_status_flag, \
+															&pipe_info->pipe);
 		add_pid_to_list(pipe_info->pid_list, pid);
 		_handle_pipe_fd(&pipe_info->pipe);
 		pipe_info->pipe.fork_cnt++;
 		return ;
 	}
-	_handle_pipe(tree_node->right, set_exit_status_flag, pipe_info);
+	_handle_pipe(dict, tree_node->right, set_exit_status_flag, pipe_info);
 }
 
 int	init_pipe(t_dict dict[], t_tree *tree_node, char set_exit_status_flag)
@@ -99,7 +100,7 @@ int	init_pipe(t_dict dict[], t_tree *tree_node, char set_exit_status_flag)
 	pipe_info.pipe.fork_cnt = 0;
 	pipe_info.pid_list = (t_pid_list *)my_calloc(1, sizeof(t_pid_list));
 	count_pipe(tree_node, &pipe_info.pipe);
-	_handle_pipe(tree_node, set_exit_status_flag, &pipe_info);
+	_handle_pipe(dict, tree_node, set_exit_status_flag, &pipe_info);
 	while (pipe_info.pid_list)
 	{
 		waitpid(pipe_info.pid_list->pid, &status, WUNTRACED);

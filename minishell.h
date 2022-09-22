@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/22 22:02:22 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 23:11:54 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ char			*my_readline(const char *prompt);
 t_lx_token		*lexer(char *full_line, t_oflag *oflag);
 
 // check_syntax_error.c
-unsigned int	check_syntax_error(t_lx_token *head);
+unsigned int	check_syntax_error(t_dict dict[], t_lx_token *head);
 
 // check_syntax_middleware.c
 unsigned int	check_syntax_middleware(t_lx_token *token, \
 												int *parentheses_counter);
 
 // parser.c
-t_tree			*parser(t_lx_token *head);
+t_tree			*parser(t_dict dict[], t_lx_token *head);
 
 // parser_utils.c
 void			making_tree_node(t_tree *const cur, \

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 21:25:15 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 23:34:32 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,23 @@
 #include "ft_tree.h"
 #include "ft_debug/ft_debug.h"
 
-static void	_minishell_init_setting(char *envp[], t_dict dict[])
+static void	_minishell_init_setting(t_dict dict[], char *envp[])
 {
 	int		fd;
 	char	line[2045];
 
+	printf("address : %p\n", dict);
 	set_init_signal();
 	terminal_off_control_chars();
 	set_exit_status(0);
-	envp_to_dict(envp, dict);
+	envp_to_dict(dict, envp);
 	fd = open("ascii_art", O_RDONLY);
 	if (fd > 0 && read(fd, line, 2045) > 0)
 		ft_putstr_fd(line, STDOUT_FILENO);
 	close(fd);
 }
 
-static void	_minishell_routine(char *full_line, t_oflag *oflag)
+static void	_minishell_routine(t_dict dict[], char *full_line, t_oflag *oflag)
 {
 	t_lx_token		*token_list;
 	t_tree			*root_tree;
@@ -45,12 +46,12 @@ static void	_minishell_routine(char *full_line, t_oflag *oflag)
 		return ;
 	print_token_list(token_list);
 	print_token_next(token_list);
-	root_tree = parser(token_list);
+	root_tree = parser(dict, token_list);
 	if (!root_tree)
 		return ;
 	print_ascii_tree(root_tree);
 	terminal_on_control_chars();
-	executor(root_tree, TRUE);
+	executor(dict, root_tree, TRUE);
 	terminal_off_control_chars();
 	list_tree_free(NULL, root_tree);
 }
@@ -61,7 +62,8 @@ int	main(int argc, char *argv[], char *envp[])
 	t_oflag			oflag;
 	t_dict			dict[DICT_MAX];
 
-	_minishell_init_setting(envp, dict);
+	printf("address : %p\n", dict);
+	_minishell_init_setting(dict, envp);
 	while (TRUE)
 	{
 		full_line = liner(&oflag);
@@ -71,7 +73,7 @@ int	main(int argc, char *argv[], char *envp[])
 			continue ;
 		}
 		add_history(full_line);
-		_minishell_routine(full_line, &oflag);
+		_minishell_routine(dict, full_line, &oflag);
 		my_multi_free(full_line, NULL, NULL, NULL);
 	}
 	(void)argc;

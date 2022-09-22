@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 23:22:59 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 19:15:59 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 23:12:26 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	_set_heredoc_info(t_heredoc_info *heredoc_info, char *pure_limiter)
 	}
 }
 
-int	make_tmp_heredoc(t_lx_token *token, char *pure_limiter)
+int	make_tmp_heredoc(t_dict dict[], t_lx_token *token, char *pure_limiter)
 {
 	int				write_fd;
 	pid_t			pid;
@@ -46,7 +46,7 @@ int	make_tmp_heredoc(t_lx_token *token, char *pure_limiter)
 	t_heredoc_info	heredoc_info;
 
 	_set_heredoc_info(&heredoc_info, pure_limiter);
-	if (make_tmpfile(&tmpname, &write_fd) == FALSE)
+	if (make_tmpfile(dict, &tmpname, &write_fd) == FALSE)
 	{
 		my_free(heredoc_info.limiter);
 		return (handle_redirections_error("Here-doc", NULL));
@@ -63,8 +63,8 @@ int	make_tmp_heredoc(t_lx_token *token, char *pure_limiter)
 	return (WEXITSTATUS(status));
 }
 
-static void	_translate_heredoc_line(char *line, int write_fd, \
-												int translate_option)
+static void	_translate_heredoc_line(t_dict dict[], char *line, int write_fd, \
+														int translate_option)
 {
 	t_lx_token	*token_tmp;
 	char		*chunk;
@@ -82,7 +82,7 @@ static void	_translate_heredoc_line(char *line, int write_fd, \
 														ft_strcpy(chunk, pos));
 			chunk = pos;
 			if (*chunk != '\0')
-				dollar_translator(token_tmp, &chunk, DOLLAR | DQUOTE);
+				dollar_translator(dict, token_tmp, &chunk, DOLLAR | DQUOTE);
 		}
 		ft_putendl_fd(token_tmp->interpreted_str, write_fd);
 		my_multi_free(token_tmp->token_str, token_tmp->interpreted_str, \
@@ -93,7 +93,7 @@ static void	_translate_heredoc_line(char *line, int write_fd, \
 	my_free(line);
 }
 
-static void	_translate_heredoc_file(t_lx_token *token)
+static void	_translate_heredoc_file(t_dict dict[], t_lx_token *token)
 {
 	const char	*old_filename = token->interpreted_str;
 	char		*new_filename;
@@ -102,7 +102,7 @@ static void	_translate_heredoc_file(t_lx_token *token)
 	int			fd[2];
 
 	fd[F_READ] = open(old_filename, O_RDONLY);
-	if (make_tmpfile(&new_filename, &fd[F_WRITE]) == FALSE)
+	if (make_tmpfile(dict, &new_filename, &fd[F_WRITE]) == FALSE)
 		exit(print_error_str("heredoc", NULL, NULL, GENERAL_EXIT_CODE));
 	line = get_next_line(fd[F_READ]);
 	translate_option = FALSE;
@@ -112,7 +112,7 @@ static void	_translate_heredoc_file(t_lx_token *token)
 	line = get_next_line(fd[F_READ]);
 	while (line)
 	{
-		_translate_heredoc_line(line, fd[F_WRITE], translate_option);
+		_translate_heredoc_line(dict, line, fd[F_WRITE], translate_option);
 		line = get_next_line(fd[F_READ]);
 	}
 	close(fd[F_READ]);
@@ -122,12 +122,12 @@ static void	_translate_heredoc_file(t_lx_token *token)
 	my_multi_free(line, (char *)old_filename, NULL, NULL);
 }
 
-int	redi_heredoc(t_lx_token *token)
+int	redi_heredoc(t_dict dict[], t_lx_token *token)
 {
 	int		read_fd;
 	char	*filename;
 
-	_translate_heredoc_file(token);
+	_translate_heredoc_file(dict, token);
 	filename = token->interpreted_str;
 	read_fd = open(filename, O_RDONLY);
 	if (read_fd == ERROR)

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 16:59:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/22 21:28:12 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 23:35:06 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	**dict_to_envp(t_dict dict[])
 	int			j;
 	char		**new_envp;
 
-	cnt = count_dict();
+	cnt = count_dict(dict);
 	new_envp = (char **)my_calloc(cnt + 1, sizeof(char *));
 	j = 0;
 	idx = 0;
@@ -73,20 +73,21 @@ static void	_setting_dictionary(t_dict dict[])
 	}
 }
 
-void	envp_to_dict(char *envp[], t_dict dict[])
+void	envp_to_dict(t_dict dict[], char *envp[])
 {
 	int		j;
 	char	*cur_shlvl;
 
+	printf("address : %p\n", dict);
 	_setting_dictionary(dict);
 	j = 0;
 	while (envp[j])
-		add_dict(NULL, NULL, envp[j++]);
-	put_dict(ft_strdup("OLDPWD"), ft_strdup(""));
-	erase_dict("_");
+		add_dict(dict, NULL, NULL, envp[j++]);
+	put_dict(dict, ft_strdup("OLDPWD"), ft_strdup(""));
+	erase_dict(dict, "_");
 	cur_shlvl = my_getenv(dict, "SHLVL");
 	if (cur_shlvl == NULL)
-		put_dict(ft_strdup("SHLVL"), ft_strdup("1"));
+		put_dict(dict, ft_strdup("SHLVL"), ft_strdup("1"));
 	else
-		put_dict(ft_strdup("SHLVL"), ft_itoa(ft_atoi(cur_shlvl) + 1));
+		put_dict(dict, ft_strdup("SHLVL"), ft_itoa(ft_atoi(cur_shlvl) + 1));
 }

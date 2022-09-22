@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 23:26:11 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 15:08:18 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:44:32 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ static char	*_make_tmpname(char *ref, char *prefix)
 	return (NULL);
 }
 
-int	make_tmpfile(char **tmpname, int *fd)
+int	make_tmpfile(t_dict dict[], char **tmpname, int *fd)
 {
-	*tmpname = _make_tmpname(ft_strdup(my_getenv("TMPDIR")), "minishell_");
+	*tmpname = _make_tmpname(ft_strdup(my_getenv(dict, "TMPDIR")), \
+																"minishell_");
 	if (*tmpname == NULL)
 		return (FALSE);
 	*fd = open(*tmpname, O_WRONLY | O_CREAT | O_EXCL | O_TRUNC, 0600);

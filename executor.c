@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 22:02:33 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:49:12 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ int	run_simple_cmd(t_dict dict[], t_lx_token *token)
 	interpret_token_data(dict, token);
 	builtin_idx = is_builtin(get_token_str(token));
 	if (builtin_idx)
-		return (builtin_middleware(token, builtin_idx));
+		return (builtin_middleware(dict, token, builtin_idx));
 	else
 	{
 		pid = my_fork();
 		set_int_quit_signal(SIG_DFL, SIG_DFL);
 		if (pid == CHILD_PID)
-			execute_middleware(token);
+			execute_middleware(dict, token);
 		set_int_quit_signal(SIG_IGN, SIG_IGN);
 		waitpid(pid, &status, WUNTRACED);
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
@@ -87,7 +87,7 @@ int	handle_cmd(t_dict dict[], t_tree *tree_node, char set_exit_status_flag)
 	if (handle_fd(backup_fd, BACKUP) == FALSE)
 		return (GENERAL_EXIT_CODE);
 	if (tree_node->left)
-		exit_code = redi_middleware(tree_node->left->token_data);
+		exit_code = redi_middleware(dict, tree_node->left->token_data);
 	if (exit_code == SUCCESS_EXIT_CODE && tree_node->right)
 	{
 		if (tree_node->right->type == TREE_SIMPLE_CMD)
@@ -116,7 +116,7 @@ int	executor(t_dict dict[], t_tree *root, char set_exit_status_flag)
 			exit_code = executor(dict, root->right, set_exit_status_flag);
 	}
 	if (root->type == TREE_PIPE)
-		return (init_pipe(root, set_exit_status_flag));
+		return (init_pipe(dict, root, set_exit_status_flag));
 	if (root->type == TREE_CMD)
 		return (handle_cmd(dict, root, set_exit_status_flag));
 	return (exit_code);

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 22:44:25 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/19 23:22:25 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 23:24:47 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft_environ.h"
 #include "ft_alloc.h"
 
-int	comapre_order_dict(const t_dict *next, const t_dict *new)
+int	compare_order_dict(const t_dict *next, const t_dict *new)
 {
 	int			i;
 	const char	*s1;
@@ -72,7 +72,7 @@ void	dict_lstadd_order(t_dict *head, t_dict *new)
 	val = LESS_THAN;
 	while (cur && val < 0)
 	{
-		val = comapre_order_dict(cur->next, new);
+		val = compare_order_dict(cur->next, new);
 		if (val > 0)
 			_dict_lstadd_next(cur, new);
 		else if (val == 0)
