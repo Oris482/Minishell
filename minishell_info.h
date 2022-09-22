@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:40:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 12:23:38 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:21:27 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ typedef struct s_pid_list
 	pid_t				pid;
 	struct s_pid_list	*next;
 }	t_pid_list;
+
+typedef struct s_pipe_info
+{
+	struct s_pipe		pipe;
+	struct s_pid_list	*pid_list;
+}	t_pipe_info;
 
 typedef struct s_heredoc_info
 {
