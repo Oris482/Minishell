@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:24:20 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 23:06:57 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:18:36 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ unsigned int	check_syntax_error(t_dict dict[], t_lx_token *cur_node)
 		if (check_syntax_middleware(cur_node, &parentheses_counter) == FALSE)
 			return (SYNTAX_ERROR_EXIT_CODE);
 		if (cur_node->token_type == HERE_DOC)
-			if (make_tmp_heredoc(dict, cur_node, cur_node->next->token_str)
-														!= SUCCESS_EXIT_CODE)
+			if (make_tmp_heredoc(dict, cur_node, \
+								cur_node->next->token_str) != SUCCESS_EXIT_CODE)
 				return (GENERAL_EXIT_CODE);
 		cur_node = cur_node->next;
 	}

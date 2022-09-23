@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/22 21:56:10 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:14:37 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,11 @@ static int	_get_func_level(unsigned char symbol_type)
 			+ symbol_type & TILDE);
 }
 
-
 int	interpret_middleware(t_dict dict[], t_lx_token *cur_token, \
 			char **cur_str, unsigned char symbol_type)
 {
-	const int func_level = _get_func_level(symbol_type);
-	int	ret;
+	const int	func_level = _get_func_level(symbol_type);
+	int			ret;
 
 	ret = ERROR;
 	if (symbol_type & QUOTE && func_level == 1)

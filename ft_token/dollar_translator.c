@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 17:01:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/22 22:34:24 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:19:09 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ int	dollar_translator(t_dict dict[], t_lx_token *cur_token, char **cur_str, \
 		return (NOT_SPERATE);
 	cur_value = value;
 	if (split_flag && !cur_token->interpreted_str)
-		while (*cur_value && ft_isspace(*cur_value) && cur_value++);
+		while (*cur_value && ft_isspace(*cur_value) && cur_value++)
+			;
 	pos = _cursor_to_space(split_flag, cur_value);
 	if (!ft_isspace(*cur_value))
 		ft_strjoin_self_add_free(&cur_token->interpreted_str, \

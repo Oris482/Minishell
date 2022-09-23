@@ -6,14 +6,14 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/22 23:59:42 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/09/23 11:01:55 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 			=	cc
-CFLAGS 		=	-Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS 		=	-Wall -Wextra -Werror
 
-LINKER		=	$(LDFLAGS) -lreadline
+LINKER		= -lreadline
 COMPILE		=	-c
 RM 			=	rm -vf
 AR 			= ar
@@ -111,7 +111,6 @@ MANDA_SRCS	+=	$(addprefix $(FT_ALLOC_DIR), $(FT_ALLOC_SRCS))		\
 
 OBJS			=	$(MANDA_SRCS:.c=.o)
 INC_HEADERS		=	-I. 				\
-					$(CPPFLAGS)			\
 					-I$(FT_DEBUG_DIR)	\
 					-I$(FT_ALLOC_DIR)	\
 					-I$(FT_CHECK_DIR)	\

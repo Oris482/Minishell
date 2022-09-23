@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/22 23:11:54 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:17:42 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,10 @@ int				redi_to_left(t_tree *cur_tree, t_lx_token **token_data);
 void			remain_to_right(t_tree *cur_tree, t_lx_token *token_data);
 
 // executor.c
-int				handle_cmd(t_dict dict[], t_tree *tree_node, char set_exit_status_flag);
+int				handle_cmd(t_dict dict[], t_tree *tree_node, \
+												char set_exit_status_flag);
 int				executor(t_dict dict[], t_tree *root, \
-													char set_exit_status_flag);
+												char set_exit_status_flag);
 
 // exit_status.c
 void			set_exit_status(int status);
