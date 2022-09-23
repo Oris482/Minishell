@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/23 17:05:50 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/23 17:16:30 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "ft_check.h"
 #include "ft_string.h"
 #include "ft_alloc.h"
-
 
 int	interpret_middleware(t_dict dict[], t_lx_token *cur_token, \
 			char **cur_str, unsigned char symbol_type)

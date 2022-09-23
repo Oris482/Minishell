@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 17:01:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/23 14:23:26 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 17:19:15 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,6 @@
 #include "ft_string.h"
 #include "ft_alloc.h"
 #include "ft_environ.h"
-
-static int _check_not_dollar_translator(char *next_str, int chunk_flag)
-{
-	if (*next_str == '\0' || ft_isspace(*next_str))
-		return (ERROR);
-	if (!is_env_chr(*next_str, 0) \
-			&& !is_quote(*next_str) \
-			&& !is_wildcard(*next_str) \
-			&& !is_question_mark(*next_str))
-		return (ERROR);
-	if (chunk_flag && *next_str == '\"')
-		return (ERROR);
-	return (SUCCESS);
-}
 
 static char	*_get_pos_dollar_name(char *next_str)
 {
@@ -115,7 +101,7 @@ int	dollar_translator(t_dict dict[], t_lx_token *cur_token, char **cur_str, \
 	char		*value;
 	char		*pos;
 
-	if (_check_not_dollar_translator(*cur_str + 1, chunk_flag) == ERROR)
+	if (check_not_dollar_translator(*cur_str + 1, chunk_flag) == ERROR)
 		return (ERROR);
 	pos = _get_pos_dollar_name(*cur_str + 1);
 	value = _get_dollar_value(dict, ft_strcpy(*cur_str + 1, pos));

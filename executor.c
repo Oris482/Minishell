@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 15:42:54 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/23 17:15:41 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "ft_print.h"
 #include "ft_string.h"
 #include "ft_token.h"
-#include "ft_debug.h"
 
 int	run_simple_cmd(t_dict dict[], t_lx_token *token)
 {

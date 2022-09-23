@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:33:13 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 14:08:51 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 17:19:31 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int				dollar_translator(t_dict dict[], t_lx_token *cur_token, \
 void			check_dollar_wildcard_symbol(t_lx_token *cur_token, \
 																int chunk_flag);
 char			*cursor_to_space(int chunk_flag, char *str_cur);
-
+int				check_not_dollar_translator(char *next_str, int chunk_flag);
 
 // wildcard_translator.c
 int				wildcard_translator(t_lx_token **cur_token);

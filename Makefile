@@ -6,20 +6,24 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/23 14:11:35 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/09/23 17:16:13 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 			=	cc
 CFLAGS 		=	-Wall -Wextra -Werror
 
-LINKER		= -lreadline
 COMPILE		=	-c
 RM 			=	rm -vf
 AR 			= ar
 MAKE_C 		= make -C
 
-FT_DEBUG_DIR 		=	ft_debug/
+BREW_DIR		:= $(shell brew --prefix readline)
+READLINE_LIB	:= $(addprefix $(BREW_DIR)/, lib)
+READLINE_INC	:= -I $(addprefix $(BREW_DIR)/, include)
+READLINE_LIB	:= -lreadline -L$(READLINE_LIB)
+
+# FT_DEBUG_DIR 		=	ft_debug/
 FT_ALLOC_DIR		=	ft_alloc/
 FT_CHECK_DIR		=	ft_check/
 FT_COMMAND_DIR		=	ft_command/
@@ -33,7 +37,7 @@ FT_TREE_DIR			=	ft_tree/
 
 NAME	 	=	minishell
 
-FT_DEBUG_SRCS	=	debug_function.c				\
+# FT_DEBUG_SRCS	=	debug_function.c				\
 					debug_print_envp.c				\
 					debug_print_tree.c
 FT_ALLOC_SRCS	=	about_alloc.c					\
@@ -106,12 +110,12 @@ MANDA_SRCS	+=	$(addprefix $(FT_ALLOC_DIR), $(FT_ALLOC_SRCS))		\
 				$(addprefix $(FT_PRINT_DIR), $(FT_PRINT_SRCS))		\
 				$(addprefix $(FT_STRING_DIR), $(FT_STRING_SRCS))	\
 				$(addprefix $(FT_TOKEN_DIR), $(FT_TOKEN_SRCS))		\
-				$(addprefix $(FT_DEBUG_DIR), $(FT_DEBUG_SRCS))		\
 				$(addprefix $(FT_TREE_DIR), $(FT_TREE_SRCS))
+#				$(addprefix $(FT_DEBUG_DIR), $(FT_DEBUG_SRCS))		\
 
 OBJS			=	$(MANDA_SRCS:.c=.o)
 INC_HEADERS		=	-I. 				\
-					-I$(FT_DEBUG_DIR)	\
+					$(READLINE_INC)		\
 					-I$(FT_ALLOC_DIR)	\
 					-I$(FT_CHECK_DIR)	\
 					-I$(FT_COMMAND_DIR)	\
@@ -122,11 +126,12 @@ INC_HEADERS		=	-I. 				\
 					-I$(FT_STRING_DIR)	\
 					-I$(FT_TOKEN_DIR)	\
 					-I$(FT_TREE_DIR)
+#					-I$(FT_DEBUG_DIR)	\
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $^ $(LINKER) -o $@
+	$(CC) $(CFLAGS) $^ $(READLINE_LIB) -o $@
 	@echo @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	@echo ">>>>>>>>>> Minishell Compiled! <<<<<<<<<<"
 	@echo @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
