@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:33:13 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 21:55:23 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 14:08:51 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ int				tilde_translator(t_dict dict[], t_lx_token *cur_token, \
 // dollar_translator.c
 int				dollar_translator(t_dict dict[], t_lx_token *cur_token, \
 									char **cur_str, unsigned char symbol_type);
+// dollar_translator_utils.c
+void			check_dollar_wildcard_symbol(t_lx_token *cur_token, \
+																int chunk_flag);
+char			*cursor_to_space(int chunk_flag, char *str_cur);
+
+
 // wildcard_translator.c
 int				wildcard_translator(t_lx_token **cur_token);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/23 11:37:58 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 16:11:27 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	interpret_middleware(t_dict dict[], t_lx_token *cur_token, \
 		return (ret);
 	ft_chrjoin_myself(&cur_token->interpreted_str, **cur_str, BACK);
 	(*cur_str)++;
+	cur_token->interpret_symbol |= NEED_TRANSLATE;
 	return (NOT_SPERATE);
 }
 /* *line 26
@@ -67,20 +68,29 @@ void	interpret_wildcard_token(t_lx_token **token)
 // lexer에서 해석 심볼 안켜고(1, 0 해석 필요한지만 켜주고) 여기서 만들면서 켜기
 static t_lx_token	*_interpreter(t_dict dict[], t_lx_token *cur_token)
 {
-	char				*cur_str;
+	t_lx_token		*init_token;
+	char			*cur_str;
 
+	init_token = cur_token;
 	cur_token->next = NULL;
 	cur_str = cur_token->token_str;
 	while (*cur_str)
 	{
 		if (interpret_middleware(dict, cur_token, &cur_str, \
+					is_interpret_symbol(*cur_str)) == NOT_SPERATE)
+
+		if (interpret_middleware(dict, cur_token, &cur_str, \
 					is_interpret_symbol(*cur_str)) == SPERATE && *cur_str)
+		{
+			while (cur_token->next)
+				cur_token = cur_token->next;
 			cur_token->next = make_token_node(NULL, WORD);
-		if (cur_token->next)
-			interpret_wildcard_token(&cur_token);
+		}
+		while (cur_token->next)
+			cur_token = cur_token->next;
 	}
-	interpret_wildcard_token(&cur_token);
-	return (cur_token);
+	interpret_wildcard_token(&init_token);
+	return (init_token);
 }
 
 void	interpret_token_data(t_dict dict[], t_lx_token *token)
