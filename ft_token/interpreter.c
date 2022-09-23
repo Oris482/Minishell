@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/23 16:11:27 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 17:05:50 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	interpret_middleware(t_dict dict[], t_lx_token *cur_token, \
 		return (ret);
 	ft_chrjoin_myself(&cur_token->interpreted_str, **cur_str, BACK);
 	(*cur_str)++;
-	cur_token->interpret_symbol |= NEED_TRANSLATE;
 	return (NOT_SPERATE);
 }
 /* *line 26
@@ -77,14 +76,12 @@ static t_lx_token	*_interpreter(t_dict dict[], t_lx_token *cur_token)
 	while (*cur_str)
 	{
 		if (interpret_middleware(dict, cur_token, &cur_str, \
-					is_interpret_symbol(*cur_str)) == NOT_SPERATE)
-
-		if (interpret_middleware(dict, cur_token, &cur_str, \
 					is_interpret_symbol(*cur_str)) == SPERATE && *cur_str)
 		{
 			while (cur_token->next)
 				cur_token = cur_token->next;
 			cur_token->next = make_token_node(NULL, WORD);
+			cur_token->next->interpret_symbol |= NEED_TRANSLATE;
 		}
 		while (cur_token->next)
 			cur_token = cur_token->next;
