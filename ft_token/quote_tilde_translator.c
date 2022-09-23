@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:29:22 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 21:55:51 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 12:25:16 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	quote_translator(t_lx_token *cur_token, char **cur_str)
 int	dquote_translator(t_dict dict[], t_lx_token *cur_token, char **cur_str)
 {
 	char	*end;
+	int		symbol_type;
 
 	/*
 	if (symbol_type != DQUOTE)
@@ -49,8 +50,11 @@ int	dquote_translator(t_dict dict[], t_lx_token *cur_token, char **cur_str)
 	(*cur_str)++;
 	end = ft_strchr(*cur_str, '\"');
 	while (*cur_str != end)
+	{
+		symbol_type = is_interpret_symbol(**cur_str);
 		interpret_middleware(dict, cur_token, cur_str, \
-				DQUOTE | is_interpret_symbol(**cur_str));
+										symbol_type | DQUOTE * !!symbol_type);
+	}
 	*cur_str = end + 1;
 	cur_token->interpret_symbol |= DQUOTE;
 	return (NOT_SPERATE);

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 16:59:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/23 11:15:27 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/23 13:42:26 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,9 @@ static void	_setting_dictionary(t_dict dict[])
 void	envp_to_dict(t_dict dict[], char *envp[])
 {
 	int		j;
-	char	*cur_shlvl;
 
 	_setting_dictionary(dict);
 	j = 0;
 	while (envp[j])
 		add_dict(dict, NULL, NULL, envp[j++]);
-	put_dict(dict, ft_strdup("OLDPWD"), ft_strdup(""));
-	erase_dict(dict, "_");
-	cur_shlvl = my_getenv(dict, "SHLVL");
-	if (cur_shlvl == NULL)
-		put_dict(dict, ft_strdup("SHLVL"), ft_strdup("1"));
-	else
-		put_dict(dict, ft_strdup("SHLVL"), ft_itoa(ft_atoi(cur_shlvl) + 1));
 }
