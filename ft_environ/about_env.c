@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 16:59:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/23 00:03:40 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:15:27 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,10 @@ void	envp_to_dict(t_dict dict[], char *envp[])
 	int		j;
 	char	*cur_shlvl;
 
-	printf("address : %p\n", dict);
 	_setting_dictionary(dict);
 	j = 0;
 	while (envp[j])
 		add_dict(dict, NULL, NULL, envp[j++]);
-
-
 	put_dict(dict, ft_strdup("OLDPWD"), ft_strdup(""));
 	erase_dict(dict, "_");
 	cur_shlvl = my_getenv(dict, "SHLVL");

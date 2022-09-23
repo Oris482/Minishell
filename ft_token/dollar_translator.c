@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 17:01:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/22 22:34:24 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:47:55 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	*_get_dollar_value(t_dict dict[], char *chunk)
 		ret_str = ft_itoa(get_exit_status());
 		ft_strjoin_self(&ret_str, chunk + 1);
 	}
-	else if (*chunk == '$' || *chunk == '\0')
+	else if (*chunk == '$')// || *chunk == '\0')
 		ret_str = ft_chr_to_str('$');
 	else
 		ret_str = ft_strdup(my_getenv(dict, chunk));
@@ -99,6 +99,8 @@ int	dollar_translator(t_dict dict[], t_lx_token *cur_token, char **cur_str, \
 	char		*cur_value;
 	char		*pos;
 
+	if (*(*cur_str + 1))
+		return (ERROR);
 	pos = _get_pos_dollar_chunk(cur_str);
 	value = _get_dollar_value(dict, ft_strcpy(*cur_str, pos));
 	*cur_str = pos;
@@ -106,7 +108,8 @@ int	dollar_translator(t_dict dict[], t_lx_token *cur_token, char **cur_str, \
 		return (NOT_SPERATE);
 	cur_value = value;
 	if (split_flag && !cur_token->interpreted_str)
-		while (*cur_value && ft_isspace(*cur_value) && cur_value++);
+		while (*cur_value && ft_isspace(*cur_value) && cur_value++)
+			;
 	pos = _cursor_to_space(split_flag, cur_value);
 	if (!ft_isspace(*cur_value))
 		ft_strjoin_self_add_free(&cur_token->interpreted_str, \

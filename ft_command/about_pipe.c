@@ -6,8 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 00:35:19 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 22:38:01 by minsuki2         ###   ########.fr       */
-/*   Updated: 2022/09/22 22:28:32 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:19:59 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +67,8 @@ static void	_handle_pipe_fd(t_pipe *info)
 	}
 }
 
-static void	_handle_pipe(t_dict dict[], t_tree *tree_node, char set_exit_status_flag, \
-							t_pipe_info *pipe_info)
+static void	_handle_pipe(t_dict dict[], t_tree *tree_node, \
+							char set_exit_status_flag, t_pipe_info *pipe_info)
 {
 	pid_t	pid;
 

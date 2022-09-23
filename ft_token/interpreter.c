@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/23 11:36:40 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:37:58 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@
 #include "ft_alloc.h"
 
 
-
 int	interpret_middleware(t_dict dict[], t_lx_token *cur_token, \
 			char **cur_str, unsigned char symbol_type)
 {
-	int	ret;
+	int			ret;
 
 	ret = ERROR;
 	if (symbol_type == QUOTE)

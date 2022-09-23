@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:40:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 22:34:11 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:17:07 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct s_heredoc_info
 	char	*limiter;
 }	t_heredoc_info;
 
-
 typedef struct s_dict
 {
 	char			*name;
@@ -64,7 +63,6 @@ typedef struct s_dict
 	struct s_dict	*next;
 	struct s_dict	*prev;
 }	t_dict;
-
 
 typedef struct s_lx_token
 {
