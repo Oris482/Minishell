@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/22 21:56:10 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:36:40 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,32 +16,23 @@
 #include "ft_string.h"
 #include "ft_alloc.h"
 
-static int	_get_func_level(unsigned char symbol_type)
-{
-	return (symbol_type & QUOTE \
-			+ symbol_type & DOLLAR \
-			+ symbol_type & DQUOTE \
-			+ symbol_type & WILDCARD \
-			+ symbol_type & TILDE);
-}
 
 
 int	interpret_middleware(t_dict dict[], t_lx_token *cur_token, \
 			char **cur_str, unsigned char symbol_type)
 {
-	const int func_level = _get_func_level(symbol_type);
 	int	ret;
 
 	ret = ERROR;
-	if (symbol_type & QUOTE && func_level == 1)
+	if (symbol_type == QUOTE)
 		ret = quote_translator(cur_token, cur_str);
-	else if (symbol_type & DOLLAR)
+	else if (symbol_type == DOLLAR || symbol_type == (DOLLAR | DQUOTE))
 		ret = dollar_translator(dict, cur_token, cur_str, symbol_type);
-	else if (symbol_type & DQUOTE && func_level == 1)
+	else if (symbol_type == DQUOTE)
 		ret = dquote_translator(dict, cur_token, cur_str);
-	else if (symbol_type == WILDCARD && func_level == 1)
+	else if (symbol_type == WILDCARD)
 		cur_token->interpret_symbol |= WILDCARD;
-	else if (symbol_type & TILDE && func_level == 1)
+	else if (symbol_type == TILDE)
 		ret = tilde_translator(dict, cur_token, cur_str);
 	if (ret != ERROR)
 		return (ret);
