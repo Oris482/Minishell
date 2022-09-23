@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 00:35:19 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 11:19:59 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/23 16:00:32 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	init_pipe(t_dict dict[], t_tree *tree_node, char set_exit_status_flag)
 	pipe_info.pid_list = (t_pid_list *)my_calloc(1, sizeof(t_pid_list));
 	count_pipe(tree_node, &pipe_info.pipe);
 	_handle_pipe(dict, tree_node, set_exit_status_flag, &pipe_info);
+	set_int_quit_signal(SIG_IGN, SIG_IGN);
 	while (pipe_info.pid_list)
 	{
 		waitpid(pipe_info.pid_list->pid, &status, WUNTRACED);
@@ -107,6 +108,7 @@ int	init_pipe(t_dict dict[], t_tree *tree_node, char set_exit_status_flag)
 		pipe_info.pid_list = pipe_info.pid_list->next;
 		my_free(tmp);
 	}
+	set_init_signal();
 	if (set_exit_status_flag)
 		set_exit_status(get_exit_code(status));
 	return (SUCCESS_EXIT_CODE);

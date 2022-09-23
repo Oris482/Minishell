@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 00:40:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 22:49:12 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/23 15:42:54 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 int	run_simple_cmd(t_dict dict[], t_lx_token *token)
 {
+	const int	is_atty = isatty(STDOUT_FILENO);
 	int			builtin_idx;
 	int			status;
 	pid_t		pid;
@@ -36,10 +37,10 @@ int	run_simple_cmd(t_dict dict[], t_lx_token *token)
 			execute_middleware(dict, token);
 		set_int_quit_signal(SIG_IGN, SIG_IGN);
 		waitpid(pid, &status, WUNTRACED);
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-			write(1, "Int : 2\n", 9);
-		else if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
-			write(1, "Quit : 3\n", 10);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT && is_atty)
+			ft_putendl_fd("Int : 2", STDOUT_FILENO);
+		else if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT && is_atty)
+			ft_putendl_fd("Quit : 3", STDOUT_FILENO);
 		set_init_signal();
 		return (get_exit_code(status));
 	}
