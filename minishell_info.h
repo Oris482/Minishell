@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:40:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/20 00:47:11 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:17:07 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 # define EXPORT_HEAD_MSG	"declare -x "
 # define IDX_ONE_OR_MORE	1
+# define DICT_MAX		53
 
 # include <dirent.h>
 # include <unistd.h>
@@ -43,13 +44,17 @@ typedef struct s_pid_list
 	struct s_pid_list	*next;
 }	t_pid_list;
 
+typedef struct s_pipe_info
+{
+	struct s_pipe		pipe;
+	struct s_pid_list	*pid_list;
+}	t_pipe_info;
+
 typedef struct s_heredoc_info
 {
 	int		option;
 	char	*limiter;
 }	t_heredoc_info;
-
-# define DICT_MAX		53
 
 typedef struct s_dict
 {
@@ -58,8 +63,6 @@ typedef struct s_dict
 	struct s_dict	*next;
 	struct s_dict	*prev;
 }	t_dict;
-
-t_dict	g_dict[DICT_MAX];
 
 typedef struct s_lx_token
 {
@@ -99,12 +102,13 @@ typedef struct s_oflag
 
 enum	e_interpreted_type
 {
-	UNDEFINED	=	0b00000000,
-	QUOTE		=	0b00000001,
-	DQUOTE		=	0b00000010,
-	DOLLAR		=	0b00000100,
-	WILDCARD	=	0b00001000,
-	TILDE		=	0b00010000
+	UNDEFINED		=	0b00000000,
+	QUOTE			=	0b00000001,
+	DQUOTE			=	0b00000010,
+	DOLLAR			=	0b00000100,
+	WILDCARD		=	0b00001000,
+	TILDE			=	0b00010000,
+	NEED_TRANSLATE	=	0b01000000
 };
 
 enum e_tree_type
@@ -158,10 +162,10 @@ enum	e_exit_code
 	SYNTAX_ERROR_EXIT_CODE = 258
 };
 
-enum	e_switch
+enum	e_sperate
 {
-	OFF,
-	ON,
+	NOT_SPERATE,
+	SPERATE,
 };
 
 enum	e_return

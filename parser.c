@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:31:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/20 00:27:17 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 23:07:33 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ void	expand_token_to_tree(t_tree *root)
 	tree_traversal(root, TREE_CMD, expand_cmd_tree);
 }
 
-t_tree	*parser(t_lx_token *head)
+t_tree	*parser(t_dict dict[], t_lx_token *head)
 {
 	t_tree	*root;
 	int		exit_code;
 
-	exit_code = check_syntax_error(head);
+	exit_code = check_syntax_error(dict, head);
 	if (exit_code != SUCCESS_EXIT_CODE)
 	{
 		set_exit_status(exit_code);

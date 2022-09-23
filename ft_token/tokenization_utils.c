@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:15:19 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 21:36:35 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/22 12:30:15 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,42 @@ void	set_token_type(t_lx_token *token_node, char c)
 	}
 }
 
-void	set_interpret_symbol(t_lx_token *token_node, char c, \
-								int *quote_flag)
+void	set_interpret_symbol(t_lx_token *token_node)
 {
-	if (is_quote(c) == *quote_flag)
-		token_node->interpret_symbol |= *quote_flag;
-	if (!*quote_flag || *quote_flag == DQUOTE)
-		token_node->interpret_symbol |= is_dollar(c);
-	if (!*quote_flag)
-		token_node->interpret_symbol |= is_wildcard(c);
-	if (!*quote_flag)
-		token_node->interpret_symbol |= is_tilde(c);
+	const char	*token_str = token_node->token_str;
+	int			quote_flag;
+	int			idx;
+	char		c;
+
+	quote_flag = FALSE;
+	idx = 0;
+	while (token_str && token_str[idx])
+	{
+		c = token_str[idx];
+		if (!quote_flag && is_quote(c))
+			token_node->interpret_symbol |= quote_flag;
+		if (is_quote(c) == quote_flag)
+			token_node->interpret_symbol |= quote_flag;
+		if (!quote_flag || quote_flag == DQUOTE)
+			token_node->interpret_symbol |= is_dollar(c);
+		if (!quote_flag)
+		{
+			token_node->interpret_symbol |= is_wildcard(c);
+			token_node->interpret_symbol |= is_tilde(c);
+		}
+		idx++;
+	}
+}
+
+void	set_need_translate_symbol(t_lx_token *token_node, char c, \
+									int *quote_flag)
+{
+	if (is_quote(c) && is_quote(c) == *quote_flag)
+		token_node->interpret_symbol |= NEED_TRANSLATE;
+	if ((!*quote_flag || *quote_flag == DQUOTE) && is_dollar(c))
+		token_node->interpret_symbol |= NEED_TRANSLATE;
+	if (!*quote_flag && is_wildcard(c))
+		token_node->interpret_symbol |= NEED_TRANSLATE;
+	if (!*quote_flag && is_tilde(c))
+		token_node->interpret_symbol |= NEED_TRANSLATE;
 }

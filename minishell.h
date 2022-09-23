@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/20 03:42:05 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:17:42 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ char			*my_readline(const char *prompt);
 t_lx_token		*lexer(char *full_line, t_oflag *oflag);
 
 // check_syntax_error.c
-unsigned int	check_syntax_error(t_lx_token *head);
+unsigned int	check_syntax_error(t_dict dict[], t_lx_token *head);
 
 // check_syntax_middleware.c
 unsigned int	check_syntax_middleware(t_lx_token *token, \
 												int *parentheses_counter);
 
 // parser.c
-t_tree			*parser(t_lx_token *head);
+t_tree			*parser(t_dict dict[], t_lx_token *head);
 
 // parser_utils.c
 void			making_tree_node(t_tree *const cur, \
@@ -57,8 +57,10 @@ int				redi_to_left(t_tree *cur_tree, t_lx_token **token_data);
 void			remain_to_right(t_tree *cur_tree, t_lx_token *token_data);
 
 // executor.c
-int				handle_cmd(t_tree *tree_node, char set_exit_status_flag);
-int				executor(t_tree *root, char set_exit_status_flag);
+int				handle_cmd(t_dict dict[], t_tree *tree_node, \
+												char set_exit_status_flag);
+int				executor(t_dict dict[], t_tree *root, \
+												char set_exit_status_flag);
 
 // exit_status.c
 void			set_exit_status(int status);

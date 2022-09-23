@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 00:27:25 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 02:21:34 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/22 21:26:32 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft_command.h"
 #include "ft_print.h"
 
-int	print_export(void)
+int	print_export(t_dict dict[])
 {
 	int		idx;
 	t_dict	*cur;
@@ -22,7 +22,7 @@ int	print_export(void)
 	idx = 0;
 	while (idx < DICT_MAX)
 	{
-		cur = &g_dict[idx];
+		cur = &dict[idx];
 		while (cur->next)
 		{
 			cur = cur->next;
@@ -41,7 +41,7 @@ int	print_export(void)
 	return (SUCCESS_EXIT_CODE);
 }
 
-void	print_env(void)
+void	print_env(t_dict dict[])
 {
 	int		idx;
 	t_dict	*cur;
@@ -49,7 +49,7 @@ void	print_env(void)
 	idx = 0;
 	while (idx < DICT_MAX)
 	{
-		cur = &g_dict[idx];
+		cur = &dict[idx];
 		while (cur->next)
 		{
 			cur = cur->next;

@@ -6,19 +6,20 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/19 23:22:57 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/23 14:11:35 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 			=	cc
-CFLAGS 		=	-Wall -Wextra -Werror #-fsanitize=address
+CFLAGS 		=	-Wall -Wextra -Werror
 
-LINKER		=	$(LDFLAGS) -lreadline
+LINKER		= -lreadline
 COMPILE		=	-c
 RM 			=	rm -vf
 AR 			= ar
 MAKE_C 		= make -C
 
+FT_DEBUG_DIR 		=	ft_debug/
 FT_ALLOC_DIR		=	ft_alloc/
 FT_CHECK_DIR		=	ft_check/
 FT_COMMAND_DIR		=	ft_command/
@@ -32,6 +33,9 @@ FT_TREE_DIR			=	ft_tree/
 
 NAME	 	=	minishell
 
+FT_DEBUG_SRCS	=	debug_function.c				\
+					debug_print_envp.c				\
+					debug_print_tree.c
 FT_ALLOC_SRCS	=	about_alloc.c					\
 					free_utils.c
 FT_CHECK_SRCS	=	check_char_utils.c				\
@@ -68,13 +72,16 @@ FT_PRINT_SRCS	=	origin_putfd_utils.c			\
 FT_STRING_SRCS	=	custom_str_utils.c				\
 					custom_str_utils2.c				\
 					origin_str_utils.c				\
-					origin_str_utils2.c
+					origin_str_utils2.c				\
+					get_next_line.c					\
+					get_next_line_utils.c
 FT_TOKEN_SRCS	=	interpreter.c					\
-					interpreter_make_chunk.c		\
 					token_node_utils.c				\
 					token_list_utils.c				\
-					translator.c					\
-					translator_utils.c				\
+					quote_tilde_translator.c		\
+					dollar_translator.c				\
+					dollar_translator_utils.c		\
+					wildcard_translator.c			\
 					tokenization_utils.c
 FT_TREE_SRCS	=	tree_utils.c
 
@@ -99,11 +106,12 @@ MANDA_SRCS	+=	$(addprefix $(FT_ALLOC_DIR), $(FT_ALLOC_SRCS))		\
 				$(addprefix $(FT_PRINT_DIR), $(FT_PRINT_SRCS))		\
 				$(addprefix $(FT_STRING_DIR), $(FT_STRING_SRCS))	\
 				$(addprefix $(FT_TOKEN_DIR), $(FT_TOKEN_SRCS))		\
+				$(addprefix $(FT_DEBUG_DIR), $(FT_DEBUG_SRCS))		\
 				$(addprefix $(FT_TREE_DIR), $(FT_TREE_SRCS))
 
 OBJS			=	$(MANDA_SRCS:.c=.o)
 INC_HEADERS		=	-I. 				\
-					$(CPPFLAGS)			\
+					-I$(FT_DEBUG_DIR)	\
 					-I$(FT_ALLOC_DIR)	\
 					-I$(FT_CHECK_DIR)	\
 					-I$(FT_COMMAND_DIR)	\
