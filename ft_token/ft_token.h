@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:33:13 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 17:19:31 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/24 22:26:35 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void			set_need_translate_symbol(t_lx_token *token_node, char c, \
 // interpreter.c
 int				interpret_middleware(t_dict dict[], t_lx_token *cur_token, \
 									char **cur_str, unsigned char symbol_type);
-void			interpret_wildcard_token(t_lx_token **token);
 void			interpret_token_data(t_dict dict[], t_lx_token *token);
 
 // interpreter_make_chunk.c

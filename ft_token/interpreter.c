@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:44:22 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/23 17:16:30 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/24 22:37:32 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,8 @@ int	interpret_middleware(t_dict dict[], t_lx_token *cur_token, \
 	(*cur_str)++;
 	return (NOT_SPERATE);
 }
-/* *line 26
- * 달러 다음 큰 따옴표 순으로 if 문을 작성해야 함
- * ㄴ DOLLAR를 만나서 DQUOTE에 들어갈 수 는 없지만
- * ㄴ DQUOTE를 만나서 DOLLAR에 들어갈 수 있음
- */
 
-void	interpret_wildcard_token(t_lx_token **token)
+static void	_interpret_wildcard_token(t_lx_token **token)
 {
 	t_lx_token	*second_backup;
 
@@ -62,8 +57,6 @@ void	interpret_wildcard_token(t_lx_token **token)
 	}
 }
 
-// return이 해석된거의 마지막 노드, 확장안됐으면 뒤로 넘어가면 안됨(next->token_str == null인지로 확인)
-// lexer에서 해석 심볼 안켜고(1, 0 해석 필요한지만 켜주고) 여기서 만들면서 켜기
 static t_lx_token	*_interpreter(t_dict dict[], t_lx_token *cur_token)
 {
 	t_lx_token		*init_token;
@@ -85,7 +78,7 @@ static t_lx_token	*_interpreter(t_dict dict[], t_lx_token *cur_token)
 		while (cur_token->next)
 			cur_token = cur_token->next;
 	}
-	interpret_wildcard_token(&init_token);
+	_interpret_wildcard_token(&init_token);
 	return (init_token);
 }
 

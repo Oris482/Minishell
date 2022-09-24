@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/23 17:16:13 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/24 22:42:57 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -159,6 +159,6 @@ re:
 bonus: all
 
 lldb:
-	$(CC) $(CFLAGS) $(MANDA_SRCS) $(LINKER) $(INC_HEADERS) $(CPPFLAGS) -o $(NAME) -g
+	$(CC) $(CFLAGS) $(MANDA_SRCS) $(INC_HEADERS) $(READLINE_LIB) -o $(NAME) -g
 
 .PHONY: all clean fclean re bonus

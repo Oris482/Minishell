@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 19:59:53 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 23:49:49 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/24 22:35:13 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ t_lx_token	*get_last_token(t_lx_token *token)
 	if (!token)
 		return (NULL);
 	while (token->next)
-		token = token->prev;
+		token = token->next;
 	return (token);
 }
