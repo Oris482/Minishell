@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:59:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/25 14:32:11 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/25 14:50:09 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,15 @@ int	failed_execve(char *cmd_path, char **cmd_argv, char **cmd_envp)
 {
 	int			rtn_exit_code;
 
-	if (errno == ENOTDIR)
+	if (errno == ENOTDIR || errno == EACCES)
 		rtn_exit_code = print_error_str(cmd_path, NULL, NULL, 126);
 	else if (errno == ENOENT)
 		rtn_exit_code = print_error_str(cmd_path, NULL, NULL, 127);
+	else if (errno == ENOEXEC)
+		rtn_exit_code = print_error_str(cmd_path, NULL, NULL, 2);
 	else
-		rtn_exit_code = GENERAL_EXIT_CODE;
+		rtn_exit_code = print_error_str(cmd_path, NULL, \
+											NULL, GENERAL_EXIT_CODE);
 	my_free(cmd_path);
 	char_dimen2_free(cmd_argv);
 	char_dimen2_free(cmd_envp);
