@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:59:38 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/22 22:14:16 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/25 14:32:11 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,6 @@ void	execute_middleware(t_dict dict[], t_lx_token *token)
 
 	cmd_str = get_token_str(token);
 	cmd_path = cmd_str;
-	stat(cmd_path, &statbuf);
-	if (S_ISDIR(statbuf.st_mode))
-		exit(print_error_str(cmd_path, NULL, "is a directory", 126));
 	if (ft_strchr(cmd_str, '/') == NULL)
 	{
 		cmd_path = _find_cmd_path(dict, cmd_str);
@@ -111,6 +108,9 @@ void	execute_middleware(t_dict dict[], t_lx_token *token)
 	else
 		cmd_str = ft_strrchr_right_away(ft_strchr_null(cmd_str, \
 													'\0'), '/', cmd_str) + 1;
+	stat(cmd_path, &statbuf);
+	if (S_ISDIR(statbuf.st_mode))
+		exit(print_error_str(cmd_path, NULL, "is a directory", 126));
 	cmd_argv = make_cmd_argv(cmd_str, token);
 	cmd_envp = dict_to_envp(dict);
 	execve(cmd_path, cmd_argv, cmd_envp);
