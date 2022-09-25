@@ -46,7 +46,15 @@ EXPORT="
 ██╔══╝   ██╔██╗ ██╔═══╝ ██║   ██║██╔══██╗   ██║   
 ███████╗██╔╝ ██╗██║     ╚██████╔╝██║  ██║   ██║   
 ╚══════╝╚═╝  ╚═╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
-                                                  
+"
+
+EXECVE="
+███████╗██╗  ██╗███████╗ ██████╗
+██╔════╝╚██╗██╔╝██╔════╝██╔════╝
+█████╗   ╚███╔╝ █████╗  ██║
+██╔══╝   ██╔██╗ ██╔══╝  ██║
+███████╗██╔╝ ██╗███████╗╚██████╗
+╚══════╝╚═╝  ╚═╝         ╚═════╝
 "
 PIPES="
 ██████╗ ██╗██████╗ ███████╗███████╗
@@ -114,6 +122,7 @@ function	help()
 	echo "\033[1;37m	-p		${NORMAL}Pipes"
 	echo "\033[1;37m	-u		${NORMAL}Unset"
 	echo "\033[1;37m	-x		${NORMAL}Exit\n"
+	echo "\033[1;37m	-m		${NORMAL}Checklist (Page Correction)"
 	# echo "\033[1;37m	-y		${NORMAL}Checklist (Page Correction)"
 }
 
@@ -298,17 +307,38 @@ if  [[ $1 = "-E" ]]; then
 {
 	printf "%s$ECHO\n"
 
+	testing "echo"
+	testing "echo ''"
+	testing "echo \"\""
+	testing "echo a* | tr ' ' '\\\n' | sort | tr '\\\n' ' '"
+	testing "echo */* | tr ' ' '\\\n' | sort | tr '\\\n' ' '"
+	testing "echo /* | tr ' ' '\\\n' | sort | tr '\\\n' ' '"
+	testing "echo /*/ | tr ' ' '\\\n' | sort | tr '\\\n' ' '"
+	testing "echo '*'/ | tr ' ' '\\\n' | sort | tr '\\\n' ' '"
+	testing "echo "*"/ | tr ' ' '\\\n' | sort | tr '\\\n' ' '"
+	testing "echo "*"/ | tr ' ' '\\\n' | sort | tr '\\\n' ' '"
+	testing "export test=\" a b \" && echo \$test"
+	testing "export test=\" a* b \" && echo \$test"
+	testing "export test=\" a* b \" && echo \$test | tr ' ' '\\\n' | sort | tr '\\\n' ' '"
+	testing "export test=\" a* b \" && echo /\$test/"
+	testing "export test=\" a\" && echo \$test* | tr ' ' '\\\n' | sort | tr '\\\n' ' '"
+	testing "export test=\"a b c \" && echo /\$test/"
+	testing "export test=\" a b c\" && echo /\$test/"
+	testing "export test=\"a b c\" && echo /\$test/"
+	testing "export test=\" a b c \" && echo /\$test/"
+	testing "export test=\" a* b* c* \" && echo /\$test/"
+	testing "export test=\" a* b* c* \" && echo /\$test/"
+	printf "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n\n"
 	testing "echo '$'"
+	testing "echo \"$\""
 	testing "echo $	"
 	testing "echo $\"$\"$ '$'$'$'"
 	testing "echo ''$''"
+	testing "echo '$'$'\$\$\$'\$\$\$\$"
 	testing "echo \$abc$"
 	testing "eChO \"\"$\"\"	"
-	testing "echo \"\$_\"" # As long as you return the last command your good to go
 	testing "echo	ls"
 	testing "echo '\$1337' "
-	testing "echo \"\$1337\""
-	testing "echo \"\$0\""
 	testing "'e'\"c\"'h'o	\"POMS\""
 	testing "echo echo"
 	testing "echo \"\t a\""
@@ -368,8 +398,12 @@ if  [[ $1 = "-E" ]]; then
 	testing "echo \$PWD\$PWD_FIL\$PWD.HERE"
 	testing "echo \$\"USER\""
 	testing "echo \$\"\""
+	printf "@@@@@@@@@@@@@@@@@@@@@ < not mini > @@@@@@@@@@@@@@@@@@@@@@@@@@\n\n"
+	testing "echo \"\$_\"" # As long as you return the last command your good to go
+	testing "echo \"\$1337\""
+	testing "echo \"\$0\""
 	grade 70
-}  
+}
 fi
 
 if  [[ $1 = "-p" ]];
@@ -984,5 +1018,29 @@ if [[ $1 = "-y" ]]; then
 
 	printf	"\n %s""\033[1mPwd\033[0m${NORMAL}\n\n"$RESET
 
+}
+fi
+
+if [[ $1 = "-m" ]]; then
+{
+	printf	"%s""\033[1mSimple Command\033[0m${NORMAL}\n\n"$RESET
+}
+fi
+
+if [[ $1 = "-v" ]]; then
+{
+	printf \"%s$EXECVE\\n\"
+	testing "cmd_dir"
+	testing "./cmd_dir"
+	testing "./cmd_dir/"
+	testing "cmd_dir/"
+	testing "cmd_file/"
+	testing "cmd_file"
+	testing "./cmd_file"
+	testing "no_dir"
+	testing "./no_dir"
+	testing "no_dir/"
+	testing "no_file/"
+	testing "./no_file"
 }
 fi
