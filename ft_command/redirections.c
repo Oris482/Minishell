@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 13:50:16 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/24 22:41:36 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/25 14:21:55 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	redi_middleware(t_dict dict[], t_lx_token *token)
 	char	*err_arg;
 
 	interpret_token_data(dict, token);
-	exit_code = SUCCESS_EXIT_CODE;
 	while (token)
 	{
 		if (token->token_type == RED_IN)

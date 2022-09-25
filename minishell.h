@@ -6,12 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:08:52 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/23 11:17:42 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/25 14:25:52 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
 # include <signal.h>
 # include <term.h>
 # include <unistd.h>
@@ -66,5 +67,4 @@ int				executor(t_dict dict[], t_tree *root, \
 void			set_exit_status(int status);
 int				get_exit_status(void);
 int				get_exit_code(int status);
-
 #endif

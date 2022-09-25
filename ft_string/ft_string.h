@@ -6,16 +6,20 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:20 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/22 18:00:03 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/25 14:24:12 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_STRING_H
 # define FT_STRING_H
+
 # include <unistd.h>
 # include <limits.h>
 # include <stdlib.h>
 
+# ifndef OPEN_MAX
+#  define OPEN_MAX       255
+# endif
 # define BUFFER_SIZE	1
 
 # define FRONT			1

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:42:47 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 23:24:34 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/25 14:22:26 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,4 @@ t_dict			*get_first_dict(t_dict *dic);
 int				chr_to_dict_idx(char c);
 int				check_valid_env_name(char *name);
 int				check_match_word(const char *word1, const char *word2);
-
 #endif

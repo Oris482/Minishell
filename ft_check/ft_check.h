@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:15:28 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/19 16:18:00 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/25 14:19:58 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,4 @@ int				is_upper_alpha_chr(int c);
 int				is_lower_alpha_chr(int c);
 int				is_dict_chr(int c);
 int				is_env_chr(int c, int idx);
-
 #endif
