@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 17:18:13 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/27 00:34:10 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ void	handle_shlvl_env(t_dict dict[])
 
 static void	_minishell_init_setting(t_dict dict[], char *envp[])
 {
-	int		fd;
-	char	line[2045];
-
 	set_init_signal();
 	terminal_off_control_chars();
 	set_exit_status(0);
@@ -43,10 +40,7 @@ static void	_minishell_init_setting(t_dict dict[], char *envp[])
 	erase_dict(dict, "_");
 	erase_dict(dict, "OLDPWD");
 	handle_shlvl_env(dict);
-	fd = open("ascii_art", O_RDONLY);
-	if (fd > 0 && read(fd, line, 2045) > 0)
-		ft_putstr_fd(line, STDOUT_FILENO);
-	close(fd);
+	ft_putstr_fd(ASCII_ART, STDOUT_FILENO);
 }
 
 static void	_minishell_routine(t_dict dict[], char *full_line, t_oflag *oflag)

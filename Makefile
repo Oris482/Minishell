@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/25 14:30:30 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/09/27 00:36:14 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -131,14 +131,15 @@ INC_HEADERS		=	-I. 				\
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $^ $(READLINE_LIB) -o $@
+	@echo [$@] liking...
+	@$(CC) $(CFLAGS) $^ $(READLINE_LIB) -o $@
 	@echo @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	@echo ">>>>>>>>>> Minishell Compiled! <<<<<<<<<<"
 	@echo @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 %.o: %.c
 	@echo [$<] compiling...
-	$(CC) $(CFLAGS) $(INC_HEADERS) $(COMPILE) $< -o $@
+	@$(CC) $(CFLAGS) $(INC_HEADERS) $(COMPILE) $< -o $@
 
 clean:
 	@echo

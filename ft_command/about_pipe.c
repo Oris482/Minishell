@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 00:35:19 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 16:00:32 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/27 00:40:20 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,15 @@ static void	_set_pipe_for_child(t_pipe *info)
 	const int	idx = info->fork_cnt;
 
 	if (idx != 0)
+	{
 		my_dup2(info->fd[!(idx % 2)][F_READ], STDIN_FILENO);
+		close(info->fd[!(idx % 2)][F_READ]);
+	}
 	if (idx != info->pipe_cnt)
+	{
 		my_dup2(info->fd[idx % 2][F_WRITE], STDOUT_FILENO);
+		close(info->fd[idx % 2][F_WRITE]);
+	}
 	if (idx == 0)
 		close(info->fd[A][F_READ]);
 	else if (idx == info->pipe_cnt)
