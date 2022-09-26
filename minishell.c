@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:00:34 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/27 00:34:10 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/27 01:04:03 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	char			*full_line;
 	t_oflag			oflag;
-	t_dict			dict[53];
+	t_dict			dict[DICT_MAX];
 
 	_minishell_init_setting(dict, envp);
 	while (TRUE)

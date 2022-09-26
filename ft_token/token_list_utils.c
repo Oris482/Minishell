@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 19:38:01 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 23:51:00 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/27 01:11:13 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,9 @@ void	merge_linked_list(t_lx_token *dst, t_lx_token *src)
 	src->prev = (t_lx_token *)dst_last_token;
 }
 
-t_lx_token	*connect_token(t_lx_token *token_head, t_lx_token *cur)
+t_lx_token	*connect_token(t_lx_token *cur)
 {
 	if (cur->next)
 		cur->next->prev = cur;
-	else
-		if (token_head)
-			token_head->prev = cur;
 	return (cur->next);
 }

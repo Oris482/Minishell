@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:33:13 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/24 22:26:35 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/27 01:11:29 by minsuki2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_lx_token		*cut_front_token(t_lx_token *cur_token);
 t_lx_token		*cut_back_token(t_lx_token *cur_token);
 t_lx_token		*pop_token(t_lx_token **cur_token, t_lx_token *end_token);
 void			merge_linked_list(t_lx_token *dst, t_lx_token *src);
-t_lx_token		*connect_token(t_lx_token *token_head, t_lx_token *cur);
+t_lx_token		*connect_token(t_lx_token *cur);
 
 // token_node_utils.c
 t_lx_token		*make_token_node(char *token_str, int token_type);

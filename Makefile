@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/27 00:36:14 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/09/27 01:06:35 by minsuki2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -131,7 +131,7 @@ INC_HEADERS		=	-I. 				\
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@echo [$@] liking...
+	@echo [$@] linking...
 	@$(CC) $(CFLAGS) $^ $(READLINE_LIB) -o $@
 	@echo @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	@echo ">>>>>>>>>> Minishell Compiled! <<<<<<<<<<"
@@ -150,7 +150,7 @@ clean:
 fclean: clean
 	@echo ">>>>>>>>>>>>>>>> Delete List <<<<<<<<<<<<<<<<<<<<"
 	@$(RM) $(NAME)
-	@rm -rvf *.dSYM
+	@$(RM) *.dSYM
 	@echo
 
 re:
