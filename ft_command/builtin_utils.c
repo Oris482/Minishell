@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 21:18:27 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/22 22:45:38 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/26 20:49:14 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@
 
 int	is_builtin(const char *str)
 {
-	if (ft_strcmp_ignore_capital("echo", str) == SUCCESS)
+	if (ft_strcmp("echo", str) == SUCCESS)
 		return (BI_ECHO);
-	else if (ft_strcmp_ignore_capital("cd", str) == SUCCESS)
+	else if (ft_strcmp("cd", str) == SUCCESS)
 		return (BI_CD);
-	else if (ft_strcmp_ignore_capital("pwd", str) == SUCCESS)
+	else if (ft_strcmp("pwd", str) == SUCCESS)
 		return (BI_PWD);
-	else if (ft_strcmp_ignore_capital("export", str) == SUCCESS)
+	else if (ft_strcmp("export", str) == SUCCESS)
 		return (BI_EXPORT);
-	else if (ft_strcmp_ignore_capital("unset", str) == SUCCESS)
+	else if (ft_strcmp("unset", str) == SUCCESS)
 		return (BI_UNSET);
-	else if (ft_strcmp_ignore_capital("env", str) == SUCCESS)
+	else if (ft_strcmp("env", str) == SUCCESS)
 		return (BI_ENV);
-	else if (ft_strcmp_ignore_capital("exit", str) == SUCCESS)
+	else if (ft_strcmp("exit", str) == SUCCESS)
 		return (BI_EXIT);
 	else
 		return (FALSE);

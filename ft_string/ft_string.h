@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:20 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/25 14:24:12 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/26 20:50:46 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ size_t			ft_strlcpy(char *dst, char const *src, size_t dstsize);
 
 // origin_str_utils2.c
 void			*ft_memset(void *b, int c, size_t len);
-int				ft_strcmp(char *s1, char *s2);
+int				ft_strcmp(const char *s1, const char *s2);
 char			*ft_itoa(int num);
 char			*ft_strdup(const char *s1);
 

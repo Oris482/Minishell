@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 23:05:40 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/18 23:48:35 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/26 20:50:31 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 #include "ft_string.h"
 #include "ft_alloc.h"
 
-int	ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
+	int	idx;
+
+	idx = 0;
 	if (!s1 || !s2)
 		return (FALSE);
-	while (*s1 && *s2)
+	while (s1[idx] && s2[idx])
 	{
-		if (*s1 != *s2)
+		if (s1[idx] != s2[idx])
 			return (FALSE);
-		s1++;
-		s2++;
+		idx++;
 	}
-	if (*s1 || *s2)
+	if (s1[idx] || s2[idx])
 		return (FALSE);
 	return (SUCCESS);
 }
