@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 22:19:28 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/18 04:50:00 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/27 11:54:35 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,19 @@ void	handle_echo_option(t_lx_token **token, int *option)
 
 int	builtin_echo(t_lx_token *token)
 {
-	int	no_newline_option;
+	int		no_newline_option;
+	char	*token_str;
 
 	no_newline_option = FALSE;
 	token = token->next;
 	handle_echo_option(&token, &no_newline_option);
 	while (token)
 	{
-		ft_putstr_fd(get_token_str(token), STDOUT_FILENO);
+		token_str = get_token_str(token);
+		if (token_str)
+			ft_putstr_fd(get_token_str(token), STDOUT_FILENO);
 		token = token->next;
-		if (token)
+		if (token && token_str)
 			ft_putchar_fd(' ', STDOUT_FILENO);
 	}
 	if (!no_newline_option)
