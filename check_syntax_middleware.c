@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 01:03:50 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/09/19 01:09:03 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/09/27 10:59:29 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@
 
 static int	_check_word_syntax(t_lx_token *token)
 {
-	const t_lx_token	*last_token = get_last_token(token);
 	t_lx_token			*target;
 
-	if (token->prev == last_token || token->prev->prev == last_token)
+	if (token->prev == NULL || token->prev->prev == NULL)
 		return (SUCCESS);
 	if (token->prev->token_type == PARENTHESES_CLOSE)
 		return (print_error_syntax(get_token_str(token)));
@@ -38,7 +37,7 @@ static int	_check_word_syntax(t_lx_token *token)
 	}
 	if (is_redi_token(target))
 		target = target->prev;
-	if (target == last_token || target->token_type != PARENTHESES_CLOSE)
+	if (target == NULL || target->token_type != PARENTHESES_CLOSE)
 		return (SUCCESS);
 	return (print_error_syntax(get_token_str(token)));
 }
@@ -78,16 +77,16 @@ static int	_check_parentheses_syntax(t_lx_token *token, \
 
 	if (token->token_type == PARENTHESES_OPEN)
 	{
-		if (prev_token == get_last_token(prev_token) \
+		if (prev_token == NULL \
 					|| prev_token->token_type != WORD)
 			return (SUCCESS);
-		else if (prev_token && prev_token->prev->next != NULL)
+		else if (prev_token && prev_token->prev != NULL)
 		{
 			target = (t_lx_token *)prev_token;
 			while (target->token_str == NULL)
 				target = target->prev;
 			if (target->token_type == WORD && \
-				target->prev->next != NULL && is_redi_token(target->prev))
+				target->prev != NULL && is_redi_token(target->prev))
 				return (SUCCESS);
 		}
 	}

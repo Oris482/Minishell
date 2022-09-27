@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 15:48:55 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/09/27 01:06:35 by minsuki2         ###   ########.fr        #
+#    Updated: 2022/09/27 10:58:56 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC 			=	cc
 CFLAGS 		=	-Wall -Wextra -Werror
 
 COMPILE		=	-c
-RM 			=	rm -vf
+RM 			=	rm -rvf
 AR 			= ar
 MAKE_C 		= make -C
 

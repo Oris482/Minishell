@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:31:09 by minsuki2          #+#    #+#             */
-/*   Updated: 2022/09/27 01:20:05 by minsuki2         ###   ########.fr       */
+/*   Updated: 2022/09/27 11:08:01 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "minishell.h"
 #include "ft_tree.h"
 #include "ft_alloc.h"
+#include "ft_token.h"
 
 void	expand_and_or_tree(t_tree *cur_tree)
 {
@@ -58,8 +59,6 @@ void	expand_token_to_tree(t_tree *root)
 	tree_traversal(root, TREE_UNDEFINED, expand_pipe_tree);
 	tree_traversal(root, TREE_CMD, expand_cmd_tree);
 }
-
-#include "ft_token/ft_token.h"
 
 t_tree	*parser(t_dict dict[], t_lx_token *head)
 {
